@@ -12,7 +12,7 @@ Battleship game over the network using Java client - server architecture.
 
 ## Authors
 
-See also the list of [contributors](https://github.com/szczepanskikrs/Battleships/contributors) who participated in this project.
+List of [contributors](https://github.com/szczepanskikrs/Battleships/contributors) who participated in this project.
 
 ## License
 

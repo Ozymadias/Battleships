@@ -7,19 +7,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Hello world!
- *
+ * Gui for BATTLESHIP! game.
  */
-
 public class App extends Application {
+    private static final String APP_NAME = "BATTLESHIPS!";
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass()
-                .getClassLoader()
-                .getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+        primaryStage.setTitle(APP_NAME);
+        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 

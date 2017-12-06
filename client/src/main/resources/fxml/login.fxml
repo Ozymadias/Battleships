@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="358.0" prefWidth="754.0" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/2.2" fx:controller="battleships.Controller">
+    <ImageView fitHeight="267.23125" fitWidth="506.0" layoutX="22.0" layoutY="45.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@/ship.png"/>
+    </ImageView>
+    <Button layoutX="580.0" layoutY="297.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="138.0"
+            text="Login to server"/>
+    <TextArea layoutX="528.0" layoutY="103.0" prefHeight="27.0" prefWidth="200.0" wrapText="true"/>
+    <TextArea layoutX="528.0" layoutY="172.0" prefHeight="27.0" prefWidth="200.0" wrapText="true"/>
+    <TextArea layoutX="528.0" layoutY="239.0" prefHeight="26.57470703125" prefWidth="200.0" wrapText="true"/>
+    <Text layoutX="528.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player Name:"/>
+    <Text layoutX="528.0" layoutY="160.0" scaleY="1.0000066081567769" strokeType="OUTSIDE" strokeWidth="0.0"
+          text="Server IP:"/>
+    <Text layoutX="528.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Server port:"/>
+    <Text fill="#660000" fontSmoothingType="LCD" layoutX="364.0" layoutY="36.0" scaleX="13.226826200754614"
+          scaleY="5.782137266547786" strokeType="OUTSIDE" strokeWidth="0.0" text="BATTLESHIPS!" textAlignment="CENTER">
+        <font>
+            <Font name="Ubuntu" size="4.0"/>
+        </font>
+    </Text>
+</AnchorPane>

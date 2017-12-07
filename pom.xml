@@ -5,17 +5,14 @@
     <groupId>battleships</groupId>
     <artifactId>battleships</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>battleships</name>
+    <url>https://github.com/szczepanskikrs/Battleships</url>
 
     <modules>
         <module>client</module>
         <module>server</module>
     </modules>
-
-    <name>battleships</name>
-
-    <url>https://github.com/szczepanskikrs/Battleships</url>
-
-    <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -193,9 +193,6 @@
         </plugins>
     </reporting>
 
-
-
-
     <dependencies>
         <dependency>
             <groupId>org.mockito</groupId>

@@ -5,6 +5,7 @@
     <artifactId>server</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+    <name>server</name>
 
     <parent>
         <groupId>battleships</groupId>
@@ -12,14 +13,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <name>server</name>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <!-- inherits config from parent: can override if required -->
                 <configuration>
                     <archive>
                         <manifest>

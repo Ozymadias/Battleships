@@ -6,9 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * Gui for BATTLESHIP! game.
- */
 public class App extends Application {
     private static final String APP_NAME = "BATTLESHIPS!";
     private static final String LOGIN_PANE_PATH = "/fxml/login.fxml";

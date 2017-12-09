@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.util.EnumMap;
@@ -36,7 +37,7 @@ public class ConfigurationController {
     private CheckBox checkBoxRandomShipPlacement;
 
     @FXML
-    private TextArea playerNameInput;
+    private TextField playerNameInput;
 
     @FXML
     private Text serverPortText;
@@ -45,10 +46,10 @@ public class ConfigurationController {
     private Text serverIPText;
 
     @FXML
-    private TextArea serverPortInput;
+    private TextField serverPortInput;
 
     @FXML
-    private TextArea serverIPInput;
+    private TextField serverIPInput;
 
     @FXML
     private Button logInButton;

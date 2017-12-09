@@ -48,8 +48,7 @@ class IpConfigValidator implements ConfigValidator {
      */
     @Override
     public boolean validate(ConfigurationValue toValidate) {
-        String[] parseArray = splitIPByRegex(toValidate);
-        Long evaluationLong = Arrays.stream(parseArray)
+        Long evaluationLong = Arrays.stream(splitIPByDot(toValidate))
                 .filter(this::isInCorrectLength)
                 .filter(this::isNumeric)
                 .filter(this::isInCorrectRange)
@@ -60,7 +59,7 @@ class IpConfigValidator implements ConfigValidator {
     /**
      * Splits IP by regex and creates array of Strings that represent IP segments
      */
-    private String[] splitIPByRegex(ConfigurationValue toValidate) {
+    private String[] splitIPByDot(ConfigurationValue toValidate) {
         return toValidate.stringValue().split(IP_ADDRESS_REGEX);
     }
 }

@@ -13,24 +13,21 @@
     <Button fx:id="logInButton" layoutX="580.0" layoutY="297.0" mnemonicParsing="false"
             onAction="#OnActionLoginButton" prefHeight="38.0" prefWidth="138.0"
             text="Login to server"/>
-    <TextArea fx:id="playerNameInput" layoutX="528.0" layoutY="103.0" prefHeight="27.0" prefWidth="200.0"
-              wrapText="true">
+    <TextField fx:id="playerNameInput" layoutX="528.0" layoutY="103.0" prefHeight="27.0" prefWidth="200.0">
         <font>
             <Font name="Ubuntu" size="11.0"/>
         </font>
-    </TextArea>
-    <TextArea fx:id="serverIPInput" layoutX="528.0" layoutY="172.0" prefHeight="27.0" prefWidth="200.0"
-              wrapText="true">
+    </TextField>
+    <TextField fx:id="serverIPInput" layoutX="528.0" layoutY="172.0" prefHeight="27.0" prefWidth="200.0">
         <font>
             <Font name="Ubuntu" size="11.0"/>
         </font>
-    </TextArea>
-    <TextArea fx:id="serverPortInput" layoutX="528.0" layoutY="239.0" prefHeight="27.0" prefWidth="200.0"
-              wrapText="true">
+    </TextField>
+    <TextField fx:id="serverPortInput" layoutX="528.0" layoutY="239.0" prefHeight="27.0" prefWidth="200.0">
         <font>
             <Font name="Ubuntu" size="11.0"/>
         </font>
-    </TextArea>
+    </TextField>
     <Text fx:id="playerNameText" layoutX="528.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0"
           text="Player Name:"/>
     <Text fx:id="serverIPText" layoutX="528.0" layoutY="160.0" scaleY="1.0000066081567769" strokeType="OUTSIDE"

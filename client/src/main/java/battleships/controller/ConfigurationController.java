@@ -1,6 +1,6 @@
 package battleships.controller;
 
-import battleships.ConfigurationEnum;
+import battleships.ConfigurationValueName;
 import battleships.ConfigurationValue;
 import battleships.LanguageLoadOption;
 import battleships.LanguageVersion;
@@ -10,12 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.util.EnumMap;
 import java.util.Map;
 
-import static battleships.ConfigurationEnum.*;
+import static battleships.ConfigurationValueName.*;
 import static battleships.LanguageLoadOption.EN;
 import static battleships.LanguageLoadOption.PL;
 import static battleships.Translation.*;
@@ -36,7 +37,7 @@ public class ConfigurationController {
     private CheckBox checkBoxRandomShipPlacement;
 
     @FXML
-    private TextArea playerNameInput;
+    private TextField playerNameInput;
 
     @FXML
     private Text serverPortText;
@@ -45,10 +46,10 @@ public class ConfigurationController {
     private Text serverIPText;
 
     @FXML
-    private TextArea serverPortInput;
+    private TextField serverPortInput;
 
     @FXML
-    private TextArea serverIPInput;
+    private TextField serverIPInput;
 
     @FXML
     private Button logInButton;
@@ -59,8 +60,8 @@ public class ConfigurationController {
         System.out.println("FOR TESTING PURPOSE VALIDATION IS: " + validator.validate(configFieldsValues()));
     }
 
-    private Map<ConfigurationEnum, ConfigurationValue> configFieldsValues() {
-        Map<ConfigurationEnum, ConfigurationValue> validationMap = new EnumMap<>(ConfigurationEnum.class);
+    private Map<ConfigurationValueName, ConfigurationValue> configFieldsValues() {
+        Map<ConfigurationValueName, ConfigurationValue> validationMap = new EnumMap<>(ConfigurationValueName.class);
         validationMap.put(IP, () -> serverIPInput.getText());
         validationMap.put(PORT, () -> serverPortInput.getText());
         validationMap.put(NAME, () -> playerNameInput.getText());

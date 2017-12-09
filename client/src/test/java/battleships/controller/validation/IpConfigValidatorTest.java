@@ -40,7 +40,7 @@ public class IpConfigValidatorTest {
     }
 
     @Test(dataProvider = "ipPool")
-    public void checkIfPerformsCorrectParse(ConfigurationValue ipToValidate, Boolean expectedResult) throws Exception {
+    public void shouldPassIfPerformsCorrectValidationOfGivenData(ConfigurationValue ipToValidate, Boolean expectedResult) throws Exception {
         assertThat(ipValidator.validate(ipToValidate)).isEqualTo(expectedResult);
     }
 }

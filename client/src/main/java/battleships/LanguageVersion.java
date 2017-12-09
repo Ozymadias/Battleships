@@ -8,55 +8,54 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
- * LanguageVersion class is used to provide translations of communicates all over the GUI client side
+ * LanguageVersion class is used to provide translations all over the GUI client side
  * It accepts LanguageLoadOption as a parameter in constructor to specify with language should be used
  */
 public class LanguageVersion {
     private static final String NOT_FOUND = "Did not found string";
     private static final String FILE_EXTENSION = ".properties";
-    private Map<Translation, String> translationMap;
+    private Map<LocalizationStringMarker, String> localization;
 
     /**
-     * It accepts LanguageLoadOption as a parameter in constructor to specify with language should be used
-     * and than uses inner static class to load correct values to inner private enum map.
+     * It takes LanguageLoadOption as a parameter in constructor to specify witch language should be used.
      */
     public LanguageVersion(LanguageLoadOption languageLoadOption) {
-        this.translationMap = LanguageVersionBuilder.readFromFile(languageLoadOption.toString());
+        this.localization = LanguageVersionBuilder.build(languageLoadOption);
     }
 
     /**
-     * It accepts Translation enum as a parameter and uses it to get desired value from inner map of Translation and
-     * String representations of this values.
+     * It takes LocalizationStringMarker enum as a parameter and returns desired String representations of this values.
      */
-    public String provideTranslation(Translation translation) {
-        return translationMap.get(translation).isEmpty() ? NOT_FOUND : translationMap.get(translation);
+    public String provideTranslation(LocalizationStringMarker localizationStringMarker) {
+        return localization.get(localizationStringMarker).isEmpty() ? NOT_FOUND : localization.get(localizationStringMarker);
     }
 
     /**
-     * LanguageVersionBuilder class is used to create EnumMap of Translation and Strings.
+     * LanguageVersionBuilder builds EnumMap of LocalizationStringMarker and Strings.
      */
     private static class LanguageVersionBuilder {
 
         /**
-         * Loads Translation and String representation that it read from correct *.property file it needs.
+         * Loads LocalizationStringMarker and String representation from correct *.property file.
          */
-        static Map<Translation, String> readFromFile(String fileName) {
+        static Map<LocalizationStringMarker, String> build(LanguageLoadOption fileName) {
             Properties properties = new Properties();
-            Map<Translation, String> readerMap = new EnumMap<>(Translation.class);
+            Map<LocalizationStringMarker, String> translationStringEnumMap = new EnumMap<>(LocalizationStringMarker.class);
 
             try (InputStream is = ClassLoader.getSystemResourceAsStream(fileName + FILE_EXTENSION)) {
                 properties.load(is);
 
-                //Calls stream(); set of keys on the property list than collects it to enumMap of Translation.
-                readerMap = properties.stringPropertyNames()
+                //Calls stream(); set of keys on the property list than collects it to enumMap of LocalizationStringMarker.
+                translationStringEnumMap = properties.stringPropertyNames()
                         .stream()
-                        .collect(Collectors.toMap(Translation::valueOf, properties::getProperty,
-                                (a, b) -> b, () -> new EnumMap<>(Translation.class)));
+                        .collect(Collectors.toMap(LocalizationStringMarker::valueOf, properties::getProperty,
+                                (a, b) -> b, () -> new EnumMap<>(LocalizationStringMarker.class)));
 
             } catch (IOException e) {
+                //TODO:Add logger here when we will have it in common libraries!!!
                 e.printStackTrace();
             }
-            return readerMap;
+            return translationStringEnumMap;
         }
     }
 }

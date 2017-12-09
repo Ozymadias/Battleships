@@ -11,7 +11,7 @@ import java.util.Arrays;
  * it into segments by IP_ADDRESS_REGEX. After that checks if every segment is correct length, contains only numbers and
  * is in correct range for IP address.
  */
-class IpConfigValidator implements ConfigValidator {
+class IpConfigurationValidator implements ConfigurationValidator {
 
     private static final int MIN_IP_VALUE = 0;
     private static final int MAX_IP_VALUE = 255;
@@ -23,37 +23,37 @@ class IpConfigValidator implements ConfigValidator {
     /**
      * Check if IP segment contains only numbers
      */
-    private boolean isNumeric(String validationString) {
-        return StringUtils.isNumeric(validationString);
+    private boolean isNumeric(String toValidate) {
+        return StringUtils.isNumeric(toValidate);
     }
 
     /**
      * Check if IP segment length is correct
      */
-    private boolean isInCorrectLength(String validationString) {
-        return validationString.length() > MIN_IP_SEGMENT_LENGTH && validationString.length() <= MAX_IP_SEGMENT_LENGTH;
+    private boolean hasCorrectLength(String toValidate) {
+        return toValidate.length() > MIN_IP_SEGMENT_LENGTH && toValidate.length() <= MAX_IP_SEGMENT_LENGTH;
     }
 
     /**
      * Check if IP segment is in correct range
      */
-    private boolean isInCorrectRange(String validationString) {
-        Integer evaluationInteger = Integer.parseInt(validationString);
+    private boolean isWithinCorrectRange(String toValidate) {
+        Integer evaluationInteger = Integer.parseInt(toValidate);
         return evaluationInteger >= MIN_IP_VALUE && evaluationInteger <= MAX_IP_VALUE;
 
     }
 
     /**
-     * Preforms validation of given ConfigurationValue and checks if its a correct IP value
+     * It validates a given ConfigurationValue and checks if its a correct IP address
      */
     @Override
     public boolean validate(ConfigurationValue toValidate) {
-        Long evaluationLong = Arrays.stream(splitIPByDot(toValidate))
-                .filter(this::isInCorrectLength)
+        Long evaluation = Arrays.stream(splitIPByDot(toValidate))
+                .filter(this::hasCorrectLength)
                 .filter(this::isNumeric)
-                .filter(this::isInCorrectRange)
+                .filter(this::isWithinCorrectRange)
                 .count();
-        return evaluationLong == IP_SEGMENTS_COUNT;
+        return evaluation == IP_SEGMENTS_COUNT;
     }
 
     /**

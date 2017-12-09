@@ -42,7 +42,7 @@ public class LanguageVersion {
             Properties properties = new Properties();
             Map<LocalizationStringMarker, String> translationStringEnumMap = new EnumMap<>(LocalizationStringMarker.class);
 
-            try (InputStream is = ClassLoader.getSystemResourceAsStream(String.valueOf(fileName) + FILE_EXTENSION)) {
+            try (InputStream is = ClassLoader.getSystemResourceAsStream(fileName + FILE_EXTENSION)) {
                 properties.load(is);
 
                 //Calls stream(); set of keys on the property list than collects it to enumMap of LocalizationStringMarker.

@@ -2,6 +2,6 @@ package battleships.controller.validation;
 
 import battleships.ConfigurationValue;
 
-interface ConfigValidator {
+interface ConfigurationValidator {
     boolean validate(ConfigurationValue toValidate);
 }

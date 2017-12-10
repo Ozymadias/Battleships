@@ -1,20 +1,35 @@
 package battleships.controller.validation;
 
-import battleships.ConfigurationEnum;
+import battleships.ConfigurationValueName;
 import battleships.ConfigurationValue;
 
 import java.util.Map;
 
-import static battleships.ConfigurationEnum.*;
+import static battleships.ConfigurationValueName.*;
 
+/**
+ * It performs a validation of values that are passed.
+ */
 public class Validator {
+    private final ConfigurationValidator nameValidator;
+    private final ConfigurationValidator ipConfigurationValidator;
+    private final ConfigurationValidator portConfigurationValidator;
 
-    public boolean validate(Map<ConfigurationEnum, ConfigurationValue> configurationEnumMap) {
-        NameValidator nameValidator = new NameValidator();
-        IpConfigValidator ipConfigValidator = new IpConfigValidator();
-        PortConfigValidator portConfigValidator = new PortConfigValidator();
+    /**
+     * Specific objects that implements ConfigurationValidator are created for purpose of later validation.
+     */
+    public Validator() {
+        nameValidator = new NameValidator();
+        ipConfigurationValidator = new IpConfigurationValidator();
+        portConfigurationValidator = new PortConfigurationValidator();
+    }
+
+    /**
+     * Accept EnumMap of ConfigurationValueName as a parameter, and returns a boolean result of evaluation of each parameters.
+     */
+    public boolean validate(Map<ConfigurationValueName, ConfigurationValue> configurationEnumMap) {
         return nameValidator.validate(configurationEnumMap.get(NAME))
-                && ipConfigValidator.validate(configurationEnumMap.get(IP))
-                && portConfigValidator.validate(configurationEnumMap.get(PORT));
+                && ipConfigurationValidator.validate(configurationEnumMap.get(IP))
+                && portConfigurationValidator.validate(configurationEnumMap.get(PORT));
     }
 }

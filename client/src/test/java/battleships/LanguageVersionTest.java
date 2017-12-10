@@ -14,13 +14,13 @@ public class LanguageVersionTest {
     private static Object[][] englishTestData() {
 
         return new Object[][]{
-                {Translation.ENGLISH,"English"},
-                {Translation.POLISH,"Polski"},
-                {Translation.LOG_IN,"Log in"},
-                {Translation.PLAYER_NAME,"Player name:"},
-                {Translation.RANDOM_SHIPS,"Random ship placement"},
-                {Translation.SERVER_IP,"Server ip address:"},
-                {Translation.SERVER_PORT,"Server port:"},
+                {LocalizationStringMarker.LANG_ENGLISH,"English"},
+                {LocalizationStringMarker.LANG_POLISH,"Polski"},
+                {LocalizationStringMarker.LOG_IN,"Log in"},
+                {LocalizationStringMarker.PLAYER_NAME,"Player name:"},
+                {LocalizationStringMarker.RANDOM_SHIPS,"Random ship placement"},
+                {LocalizationStringMarker.SERVER_IP,"Server ip address:"},
+                {LocalizationStringMarker.SERVER_PORT,"Server port:"},
         };
     }
 
@@ -28,29 +28,29 @@ public class LanguageVersionTest {
     private static Object[][] polishTestData() {
 
         return new Object[][]{
-                {Translation.ENGLISH,"English"},
-                {Translation.POLISH,"Polski"},
-                {Translation.LOG_IN,"Zaloguj sie"},
-                {Translation.PLAYER_NAME,"Imie gracza:"},
-                {Translation.RANDOM_SHIPS,"Losowe rozmieszczenie statkow"},
-                {Translation.SERVER_IP,"Adres IP serwera:"},
-                {Translation.SERVER_PORT,"Port serwera:"},
+                {LocalizationStringMarker.LANG_ENGLISH,"English"},
+                {LocalizationStringMarker.LANG_POLISH,"Polski"},
+                {LocalizationStringMarker.LOG_IN,"Zaloguj sie"},
+                {LocalizationStringMarker.PLAYER_NAME,"Imie gracza:"},
+                {LocalizationStringMarker.RANDOM_SHIPS,"Losowe rozmieszczenie statkow"},
+                {LocalizationStringMarker.SERVER_IP,"Adres IP serwera:"},
+                {LocalizationStringMarker.SERVER_PORT,"Port serwera:"},
         };
     }
 
     @Test(dataProvider = "englishData")
-    public void shouldPassWhenTranslationMapProvidesCorrectTranslationStringInEnglish(Translation translation,String expectedString) throws Exception {
+    public void shouldPassWhenTranslationMapProvidesCorrectTranslationStringInEnglish(LocalizationStringMarker localizationStringMarker, String expectedString) throws Exception {
         //Given
         languageVersion = new LanguageVersion(EN);
         //Then
-        assertThat(languageVersion.provideTranslation(translation)).isEqualTo(expectedString);
+        assertThat(languageVersion.provideTranslation(localizationStringMarker)).isEqualTo(expectedString);
     }
 
     @Test(dataProvider = "polishData")
-    public void shouldPassWhenTranslationMapProvidesCorrectTranslationStringInPolish(Translation translation,String expectedString) throws Exception {
+    public void shouldPassWhenTranslationMapProvidesCorrectTranslationStringInPolish(LocalizationStringMarker localizationStringMarker, String expectedString) throws Exception {
         //Given
         languageVersion = new LanguageVersion(PL);
         //Then
-        assertThat(languageVersion.provideTranslation(translation)).isEqualTo(expectedString);
+        assertThat(languageVersion.provideTranslation(localizationStringMarker)).isEqualTo(expectedString);
     }
 }

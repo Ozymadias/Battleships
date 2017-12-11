@@ -1,9 +1,9 @@
 package battleships.communication;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface MessageManager {
 
     String toMessage(Messagable messegable);
-    Optional<Messagable> fromMessage(String message);
+    List<Messagable> fromMessage(String message);
 }

@@ -4,6 +4,8 @@ import battleships.communication.Messagable;
 import battleships.communication.MessageManager;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 public class JSONMessageManager implements MessageManager {
@@ -21,17 +23,17 @@ public class JSONMessageManager implements MessageManager {
         return opt.toString();
     }
 
-    public Optional<Messagable> fromMessage(String message){
-        Messagable messagable = null;
+    public List<Messagable> fromMessage(String message){
+        List<Messagable> messagables = new LinkedList<>();
 
         try {
-            messagable = jsonUnmarshaller.readFromJSONString(message).get(0);
+            messagables.addAll(jsonUnmarshaller.readFromJSONString(message));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-        return Optional.ofNullable(messagable);
+        return messagables;
     }
 }

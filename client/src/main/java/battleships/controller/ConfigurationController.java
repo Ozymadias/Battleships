@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
@@ -19,7 +18,7 @@ import java.util.Map;
 import static battleships.ConfigurationValueName.*;
 import static battleships.LanguageLoadOption.EN;
 import static battleships.LanguageLoadOption.PL;
-import static battleships.Translation.*;
+import static battleships.LocalizationStringMarker.*;
 
 public class ConfigurationController {
     private LanguageVersion languageVersion;

@@ -1,4 +1,4 @@
 package battleships.communication;
 
-public interface Messegable {
+public interface Messagable {
 }

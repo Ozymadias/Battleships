@@ -1,5 +1,6 @@
-package battleships.communication;
+package battleships.communication.jsonHandlers;
 
+import battleships.communication.Messagable;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -9,20 +10,18 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
 import java.util.*;
 
-public class JsonUnmarshaller {
+class JsonUnmarshaller {
 
-    private Map<String, Class<? extends Messegable>> registry = new HashMap<String, Class<? extends Messegable>>();
+    private final Map<String, Class<? extends Messagable>> registry;
 
-    //TODO: poprawić! Klasa zależy od poszczególnych implementacji.
-    public void init(){
-        registry.put("WelcomeMessage", WelcomeMessage.class);
-        registry.put("GoodByeMessage", GoodByeMessage.class);
+    public JsonUnmarshaller(Map<String, Class<? extends Messagable>> registry) {
+        this.registry = registry;
     }
 
-    public List<Messegable> readFromJSONString(String message) throws IOException, ClassNotFoundException {
+    List<Messagable> readFromJSONString(String message) throws IOException, ClassNotFoundException {
         ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
         List<String> rootClassNames  = getRootClassName(message);
-        List<Messegable> messegableList = new LinkedList<Messegable>();
+        List<Messagable> messegableList = new LinkedList<Messagable>();
 
         for(String rootClassName : rootClassNames){
                 messegableList.add(objectMapper.readValue(message, registry.get(rootClassName)));

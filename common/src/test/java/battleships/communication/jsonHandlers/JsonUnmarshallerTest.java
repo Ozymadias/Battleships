@@ -38,22 +38,21 @@ public class JsonUnmarshallerTest {
 
     @Test(dataProvider = "jsonBodyAndRootClassesNamesPoll")
     public void givenJsonString_methodGetRootClassName_ShouldReturn_expectedRootsNames(String jsonString, String[] expectedRootsNames) throws IOException {
-        List<String> actualRootsNames = jsonUnmarshaller.getRootClassName(jsonString);
+        List<String> actualRootsNames = jsonUnmarshaller.getRootsNames(jsonString);
         assertThat(actualRootsNames).isEqualTo(Arrays.asList(expectedRootsNames));
     }
 
     @DataProvider
     public Object[][] jsonBodyAndRootTypesPoll(){
         return new Object[][] {
-                {"{\"WelcomeMessage\":{\"body\":\"hello\"}}", WelcomeMessage.class},
-                {"{\"GoodByeMessage\":{\"body\":\"good bye!\"}}", GoodByeMessage.class}
+            {"{\"WelcomeMessage\":{\"body\":\"hello\"}}", WelcomeMessage.class},
+            {"{\"GoodByeMessage\":{\"body\":\"good bye!\"}}", GoodByeMessage.class}
         };
     }
 
     @Test(dataProvider = "jsonBodyAndRootTypesPoll")
     public void givenJsonString_methodReadFromJSONString_shouldReturnReferenceToObjectAsExpected(String jsonString, Class expectedClass) throws IOException, ClassNotFoundException {
-        List<Messagable> messagableList = jsonUnmarshaller.readFromJSONString(jsonString);
+        List<Messagable> messagableList = jsonUnmarshaller.convertToMessagableList(jsonString);
         assertThat(messagableList.get(0).getClass()).isEqualTo(expectedClass);
     }
-
 }

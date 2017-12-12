@@ -9,17 +9,17 @@ import java.util.Optional;
 
 class JsonMarshaller {
 
-    Optional<String> writeToJsonString(Messagable messegable){
+    String convertToJsonString(Messagable messegable){
         ObjectMapper objectMapper = new ObjectMapper().configure(SerializationFeature.WRAP_ROOT_VALUE, true);
 
-        String jsonString = null;
+        String jsonString = "";
         try {
             jsonString = objectMapper.writeValueAsString(messegable);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 
-        return Optional.ofNullable(jsonString);
+        return jsonString;
     }
 
 }

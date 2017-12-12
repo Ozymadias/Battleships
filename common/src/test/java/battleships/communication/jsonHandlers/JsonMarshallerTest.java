@@ -23,12 +23,12 @@ public class JsonMarshallerTest {
     @DataProvider
     public Object[][] messagesPool(){
         return new Object[][]{
-                {new WelcomeMessage("hello"), "{\"WelcomeMessage\":{\"body\":\"hello\"}}"},
-                {new WelcomeMessage(""), "{\"WelcomeMessage\":{\"body\":\"\"}}"},
-                {new WelcomeMessage(), "{\"WelcomeMessage\":{\"body\":\"\"}}"},
-                {new GoodByeMessage("good bye!"), "{\"GoodByeMessage\":{\"body\":\"good bye!\"}}"},
-                {new GoodByeMessage(""), "{\"GoodByeMessage\":{\"body\":\"\"}}"},
-                {new GoodByeMessage(), "{\"GoodByeMessage\":{\"body\":\"\"}}"}
+                {new WelcomeMessage("hello"), "{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}"},
+                {new WelcomeMessage(""), "{\"@type\":\"WelcomeMessage\",\"body\":\"\"}"},
+                {new WelcomeMessage(), "{\"@type\":\"WelcomeMessage\",\"body\":\"\"}"},
+                {new GoodByeMessage("good bye!"), "{\"@type\":\"GoodByeMessage\",\"body\":\"good bye!\"}"},
+                {new GoodByeMessage(""), "{\"@type\":\"GoodByeMessage\",\"body\":\"\"}"},
+                {new GoodByeMessage(), "{\"@type\":\"GoodByeMessage\",\"body\":\"\"}"}
         };
     }
 

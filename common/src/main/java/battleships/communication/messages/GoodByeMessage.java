@@ -2,8 +2,8 @@ package battleships.communication.messages;
 
 import battleships.communication.Messagable;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonRootName(value = "GoodByeMessage")
 public class GoodByeMessage implements Messagable {
 
     private String body;

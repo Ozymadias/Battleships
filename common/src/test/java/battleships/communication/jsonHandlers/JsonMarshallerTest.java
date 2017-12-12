@@ -3,11 +3,10 @@ package battleships.communication.jsonHandlers;
 import battleships.communication.Messagable;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,18 +16,18 @@ public class JsonMarshallerTest {
 
     @BeforeTest
     public void beforeTest(){
-        jsonMarshaller = new JsonMarshaller();
+        jsonMarshaller = new JsonMarshaller(new ObjectMapper());
     }
 
     @DataProvider
     public Object[][] messagesPool(){
         return new Object[][]{
-                {new WelcomeMessage("hello"), "{\"WelcomeMessage\":{\"body\":\"hello\"}}"},
-                {new WelcomeMessage(""), "{\"WelcomeMessage\":{\"body\":\"\"}}"},
-                {new WelcomeMessage(), "{\"WelcomeMessage\":{\"body\":\"\"}}"},
-                {new GoodByeMessage("good bye!"), "{\"GoodByeMessage\":{\"body\":\"good bye!\"}}"},
-                {new GoodByeMessage(""), "{\"GoodByeMessage\":{\"body\":\"\"}}"},
-                {new GoodByeMessage(), "{\"GoodByeMessage\":{\"body\":\"\"}}"}
+                {new WelcomeMessage("hello"), "{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}"},
+                {new WelcomeMessage(""), "{\"@type\":\"WelcomeMessage\",\"body\":\"\"}"},
+                {new WelcomeMessage(), "{\"@type\":\"WelcomeMessage\",\"body\":\"\"}"},
+                {new GoodByeMessage("good bye!"), "{\"@type\":\"GoodByeMessage\",\"body\":\"good bye!\"}"},
+                {new GoodByeMessage(""), "{\"@type\":\"GoodByeMessage\",\"body\":\"\"}"},
+                {new GoodByeMessage(), "{\"@type\":\"GoodByeMessage\",\"body\":\"\"}"}
         };
     }
 

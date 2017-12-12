@@ -3,11 +3,10 @@ package battleships.communication.jsonHandlers;
 import battleships.communication.Messagable;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +16,7 @@ public class JsonMarshallerTest {
 
     @BeforeTest
     public void beforeTest(){
-        jsonMarshaller = new JsonMarshaller();
+        jsonMarshaller = new JsonMarshaller(new ObjectMapper());
     }
 
     @DataProvider

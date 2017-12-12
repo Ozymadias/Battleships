@@ -6,9 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 class JsonMarshaller {
 
-    String convertToJsonString(Messagable messegable){
-        ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
 
+    JsonMarshaller(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    String convertToJsonString(Messagable messegable){
         String jsonString = "";
         try {
             jsonString = objectMapper.writeValueAsString(messegable);

@@ -7,8 +7,13 @@ import java.io.IOException;
 
 class JsonUnmarshaller {
 
+    private final ObjectMapper objectMapper;
+
+    JsonUnmarshaller(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
     Messagable convertToMessagable(String message) throws IOException, ClassNotFoundException {
-        ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(message, Messagable.class);
     }
 

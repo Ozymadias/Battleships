@@ -3,15 +3,12 @@ package battleships.communication.jsonHandlers;
 import battleships.communication.Messagable;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -21,7 +18,7 @@ public class JsonUnmarshallerTest {
 
     @BeforeTest
     protected void beforeTest(){
-        jsonUnmarshaller = new JsonUnmarshaller();
+        jsonUnmarshaller = new JsonUnmarshaller(new ObjectMapper());
     }
 
     @DataProvider

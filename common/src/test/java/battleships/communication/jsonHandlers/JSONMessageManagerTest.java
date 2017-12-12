@@ -13,7 +13,7 @@ public class JSONMessageManagerTest {
 
     @BeforeTest
     public void beforeTest(){
-        jsonMessageManager = new JSONMessageManager(new JsonMarshaller(), new JsonUnmarshaller());
+        jsonMessageManager = JSONMessageManager.build();
     }
 
     @DataProvider
@@ -30,8 +30,8 @@ public class JSONMessageManagerTest {
 
     @Test(dataProvider = "messagesPool")
     public void jsonStringConvertedToMessagableAndDecovertedToJsonString_shouldNotChange(String jsonString){
-        Messagable messagable = jsonMessageManager.fromStringMessage(jsonString).get();
-        String actualJsonString = jsonMessageManager.toStringMessage(messagable);
+        Messagable messagable = jsonMessageManager.toMessagable(jsonString).get();
+        String actualJsonString = jsonMessageManager.toString(messagable);
         assertThat(actualJsonString).isEqualTo(jsonString);
 
     }

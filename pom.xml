@@ -12,10 +12,12 @@
     <modules>
         <module>client</module>
         <module>server</module>
+        <module>common</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jacksonVersion>2.9.2</jacksonVersion>
     </properties>
 
     <build>

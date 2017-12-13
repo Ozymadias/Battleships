@@ -2,7 +2,7 @@ package battleships.controller.validation;
 
 
 import battleships.ConfigurationValue;
-import battleships.communication.battleshipUtils.BattleshipUtils;
+import battleships.utils.BattleshipUtils;
 
 import java.util.Arrays;
 

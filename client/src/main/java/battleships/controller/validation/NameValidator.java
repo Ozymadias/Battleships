@@ -1,7 +1,7 @@
 package battleships.controller.validation;
 
 import battleships.ConfigurationValue;
-import battleships.communication.battleshipUtils.BattleshipUtils;
+import battleships.utils.BattleshipUtils;
 
 /**
  * Takes ConfigurationValue as a parameter, than calls stringValue() and checks if result is not

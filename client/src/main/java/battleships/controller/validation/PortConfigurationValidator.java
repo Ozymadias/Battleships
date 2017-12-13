@@ -1,8 +1,7 @@
 package battleships.controller.validation;
 
 import battleships.ConfigurationValue;
-import battleships.communication.battleshipUtils.BattleshipUtils;
-import org.apache.commons.lang.StringUtils;
+import battleships.utils.BattleshipUtils;
 
 /**
  * Takes ConfigurationValue as a parameter, than checks if contains only numbers. When and only when it contains only

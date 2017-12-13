@@ -1,4 +1,4 @@
-package battleships.communication.battleshipUtils;
+package battleships.utils;
 
 import org.apache.commons.lang.StringUtils;
 

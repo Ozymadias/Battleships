@@ -1,4 +1,4 @@
-package battleships.communication.battleshipUtils;
+package battleships.utils;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

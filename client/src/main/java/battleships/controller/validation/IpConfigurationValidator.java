@@ -2,7 +2,7 @@ package battleships.controller.validation;
 
 
 import battleships.ConfigurationValue;
-import org.apache.commons.lang.StringUtils;
+import battleships.utils.BattleshipUtils;
 
 import java.util.Arrays;
 
@@ -24,7 +24,7 @@ class IpConfigurationValidator implements ConfigurationValidator {
      * Check if IP segment contains only numbers
      */
     private boolean isNumeric(String toValidate) {
-        return StringUtils.isNumeric(toValidate);
+        return BattleshipUtils.checkIfStringIsNumeric(toValidate);
     }
 
     /**

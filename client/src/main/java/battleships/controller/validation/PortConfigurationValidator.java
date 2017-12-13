@@ -1,7 +1,7 @@
 package battleships.controller.validation;
 
 import battleships.ConfigurationValue;
-import org.apache.commons.lang.StringUtils;
+import battleships.utils.BattleshipUtils;
 
 /**
  * Takes ConfigurationValue as a parameter, than checks if contains only numbers. When and only when it contains only
@@ -18,7 +18,7 @@ class PortConfigurationValidator implements ConfigurationValidator {
      */
     @Override
     public boolean validate(ConfigurationValue toValidate) {
-        return StringUtils.isNumeric(toValidate.stringValue()) && isWithinRange(toValidate.stringValue());
+        return BattleshipUtils.checkIfStringIsNumeric(toValidate.stringValue()) && isWithinRange(toValidate.stringValue());
     }
 
     /**

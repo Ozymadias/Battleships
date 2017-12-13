@@ -1,6 +1,7 @@
 package battleships.controller.validation;
 
 import battleships.ConfigurationValue;
+import battleships.communication.battleshipUtils.BattleshipUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -18,7 +19,7 @@ class PortConfigurationValidator implements ConfigurationValidator {
      */
     @Override
     public boolean validate(ConfigurationValue toValidate) {
-        return StringUtils.isNumeric(toValidate.stringValue()) && isWithinRange(toValidate.stringValue());
+        return BattleshipUtils.checkIfStringIsNumeric(toValidate.stringValue()) && isWithinRange(toValidate.stringValue());
     }
 
     /**

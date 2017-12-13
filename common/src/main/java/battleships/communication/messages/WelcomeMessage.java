@@ -1,8 +1,6 @@
 package battleships.communication.messages;
 
 import battleships.communication.Messagable;
-import com.fasterxml.jackson.annotation.JsonRootName;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 public class WelcomeMessage implements Messagable {
 

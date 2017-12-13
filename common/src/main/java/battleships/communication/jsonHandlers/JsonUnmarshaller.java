@@ -13,7 +13,7 @@ class JsonUnmarshaller {
         this.objectMapper = objectMapper;
     }
 
-    Messagable convertToMessagable(String message) throws IOException, ClassNotFoundException {
+    Messagable convertToMessagable(String message) throws IOException {
         return objectMapper.readValue(message, Messagable.class);
     }
 

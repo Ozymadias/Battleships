@@ -21,8 +21,7 @@ public class JSONMessageManager implements MessageManager{
     }
 
     public String toString(Messagable messegable){
-        String jsonString = jsonMarshaller.convertToJsonString(messegable);
-        return jsonString;
+        return jsonMarshaller.convertToJsonString(messegable);
     }
 
     public Optional<Messagable> toMessagable(String message){
@@ -30,8 +29,6 @@ public class JSONMessageManager implements MessageManager{
         try {
             messagable = jsonUnmarshaller.convertToMessagable(message);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return Optional.ofNullable(messagable);

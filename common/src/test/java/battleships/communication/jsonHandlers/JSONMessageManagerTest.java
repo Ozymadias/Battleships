@@ -1,6 +1,7 @@
 package battleships.communication.jsonHandlers;
 
 import battleships.communication.Messagable;
+import battleships.communication.MessageManager;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JSONMessageManagerTest {
 
-    JSONMessageManager jsonMessageManager;
+    private MessageManager jsonMessageManager;
 
     @BeforeTest
     public void beforeTest(){
@@ -17,7 +18,7 @@ public class JSONMessageManagerTest {
     }
 
     @DataProvider
-    public Object[][] messagesPool(){
+    private Object[][] messagesPool(){
         return new Object[][]{
                 {"{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}"},
                 {"{\"@type\":\"WelcomeMessage\",\"body\":\"\"}"},
@@ -30,10 +31,11 @@ public class JSONMessageManagerTest {
 
     @Test(dataProvider = "messagesPool")
     public void jsonStringConvertedToMessagableAndDecovertedToJsonString_shouldNotChange(String jsonString){
-        Messagable messagable = jsonMessageManager.toMessagable(jsonString).get();
-        String actualJsonString = jsonMessageManager.toString(messagable);
-        assertThat(actualJsonString).isEqualTo(jsonString);
-
+        if(jsonMessageManager.toMessagable(jsonString).isPresent()) {
+            Messagable messagable = jsonMessageManager.toMessagable(jsonString).get();
+            String actualJsonString = jsonMessageManager.toString(messagable);
+            assertThat(actualJsonString).isEqualTo(jsonString);
+        }
     }
 
 }

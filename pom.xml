@@ -18,6 +18,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacksonVersion>2.9.2</jacksonVersion>
+        <maven-compiler-plugin.configuration.version>1.8</maven-compiler-plugin.configuration.version>
     </properties>
 
     <build>
@@ -244,6 +245,14 @@
             <version>6.13.1</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
+    <!-- declares a location to distribute site -->
+    <distributionManagement>
+        <site>
+            <id>${project.artifactId}</id>
+            <url>file://${basedir}/target</url>
+        </site>
+    </distributionManagement>
+
 </project>

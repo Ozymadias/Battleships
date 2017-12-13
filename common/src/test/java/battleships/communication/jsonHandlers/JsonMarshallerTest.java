@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JsonMarshallerTest {
 
-    JsonMarshaller jsonMarshaller;
+    private JsonMarshaller jsonMarshaller;
 
     @BeforeTest
     public void beforeTest(){
@@ -20,7 +20,7 @@ public class JsonMarshallerTest {
     }
 
     @DataProvider
-    public Object[][] messagesPool(){
+    private Object[][] messagesPool(){
         return new Object[][]{
                 {new WelcomeMessage("hello"), "{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}"},
                 {new WelcomeMessage(""), "{\"@type\":\"WelcomeMessage\",\"body\":\"\"}"},

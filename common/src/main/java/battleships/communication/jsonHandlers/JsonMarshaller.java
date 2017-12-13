@@ -3,6 +3,7 @@ package battleships.communication.jsonHandlers;
 import battleships.communication.Messagable;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.deploy.util.StringUtils;
 
 class JsonMarshaller {
 

@@ -22,7 +22,7 @@ public class JsonUnmarshallerTest {
     }
 
     @DataProvider
-    public Object[][] jsonBodyAndTypesPoll(){
+    private Object[][] jsonBodyAndTypesPoll(){
         return new Object[][] {
                 {"{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}", WelcomeMessage.class},
                 {"{\"@type\":\"GoodByeMessage\",\"body\":\"good bye\"}", GoodByeMessage.class}

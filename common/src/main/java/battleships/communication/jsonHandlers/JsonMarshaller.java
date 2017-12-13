@@ -1,9 +1,9 @@
 package battleships.communication.jsonHandlers;
 
 import battleships.communication.Messagable;
+import battleships.utils.BattleshipUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.deploy.util.StringUtils;
 
 class JsonMarshaller {
 
@@ -14,14 +14,11 @@ class JsonMarshaller {
     }
 
     String convertToJsonString(Messagable messegable){
-        String jsonString = "";
         try {
-            jsonString = objectMapper.writeValueAsString(messegable);
+            return objectMapper.writeValueAsString(messegable);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            return BattleshipUtils.provideEmptyString();
         }
-
-        return jsonString;
     }
 
 }

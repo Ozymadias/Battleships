@@ -16,7 +16,7 @@ public class JsonMarshallerTest {
 
     @BeforeTest
     public void beforeTest(){
-        jsonMarshaller = new JsonMarshaller(new ObjectMapper());
+        this.jsonMarshaller = new JsonMarshaller(new ObjectMapper());
     }
 
     @DataProvider
@@ -32,7 +32,7 @@ public class JsonMarshallerTest {
     }
 
     @Test(dataProvider = "messagesPool")
-    public void givenObjectOfMessagable_jsonBodyShouldContainsClassNameAndItsFields(Messagable messagable, String expectedJsonString){
+    public void givenObjectOfMessagable_whenConvertingToJson_thenJsonBodyShouldContainsClassNameAndItsFields(Messagable messagable, String expectedJsonString){
         String actualJsonString = jsonMarshaller.convertToJsonString(messagable);
         assertThat(actualJsonString).isEqualTo(expectedJsonString);
     }

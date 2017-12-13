@@ -18,7 +18,7 @@ public class JsonUnmarshallerTest {
 
     @BeforeTest
     protected void beforeTest(){
-        jsonUnmarshaller = new JsonUnmarshaller(new ObjectMapper());
+        this.jsonUnmarshaller = new JsonUnmarshaller(new ObjectMapper());
     }
 
     @DataProvider
@@ -30,7 +30,7 @@ public class JsonUnmarshallerTest {
     }
 
     @Test(dataProvider = "jsonBodyAndTypesPoll")
-    public void givenJsonString_methodReadFromJSONString_shouldReturnReferenceToObjectAsExpected(String jsonString, Class expectedClass) throws IOException, ClassNotFoundException {
+    public void givenJsonString_whenConvertingToMessagable_thenMessagableShouldHoldReferenceToClassObjectAsExpected(String jsonString, Class expectedClass) throws IOException, ClassNotFoundException {
         Messagable messagable = jsonUnmarshaller.convertToMessagable(jsonString);
         assertThat(messagable.getClass()).isEqualTo(expectedClass);
     }

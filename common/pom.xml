@@ -52,4 +52,10 @@
     <!-- linking site -->
     <url>${project.distributionManagement.site.url}/${project.artifactId}</url>
 
+    <description>
+        This module having common classes for client and server, such a:
+        - classes providing JSON serialization and deserialization
+        - wrapper class for utils library (checking if String hold numeric value, providing empty String etc.)
+    </description>
+
 </project>

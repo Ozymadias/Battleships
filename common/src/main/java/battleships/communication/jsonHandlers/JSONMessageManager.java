@@ -15,7 +15,7 @@ public class JSONMessageManager implements MessageManager{
         return new JSONMessageManager(new JsonMarshaller(new ObjectMapper()), new JsonUnmarshaller(new ObjectMapper()));
     }
 
-    private JSONMessageManager(JsonMarshaller jsonMarshaller, JsonUnmarshaller jsonUnmarshaller) {
+    private JSONMessageManager(final JsonMarshaller jsonMarshaller, final JsonUnmarshaller jsonUnmarshaller) {
         this.jsonMarshaller = jsonMarshaller;
         this.jsonUnmarshaller = jsonUnmarshaller;
     }

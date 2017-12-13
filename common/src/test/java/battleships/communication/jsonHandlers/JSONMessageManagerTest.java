@@ -14,7 +14,7 @@ public class JSONMessageManagerTest {
 
     @BeforeTest
     public void beforeTest(){
-        jsonMessageManager = JSONMessageManager.build();
+        this.jsonMessageManager = JSONMessageManager.build();
     }
 
     @DataProvider
@@ -30,7 +30,7 @@ public class JSONMessageManagerTest {
     }
 
     @Test(dataProvider = "messagesPool")
-    public void jsonStringConvertedToMessagableAndDecovertedToJsonString_shouldNotChange(String jsonString){
+    public void givenJsonString_whenConvertingItToMessagableAndDeconvertingToJsonString_jsonStringsShouldBeExact(String jsonString){
         if(jsonMessageManager.toMessagable(jsonString).isPresent()) {
             Messagable messagable = jsonMessageManager.toMessagable(jsonString).get();
             String actualJsonString = jsonMessageManager.toString(messagable);

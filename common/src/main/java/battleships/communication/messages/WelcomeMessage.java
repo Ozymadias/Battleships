@@ -15,11 +15,11 @@ public class WelcomeMessage implements Messagable {
         this.body = body;
     }
 
-    public String getBody() {
+    String getBody() {
         return this.body;
     }
 
-    public void setBody(String body) {
+    void setBody(String body) {
         this.body = body;
     }
 

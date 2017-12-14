@@ -15,11 +15,11 @@ public class GoodByeMessage implements Messagable {
         this.body = body;
     }
 
-    public String getBody() {
+    String getBody() {
         return this.body;
     }
 
-    public void setBody(final String body) {
+    void setBody(final String body) {
         this.body = body;
     }
 

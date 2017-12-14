@@ -2,6 +2,8 @@ package battleships.communication.jsonHandlers;
 
 import battleships.communication.Messagable;
 import battleships.communication.MessageManager;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -12,7 +14,10 @@ public class JSONMessageManager implements MessageManager{
     private final JsonUnmarshaller jsonUnmarshaller;
 
     public static JSONMessageManager build(){
-        return new JSONMessageManager(new JsonMarshaller(new ObjectMapper()), new JsonUnmarshaller(new ObjectMapper()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
+        objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
+        return new JSONMessageManager(new JsonMarshaller(objectMapper), new JsonUnmarshaller(new ObjectMapper()));
     }
 
     private JSONMessageManager(final JsonMarshaller jsonMarshaller, final JsonUnmarshaller jsonUnmarshaller) {

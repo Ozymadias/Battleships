@@ -1,20 +1,26 @@
 package battleships.communication.jsonHandlers;
 
 import battleships.communication.Messagable;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import battleships.communication.Unmarshaller;
 
 import java.io.IOException;
+import java.util.Optional;
 
-class JsonUnmarshaller {
+class JsonUnmarshaller implements Unmarshaller {
 
-    private final ObjectMapper objectMapper;
+    private final MessagableMapper messagableMapper;
 
-    JsonUnmarshaller(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    JsonUnmarshaller(MessagableMapper messagableMapper) {
+        this.messagableMapper = messagableMapper;
     }
 
-    Messagable convertToMessagable(String message) throws IOException, ClassNotFoundException {
-        return objectMapper.readValue(message, Messagable.class);
+    @Override
+    public Optional<Messagable> toMessagable(String message) {
+        try {
+            return Optional.of(this.messagableMapper.readValue(message, Messagable.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
-
 }

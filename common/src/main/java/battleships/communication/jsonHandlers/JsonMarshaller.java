@@ -1,26 +1,24 @@
 package battleships.communication.jsonHandlers;
 
+import battleships.communication.Marshaller;
 import battleships.communication.Messagable;
+import battleships.utils.BattleshipUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-class JsonMarshaller {
+class JsonMarshaller implements Marshaller {
 
-    private final ObjectMapper objectMapper;
+    private final MessagableMapper messagableMapper;
 
-    JsonMarshaller(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    JsonMarshaller(MessagableMapper messagableMapper) {
+        this.messagableMapper = messagableMapper;
     }
 
-    String convertToJsonString(Messagable messegable){
-        String jsonString = "";
+    @Override
+    public String toString(Messagable messagable) {
         try {
-            jsonString = objectMapper.writeValueAsString(messegable);
+            return this.messagableMapper.writeValueAsString(messagable);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            return BattleshipUtils.provideEmptyString();
         }
-
-        return jsonString;
     }
-
 }

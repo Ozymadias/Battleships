@@ -1,8 +1,11 @@
 package battleships.communication.jsonHandlers;
 
+import battleships.communication.Marshaller;
 import battleships.communication.Messagable;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
@@ -12,15 +15,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JsonMarshallerTest {
 
-    JsonMarshaller jsonMarshaller;
+    private Marshaller jsonMarshaller;
 
     @BeforeTest
     public void beforeTest(){
-        jsonMarshaller = new JsonMarshaller(new ObjectMapper());
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
+        objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
+        MessagableMapper messagableMapper = new MessagableMapper(objectMapper);
+        this.jsonMarshaller = new JsonMarshaller(messagableMapper);
     }
 
     @DataProvider
-    public Object[][] messagesPool(){
+    private Object[][] messagesPool(){
         return new Object[][]{
                 {new WelcomeMessage("hello"), "{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}"},
                 {new WelcomeMessage(""), "{\"@type\":\"WelcomeMessage\",\"body\":\"\"}"},
@@ -32,8 +39,8 @@ public class JsonMarshallerTest {
     }
 
     @Test(dataProvider = "messagesPool")
-    public void givenObjectOfMessagable_jsonBodyShouldContainsClassNameAndItsFields(Messagable messagable, String expectedJsonString){
-        String actualJsonString = jsonMarshaller.convertToJsonString(messagable);
+    public void givenObjectOfMessagable_whenConvertingToJson_thenJsonBodyShouldContainsClassNameAndItsFields(Messagable messagable, String expectedJsonString){
+        String actualJsonString = jsonMarshaller.toString(messagable);
         assertThat(actualJsonString).isEqualTo(expectedJsonString);
     }
 

@@ -1,14 +1,13 @@
 package battleships.communication.jsonHandlers;
 
 import battleships.communication.Messagable;
-import battleships.utils.BattleshipUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 
 import java.io.IOException;
 
-public class MessagableMapper {
+class MessagableMapper {
 
     private final ObjectMapper objectMapper;
 

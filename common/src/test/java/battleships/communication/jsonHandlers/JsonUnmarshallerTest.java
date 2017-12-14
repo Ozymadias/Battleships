@@ -1,6 +1,7 @@
 package battleships.communication.jsonHandlers;
 
 import battleships.communication.Messagable;
+import battleships.communication.Unmarshaller;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -16,14 +17,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class JsonUnmarshallerTest {
 
-    private JsonUnmarshaller jsonUnmarshaller;
+    private Unmarshaller jsonUnmarshaller;
 
     @BeforeTest
     protected void beforeTest(){
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
         objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
-        this.jsonUnmarshaller = new JsonUnmarshaller(objectMapper);
+        MessagableMapper messagableMapper = new MessagableMapper(objectMapper);
+        this.jsonUnmarshaller = new JsonUnmarshaller(messagableMapper);
     }
 
     @DataProvider
@@ -36,7 +38,7 @@ public class JsonUnmarshallerTest {
 
     @Test(dataProvider = "jsonBodyAndTypesPoll")
     public void givenJsonString_whenConvertingToMessagable_thenMessagableShouldHoldReferenceToClassObjectAsExpected(String jsonString, Class expectedClass) throws IOException, ClassNotFoundException {
-        Messagable messagable = jsonUnmarshaller.convertToMessagable(jsonString);
+        Messagable messagable = jsonUnmarshaller.toMessagable(jsonString).get();
         assertThat(messagable.getClass()).isEqualTo(expectedClass);
     }
 }

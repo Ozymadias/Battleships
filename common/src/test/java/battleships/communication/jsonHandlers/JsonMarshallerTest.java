@@ -1,5 +1,6 @@
 package battleships.communication.jsonHandlers;
 
+import battleships.communication.Marshaller;
 import battleships.communication.Messagable;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
@@ -14,14 +15,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class JsonMarshallerTest {
 
-    private JsonMarshaller jsonMarshaller;
+    private Marshaller jsonMarshaller;
 
     @BeforeTest
     public void beforeTest(){
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
         objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
-        this.jsonMarshaller = new JsonMarshaller(objectMapper);
+        MessagableMapper messagableMapper = new MessagableMapper(objectMapper);
+        this.jsonMarshaller = new JsonMarshaller(messagableMapper);
     }
 
     @DataProvider
@@ -38,7 +40,7 @@ public class JsonMarshallerTest {
 
     @Test(dataProvider = "messagesPool")
     public void givenObjectOfMessagable_whenConvertingToJson_thenJsonBodyShouldContainsClassNameAndItsFields(Messagable messagable, String expectedJsonString){
-        String actualJsonString = jsonMarshaller.convertToJsonString(messagable);
+        String actualJsonString = jsonMarshaller.toString(messagable);
         assertThat(actualJsonString).isEqualTo(expectedJsonString);
     }
 

@@ -8,8 +8,8 @@ class MessagableMapperBuilder {
 
     private ObjectMapper objectMapper;
 
-    MessagableMapperBuilder withObjectMapper(ObjectMapper objectMapper){
-        this.objectMapper = objectMapper;
+    MessagableMapperBuilder withObjectMapper(){
+        this.objectMapper = new ObjectMapper();
         return this;
     }
 

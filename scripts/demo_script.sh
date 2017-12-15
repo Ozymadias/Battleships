@@ -28,10 +28,10 @@ echo "*********************************"
 echo "Running mvn checkstyle:checkstyle"
 echo "*********************************"
 mvn checkstyle:checkstyle >> $LOG_FILE
-echo "****************"
-echo "Running mvn site"
-echo "****************"
-mvn site >>$LOG_FILE
+echo "**********************************"
+echo "Running mvn site && mvn site:stage"
+echo "**********************************"
+(mvn site && mvn site:stage) >>$LOG_FILE
 firefox target/site/index.html
 firefox https://github.com/szczepanskikrs/Battleships/blob/master/Estimates.md
 firefox https://github.com/szczepanskikrs/Battleships/blob/master/Requirements.md

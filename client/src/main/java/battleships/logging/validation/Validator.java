@@ -1,11 +1,11 @@
-package battleships.controller.validation;
+package battleships.logging.validation;
 
-import battleships.ConfigurationValueName;
-import battleships.ConfigurationValue;
+import battleships.logging.ConfigurationValueName;
+import battleships.logging.ConfigurationValue;
 
 import java.util.Map;
 
-import static battleships.ConfigurationValueName.*;
+import static battleships.logging.ConfigurationValueName.*;
 
 /**
  * It performs a validation of values that are passed.

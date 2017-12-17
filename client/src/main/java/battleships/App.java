@@ -1,7 +1,6 @@
 package battleships;
 
 import battleships.logging.LoggingController;
-import battleships.root.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

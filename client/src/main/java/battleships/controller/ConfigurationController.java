@@ -4,6 +4,7 @@ import battleships.ConfigurationValueName;
 import battleships.ConfigurationValue;
 import battleships.LanguageLoadOption;
 import battleships.LanguageVersion;
+import battleships.controller.communication.ServerLoginManager;
 import battleships.controller.validation.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -54,9 +56,11 @@ public class ConfigurationController {
     private Button logInButton;
 
     @FXML
-    void OnActionLoginButton(ActionEvent event) {
+    void OnActionLoginButton(ActionEvent event) throws IOException{
         Validator validator = new Validator();
         System.out.println("FOR TESTING PURPOSE VALIDATION IS: " + validator.validate(configFieldsValues()));
+        ServerLoginManager serverLoginManager = new ServerLoginManager(serverIPText.getText(),serverPortInput.getText());
+        serverLoginManager.doStuff();
     }
 
     private Map<ConfigurationValueName, ConfigurationValue> configFieldsValues() {

@@ -6,11 +6,11 @@ import battleships.communication.Unmarshaller;
 import java.io.IOException;
 import java.util.Optional;
 
-class JsonUnmarshaller implements Unmarshaller {
+public class JsonUnmarshaller implements Unmarshaller {
 
     private final MessagableMapper messagableMapper;
 
-    JsonUnmarshaller(MessagableMapper messagableMapper) {
+    public JsonUnmarshaller(MessagableMapper messagableMapper) {
         this.messagableMapper = messagableMapper;
     }
 

@@ -5,11 +5,11 @@ import battleships.communication.Messagable;
 import battleships.utils.BattleshipUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-class JsonMarshaller implements Marshaller {
+public class JsonMarshaller implements Marshaller {
 
     private final MessagableMapper messagableMapper;
 
-    JsonMarshaller(MessagableMapper messagableMapper) {
+    public JsonMarshaller(MessagableMapper messagableMapper) {
         this.messagableMapper = messagableMapper;
     }
 

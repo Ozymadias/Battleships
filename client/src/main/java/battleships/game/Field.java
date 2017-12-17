@@ -6,6 +6,7 @@ class Field {
     //maybe it's go ide to provide field interface
     //with implementations which differs it's state
     //and provides different rectangles
+    //maybe enum FiledState could provide correct rectangle kind
 
     private final Integer position;
     private FieldState state;

@@ -18,28 +18,19 @@ public class PlayerBoardViewController {
     @FXML
     GridPane dockedGridPane;
 
-    private Optional<Board> board = Optional.empty();
+    private Board board;
 
-    public void setBoard(Board board) {
-        this.board = Optional.of(board);
-    }
-
-    /*
-     * automatically called after fxml file has been loaded
-     */
     @FXML
     private void initialize(){
-        if(!board.isPresent()){
-            board = Optional.of(Board.build());
-            board.get().generateExample();
-        }
+        board = Board.build();
+        board.generateExample();
         setUpPlayerBoardDocked();
     }
 
     private void setUpPlayerBoardDocked(){
         for(int row = 0; row < BOARD_ROW_COUNT; row++){
             for(int col = 0; col < BOARD_COLUMN_COUNT; col++){
-                StackPane stackPane = board.get().rectangleForPosition(row*BOARD_COLUMN_COUNT + col);
+                StackPane stackPane = this.board.rectangleForPosition(row*BOARD_COLUMN_COUNT + col);
                 GridPane.setRowIndex(stackPane, row);
                 GridPane.setColumnIndex(stackPane, col);
                 dockedGridPane.getChildren().addAll(stackPane);

@@ -4,12 +4,12 @@ class Field {
 
     private final Integer position;
     private FieldState state;
-    private Boolean isShoted;
+    private Boolean isShot;
 
     Field(Integer position){
         this.position = position;
         this.state = FieldState.EMPTY;
-        this.isShoted = false;
+        this.isShot = false;
     }
 
     final Integer getPosition() {
@@ -20,14 +20,10 @@ class Field {
         return state;
     }
 
-    final Boolean isShoted(){ return isShoted; }
+    final Boolean isShot(){ return isShot; }
 
     void setShipPartOn(){
         this.state = FieldState.UNBROKEN_SHIP_PART;
-    }
-
-    public String toString(){
-        return "[" + position + " : " + state + "]";
     }
 
 }

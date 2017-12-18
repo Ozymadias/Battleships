@@ -14,16 +14,6 @@ public class RootLayoutController {
     @FXML
     BorderPane borderPane;
 
-    // Reference to the main application
-    private App mainApp;
-
-    public void setMainApp(App mainApp) {
-        this.mainApp = mainApp;
-    }
-
-    /*
-     * automatically called after fxml file has been loaded
-     */
     @FXML
     private void initialize(){
         addPlayerBoardView();
@@ -34,12 +24,11 @@ public class RootLayoutController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(PLAYER_BOARD_VIEW_FXML));
 
-            BorderPane initLayout = (BorderPane) loader.load();
+            BorderPane initLayout = loader.load();
             borderPane.setLeft(initLayout);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

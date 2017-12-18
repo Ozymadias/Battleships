@@ -33,7 +33,7 @@ public class FieldTest {
         //when
         Field field = new Field(givenDummyPosition);
         //then
-        assertThat(field.isShoted()).isEqualTo(false);
+        assertThat(field.isShot()).isEqualTo(false);
     }
 
     @Test

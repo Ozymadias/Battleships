@@ -5,8 +5,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +12,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 class Board {
+
+    private static final int BOARD_SIZE = 100;
+    private static final int RECTANGLE_SIZE = 30;
+    private static final String MARK_FOR_SHOT = "x";
 
     List<Field> fields;
 
@@ -30,7 +32,7 @@ class Board {
         map.put(FieldState.UNBROKEN_SHIP_PART, Color.GREEN);
         map.put(FieldState.BROKEN_SHIP_PART, Color.YELLOW);
         map.put(FieldState.SUNK_SHIP_PART, Color.RED);
-        List<Field> emptyFields = IntStream.range(0, 100).mapToObj(p -> new Field(p)).collect(Collectors.toList());
+        List<Field> emptyFields = IntStream.range(0, BOARD_SIZE).mapToObj(p -> new Field(p)).collect(Collectors.toList());
         return new Board(emptyFields, map);
     }
 
@@ -39,7 +41,7 @@ class Board {
      */
     void generateExample(){
         //empty list
-        this.fields = IntStream.range(0, 100).mapToObj(p -> new Field(p)).collect(Collectors.toList());
+        this.fields = IntStream.range(0, BOARD_SIZE).mapToObj(p -> new Field(p)).collect(Collectors.toList());
         //add 4-mast ship
         fields.stream()
                 .filter(p -> (p.getPosition() > 2) && (p.getPosition() < 7))
@@ -52,15 +54,9 @@ class Board {
                 .filter(p -> (p.getPosition() > 20) && (p.getPosition() < 24))
                 .forEach(p -> p.setShipPartOn());
         //add 2-mast ship x 3
-        fields.get(75).setShipPartOn();
-        fields.get(85).setShipPartOn();
-
-        fields.get(78).setShipPartOn();
-        fields.get(88).setShipPartOn();
-
-        fields.get(46).setShipPartOn();
-        fields.get(47).setShipPartOn();
-
+        fields.get(75).setShipPartOn(); fields.get(85).setShipPartOn();
+        fields.get(78).setShipPartOn(); fields.get(88).setShipPartOn();
+        fields.get(46).setShipPartOn(); fields.get(47).setShipPartOn();
         //add 1-mast ship x 4
         fields.get(40).setShipPartOn();
         fields.get(18).setShipPartOn();
@@ -70,13 +66,13 @@ class Board {
 
     StackPane rectangleForPosition(int position){
         Rectangle rec = new Rectangle();
-        rec.setWidth(30);
-        rec.setHeight(30);
+        rec.setWidth(RECTANGLE_SIZE);
+        rec.setHeight(RECTANGLE_SIZE);
         rec.setFill(colorMap.get(fields.get(position).getState()));
         rec.setStroke(Color.BLACK);
         StackPane stackPane = new StackPane();
-        if(fields.get(position).isShoted()){
-            Text text = new Text("x");
+        if(fields.get(position).isShot()){
+            Text text = new Text(MARK_FOR_SHOT);
             stackPane.getChildren().addAll(rec, text);
         }else{
             stackPane.getChildren().addAll(rec);

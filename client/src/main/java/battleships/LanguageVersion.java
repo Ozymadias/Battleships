@@ -1,5 +1,7 @@
 package battleships;
 
+import battleships.logging.LanguageLoadOption;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.EnumMap;

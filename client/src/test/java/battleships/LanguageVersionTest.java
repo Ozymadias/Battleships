@@ -3,8 +3,8 @@ package battleships;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static battleships.LanguageLoadOption.EN;
-import static battleships.LanguageLoadOption.PL;
+import static battleships.logging.LanguageLoadOption.EN;
+import static battleships.logging.LanguageLoadOption.PL;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LanguageVersionTest {

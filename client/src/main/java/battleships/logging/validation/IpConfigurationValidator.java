@@ -1,7 +1,7 @@
-package battleships.controller.validation;
+package battleships.logging.validation;
 
 
-import battleships.ConfigurationValue;
+import battleships.logging.ConfigurationValue;
 import battleships.utils.BattleshipUtils;
 
 import java.util.Arrays;

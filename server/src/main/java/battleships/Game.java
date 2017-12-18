@@ -2,7 +2,6 @@ package battleships;
 
 import battleships.communication.ClientHandler;
 
-import java.util.List;
 import java.util.Map;
 
 public class Game {

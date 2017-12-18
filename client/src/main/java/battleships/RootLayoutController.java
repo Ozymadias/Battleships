@@ -21,12 +21,10 @@ public class RootLayoutController {
 
     private void addPlayerBoardView(){
         try {
-            FXMLLoader loader = new FXMLLoader();
+            final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(PLAYER_BOARD_VIEW_FXML));
-
             BorderPane initLayout = loader.load();
             borderPane.setLeft(initLayout);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

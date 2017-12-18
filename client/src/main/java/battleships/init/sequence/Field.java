@@ -27,4 +27,6 @@ class Field {
     }
 
     public String positionToString() { return "[" + position + "]"; }
+
+    public String stateMarkToString() { return state.getStateMark(); }
 }

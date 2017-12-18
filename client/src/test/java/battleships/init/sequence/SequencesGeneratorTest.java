@@ -42,4 +42,14 @@ public class SequencesGeneratorTest {
         //when - then
         assertThat(sequence.positionsToString()).isEqualTo(expectedList);
     }
+
+    @Test
+    public void printingSequenceFieldsStatesTest(){
+        //given
+        SequencesGenerator sequencesGenerator = new SequencesGenerator(Board.build());
+        Sequence sequence = sequencesGenerator.createVerticalSequence(0);
+        //then
+        System.out.println(sequence.statesMarksToString());
+
+    }
 }

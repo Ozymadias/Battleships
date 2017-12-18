@@ -1,9 +1,9 @@
 package battleships.game;
 
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 
 public class OpponentBoardViewController {
 
@@ -24,13 +24,18 @@ public class OpponentBoardViewController {
         setUpBoardView();
     }
 
-    private void setUpBoardView(){
-        for(int row = 0; row < BOARD_ROW_COUNT; row++){
-            for(int col = 0; col < BOARD_COLUMN_COUNT; col++){
-                StackPane stackPane = this.opponentBoard.rectangleForPosition(row*BOARD_COLUMN_COUNT + col);
-                GridPane.setRowIndex(stackPane, row);
-                GridPane.setColumnIndex(stackPane, col);
-                dockedGridPane.getChildren().addAll(stackPane);
+    private void setUpBoardView() {
+        for (int row = 0; row < BOARD_ROW_COUNT; row++) {
+            for (int col = 0; col < BOARD_COLUMN_COUNT; col++) {
+                BoardNode boardNode = this.opponentBoard.rectangleForPosition(row * BOARD_COLUMN_COUNT + col);
+                boardNode.getStackPane().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+                    System.out.println("item number" + boardNode.getPosition());
+                    opponentBoard.shootAtField(boardNode.getPosition());
+                    setUpBoardView();
+                });
+                GridPane.setRowIndex(boardNode.getStackPane(), row);
+                GridPane.setColumnIndex(boardNode.getStackPane(), col);
+                dockedGridPane.getChildren().addAll(boardNode.getStackPane());
             }
         }
     }

@@ -1,45 +1,48 @@
 package battleships.game;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FieldTest {
 
-    @Test
-    public void givenPosition_whenCreatingField_itsPositionShouldBeEqualAsGiven(){
-        //given
-        Integer givenPosition = 10;
-        //when
-        Field field = new Field(givenPosition);
-        //then
-        assertThat(field.getPosition()).isEqualTo(givenPosition);
+    @DataProvider
+    private Object[] positionsPoll(){
+        return new Random().ints(10, 0, 99).boxed().toArray();
     }
 
-    @Test
-    public void givenDummyPosition_whenCreatingField_itsStateShouldBeEmpty(){
-        //given
-        Integer givenDummyPosition = 10;
+
+    @Test(dataProvider = "positionsPoll")
+    public void givenSomePosition_whenCreatingField_itsPositionShouldBeEqualAsGiven(Integer position){
         //when
-        Field field = new Field(givenDummyPosition);
+        Field field = new Field(position);
+        //then
+        assertThat(field.getPosition()).isEqualTo(position);
+    }
+
+    @Test(dataProvider = "positionsPoll")
+    public void givenSomePosition_whenCreatingField_itsStateShouldBeEmpty(Integer position){
+        //when
+        Field field = new Field(position);
         //then
         assertThat(field.getState()).isEqualTo(FieldState.EMPTY);
     }
 
-    @Test
-    public void givenDummyPosition_whenCreatingField_isShotedReturnsFalse(){
-        //given
-        Integer givenDummyPosition = 10;
+    @Test(dataProvider = "positionsPoll")
+    public void givenSomePosition_whenCreatingField_isShotReturnsFalse(Integer position){
         //when
-        Field field = new Field(givenDummyPosition);
+        Field field = new Field(position);
         //then
         assertThat(field.isShot()).isEqualTo(false);
     }
 
-    @Test
-    public void givenSomeField_whenSettingShipPartOnIt_thenFieldStateShouldBe_UNBROKEN_SHIP_PART(){
+    @Test(dataProvider = "positionsPoll")
+    public void givenSomeField_whenSettingShipPartOnIt_thenFieldStateShouldBe_UNBROKEN_SHIP_PART(Integer position){
         //given
-        Field field = new Field(10);
+        Field field = new Field(position);
         //when
         field.setShipPartOn();
         //then

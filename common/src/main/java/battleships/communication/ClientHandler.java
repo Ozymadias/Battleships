@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public class ClientHandler {
 
-    MessageReceiver messageReceiver;
-    MessageSender messageSender;
-    JsonMarshaller jsonMarshaller = new JsonMarshaller(new MessagableMapperBuilder().withObjectMapper().build());
-    JsonUnmarshaller jsonUnmarshaller = new JsonUnmarshaller(new MessagableMapperBuilder().withObjectMapper().build());
+    private final MessageReceiver messageReceiver;
+    private final MessageSender messageSender;
+    private final JsonMarshaller jsonMarshaller = new JsonMarshaller(new MessagableMapperBuilder().withObjectMapper().build());
+    private final JsonUnmarshaller jsonUnmarshaller = new JsonUnmarshaller(new MessagableMapperBuilder().withObjectMapper().build());
 
 
     public ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {

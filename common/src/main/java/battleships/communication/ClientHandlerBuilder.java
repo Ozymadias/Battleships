@@ -3,9 +3,9 @@ package battleships.communication;
 import java.net.Socket;
 
 public class ClientHandlerBuilder {
-    MessageReceiver messageReceiver;
-    MessageSender messageSender;
-    Socket socket;
+    private MessageReceiver messageReceiver;
+    private MessageSender messageSender;
+    private Socket socket;
 
     public ClientHandlerBuilder setSocket(Socket socket) {
         this.socket = socket;

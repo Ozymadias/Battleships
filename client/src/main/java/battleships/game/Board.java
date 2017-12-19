@@ -26,22 +26,34 @@ class Board {
     void generateExample(){
         //empty list
         this.fields = IntStream.range(0, BOARD_SIZE).mapToObj(p -> new Field(p)).collect(Collectors.toList());
-        //add 4-mast ship
+        generate4MastShip();
+        generate3MastShips();
+        generate2MastShips();
+        generate1MastShips();
+    }
+
+    private void generate4MastShip(){
         fields.stream()
                 .filter(p -> (p.getPosition() > 2) && (p.getPosition() < 7))
                 .forEach(p -> p.setShipPartOn());
-        //add 3-mast ship x 2
+    }
+
+    private void generate3MastShips(){
         fields.stream()
                 .filter(p -> (p.getPosition().equals(70)) || (p.getPosition().equals(80)) || (p.getPosition().equals(90)))
                 .forEach(p -> p.setShipPartOn());
         fields.stream()
                 .filter(p -> (p.getPosition() > 20) && (p.getPosition() < 24))
                 .forEach(p -> p.setShipPartOn());
-        //add 2-mast ship x 3
+    }
+
+    private void generate2MastShips(){
         fields.get(75).setShipPartOn(); fields.get(85).setShipPartOn();
         fields.get(78).setShipPartOn(); fields.get(88).setShipPartOn();
         fields.get(46).setShipPartOn(); fields.get(47).setShipPartOn();
-        //add 1-mast ship x 4
+    }
+
+    private void generate1MastShips(){
         fields.get(40).setShipPartOn();
         fields.get(18).setShipPartOn();
         fields.get(52).setShipPartOn();

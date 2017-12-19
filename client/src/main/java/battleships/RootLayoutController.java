@@ -17,7 +17,7 @@ public class RootLayoutController {
 
     @FXML
     private void initialize(){
-        try {
+        try{
             addPlayerBoardView();
             addOpponentBoardView();
         } catch (IOException e) {

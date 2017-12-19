@@ -36,12 +36,11 @@ public class App extends Application{
      */
     public void showLoginWindow(){
         try {
-            FXMLLoader loader = new FXMLLoader();
+            final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(LOGIN_FXML));
-            AnchorPane initLayout = loader.load();
-            Scene scene = new Scene(initLayout);
-            primaryStage.setScene(scene);
-            LoggingController controller = loader.getController();
+            final AnchorPane initLayout = loader.load();
+            primaryStage.setScene(new Scene(initLayout));
+            final LoggingController controller = loader.getController();
             controller.setMainApp(this);
             primaryStage.show();
         } catch (IOException e) {
@@ -56,11 +55,10 @@ public class App extends Application{
      */
     public void initRootLayout(){
         try {
-            FXMLLoader loader = new FXMLLoader();
+            final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
             rootLayout = loader.load();
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
+            primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
         } catch (IOException e){
             e.printStackTrace();

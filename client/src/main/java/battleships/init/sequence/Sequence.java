@@ -34,7 +34,7 @@ public class Sequence {
     }
 
     public Boolean canContainShip(Integer shipLength){
-        return statesMarksToString().matches("e{" + shipLength + ",}");
+        return statesMarksToString().contains(StringUtils.repeat("e", shipLength));
     }
 
     public Integer firstEmptyFor(Integer shipLength){
@@ -44,11 +44,35 @@ public class Sequence {
     public Integer lastEmptyStartingBy(Integer position){
         Integer last = position;
 
-        while (last < fields.size()
-                && fields.get(last).getState().equals(FieldState.EMPTY)){
-            last++;
+        try {
+            while (last < fields.size() - 1
+                    && fields.get(last).getState().equals(FieldState.EMPTY)) {
+                last++;
+            }
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("aaaaa!");
         }
 
         return last;
+    }
+
+    public void setBuffered(List<Integer> fieldsPositions){
+        for(Integer position : fieldsPositions){
+            fields.get(position).setState(FieldState.BUFFER);
+        }
+    }
+
+    public void setBuffered(Integer fieldPosition){
+        fields.get(fieldPosition).setState(FieldState.BUFFER);
+    }
+
+    public boolean isOnBorder(Integer fieldPosition){
+        return fields.get(fieldPosition).getState().equals(FieldState.BORDER);
+    }
+
+    public void setOccupied(List<Integer> fieldsPositions){
+        for(Integer position : fieldsPositions){
+            fields.get(position).setState(FieldState.OCCUPIED);
+        }
     }
 }

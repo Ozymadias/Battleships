@@ -25,4 +25,30 @@ public class ShipsRandomizeTest {
                 .isEqualTo("[90 : BORDER][91 : BORDER][92 : BORDER][93 : BORDER][94 : BORDER][95 : BORDER][96 : BORDER][97 : BORDER][98 : BORDER][99 : BORDER]");
     }
 
+    @Test
+    public void putShipIntoSequence_test(){
+        ShipsRandomize shipsRandomize = ShipsRandomize.build();
+        shipsRandomize.putShipIntoSequence(3, 4, 5);
+        assertThat(shipsRandomize.horizontalSequences.get(5).statesMarksToString()).isEqualTo("xeboooobex");
+    }
+
+    @Test
+    public void randomizeSequenceIntoShip_test(){
+        ShipsRandomize shipsRandomize = ShipsRandomize.build();
+        shipsRandomize.randomizeShipIntoSequence(5, 4);
+        assertThat(shipsRandomize.horizontalSequences.get(5).statesMarksToString()).contains("oooo");
+    }
+
+    @Test
+    public void placeAllFloat_differsTest(){
+        ShipsRandomize shipsRandomize = ShipsRandomize.build();
+        shipsRandomize.placeAllFloat();
+
+        ShipsRandomize shipsRandomize1 = ShipsRandomize.build();
+        shipsRandomize1.placeAllFloat();
+
+        assertThat(shipsRandomize.statesMarksToString())
+                .isNotEqualToIgnoringCase(shipsRandomize1.statesMarksToString());
+    }
+
 }

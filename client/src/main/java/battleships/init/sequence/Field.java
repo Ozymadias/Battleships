@@ -22,6 +22,8 @@ class Field {
         this.state = elementState;
     }
 
+    boolean isOccupied(){ return this.state.equals(FieldState.OCCUPIED); }
+
     public String toString(){
        return "[" + position + " : " + state + "]";
     }

@@ -18,7 +18,7 @@ public class WaitForFleets implements GameState {
         Fleet fleet2 = (Fleet) clientHandlerMap.get(Players.PLAYER2).receiveMessage();
         clientHandlerMap.get(Players.PLAYER2).receiveMessage();
 
-        return new SendGoodByeMessage(clientHandlerMap);
+        return new GameInProgress(clientHandlerMap, fleet1, fleet2 );
     }
 
     @Override

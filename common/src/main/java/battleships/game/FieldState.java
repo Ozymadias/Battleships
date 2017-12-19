@@ -1,6 +1,6 @@
 package battleships.game;
 
-enum FieldState {
+public enum FieldState {
     EMPTY,
     UNBROKEN_SHIP_PART,
     BROKEN_SHIP_PART,

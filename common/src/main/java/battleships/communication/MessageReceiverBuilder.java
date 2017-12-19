@@ -6,7 +6,7 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 public class MessageReceiverBuilder {
-    ObjectInputStream ois;
+    private ObjectInputStream ois;
 
     public MessageReceiver build() {
         return new MessageReceiver(ois);

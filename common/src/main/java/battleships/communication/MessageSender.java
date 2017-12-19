@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class MessageSender {
-    ObjectOutputStream oos;
+    private ObjectOutputStream oos;
 
     public MessageSender(ObjectOutputStream oos) {
         this.oos = oos;

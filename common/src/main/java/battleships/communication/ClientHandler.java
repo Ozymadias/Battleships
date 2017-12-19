@@ -10,13 +10,15 @@ public class ClientHandler {
 
     private final MessageReceiver messageReceiver;
     private final MessageSender messageSender;
-    private final JsonMarshaller jsonMarshaller = new JsonMarshaller(new MessagableMapperBuilder().withObjectMapper().build());
-    private final JsonUnmarshaller jsonUnmarshaller = new JsonUnmarshaller(new MessagableMapperBuilder().withObjectMapper().build());
+    private final JsonMarshaller jsonMarshaller;
+    private final JsonUnmarshaller jsonUnmarshaller;
 
 
     public ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {
         this.messageSender = messageSender;
         this.messageReceiver = messageReceiver;
+        this.jsonMarshaller = new JsonMarshaller(new MessagableMapperBuilder().withObjectMapper().build());
+        this.jsonUnmarshaller = new JsonUnmarshaller(new MessagableMapperBuilder().withObjectMapper().build());
     }
 
     public void sendMessage(Messagable message) {

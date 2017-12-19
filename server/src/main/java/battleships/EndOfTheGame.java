@@ -2,7 +2,7 @@ package battleships;
 
 public class EndOfTheGame implements GameState {
     public GameState process() {
-        return null;
+        return this;
     }
 
     public boolean isEndOfTheGame() {

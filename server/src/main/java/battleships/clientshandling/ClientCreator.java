@@ -14,7 +14,7 @@ import static battleships.Players.*;
 public class ClientCreator {
 
     public Map<Players, ClientHandler> createClientHandlers(List<Socket> sockets) {
-        //TODO: REFACTOR ME!!!
+
         Map<Players, ClientHandler> clientCreators = new EnumMap<>(Players.class);
         ClientHandler clientHandler1 = new ClientHandlerBuilder()
                 .setSocket(sockets.get(0))

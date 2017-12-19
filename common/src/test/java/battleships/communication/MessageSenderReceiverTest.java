@@ -7,13 +7,11 @@ public class MessageSenderReceiverTest {
     public void testIfMessageSendIsReceivedByReceiver()  throws IOException {
         String expectedValue = "test message";
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        MessageSender messageSender = new MessageSender(oos);
+        MessageSender messageSender = new MessageSender(new ObjectOutputStream(baos));
         messageSender.sendMessageString(expectedValue);
         byte [] byteArray = baos.toByteArray();
         ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
-        ObjectInputStream ois = new ObjectInputStream(bais);
-        MessageReceiver messageReceiver = new MessageReceiver(ois);
+        MessageReceiver messageReceiver = new MessageReceiver(new ObjectInputStream(bais));
         String actualValue = messageReceiver.receiveMessageString();
         assertEquals(actualValue, expectedValue);
     }

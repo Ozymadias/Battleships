@@ -5,7 +5,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class MessageSenderBuilder {
-    ObjectOutputStream oos;
+    private ObjectOutputStream oos;
 
     public MessageSender build() {
         return new MessageSender(oos);

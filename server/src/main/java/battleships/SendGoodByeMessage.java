@@ -9,7 +9,7 @@ import static battleships.Players.*;
 
 public class SendGoodByeMessage implements GameState {
 
-    private Map<Players, ClientHandler> clientHandlerMap;
+    private final Map<Players, ClientHandler> clientHandlerMap;
 
     public SendGoodByeMessage(Map<Players, ClientHandler> clientHandlerMap) {
 

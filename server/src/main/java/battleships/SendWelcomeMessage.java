@@ -10,7 +10,7 @@ import static battleships.Players.*;
 public class SendWelcomeMessage implements GameState {
 
 
-    private Map<Players, ClientHandler> clientHandlerMap;
+    private final Map<Players, ClientHandler> clientHandlerMap;
 
     public SendWelcomeMessage(Map<Players, ClientHandler> clientHandlerMap) {
         this.clientHandlerMap = clientHandlerMap;

@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Game {
     private GameState gameState;
-    private Map<Players, ClientHandler> clientHandlerMap;
+    private final Map<Players, ClientHandler> clientHandlerMap;
 
     public Game(Map<Players, ClientHandler> clientHandlerMap) {
         this.clientHandlerMap = clientHandlerMap;

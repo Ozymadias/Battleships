@@ -23,7 +23,6 @@ public class ClientHandlerTest {
     public void shouldPassWhenHandlerCorrectlySendsMessage() throws Exception {
         ClientHandler clientHandler = new ClientHandler(messageSenderMock, messageReceiverMock);
         clientHandler.sendMessage(new GoodByeMessage());
-        System.out.println(mockingDetails(messageSenderMock).getInvocations());
         assertThat(mockingDetails(messageSenderMock).getInvocations().size()).isEqualTo(1);
     }
 

@@ -29,7 +29,6 @@ public class OpponentBoardViewController {
             for (int col = 0; col < BOARD_COLUMN_COUNT; col++) {
                 BoardNode boardNode = this.opponentBoard.rectangleForPosition(row * BOARD_COLUMN_COUNT + col);
                 boardNode.getStackPane().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-                    System.out.println("item number" + boardNode.getPosition());
                     opponentBoard.shootAtField(boardNode.getPosition());
                     setUpBoardView();
                 });

@@ -40,9 +40,13 @@ class ShipsRandomize {
         Integer last = horizontalSequences.get(randomRow).lastEmptyStartingBy(first);
 
         //losowanie położenia w wierszu z przedziału
-        Integer randomPositionInRow = new Random().ints(first, last-length+1).findFirst().getAsInt();
+        Integer randomLastPositionInRow = new Random().ints(first, last-length+1).findFirst().getAsInt();
 
+        List<Integer> positions = IntStream.range(first, randomLastPositionInRow + 1).boxed().collect(Collectors.toList());
 
+        for(Integer mastPosition : positions){
+
+        }
 
 
     }

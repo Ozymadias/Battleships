@@ -3,7 +3,8 @@ package battleships.init.sequence;
 public enum  FieldState {
     EMPTY("e"),
     OCCUPIED("o"),
-    BUFFER("b");
+    BUFFER("b"),
+    BORDER("x");
 
     private String stateMark;
 

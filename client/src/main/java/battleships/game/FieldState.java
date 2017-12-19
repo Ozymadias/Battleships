@@ -1,8 +1,20 @@
 package battleships.game;
 
+import javafx.scene.paint.Color;
+
 enum FieldState {
-    EMPTY,
-    UNBROKEN_SHIP_PART,
-    BROKEN_SHIP_PART,
-    SUNK_SHIP_PART
+    EMPTY(Color.AQUA),
+    UNBROKEN_SHIP_PART(Color.GREEN),
+    BROKEN_SHIP_PART(Color.YELLOW),
+    SUNK_SHIP_PART(Color.RED);
+
+    public Color getColor() {
+        return color;
+    }
+
+    private final Color color;
+
+    FieldState(Color color) {
+        this.color = color;
+    }
 }

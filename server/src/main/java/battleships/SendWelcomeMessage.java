@@ -19,7 +19,8 @@ public class SendWelcomeMessage implements GameState {
     public GameState process() {
         clientHandlerMap.get(PLAYER1).sendMessage(new WelcomeMessage("Welcome in a new Battleships game"));
         clientHandlerMap.get(PLAYER2).sendMessage(new WelcomeMessage("Welcome in a new Battleships game"));
-        return new SendGoodByeMessage(clientHandlerMap);
+
+        return new WaitForFleets(clientHandlerMap);
     }
 
     public boolean isEndOfTheGame() {

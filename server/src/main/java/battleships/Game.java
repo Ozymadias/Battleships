@@ -16,6 +16,6 @@ public class Game {
         this.gameState = new SendWelcomeMessage(clientHandlerMap);
         do {
             gameState = gameState.process();
-        } while (gameState.isEndOfTheGame());
+        } while (!gameState.isEndOfTheGame());
     }
 }

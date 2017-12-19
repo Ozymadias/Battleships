@@ -21,11 +21,10 @@ public class RootLayoutController {
 
     @FXML
     private void initialize(){
-        waitForWelcomeMessage();
         addPlayerBoardView();
     }
 
-    private void waitForWelcomeMessage() {
+    public void waitForWelcomeMessage() {
         Messagable messagable;
         do {
             messagable = clientHandler.receiveMessage();

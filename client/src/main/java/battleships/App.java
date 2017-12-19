@@ -69,6 +69,7 @@ public class App extends Application{
             rootLayout = loader.load();
             final RootLayoutController controller = loader.getController();
             controller.setClientHandler(clientHandler);
+            controller.waitForWelcomeMessage();
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
         } catch (IOException e){
@@ -82,7 +83,7 @@ public class App extends Application{
         Socket socket = null;
         try {
             socket = new Socket(host,Integer.parseInt(port));
-            ClientHandler clientHandler = new ClientHandlerBuilder().setSocket(socket).addMessageReceiver().addMessageSender().build();
+            ClientHandler clientHandler = new ClientHandlerBuilder().setSocket(socket).addMessageSender().addMessageReceiver().build();
             initRootLayout(clientHandler);
         } catch (IOException e) {
             e.printStackTrace();

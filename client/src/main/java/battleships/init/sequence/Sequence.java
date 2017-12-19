@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//TODO: too many responsibilities? maybe additional class e.g. SequenceValidator
 public class Sequence {
 
     private final List<Field> fields;
@@ -38,19 +39,16 @@ public class Sequence {
     }
 
     public Integer firstEmptyFor(Integer shipLength){
+        //TODO: why not returning field position
         return statesMarksToString().indexOf(StringUtils.repeat("e", shipLength));
     }
 
     public Integer lastEmptyStartingBy(Integer position){
         Integer last = position;
 
-        try {
-            while (last < fields.size() - 1
-                    && fields.get(last).getState().equals(FieldState.EMPTY)) {
-                last++;
-            }
-        }catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("aaaaa!");
+        while (last < fields.size() - 1
+                && fields.get(last).getState().equals(FieldState.EMPTY)) {
+            last++;
         }
 
         return last;

@@ -27,7 +27,7 @@ public class Sequence {
                 .collect(Collectors.joining());
     }
 
-    String statesMarksToString(){
+    public String statesMarksToString(){
         return fields.stream()
                 .map(Field::stateMarkToString)
                 .collect(Collectors.joining());

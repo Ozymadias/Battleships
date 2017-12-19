@@ -14,7 +14,7 @@ public class ShipsRandomizeTest {
         ShipsRandomize shipsRandomize = ShipsRandomize.build();
         Sequence firstSequence = new LinkedList<>(shipsRandomize.horizontalSequences).getFirst();
         assertThat(firstSequence.toString())
-                .isEqualTo("[0 : EMPTY][1 : EMPTY][2 : EMPTY][3 : EMPTY][4 : EMPTY][5 : EMPTY][6 : EMPTY][7 : EMPTY][8 : EMPTY][9 : EMPTY]");
+                .isEqualTo("[0 : BORDER][1 : BORDER][2 : BORDER][3 : BORDER][4 : BORDER][5 : BORDER][6 : BORDER][7 : BORDER][8 : BORDER][9 : BORDER]");
     }
 
     @Test
@@ -22,7 +22,7 @@ public class ShipsRandomizeTest {
         ShipsRandomize shipsRandomize = ShipsRandomize.build();
         Sequence firstSequence = new LinkedList<>(shipsRandomize.horizontalSequences).getLast();
         assertThat(firstSequence.toString())
-                .isEqualTo("[90 : EMPTY][91 : EMPTY][92 : EMPTY][93 : EMPTY][94 : EMPTY][95 : EMPTY][96 : EMPTY][97 : EMPTY][98 : EMPTY][99 : EMPTY]");
+                .isEqualTo("[90 : BORDER][91 : BORDER][92 : BORDER][93 : BORDER][94 : BORDER][95 : BORDER][96 : BORDER][97 : BORDER][98 : BORDER][99 : BORDER]");
     }
 
 }

@@ -6,19 +6,10 @@ import java.util.stream.IntStream;
 
 class Board {
 
-    private static final int BOARD_FIELDS_COUNT = 100;
-
     private final List<Field> fields;
 
-    private Board(List<Field> fields) {
+    Board(List<Field> fields) {
         this.fields = fields;
-    }
-
-    static Board build(){
-        List<Field> fields = IntStream.range(0,BOARD_FIELDS_COUNT)
-                .mapToObj(Field::new)
-                .collect(Collectors.toList());
-        return new Board(fields);
     }
 
     List<Field> getFields(){
@@ -27,5 +18,16 @@ class Board {
 
     boolean isFieldEmpty(Integer position){
         return fields.get(position).getState() == FieldState.EMPTY;
+    }
+
+    String statesMarksToString(){
+        StringBuilder builder = new StringBuilder();
+        for(Field field : fields){
+            if(field.getPosition() % 10 == 0){
+                builder.append("\n");
+            }
+            builder.append(field.stateMarkToString());
+        }
+        return builder.toString();
     }
 }

@@ -15,12 +15,8 @@ public class SequencesGenerator {
     }
 
     public static SequencesGenerator build(){
-        Board board = Board.build();
-        //top border
-        board.getFields().stream()
-                .filter(field -> field.getPosition() >= 0 || field.getPosition() <= 9)
-                .forEach(field -> field.setState(FieldState.BORDER));
-        return new SequencesGenerator(Board.build());
+        Board board = BoardBuilder.withBorders().build();
+        return new SequencesGenerator(board);
     }
 
     private Sequence createBoardElementsSequence(Integer first, Integer incrementation){

@@ -5,6 +5,7 @@ class Field {
     private final Integer position;
     private FieldState state;
     private Boolean isShot;
+    //todo if field is border field shoul be addintional property
 
     Field(Integer position){
         this.position = position;

@@ -27,8 +27,12 @@ public class Ship {
         return (int) masts.stream().filter(Mast::isAlive).count();
     }
 
-    boolean isSunk() {
+    public boolean isSunk() {
         return getHitPointsLeft() == 0;
+    }
+
+    public void killMast(Integer position) {
+        masts.stream().filter((p) -> p.getPosition() == position).forEach(p-> p.kill());
     }
 
 }

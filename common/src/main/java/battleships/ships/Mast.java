@@ -16,6 +16,7 @@ public class Mast {
         return position;
     }
 
+
     void kill() {
         isAlive = false;
     }

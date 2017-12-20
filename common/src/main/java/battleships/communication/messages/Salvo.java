@@ -11,4 +11,7 @@ public class Salvo implements Messagable{
         this.salvoPositions = salvoPositions;
     }
 
+    public List<Integer> getSalvoPositions() {
+        return salvoPositions;
+    }
 }

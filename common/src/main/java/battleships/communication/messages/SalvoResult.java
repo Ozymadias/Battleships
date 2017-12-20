@@ -9,11 +9,11 @@ import java.util.Map;
 public class SalvoResult implements Messagable {
     Map<Integer,FieldState> positionAndState;
 
-    SalvoResult () {
+    public SalvoResult () {
         positionAndState = new HashMap<>();
     }
 
-    void setPositionAndState(Integer position, FieldState state) {
+    public void setPositionAndState(Integer position, FieldState state) {
         positionAndState.put(position,state);
     }
 

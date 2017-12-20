@@ -15,7 +15,7 @@ public class SendWelcomeMessage implements GameState {
 
     public GameState process() {
         handlerWrappers
-                .forEach(p -> p.getNotified(new WelcomeMessage("Im death destroyer of worlds")));
+                .forEach(p -> p.getNotified(new WelcomeMessage("Im death destroyer of worlds and you enter my domain")));
         return new WaitForFleets(handlerWrappers);
     }
 

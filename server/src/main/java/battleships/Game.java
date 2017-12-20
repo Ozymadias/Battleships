@@ -11,6 +11,7 @@ public class Game {
     }
 
     public void start() {
+
         GameState gameState = new SendWelcomeMessage(clientHandlers);
         do {
             gameState = gameState.process();

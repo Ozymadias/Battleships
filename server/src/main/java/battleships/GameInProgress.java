@@ -47,11 +47,7 @@ public class GameInProgress implements GameState {
     }
 
     private void sunkMeBaby(Fleet fleet1, List<Integer> resultList) {
-        for (Ship ship : fleet1.getShips()) {
-            for (Integer integer : resultList) {
-                ship.killMast(integer);
-            }
-        }
+        fleet1.getShips().forEach(ship -> resultList.forEach(ship::killMast));
     }
 
     @Override
@@ -61,7 +57,6 @@ public class GameInProgress implements GameState {
 
     private boolean areAllShipsSunk(List<Fleet> fleet) {
         return fleet.stream().noneMatch(this::allMyFriendsAreDead);
-
     }
 
     private boolean allMyFriendsAreDead(Fleet fleet) {

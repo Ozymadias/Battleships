@@ -12,7 +12,6 @@ public class HandlerWrapper implements BattleObserver {
 
     @Override
     public void getNotified(Messagable messagable) {
-        System.out.println("WLOLOLO NOTYFIKUJ MNIE JAK JEDNA ZE SWOICH FRANCUZKICH DZIEWCZYN");
         clientHandler.sendMessage(messagable);
     }
 

@@ -26,8 +26,6 @@ class ShipsRandomize {
         placeShipHorizontally(2);
         placeShipHorizontally(2);
         placeShipHorizontally(2);
-        placeShipHorizontally(2);
-        //todo sometimes there are problems with executing random placement of this
         placeShipHorizontally(1);
         placeShipHorizontally(1);
         placeShipHorizontally(1);

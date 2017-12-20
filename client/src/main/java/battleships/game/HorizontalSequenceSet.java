@@ -47,16 +47,16 @@ public class HorizontalSequenceSet implements SequencesSet {
     }
 
     private void setBufferAround(Integer sequenceIndex, LinkedList<Integer> fieldsIndexesInSequence) {
-        if(sequenceIndex > 1){
+        if(sequenceIndex > 0){
             horizontalSequences.get(sequenceIndex-1).setBuffered(fieldsIndexesInSequence);
         }
         if(sequenceIndex < 9){
             horizontalSequences.get(sequenceIndex+1).setBuffered(fieldsIndexesInSequence);
         }
-        if(!horizontalSequences.get(sequenceIndex).isOnBorder(fieldsIndexesInSequence.getFirst())){
+        if(!horizontalSequences.get(sequenceIndex).isOnLeftBorder(fieldsIndexesInSequence.getFirst())){
             horizontalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getFirst()-1);
         }
-        if(!horizontalSequences.get(sequenceIndex).isOnBorder(fieldsIndexesInSequence.getLast())){
+        if(!horizontalSequences.get(sequenceIndex).isOnRightBorder(fieldsIndexesInSequence.getLast())){
             horizontalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getLast()+1);
         }
     }

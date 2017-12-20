@@ -2,7 +2,6 @@ package battleships.game;
 
 import org.apache.commons.lang.StringUtils;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,21 +29,11 @@ public class SequenceForRandom {
     }
 
     public Boolean canContainShip(Integer shipLength){
-//        return statesMarksToString().contains(StringUtils.repeat("e", shipLength));
-        return statesMarksToString().matches(".+[xe]{"+shipLength+",}.+");
+        return statesMarksToString().contains(StringUtils.repeat("e", shipLength));
     }
 
     public Integer firstEmptyFor(Integer shipLength){
         int firstEmpty = statesMarksToString().indexOf(StringUtils.repeat("e", shipLength));
-        if(firstEmpty ==-1){
-            firstEmpty = statesMarksToString().indexOf(StringUtils.repeat("x", shipLength));
-        }
-        if(firstEmpty==-1){
-            firstEmpty = statesMarksToString().indexOf("x" + StringUtils.repeat("e", shipLength-1));
-        }
-        if(firstEmpty==-1){
-            firstEmpty = statesMarksToString().indexOf(StringUtils.repeat("e", shipLength-1)+"x");
-        }
         return firstEmpty;
     }
 
@@ -52,7 +41,7 @@ public class SequenceForRandom {
         Integer last = position;
 
         while (last < fields.size() - 1
-                && (fields.get(last).getState().equals(FieldState.EMPTY) || fields.get(last).getState().equals(FieldState.BORDER))){
+                && fields.get(last).getState().equals(FieldState.EMPTY)){
             last++;
         }
 
@@ -64,11 +53,11 @@ public class SequenceForRandom {
             fields.get(position).setState(FieldState.BUFFER);
         }
 
-        if(!isOnBorder(fieldsPositions.get(0))){
+        if(!(fieldsPositions.get(0)-1 < 0)){
             fields.get(fieldsPositions.get(0)-1).setState(FieldState.BUFFER);
         }
 
-        if(!isOnBorder(fieldsPositions.get(fieldsPositions.size()-1))){
+        if(!(fieldsPositions.get(fieldsPositions.size()-1) > 99)){
             fields.get(fieldsPositions.get(fieldsPositions.size()-1)+1).setState(FieldState.BUFFER);
         }
     }
@@ -78,7 +67,7 @@ public class SequenceForRandom {
     }
 
     public boolean isOnBorder(Integer fieldPosition){
-        return fields.get(fieldPosition).getState().equals(FieldState.BORDER);
+        return fields.get(fieldPosition).isBorder();
     }
 
     public boolean isOnBuffer(Integer fieldPosition){
@@ -89,5 +78,13 @@ public class SequenceForRandom {
         for(Integer position : fieldsPositions){
             fields.get(position).setState(FieldState.UNBROKEN_SHIP_PART);
         }
+    }
+
+    public boolean isOnLeftBorder(Integer fieldPosition) {
+        return fields.get(fieldPosition).isOnLeftBorder();
+    }
+
+    public boolean isOnRightBorder(Integer fieldPosition) {
+        return fields.get(fieldPosition).isOnRightBorder();
     }
 }

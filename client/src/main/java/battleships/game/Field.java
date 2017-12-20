@@ -5,12 +5,13 @@ class Field {
     private final Integer position;
     private FieldState state;
     private Boolean isShot;
-    //todo if field is border field shoul be addintional property
+    private BorderType borderType;
 
     Field(Integer position){
         this.position = position;
         this.state = FieldState.EMPTY;
         this.isShot = false;
+        this.borderType = BorderType.NONE;
     }
 
     final Integer getPosition() {
@@ -31,7 +32,15 @@ class Field {
         isShot = true;
     }
 
-    void setBorder() {this.state = FieldState.BORDER; }
+    void setTopBorder() { this.borderType = BorderType.TOP; }
+
+    void setBottomBorder() { this.borderType = BorderType.BOTTOM; }
+
+    void setLeftBorder() { this.borderType = BorderType.LEFT; }
+
+    void setRightBorder() { this.borderType = BorderType.RIGHT; }
+
+    boolean isBorder() { return borderType == BorderType.NONE; }
 
     void setState(FieldState elementState){
         this.state = elementState;
@@ -51,4 +60,11 @@ class Field {
 
     public String stateMarkToString() { return state.getStateMark(); }
 
+    public boolean isOnLeftBorder() {
+        return borderType == BorderType.LEFT;
+    }
+
+    public boolean isOnRightBorder() {
+        return borderType == BorderType.RIGHT;
+    }
 }

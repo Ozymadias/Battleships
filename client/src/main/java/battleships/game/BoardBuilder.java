@@ -28,15 +28,18 @@ public class BoardBuilder {
         //top border
         fields.stream()
                 .filter(field -> field.getPosition() >= 0 && field.getPosition() <= 9)
-                .forEach(field -> field.setBorder());
+                .forEach(field -> field.setTopBorder());
         //bottom border
         fields.stream()
                 .filter(field -> field.getPosition() >= 90 && field.getPosition() <= 99)
-                .forEach(field -> field.setBorder());
+                .forEach(field -> field.setBottomBorder());
         //left & right border
         fields.stream()
-                .filter(field -> isOnLeftBorder(field.getPosition()) || isOnRightBorder(field.getPosition()))
-                .forEach(field -> field.setBorder());
+                .filter(field -> isOnLeftBorder(field.getPosition()))
+                .forEach(field -> field.setLeftBorder());
+        fields.stream()
+                .filter(field -> isOnRightBorder(field.getPosition()))
+                .forEach(field -> field.setRightBorder());
         return new BoardBuilder(fields);
     }
 

@@ -21,7 +21,7 @@ public class HorizontalSequenceSetTest {
         //when
         horizontalSequenceSet.putShipIntoSequence(3, 3, 4);
         //then
-        assertThat(horizontalSequenceSet.get(3).statesMarksToString()).isEqualTo("xeboooobex");
+        assertThat(horizontalSequenceSet.get(3).statesMarksToString()).isEqualTo("eeboooobee");
     }
 
     @Test

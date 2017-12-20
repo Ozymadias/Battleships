@@ -1,9 +1,11 @@
 package battleships;
 
+import battleships.logger.BattleshipLog;
+
 import java.util.List;
 
 public class Game {
-
+    private final BattleshipLog log = BattleshipLog.provideLogger(Game.class);
     private List<HandlerWrapper> clientHandlers;
 
     Game(List<HandlerWrapper> clientHandlers) {
@@ -11,7 +13,7 @@ public class Game {
     }
 
     public void start() {
-
+        log.info("Game started");
         GameState gameState = new SendWelcomeMessage(clientHandlers);
         do {
             gameState = gameState.process();

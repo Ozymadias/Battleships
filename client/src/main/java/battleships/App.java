@@ -6,6 +6,8 @@ import battleships.controller.communication.ServerLoginManager;
 import battleships.logging.ConfigurationValue;
 import battleships.logging.ConfigurationValueName;
 import battleships.logging.LoggingController;
+import battleships.ships.Fleet;
+import battleships.ships.Ship;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,11 +17,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
-import static battleships.logging.ConfigurationValueName.*;
+import static battleships.logging.ConfigurationValueName.IP;
+import static battleships.logging.ConfigurationValueName.PORT;
 
-public class App extends Application{
+public class App extends Application {
     private static final String APP_NAME = "BATTLESHIPS!";
     private static final String LOGIN_FXML = "/fxml/login.fxml";
     private static final String ROOT_LAYOUT_FXML = "/fxml/RootLayout.fxml";
@@ -44,7 +49,7 @@ public class App extends Application{
      * binds it with stage
      * and shows form
      */
-    public void showLoginWindow(){
+    public void showLoginWindow() {
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(LOGIN_FXML));
@@ -62,29 +67,29 @@ public class App extends Application{
      * loads game form from fxml file
      * binds it with stage
      * and shows form
+     *
      * @param clientHandler
      */
-    public void initRootLayout(ClientHandler clientHandler){
+    public void initRootLayout(ClientHandler clientHandler) {
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
             rootLayout = loader.load();
             final RootLayoutController controller = loader.getController();
-            controller.setClientHandler(clientHandler);
-            controller.waitForWelcomeMessage();
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
-        } catch (IOException e){
+            clientHandler.sendMessage(new Fleet(Arrays.asList(Ship.createShip(1, 2, 3, 4))));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void loggingSuccessful(Map<ConfigurationValueName, ConfigurationValue> loggingDataMap){
+    public void loggingSuccessful(Map<ConfigurationValueName, ConfigurationValue> loggingDataMap) {
         String host = loggingDataMap.get(IP).stringValue();
         String port = loggingDataMap.get(PORT).stringValue();
         Socket socket = null;
         try {
-            socket = new Socket(host,Integer.parseInt(port));
+            socket = new Socket(host, Integer.parseInt(port));
             ClientHandler clientHandler = new ClientHandlerBuilder().setSocket(socket).addMessageSender().addMessageReceiver().build();
             initRootLayout(clientHandler);
         } catch (IOException e) {

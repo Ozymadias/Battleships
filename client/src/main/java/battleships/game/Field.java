@@ -44,4 +44,5 @@ class Field {
         return (this.state == FieldState.UNBROKEN_SHIP_PART
                 || this.state == FieldState.BROKEN_SHIP_PART);
     }
+
 }

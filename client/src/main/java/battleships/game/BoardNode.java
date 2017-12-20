@@ -9,7 +9,6 @@ class BoardNode extends StackPane {
 
     private static final int RECTANGLE_SIZE = 30;
     private static final String MARK_FOR_SHOT = "x";
-
     private final Integer index;
     private final StackPane stackPane;
 

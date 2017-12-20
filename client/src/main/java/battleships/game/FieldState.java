@@ -12,7 +12,6 @@ enum FieldState {
     public Color getColor() {
         return color;
     }
-
     public String getStateMark() {
         return stateMark;
     }

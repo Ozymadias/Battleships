@@ -21,7 +21,6 @@ public class App {
                 .openServerSocket()
                 .build();
 
-
         new Game(new ClientCreator()
                 .createClientHandlers(server.createSockets()))
                 .start();

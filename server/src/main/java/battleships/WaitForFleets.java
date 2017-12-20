@@ -1,7 +1,5 @@
 package battleships;
 
-import battleships.communication.Messagable;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -35,7 +35,7 @@ echo "**********************************"
 echo "***********************"
 echo "Running mvn sonar:sonar"
 echo "***********************"
-mvn sonar:sonar >>$LOG_FILE
+mvn org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar >>$LOG_FILE
 firefox target/client/target/client/checkstyle.html
 firefox target/server/target/server/checkstyle.html
 firefox target/common/target/common/checkstyle.html

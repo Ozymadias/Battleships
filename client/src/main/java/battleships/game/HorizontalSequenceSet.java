@@ -42,40 +42,15 @@ public class HorizontalSequenceSet implements SequencesSet {
     @Override
     public void putShipIntoSequence(Integer sequenceIndex, Integer firstPositionOfShip, Integer shipLength) {
         List<Integer> fieldsIndexesInSequence = IntStream.range(firstPositionOfShip, firstPositionOfShip+shipLength).boxed().collect(Collectors.toList());
-        //sprawdzić naroża
-        LinkedList<Integer> fieldsIndexesInSequence2 = new LinkedList<>(fieldsIndexesInSequence);
-//        if(cornerChecks(sequenceIndex, fieldsIndexesInSequence2)) {
-            setBufferAround(sequenceIndex, new LinkedList<>(fieldsIndexesInSequence));
-            horizontalSequences.get(sequenceIndex).setShip(fieldsIndexesInSequence);
-//        }
-    }
-
-    private boolean cornerChecks(Integer sequenceIndex, LinkedList<Integer> fieldsIndexesInSequence2) {
-        Integer first = fieldsIndexesInSequence2.getFirst();
-        Integer last = fieldsIndexesInSequence2.getLast();
-        if(!horizontalSequences.get(sequenceIndex).isOnBorder(first)
-                && !horizontalSequences.get(sequenceIndex).isOnBorder(last)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    private boolean cornersBefore(Integer sequenceIndex, Integer firstPosition){
-        return (horizontalSequences.get(sequenceIndex-1).isOnBuffer(firstPosition-1)
-                || horizontalSequences.get(sequenceIndex+1).isOnBuffer(firstPosition-1));
-    }
-
-    private boolean cornersAfter(Integer sequenceIndex, Integer firstPosition){
-        return (horizontalSequences.get(sequenceIndex-1).isOnBuffer(firstPosition+1)
-                || horizontalSequences.get(sequenceIndex+1).isOnBuffer(firstPosition+1));
+        setBufferAround(sequenceIndex, new LinkedList<>(fieldsIndexesInSequence));
+        horizontalSequences.get(sequenceIndex).setShip(fieldsIndexesInSequence);
     }
 
     private void setBufferAround(Integer sequenceIndex, LinkedList<Integer> fieldsIndexesInSequence) {
-        if(sequenceIndex > 0){
+        if(sequenceIndex > 1){
             horizontalSequences.get(sequenceIndex-1).setBuffered(fieldsIndexesInSequence);
         }
-        if(sequenceIndex < 10){
+        if(sequenceIndex < 9){
             horizontalSequences.get(sequenceIndex+1).setBuffered(fieldsIndexesInSequence);
         }
         if(!horizontalSequences.get(sequenceIndex).isOnBorder(fieldsIndexesInSequence.getFirst())){

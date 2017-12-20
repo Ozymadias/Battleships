@@ -28,16 +28,17 @@ class ShipsRandomize {
         placeShipHorizontally(2);
         placeShipHorizontally(2);
         //todo sometimes there are problems with executing random placement of this
-//        placeShipHorizontally(1);
-//        placeShipHorizontally(1);
-//        placeShipHorizontally(1);
-//        placeShipHorizontally(1);
+        placeShipHorizontally(1);
+        placeShipHorizontally(1);
+        placeShipHorizontally(1);
+        placeShipHorizontally(1);
     }
 
     private void placeShipHorizontally(int length){
         Integer randomRow = 0;
         do{
             randomRow = new Random().nextInt(SEQUENCE_COUNT);
+            System.out.println(randomRow + "");
         }while(!horizontalSequences.get(randomRow).canContainShip(length)); //sprawdzenie czy w danym wierszu są wogóle wolne miejsca
 
         horizontalSequences.randomlyPlaceShip(randomRow, length);

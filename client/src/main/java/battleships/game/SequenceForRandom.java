@@ -23,12 +23,6 @@ public class SequenceForRandom {
 
     }
 
-    String positionsToString(){
-        return fields.stream()
-                .map(Field::positionToString)
-                .collect(Collectors.joining());
-    }
-
     public String statesMarksToString(){
         return fields.stream()
                 .map(Field::stateMarkToString)
@@ -36,18 +30,29 @@ public class SequenceForRandom {
     }
 
     public Boolean canContainShip(Integer shipLength){
-        return statesMarksToString().contains(StringUtils.repeat("e", shipLength));
+//        return statesMarksToString().contains(StringUtils.repeat("e", shipLength));
+        return statesMarksToString().matches(".+[xe]{"+shipLength+",}.+");
     }
 
     public Integer firstEmptyFor(Integer shipLength){
-        return statesMarksToString().indexOf(StringUtils.repeat("e", shipLength));
+        int firstEmpty = statesMarksToString().indexOf(StringUtils.repeat("e", shipLength));
+        if(firstEmpty ==-1){
+            firstEmpty = statesMarksToString().indexOf(StringUtils.repeat("x", shipLength));
+        }
+        if(firstEmpty==-1){
+            firstEmpty = statesMarksToString().indexOf("x" + StringUtils.repeat("e", shipLength-1));
+        }
+        if(firstEmpty==-1){
+            firstEmpty = statesMarksToString().indexOf(StringUtils.repeat("e", shipLength-1)+"x");
+        }
+        return firstEmpty;
     }
 
     public Integer lastEmptyStartingBy(Integer position){
         Integer last = position;
 
         while (last < fields.size() - 1
-                && fields.get(last).getState().equals(FieldState.EMPTY)) {
+                && (fields.get(last).getState().equals(FieldState.EMPTY) || fields.get(last).getState().equals(FieldState.BORDER))){
             last++;
         }
 

@@ -1,4 +1,4 @@
-package battleships.init.sequence;
+package battleships.game;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class HorizontalSequenceSet implements SequencesSet {
         this.horizontalSequences = horizontalSequences;
     }
 
-    public static HorizontalSequenceSet build(BoardForRandom board) {
+    public static HorizontalSequenceSet build(Board board) {
         List<SequenceForRandom> sequenceList = IntStream.iterate(0, i -> i+10)
                 .limit(SEQUENCE_COUNT)
                 .mapToObj(i-> createSingleSequence(i, board))
@@ -23,12 +23,12 @@ public class HorizontalSequenceSet implements SequencesSet {
         return new HorizontalSequenceSet(sequenceList);
     }
 
-    private static SequenceForRandom createSingleSequence(Integer first, BoardForRandom board){
+    private static SequenceForRandom createSingleSequence(Integer first, Board board){
         List<Integer> numbersInSequence = IntStream.iterate(first, i->i+INCREMENTATION)
                 .limit(SEQUENCE_LENGTH)
                 .boxed()
                 .collect(Collectors.toList());
-        List<FieldForRandom> fields = board.getFields().stream()
+        List<Field> fields = board.getFields().stream()
                 .filter(p -> numbersInSequence.contains(p.getPosition()))
                 .collect(Collectors.toList());
         return new SequenceForRandom(fields);
@@ -41,10 +41,34 @@ public class HorizontalSequenceSet implements SequencesSet {
 
     @Override
     public void putShipIntoSequence(Integer sequenceIndex, Integer firstPositionOfShip, Integer shipLength) {
-        assert(firstPositionOfShip+shipLength < 10);
         List<Integer> fieldsIndexesInSequence = IntStream.range(firstPositionOfShip, firstPositionOfShip+shipLength).boxed().collect(Collectors.toList());
-        setBufferAround(sequenceIndex, new LinkedList<>(fieldsIndexesInSequence));
-        horizontalSequences.get(sequenceIndex).setOccupied(fieldsIndexesInSequence);
+        //sprawdzić naroża
+        LinkedList<Integer> fieldsIndexesInSequence2 = new LinkedList<>(fieldsIndexesInSequence);
+//        if(cornerChecks(sequenceIndex, fieldsIndexesInSequence2)) {
+            setBufferAround(sequenceIndex, new LinkedList<>(fieldsIndexesInSequence));
+            horizontalSequences.get(sequenceIndex).setShip(fieldsIndexesInSequence);
+//        }
+    }
+
+    private boolean cornerChecks(Integer sequenceIndex, LinkedList<Integer> fieldsIndexesInSequence2) {
+        Integer first = fieldsIndexesInSequence2.getFirst();
+        Integer last = fieldsIndexesInSequence2.getLast();
+        if(!horizontalSequences.get(sequenceIndex).isOnBorder(first)
+                && !horizontalSequences.get(sequenceIndex).isOnBorder(last)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean cornersBefore(Integer sequenceIndex, Integer firstPosition){
+        return (horizontalSequences.get(sequenceIndex-1).isOnBuffer(firstPosition-1)
+                || horizontalSequences.get(sequenceIndex+1).isOnBuffer(firstPosition-1));
+    }
+
+    private boolean cornersAfter(Integer sequenceIndex, Integer firstPosition){
+        return (horizontalSequences.get(sequenceIndex-1).isOnBuffer(firstPosition+1)
+                || horizontalSequences.get(sequenceIndex+1).isOnBuffer(firstPosition+1));
     }
 
     private void setBufferAround(Integer sequenceIndex, LinkedList<Integer> fieldsIndexesInSequence) {

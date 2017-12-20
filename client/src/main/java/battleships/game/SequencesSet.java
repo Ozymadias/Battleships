@@ -1,4 +1,6 @@
-package battleships.init.sequence;
+package battleships.game;
+
+import battleships.game.SequenceForRandom;
 
 import java.util.Random;
 
@@ -13,9 +15,7 @@ public interface SequencesSet {
         Integer firstEmptyPosition = this.get(sequenceIndex).firstEmptyFor(shipLength);
         Integer lastEmptyPosition = this.get(sequenceIndex).lastEmptyStartingBy(firstEmptyPosition);
         Integer firstPositionRandomized = new Random().ints(firstEmptyPosition, lastEmptyPosition-shipLength+1).findFirst().getAsInt();
-        assert(firstEmptyPosition < 10);
-        assert(lastEmptyPosition < 10);
-        assert(firstPositionRandomized < 10);
+
         putShipIntoSequence(sequenceIndex, firstPositionRandomized, shipLength);
     }
 

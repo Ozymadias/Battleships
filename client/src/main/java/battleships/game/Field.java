@@ -26,4 +26,28 @@ class Field {
         this.state = FieldState.UNBROKEN_SHIP_PART;
     }
 
+    void shoot(){
+        isShot = true;
+    }
+
+    void setBorder() {this.state = FieldState.BORDER; }
+
+    void setState(FieldState elementState){
+        this.state = elementState;
+    }
+
+    boolean isOccupied(){ return this.state.equals(FieldState.SUNK_SHIP_PART)
+            || this.state.equals(FieldState.UNBROKEN_SHIP_PART)
+            || this.state.equals(FieldState.BROKEN_SHIP_PART); }
+
+    boolean isEmpty(){ return this.state.equals(FieldState.EMPTY); }
+
+    public String toString(){
+        return "[" + position + " : " + state + "]";
+    }
+
+    public String positionToString() { return "[" + position + "]"; }
+
+    public String stateMarkToString() { return state.getStateMark(); }
+
 }

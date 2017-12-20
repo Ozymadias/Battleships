@@ -1,4 +1,4 @@
-package battleships.init.sequence;
+package battleships.game;
 
 import org.testng.annotations.Test;
 
@@ -18,9 +18,9 @@ public class SequenceTest {
 
     @Test
     public void givenSequenceOfEmptyFields_whenCheckingIfCanContainShipOf4Masts_expectedIsTrue(){
-        List<FieldForRandom> fields = IntStream.iterate(0, i->i+1)
+        List<Field> fields = IntStream.iterate(0, i->i+1)
                                         .limit(10)
-                                        .mapToObj(p -> new FieldForRandom(p))
+                                        .mapToObj(p -> new Field(p))
                                         .collect(Collectors.toList());
         SequenceForRandom sequence = new SequenceForRandom(fields);
         assertThat(sequence.canContainShip(4)).isTrue();

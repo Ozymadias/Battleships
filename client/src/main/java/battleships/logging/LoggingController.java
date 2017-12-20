@@ -55,11 +55,13 @@ public class LoggingController {
 
     @FXML
     void OnActionLoginButton(ActionEvent event) {
-        if(new Validator().validate(configFieldsValues())){
-            mainApp.loggingSuccessful();
-        }else{
-            invalidLoggingDataAlert();
-        }
+//        if(new Validator().validate(configFieldsValues())){
+//            mainApp.loggingSuccessful();
+//        }else{
+//            invalidLoggingDataAlert();
+//        }
+
+        mainApp.loggingSuccessful();
     }
 
     private Map<ConfigurationValueName, ConfigurationValue> configFieldsValues() {

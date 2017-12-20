@@ -22,18 +22,20 @@ public class PlayerBoardViewController {
 
     @FXML
     private void initialize(){
-        board = Board.build();
-        board.generateExample();
+        board = BoardBuilder.withBorders().build();
+        ShipsRandomize shipsRandomize = ShipsRandomize.build(board);
+        shipsRandomize.placeAllFloat();
+        board = shipsRandomize.board;
         setUpPlayerBoardDocked();
     }
 
     private void setUpPlayerBoardDocked(){
         for(int row = 0; row < BOARD_ROW_COUNT; row++){
             for(int col = 0; col < BOARD_COLUMN_COUNT; col++){
-                StackPane stackPane = this.board.rectangleForPosition(row*BOARD_COLUMN_COUNT + col);
-                GridPane.setRowIndex(stackPane, row);
-                GridPane.setColumnIndex(stackPane, col);
-                dockedGridPane.getChildren().addAll(stackPane);
+                BoardNode boardNode = this.board.rectangleForPosition(row*BOARD_COLUMN_COUNT + col);
+                GridPane.setRowIndex(boardNode.getStackPane(), row);
+                GridPane.setColumnIndex(boardNode.getStackPane(), col);
+                dockedGridPane.getChildren().addAll(boardNode.getStackPane());
             }
         }
     }

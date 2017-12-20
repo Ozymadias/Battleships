@@ -1,4 +1,4 @@
-package battleships.init.sequence;
+package battleships.game;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -12,7 +12,7 @@ public class BoardBuilderTest {
     @Test
     public void whenBuildingBoardWithCleanFields_listOfFieldsShouldHave100Elements(){
         //given
-        BoardForRandom sequencesGenerator = BoardBuilderForRandom.withCleanFields().build();
+        Board sequencesGenerator = BoardBuilder.withCleanFields().build();
         //when - then
         assertThat(sequencesGenerator.getFields().size()).isEqualTo(100);
     }
@@ -25,15 +25,15 @@ public class BoardBuilderTest {
     @Test(dataProvider = "randomPollOfTenFieldsPositions")
     public void whenBuildingBoardWithCleanFields_eachFieldShouldBeEmpty(Integer fieldPosition){
         //given
-        BoardForRandom board = BoardBuilderForRandom.withCleanFields().build();
+        Board board = BoardBuilder.withCleanFields().build();
         //when - then
-        assertThat(board.isFieldEmpty(fieldPosition)).isEqualTo(true);
+        assertThat(board.fields.get(fieldPosition).isEmpty()).isTrue();
     }
 
     @Test
     public void whenBuildingBoardWithCleanFields_printofBoard(){
         //given
-        BoardForRandom sequencesGenerator = BoardBuilderForRandom.withCleanFields().build();
+        Board sequencesGenerator = BoardBuilder.withCleanFields().build();
         //when - then
         System.out.println(sequencesGenerator.statesMarksToString());
     }
@@ -41,7 +41,7 @@ public class BoardBuilderTest {
     @Test
     public void whenBuildingBoardWithBorders_printofBoard(){
         //given
-        BoardForRandom sequencesGenerator = BoardBuilderForRandom.withBorders().build();
+        Board sequencesGenerator = BoardBuilder.withBorders().build();
         //when - then
         System.out.println(sequencesGenerator.statesMarksToString());
     }

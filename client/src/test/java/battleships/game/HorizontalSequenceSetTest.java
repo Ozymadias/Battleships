@@ -1,4 +1,4 @@
-package battleships.init.sequence;
+package battleships.game;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,7 +12,7 @@ public class HorizontalSequenceSetTest {
     @BeforeMethod
     public void beforeMethod(){
         //given
-        BoardForRandom board = BoardBuilderForRandom.withBorders().build();
+        Board board = BoardBuilder.withBorders().build();
         horizontalSequenceSet = HorizontalSequenceSet.build(board);
     }
 

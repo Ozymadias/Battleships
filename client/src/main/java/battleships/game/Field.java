@@ -26,4 +26,8 @@ class Field {
         this.state = FieldState.UNBROKEN_SHIP_PART;
     }
 
+    void shoot(){
+        isShot = true;
+    }
+
 }

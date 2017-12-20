@@ -1,5 +1,7 @@
 package battleships.communication;
 
+import battleships.utils.BattleshipUtils;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -9,7 +11,6 @@ import java.util.List;
 public class Server {
 
     private final ServerSocket serverSocket;
-
 
     Server(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;

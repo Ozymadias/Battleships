@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Map;
 
+import static battleships.logging.ConfigurationValueName.*;
+
 public class App extends Application{
     private static final String APP_NAME = "BATTLESHIPS!";
     private static final String LOGIN_FXML = "/fxml/login.fxml";
@@ -78,8 +80,8 @@ public class App extends Application{
     }
 
     public void loggingSuccessful(Map<ConfigurationValueName, ConfigurationValue> loggingDataMap){
-        String host = loggingDataMap.get(ConfigurationValueName.IP).stringValue();
-        String port = loggingDataMap.get(ConfigurationValueName.PORT).stringValue();
+        String host = loggingDataMap.get(IP).stringValue();
+        String port = loggingDataMap.get(PORT).stringValue();
         Socket socket = null;
         try {
             socket = new Socket(host,Integer.parseInt(port));

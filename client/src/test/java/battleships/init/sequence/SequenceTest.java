@@ -18,11 +18,11 @@ public class SequenceTest {
 
     @Test
     public void givenSequenceOfEmptyFields_whenCheckingIfCanContainShipOf4Masts_expectedIsTrue(){
-        List<Field> fields = IntStream.iterate(0, i->i+1)
+        List<FieldForRandom> fields = IntStream.iterate(0, i->i+1)
                                         .limit(10)
-                                        .mapToObj(p -> new Field(p))
+                                        .mapToObj(p -> new FieldForRandom(p))
                                         .collect(Collectors.toList());
-        Sequence sequence = new Sequence(fields);
+        SequenceForRandom sequence = new SequenceForRandom(fields);
         assertThat(sequence.canContainShip(4)).isTrue();
     }
 

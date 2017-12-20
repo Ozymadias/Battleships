@@ -1,6 +1,6 @@
 package battleships.init.sequence;
 
-public enum  FieldState {
+public enum FieldStateForRandom {
     EMPTY("e"),
     OCCUPIED("o"),
     BUFFER("b"),
@@ -8,7 +8,7 @@ public enum  FieldState {
 
     private String stateMark;
 
-    FieldState(String stateMark) {
+    FieldStateForRandom(String stateMark) {
         this.stateMark = stateMark;
     }
 

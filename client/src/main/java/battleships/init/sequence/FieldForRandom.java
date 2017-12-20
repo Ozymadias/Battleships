@@ -1,28 +1,28 @@
 package battleships.init.sequence;
 
-class Field {
+class FieldForRandom {
 
     private final Integer position;
-    private FieldState state;
+    private FieldStateForRandom state;
 
-    Field(Integer position) {
+    FieldForRandom(Integer position) {
         this.position = position;
-        this.state = FieldState.EMPTY;
+        this.state = FieldStateForRandom.EMPTY;
     }
 
     final Integer getPosition(){
         return position;
     }
 
-    final FieldState getState(){
+    final FieldStateForRandom getState(){
         return this.state;
     }
 
-    void setState(FieldState elementState){
+    void setState(FieldStateForRandom elementState){
         this.state = elementState;
     }
 
-    boolean isOccupied(){ return this.state.equals(FieldState.OCCUPIED); }
+    boolean isOccupied(){ return this.state.equals(FieldStateForRandom.OCCUPIED); }
 
     public String toString(){
        return "[" + position + " : " + state + "]";

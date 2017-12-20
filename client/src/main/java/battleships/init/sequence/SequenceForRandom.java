@@ -6,31 +6,31 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //TODO: too many responsibilities? maybe additional class e.g. SequenceValidator
-public class Sequence {
+public class SequenceForRandom {
 
-    private final List<Field> fields;
+    private final List<FieldForRandom> fields;
 
-    Sequence(List<Field> fields) {
+    SequenceForRandom(List<FieldForRandom> fields) {
         this.fields = fields;
     }
 
     @Override
     public String toString() {
         return fields.stream()
-                .map(Field::toString)
+                .map(FieldForRandom::toString)
                 .collect(Collectors.joining());
 
     }
 
     String positionsToString(){
         return fields.stream()
-                .map(Field::positionToString)
+                .map(FieldForRandom::positionToString)
                 .collect(Collectors.joining());
     }
 
     public String statesMarksToString(){
         return fields.stream()
-                .map(Field::stateMarkToString)
+                .map(FieldForRandom::stateMarkToString)
                 .collect(Collectors.joining());
     }
 
@@ -47,7 +47,7 @@ public class Sequence {
         Integer last = position;
 
         while (last < fields.size() - 1
-                && fields.get(last).getState().equals(FieldState.EMPTY)) {
+                && fields.get(last).getState().equals(FieldStateForRandom.EMPTY)) {
             last++;
         }
 
@@ -56,21 +56,21 @@ public class Sequence {
 
     public void setBuffered(List<Integer> fieldsPositions){
         for(Integer position : fieldsPositions){
-            fields.get(position).setState(FieldState.BUFFER);
+            fields.get(position).setState(FieldStateForRandom.BUFFER);
         }
     }
 
     public void setBuffered(Integer fieldPosition){
-        fields.get(fieldPosition).setState(FieldState.BUFFER);
+        fields.get(fieldPosition).setState(FieldStateForRandom.BUFFER);
     }
 
     public boolean isOnBorder(Integer fieldPosition){
-        return fields.get(fieldPosition).getState().equals(FieldState.BORDER);
+        return fields.get(fieldPosition).getState().equals(FieldStateForRandom.BORDER);
     }
 
     public void setOccupied(List<Integer> fieldsPositions){
         for(Integer position : fieldsPositions){
-            fields.get(position).setState(FieldState.OCCUPIED);
+            fields.get(position).setState(FieldStateForRandom.OCCUPIED);
         }
     }
 }

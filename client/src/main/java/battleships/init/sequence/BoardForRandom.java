@@ -1,28 +1,26 @@
 package battleships.init.sequence;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-class Board {
+public class BoardForRandom {
 
-    private final List<Field> fields;
+    private final List<FieldForRandom> fields;
 
-    Board(List<Field> fields) {
+    BoardForRandom(List<FieldForRandom> fields) {
         this.fields = fields;
     }
 
-    List<Field> getFields(){
+    List<FieldForRandom> getFields(){
         return this.fields;
     }
 
     boolean isFieldEmpty(Integer position){
-        return fields.get(position).getState() == FieldState.EMPTY;
+        return fields.get(position).getState() == FieldStateForRandom.EMPTY;
     }
 
     String statesMarksToString(){
         StringBuilder builder = new StringBuilder();
-        for(Field field : fields){
+        for(FieldForRandom field : fields){
             if(field.getPosition() % 10 == 0){
                 builder.append("\n");
             }

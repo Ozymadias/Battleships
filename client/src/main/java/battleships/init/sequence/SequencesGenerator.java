@@ -8,33 +8,33 @@ public class SequencesGenerator {
 
     private static final int SEQUENCE_LENGTH = 10;
 
-    private final Board board;
+    private final BoardForRandom board;
 
-    SequencesGenerator(Board board) {
+    SequencesGenerator(BoardForRandom board) {
         this.board = board;
     }
 
     public static SequencesGenerator build(){
-        Board board = BoardBuilder.withBorders().build();
+        BoardForRandom board = BoardBuilderForRandom.withBorders().build();
         return new SequencesGenerator(board);
     }
 
-    private Sequence createBoardElementsSequence(Integer first, Integer incrementation){
+    private SequenceForRandom createBoardElementsSequence(Integer first, Integer incrementation){
         List<Integer> numbersInSequence = IntStream.iterate(first, i->i+incrementation)
                 .limit(SEQUENCE_LENGTH)
                 .boxed()
                 .collect(Collectors.toList());
-        List<Field> fields = board.getFields().stream()
+        List<FieldForRandom> fields = board.getFields().stream()
                 .filter(p -> numbersInSequence.contains(p.getPosition()))
                 .collect(Collectors.toList());
-        return new Sequence(fields);
+        return new SequenceForRandom(fields);
     }
 
-    public Sequence createHorizontalSequence(Integer first){
+    public SequenceForRandom createHorizontalSequence(Integer first){
         return createBoardElementsSequence(first, 1);
     }
 
-    public Sequence createVerticalSequence(Integer first){
+    public SequenceForRandom createVerticalSequence(Integer first){
         return createBoardElementsSequence(first, 10);
     }
 

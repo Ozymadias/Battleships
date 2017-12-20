@@ -19,8 +19,8 @@ public class SequencesGeneratorTest {
     @Test(dataProvider = "horizontalSequencePoll")
     public void givenFirstIndex_whenCreatingHorizontalSequence_thenListOfPositionsShouldBeAsExpected(Integer firstIndex, String expectedList){
         //given
-        SequencesGenerator sequencesGenerator = new SequencesGenerator(BoardBuilder.withCleanFields().build());
-        Sequence sequence = sequencesGenerator.createHorizontalSequence(firstIndex);
+        SequencesGenerator sequencesGenerator = new SequencesGenerator(BoardBuilderForRandom.withCleanFields().build());
+        SequenceForRandom sequence = sequencesGenerator.createHorizontalSequence(firstIndex);
         //when - then
         assertThat(sequence.positionsToString()).isEqualTo(expectedList);
     }
@@ -37,8 +37,8 @@ public class SequencesGeneratorTest {
     @Test(dataProvider = "verticalSequencePoll")
     public void givenFirstIndex_whenCreatingVerticalSequence_thenListOfPositionsShouldBeAsExpected(Integer firstIndex, String expectedList){
         //given
-        SequencesGenerator sequencesGenerator = new SequencesGenerator(BoardBuilder.withCleanFields().build());
-        Sequence sequence = sequencesGenerator.createVerticalSequence(firstIndex);
+        SequencesGenerator sequencesGenerator = new SequencesGenerator(BoardBuilderForRandom.withCleanFields().build());
+        SequenceForRandom sequence = sequencesGenerator.createVerticalSequence(firstIndex);
         //when - then
         assertThat(sequence.positionsToString()).isEqualTo(expectedList);
     }
@@ -46,8 +46,8 @@ public class SequencesGeneratorTest {
     @Test
     public void printingSequenceFieldsStatesTest(){
         //given
-        SequencesGenerator sequencesGenerator = new SequencesGenerator(BoardBuilder.withCleanFields().build());
-        Sequence sequence = sequencesGenerator.createVerticalSequence(0);
+        SequencesGenerator sequencesGenerator = new SequencesGenerator(BoardBuilderForRandom.withCleanFields().build());
+        SequenceForRandom sequence = sequencesGenerator.createVerticalSequence(0);
         //then
         System.out.println(sequence.statesMarksToString());
 

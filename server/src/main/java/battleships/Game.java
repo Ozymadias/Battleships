@@ -1,19 +1,17 @@
 package battleships;
 
-import battleships.communication.ClientHandler;
-
-import java.util.Map;
+import java.util.List;
 
 public class Game {
-    private GameState gameState;
-    private final Map<Players, ClientHandler> clientHandlerMap;
 
-    public Game(Map<Players, ClientHandler> clientHandlerMap) {
-        this.clientHandlerMap = clientHandlerMap;
+    private List<HandlerWrapper> clientHandlers;
+
+    Game(List<HandlerWrapper> clientHandlers) {
+        this.clientHandlers = clientHandlers;
     }
 
     public void start() {
-        this.gameState = new SendWelcomeMessage(clientHandlerMap);
+        GameState gameState = new SendWelcomeMessage(clientHandlers);
         do {
             gameState = gameState.process();
         } while (!gameState.isEndOfTheGame());

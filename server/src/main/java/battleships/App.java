@@ -21,7 +21,9 @@ public class App {
                 .openServerSocket()
                 .build();
 
-        Map<Players,ClientHandler> clientHandlers = new ClientCreator().createClientHandlers(server.createSockets());
-        new Game(clientHandlers).start();
+
+        new Game(new ClientCreator()
+                .createClientHandlers(server.createSockets()))
+                .start();
     }
 }

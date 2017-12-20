@@ -1,23 +1,24 @@
 package battleships;
 
-import battleships.communication.ClientHandler;
-import battleships.ships.Fleet;
+import battleships.communication.Messagable;
 
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class WaitForFleets implements GameState {
 
-    private final Map<Players, ClientHandler> clientHandlerMap;
+    private final List<HandlerWrapper> observers;
 
-    public WaitForFleets(Map<Players, ClientHandler> clientHandlerMap) {
-        this.clientHandlerMap = clientHandlerMap;
+    WaitForFleets(List<HandlerWrapper> observers) {
+        this.observers = observers;
     }
+
     @Override
     public GameState process() {
-        Fleet fleet1 = (Fleet) clientHandlerMap.get(Players.PLAYER1).receiveMessage();
-        Fleet fleet2 = (Fleet) clientHandlerMap.get(Players.PLAYER2).receiveMessage();
-
-        return new GameInProgress(clientHandlerMap, fleet1, fleet2 );
+        return new GameInProgress(observers, observers
+                .stream()
+                .map(HandlerWrapper::raport)
+                .collect(Collectors.toList()));
     }
 
     @Override

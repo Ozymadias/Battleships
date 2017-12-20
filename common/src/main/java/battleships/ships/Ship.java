@@ -8,8 +8,8 @@ public class Ship {
     private List<Mast> masts;
 
     public static Ship createShip(Integer... positions) {
-        List<Mast> masts=  new ArrayList<>();
-        for(Integer i: positions) {
+        List<Mast> masts = new ArrayList<>();
+        for (Integer i : positions) {
             masts.add(new Mast(i));
         }
         return new Ship(masts);
@@ -32,7 +32,9 @@ public class Ship {
     }
 
     public void killMast(Integer position) {
-        masts.stream().filter((p) -> p.getPosition() == position).forEach(p-> p.kill());
+        masts.stream()
+                .filter((p) -> p.getPosition().equals(position))
+                .forEach(Mast::kill);
     }
 
 }

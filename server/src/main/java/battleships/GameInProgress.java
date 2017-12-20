@@ -1,23 +1,19 @@
 package battleships;
 
-import battleships.communication.Messagable;
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
-import battleships.game.FieldState;
-import battleships.game.GameResult;
 import battleships.ships.Fleet;
 import battleships.ships.Ship;
-import battleships.utils.FleetConverter;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class GameInProgress implements GameState {
     private final List<HandlerWrapper> observers;
-    private final List<Messagable> playersFleets;
+    private final List<Fleet> playersFleets;
 
-    GameInProgress(List<HandlerWrapper> observers, List<Messagable> playersFleets) {
+    GameInProgress(List<HandlerWrapper> observers, List<Fleet> playersFleets) {
 
         this.observers = observers;
         this.playersFleets = playersFleets;
@@ -28,48 +24,34 @@ public class GameInProgress implements GameState {
         List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.raport())
                 .collect(Collectors.toList());
 
-        //        SalvoResult salvoResult1 = processSalvo(salvo1, fleet2);
-//        SalvoResult salvoResult2 = processSalvo(salvo2, fleet1);
-//
-//        boolean player1Wins = areAllShipsSunk(fleet2);
-//        boolean player2Wins = areAllShipsSunk(fleet1);
-//
-//        if (player1Wins && player2Wins) {
-//            salvoResult1.setGameResult(GameResult.DRAW);
-//            salvoResult2.setGameResult(GameResult.DRAW);
-//        } else if (player1Wins) {
-//            salvoResult1.setGameResult(GameResult.WIN);
-//            salvoResult2.setGameResult(GameResult.LOOSE);
-//        } else if (player2Wins) {
-//            salvoResult1.setGameResult(GameResult.LOOSE);
-//            salvoResult2.setGameResult(GameResult.WIN);
-//        }
-//
-//        clientHandlerMap.get(Players.PLAYER1).sendMessage(salvoResult1);
-//        clientHandlerMap.get(Players.PLAYER1).sendMessage(salvoResult2);
-//        clientHandlerMap.get(Players.PLAYER2).sendMessage(salvoResult2);
-//        clientHandlerMap.get(Players.PLAYER2).sendMessage(salvoResult1);
-//
-//        if (player1Wins || player2Wins) {
-//            return new EndOfTheGame();
-//        }
+        processSalvo(salvos, playersFleets);
 
-        return this;
+        if (areAllShipsSunk(playersFleets))
+            return new EndOfTheGame(observers, playersFleets);
+        else return this;
     }
 
-    private SalvoResult processSalvo(Salvo salvo, Fleet fleet) {
-        SalvoResult salvoResult = new SalvoResult();
-        Map<Integer, Ship> positionsToShips = new FleetConverter().convert(fleet);
-        for (Integer position : salvo.getSalvoPositions()) {
-            Ship shipOnPosition = positionsToShips.get(position);
-            if (shipOnPosition == null) {
-                salvoResult.setPositionAndState(position, FieldState.EMPTY);
-            } else {
-                salvoResult.setPositionAndState(position, FieldState.BROKEN_SHIP_PART);
-                shipOnPosition.killMast(position);
+    private void processSalvo(List<Salvo> salvo, List<Fleet> fleet) {
+        Fleet fleet1 = fleet.get(0);
+        List<Integer> resultList = new ArrayList<>(fleet1.getAllPositions());
+        resultList.removeAll(salvo.get(1).getSalvoPositions());
+        SalvoResult salvoResult = new SalvoResult(resultList);
+        Fleet fleet2 = fleet.get(1);
+        List<Integer> resultList2 = new ArrayList<>(fleet2.getAllPositions());
+        resultList2.removeAll(salvo.get(0).getSalvoPositions());
+        SalvoResult salvoResult2 = new SalvoResult(resultList);
+        sunkMeBaby(fleet1, resultList);
+        sunkMeBaby(fleet2, resultList2);
+        observers.get(0).getNotified(salvoResult);
+        observers.get(1).getNotified(salvoResult2);
+    }
+
+    private void sunkMeBaby(Fleet fleet1, List<Integer> resultList) {
+        for (Ship ship : fleet1.getShips()) {
+            for (Integer integer : resultList) {
+                ship.killMast(integer);
             }
         }
-        return salvoResult;
     }
 
     @Override
@@ -77,7 +59,12 @@ public class GameInProgress implements GameState {
         return false;
     }
 
-    private boolean areAllShipsSunk(Fleet fleet) {
+    private boolean areAllShipsSunk(List<Fleet> fleet) {
+        return fleet.stream().noneMatch(this::allMyFriendsAreDead);
+
+    }
+
+    private boolean allMyFriendsAreDead(Fleet fleet) {
         return fleet.getShips().stream().allMatch(Ship::isSunk);
     }
 }

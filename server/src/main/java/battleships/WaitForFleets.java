@@ -1,5 +1,7 @@
 package battleships;
 
+import battleships.ships.Fleet;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +17,7 @@ public class WaitForFleets implements GameState {
     public GameState process() {
         return new GameInProgress(observers, observers
                 .stream()
-                .map(HandlerWrapper::raport)
+                .map(handlerWrapper -> (Fleet) handlerWrapper.raport())
                 .collect(Collectors.toList()));
     }
 

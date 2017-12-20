@@ -5,23 +5,20 @@ import battleships.game.FieldState;
 import battleships.game.GameResult;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SalvoResult implements Messagable {
-    Map<Integer,FieldState> positionAndState;
-    GameResult gameResult;
 
-    public SalvoResult () {
-        positionAndState = new HashMap<>();
-        gameResult = GameResult.NONE;
+    private List<Integer> resultList;
+
+    public SalvoResult(List<Integer> resultList) {
+
+
+        this.resultList = resultList;
     }
 
-    public void setPositionAndState(Integer position, FieldState state) {
-        positionAndState.put(position,state);
+    public List<Integer> getResultList() {
+        return resultList;
     }
-
-    public void setGameResult(GameResult gameResult) {
-        this.gameResult = gameResult;
-    }
-
 }

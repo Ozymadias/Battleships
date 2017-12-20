@@ -22,7 +22,7 @@ public class PlayerBoardViewController {
 
     @FXML
     private void initialize(){
-        board = BoardBuilder.withBorders().build();
+        board = BoardBuilder.build();
         ShipsRandomize shipsRandomize = ShipsRandomize.build(board);
         shipsRandomize.placeAllFloat();
         board = shipsRandomize.board;

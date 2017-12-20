@@ -53,10 +53,10 @@ public class HorizontalSequenceSet implements SequencesSet {
         if(sequenceIndex < 9){
             horizontalSequences.get(sequenceIndex+1).setBuffered(fieldsIndexesInSequence);
         }
-        if(!horizontalSequences.get(sequenceIndex).isOnLeftBorder(fieldsIndexesInSequence.getFirst())){
+        if(!BordersCheck.isOnLeftBorder(fieldsIndexesInSequence.getFirst())){
             horizontalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getFirst()-1);
         }
-        if(!horizontalSequences.get(sequenceIndex).isOnRightBorder(fieldsIndexesInSequence.getLast())){
+        if(!BordersCheck.isOnRightBorder(fieldsIndexesInSequence.getLast())){
             horizontalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getLast()+1);
         }
     }

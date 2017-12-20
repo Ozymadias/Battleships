@@ -12,7 +12,7 @@ public class BoardBuilderTest {
     @Test
     public void whenBuildingBoardWithCleanFields_listOfFieldsShouldHave100Elements(){
         //given
-        Board sequencesGenerator = BoardBuilder.withCleanFields().build();
+        Board sequencesGenerator = BoardBuilder.build();
         //when - then
         assertThat(sequencesGenerator.getFields().size()).isEqualTo(100);
     }
@@ -25,7 +25,7 @@ public class BoardBuilderTest {
     @Test(dataProvider = "randomPollOfTenFieldsPositions")
     public void whenBuildingBoardWithCleanFields_eachFieldShouldBeEmpty(Integer fieldPosition){
         //given
-        Board board = BoardBuilder.withCleanFields().build();
+        Board board = BoardBuilder.build();
         //when - then
         assertThat(board.fields.get(fieldPosition).isEmpty()).isTrue();
     }
@@ -33,7 +33,7 @@ public class BoardBuilderTest {
     @Test
     public void whenBuildingBoardWithCleanFields_printofBoard(){
         //given
-        Board sequencesGenerator = BoardBuilder.withCleanFields().build();
+        Board sequencesGenerator = BoardBuilder.build();
         //when - then
         System.out.println(sequencesGenerator.statesMarksToString());
     }
@@ -41,7 +41,7 @@ public class BoardBuilderTest {
     @Test
     public void whenBuildingBoardWithBorders_printofBoard(){
         //given
-        Board sequencesGenerator = BoardBuilder.withBorders().build();
+        Board sequencesGenerator = BoardBuilder.build();
         //when - then
         System.out.println(sequencesGenerator.statesMarksToString());
     }

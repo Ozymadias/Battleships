@@ -1,7 +1,5 @@
 package battleships.game;
 
-import battleships.game.SequenceForRandom;
-
 import java.util.Random;
 
 public interface SequencesSet {
@@ -12,15 +10,18 @@ public interface SequencesSet {
     public SequenceForRandom get(Integer index);
 
     default void randomlyPlaceShip(Integer sequenceIndex, Integer shipLength){
-        Integer firstEmptyPosition = 0, lastEmptyPosition = 0;
         try {
+            Integer firstEmptyPosition = 0, lastEmptyPosition = 0, position = 0;
             firstEmptyPosition = this.get(sequenceIndex).firstEmptyFor(shipLength);
             lastEmptyPosition = this.get(sequenceIndex).lastEmptyStartingBy(firstEmptyPosition);
-            Integer firstPositionRandomized = new Random().ints(firstEmptyPosition, lastEmptyPosition - shipLength + 1).findFirst().getAsInt();
-
-            putShipIntoSequence(sequenceIndex, firstPositionRandomized, shipLength);
-        }catch (IllegalArgumentException e){
-            System.out.println("firstEmptyPosition = " + firstEmptyPosition + " lastEmptyPosition = " + lastEmptyPosition + " shipLength = " + shipLength);
+            if (firstEmptyPosition.equals(lastEmptyPosition - shipLength + 1)) {
+                position = firstEmptyPosition;
+            } else {
+                position = new Random().ints(firstEmptyPosition, lastEmptyPosition - shipLength + 1).findFirst().getAsInt();
+            }
+            putShipIntoSequence(sequenceIndex, position, shipLength);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

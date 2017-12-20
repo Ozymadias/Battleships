@@ -20,7 +20,7 @@ public class OpponentBoardViewController {
 
     @FXML
     private void initialize(){
-        opponentBoard = BoardBuilder.withCleanFields().build();
+        opponentBoard = BoardBuilder.build();
         setUpBoardView();
     }
 

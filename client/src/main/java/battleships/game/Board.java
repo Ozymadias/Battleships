@@ -27,10 +27,6 @@ public class Board {
         fields.get(position).shoot();
     }
 
-    public boolean isFieldEmpty(Integer fieldPosition) {
-        return fields.get(fieldPosition).getState().equals(FieldState.EMPTY);
-    }
-
     String statesMarksToString(){
         StringBuilder builder = new StringBuilder();
         for(Field field : fields){

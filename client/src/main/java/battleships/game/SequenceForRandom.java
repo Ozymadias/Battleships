@@ -53,21 +53,17 @@ public class SequenceForRandom {
             fields.get(position).setState(FieldState.BUFFER);
         }
 
-        if(!(fieldsPositions.get(0)-1 < 0)){
+        if(!(BordersCheck.isOnLeftBorder(fieldsPositions.get(0)))){
             fields.get(fieldsPositions.get(0)-1).setState(FieldState.BUFFER);
         }
 
-        if(!(fieldsPositions.get(fieldsPositions.size()-1) > 99)){
+        if(!(BordersCheck.isOnRightBorder(fieldsPositions.get(fieldsPositions.size()-1)))){
             fields.get(fieldsPositions.get(fieldsPositions.size()-1)+1).setState(FieldState.BUFFER);
         }
     }
 
     public void setBuffered(Integer fieldPosition){
         fields.get(fieldPosition).setState(FieldState.BUFFER);
-    }
-
-    public boolean isOnBorder(Integer fieldPosition){
-        return fields.get(fieldPosition).isBorder();
     }
 
     public boolean isOnBuffer(Integer fieldPosition){
@@ -78,13 +74,5 @@ public class SequenceForRandom {
         for(Integer position : fieldsPositions){
             fields.get(position).setState(FieldState.UNBROKEN_SHIP_PART);
         }
-    }
-
-    public boolean isOnLeftBorder(Integer fieldPosition) {
-        return fields.get(fieldPosition).isOnLeftBorder();
-    }
-
-    public boolean isOnRightBorder(Integer fieldPosition) {
-        return fields.get(fieldPosition).isOnRightBorder();
     }
 }

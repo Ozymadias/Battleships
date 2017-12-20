@@ -17,7 +17,6 @@ public class GameInProgress implements GameState {
     private Fleet fleet2;
 
     public GameInProgress(Map<Players, ClientHandler> clientHandlerMap, Fleet fleet1, Fleet fleet2) {
-
         this.clientHandlerMap = clientHandlerMap;
         this.fleet1 = fleet1;
         this.fleet2 = fleet2;
@@ -25,25 +24,35 @@ public class GameInProgress implements GameState {
 
     @Override
     public GameState process() {
-        Salvo salvo2 = (Salvo) clientHandlerMap.get(Players.PLAYER2).receiveMessage();
         Salvo salvo1 = (Salvo) clientHandlerMap.get(Players.PLAYER1).receiveMessage();
+        Salvo salvo2 = (Salvo) clientHandlerMap.get(Players.PLAYER2).receiveMessage();
+
         SalvoResult salvoResult1 = processSalvo(salvo1,fleet2);
         SalvoResult salvoResult2 = processSalvo(salvo2,fleet1);
+
+        boolean player1Wins = areAllShipsSunk(fleet2);
+        boolean player2Wins = areAllShipsSunk(fleet1);
+
+        if (player1Wins && player2Wins) {
+            salvoResult1.setGameResult(GameResult.DRAW);
+            salvoResult2.setGameResult(GameResult.DRAW);
+        } else if (player1Wins) {
+            salvoResult1.setGameResult(GameResult.WIN);
+            salvoResult2.setGameResult(GameResult.LOOSE);
+        } else if (player2Wins) {
+            salvoResult1.setGameResult(GameResult.LOOSE);
+            salvoResult2.setGameResult(GameResult.WIN);
+        }
 
         clientHandlerMap.get(Players.PLAYER1).sendMessage(salvoResult1);
         clientHandlerMap.get(Players.PLAYER1).sendMessage(salvoResult2);
         clientHandlerMap.get(Players.PLAYER2).sendMessage(salvoResult2);
         clientHandlerMap.get(Players.PLAYER2).sendMessage(salvoResult1);
 
-        boolean player1Wins = areAllShipsSunked(fleet2);
-        boolean player2Wins = areAllShipsSunked(fleet1);
-        if (player1Wins && player2Wins) {
-            return new EndOfTheGame(GameResult.DRAW);
-        } else if (player1Wins) {
-            return new EndOfTheGame(GameResult.WIN,Players.PLAYER1);
-        } else if (player2Wins) {
-            return new EndOfTheGame(GameResult.WIN, Players.PLAYER2);
+        if (player1Wins || player2Wins) {
+            return new EndOfTheGame();
         }
+
         return this;
     }
 
@@ -60,7 +69,6 @@ public class GameInProgress implements GameState {
             }
         }
         return salvoResult;
-
     }
 
     @Override
@@ -68,8 +76,7 @@ public class GameInProgress implements GameState {
         return false;
     }
 
-    private boolean areAllShipsSunked(Fleet fleet) {
-
+    private boolean areAllShipsSunk(Fleet fleet) {
         return fleet.getShips().stream().filter(p->!p.isSunk()).count() == 0;
     }
 }

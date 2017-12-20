@@ -7,11 +7,11 @@ import java.util.stream.IntStream;
 
 public class HorizontalSequenceSet implements SequencesSet {
 
-    private List<SequenceForRandom> horizontalSequences;
+    private final List<SequenceForRandom> horizontalSequences;
 
     private static final int INCREMENTATION = 1;
 
-    public HorizontalSequenceSet(List<SequenceForRandom> horizontalSequences) {
+    private HorizontalSequenceSet(List<SequenceForRandom> horizontalSequences) {
         this.horizontalSequences = horizontalSequences;
     }
 
@@ -63,7 +63,7 @@ public class HorizontalSequenceSet implements SequencesSet {
 
     public String statesMarksToString(){
         return horizontalSequences.stream()
-                .map(seq -> seq.statesMarksToString())
+                .map(SequenceForRandom::statesMarksToString)
                 .collect(Collectors.joining("\n"));
     }
 }

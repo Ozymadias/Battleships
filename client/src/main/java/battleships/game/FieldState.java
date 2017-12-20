@@ -7,7 +7,7 @@ enum FieldState {
     UNBROKEN_SHIP_PART(Color.GREEN, "o"),
     BROKEN_SHIP_PART(Color.YELLOW, "o"),
     SUNK_SHIP_PART(Color.RED, "o"),
-    BUFFER(Color.GRAY, "b");
+    BUFFER(Color.AQUA, "b");
 
     public Color getColor() {
         return color;

@@ -5,7 +5,6 @@ import org.apache.commons.lang.StringUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//TODO: too many responsibilities? maybe additional class e.g. SequenceValidator
 public class SequenceForRandom {
 
     private final List<Field> fields;
@@ -14,65 +13,50 @@ public class SequenceForRandom {
         this.fields = fields;
     }
 
-    @Override
-    public String toString() {
-        return fields.stream()
-                .map(Field::toString)
-                .collect(Collectors.joining());
-
-    }
-
-    public String statesMarksToString(){
+    String statesMarksToString(){
         return fields.stream()
                 .map(Field::stateMarkToString)
                 .collect(Collectors.joining());
     }
 
-    public Boolean canContainShip(Integer shipLength){
+    Boolean canContainShip(Integer shipLength){
         return statesMarksToString().contains(StringUtils.repeat("e", shipLength));
     }
 
-    public Integer firstEmptyFor(Integer shipLength){
-        int firstEmpty = statesMarksToString().indexOf(StringUtils.repeat("e", shipLength));
-        return firstEmpty;
+    Integer firstEmptyFor(Integer shipLength){
+        return statesMarksToString().indexOf(StringUtils.repeat("e", shipLength));
     }
 
-    public Integer lastEmptyStartingBy(Integer position){
+    Integer lastEmptyStartingBy(Integer position){
         Integer last = position;
-
         while (last < fields.size() - 1
-                && fields.get(last).getState().equals(FieldState.EMPTY)){
+                && fields.get(last).isEmpty()){
             last++;
         }
-
         return last;
     }
 
-    public void setBuffered(List<Integer> fieldsPositions){
+    void setBuffered(List<Integer> fieldsPositions){
         for(Integer position : fieldsPositions){
-            fields.get(position).setState(FieldState.BUFFER);
+            fields.get(position).setBuffer();
         }
 
         if(!(BordersCheck.isOnLeftBorder(fieldsPositions.get(0)))){
-            fields.get(fieldsPositions.get(0)-1).setState(FieldState.BUFFER);
+            fields.get(fieldsPositions.get(0)-1).setBuffer();
         }
 
         if(!(BordersCheck.isOnRightBorder(fieldsPositions.get(fieldsPositions.size()-1)))){
-            fields.get(fieldsPositions.get(fieldsPositions.size()-1)+1).setState(FieldState.BUFFER);
+            fields.get(fieldsPositions.get(fieldsPositions.size()-1)+1).setBuffer();
         }
     }
 
-    public void setBuffered(Integer fieldPosition){
-        fields.get(fieldPosition).setState(FieldState.BUFFER);
+    void setBuffered(Integer fieldPosition){
+        fields.get(fieldPosition).setBuffer();
     }
 
-    public boolean isOnBuffer(Integer fieldPosition){
-        return fields.get(fieldPosition).getState().equals(FieldState.BUFFER);
-    }
-
-    public void setShip(List<Integer> fieldsPositions){
+    void setShip(List<Integer> fieldsPositions){
         for(Integer position : fieldsPositions){
-            fields.get(position).setState(FieldState.UNBROKEN_SHIP_PART);
+            fields.get(position).setShipPartOn();
         }
     }
 }

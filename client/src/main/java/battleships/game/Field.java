@@ -1,5 +1,7 @@
 package battleships.game;
 
+import javafx.scene.paint.Color;
+
 class Field {
 
     private final Integer position;
@@ -16,10 +18,6 @@ class Field {
         return position;
     }
 
-    final FieldState getState() {
-        return state;
-    }
-
     final Boolean isShot(){ return isShot; }
 
     void setShipPartOn(){
@@ -30,21 +28,20 @@ class Field {
         isShot = true;
     }
 
-    void setState(FieldState elementState){
-        this.state = elementState;
-    }
-
-    boolean isOccupied(){ return this.state.equals(FieldState.SUNK_SHIP_PART)
-            || this.state.equals(FieldState.UNBROKEN_SHIP_PART)
-            || this.state.equals(FieldState.BROKEN_SHIP_PART); }
-
     boolean isEmpty(){ return this.state.equals(FieldState.EMPTY); }
 
-    public String toString(){
-        return "[" + position + " : " + state + "]";
+    public String stateMarkToString() { return state.getStateMark(); }
+
+    Color getColorBasedOnState(){
+        return state.getColor();
     }
 
-    public String positionToString() { return "[" + position + "]"; }
+    void setBuffer(){
+        this.state = FieldState.BUFFER;
+    }
 
-    public String stateMarkToString() { return state.getStateMark(); }
+    public boolean isShipOn() {
+        return (this.state == FieldState.UNBROKEN_SHIP_PART
+                || this.state == FieldState.BROKEN_SHIP_PART);
+    }
 }

@@ -1,6 +1,6 @@
 package battleships.game;
 
-public class BordersCheck {
+class BordersCheck {
 
     static Boolean isOnTopBorder(Integer number) { return number >= 0 && number <=9; }
 

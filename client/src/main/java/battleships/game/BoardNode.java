@@ -10,12 +10,11 @@ class BoardNode extends StackPane {
     private static final int RECTANGLE_SIZE = 30;
     private static final String MARK_FOR_SHOT = "x";
 
-    private final Integer position;
-
+    private final Integer index;
     private final StackPane stackPane;
 
     private BoardNode(Integer index, StackPane stackPane) {
-        this.position = index;
+        this.index = index;
         this.stackPane = stackPane;
     }
 
@@ -23,7 +22,7 @@ class BoardNode extends StackPane {
         Rectangle rec = new Rectangle();
         rec.setWidth(RECTANGLE_SIZE);
         rec.setHeight(RECTANGLE_SIZE);
-        rec.setFill(field.getState().getColor());
+        rec.setFill(field.getColorBasedOnState());
         rec.setStroke(Color.BLACK);
         StackPane stackPane = new StackPane();
         if(field.isShot()){
@@ -35,8 +34,8 @@ class BoardNode extends StackPane {
         return new BoardNode(field.getPosition(), stackPane);
     }
 
-    Integer getPosition(){
-        return position;
+    Integer getIndex(){
+        return index;
     }
 
     StackPane getStackPane() {

@@ -12,7 +12,7 @@ public class HorizontalSequenceSetTest {
     @BeforeMethod
     public void beforeMethod(){
         //given
-        Board board = BoardBuilder.build();
+        Board board = Board.build();
         horizontalSequenceSet = HorizontalSequenceSet.build(board);
     }
 

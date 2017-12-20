@@ -4,37 +4,32 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Board {
+class Board {
 
+    private static final int BOARD_FIELDS_COUNT = 100;
 
-    private static final int BOARD_SIZE = 100;
+    private final List<Field> fields;
 
-    List<Field> fields;
-
-    Board(List<Field> fields) {
+    private Board(List<Field> fields) {
         this.fields = fields;
+    }
+
+    static Board build(){
+        List<Field> fields = IntStream.range(0,BOARD_FIELDS_COUNT)
+                .mapToObj(Field::new)
+                .collect(Collectors.toList());
+        return new Board(fields);
     }
 
     List<Field> getFields(){
         return this.fields;
     }
 
-    BoardNode rectangleForPosition(int position){
+    final BoardNode rectangleForPosition(int position){
         return BoardNode.build(fields.get(position));
     }
 
     void shootAtField(Integer position){
         fields.get(position).shoot();
-    }
-
-    String statesMarksToString(){
-        StringBuilder builder = new StringBuilder();
-        for(Field field : fields){
-            if(field.getPosition() % 10 == 0){
-                builder.append("\n");
-            }
-            builder.append(field.stateMarkToString());
-        }
-        return builder.toString();
     }
 }

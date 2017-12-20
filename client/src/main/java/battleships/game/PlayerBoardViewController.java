@@ -1,11 +1,7 @@
 package battleships.game;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-
-import java.util.Optional;
 
 public class PlayerBoardViewController {
 
@@ -13,19 +9,15 @@ public class PlayerBoardViewController {
     private static final int BOARD_COLUMN_COUNT = 10;
 
     @FXML
-    BorderPane mainPane;
-
-    @FXML
-    GridPane dockedGridPane;
+    private GridPane dockedGridPane;
 
     private Board board;
 
     @FXML
     private void initialize(){
-        board = BoardBuilder.build();
+        board = Board.build();
         ShipsRandomize shipsRandomize = ShipsRandomize.build(board);
-        shipsRandomize.placeAllFloat();
-        board = shipsRandomize.board;
+        board = shipsRandomize.placeAllFloat();
         setUpPlayerBoardDocked();
     }
 

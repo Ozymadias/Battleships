@@ -16,7 +16,6 @@ public class WaitForFleets implements GameState {
     public GameState process() {
         Fleet fleet1 = (Fleet) clientHandlerMap.get(Players.PLAYER1).receiveMessage();
         Fleet fleet2 = (Fleet) clientHandlerMap.get(Players.PLAYER2).receiveMessage();
-        clientHandlerMap.get(Players.PLAYER2).receiveMessage();
 
         return new GameInProgress(clientHandlerMap, fleet1, fleet2 );
     }

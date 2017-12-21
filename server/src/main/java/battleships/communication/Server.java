@@ -1,8 +1,6 @@
 package battleships.communication;
 
-import battleships.BattleObserver;
 import battleships.logger.BattleshipLog;
-import battleships.utils.BattleshipUtils;
 
 import java.io.IOException;
 import java.net.ServerSocket;

@@ -50,7 +50,6 @@ public class GameInProgressTest {
         gameInProgress.process();
         verify(firstTestWrapper).getNotified(captor.capture());
         SalvoResult salvoResult = (SalvoResult) captor.getValue();
-        System.out.println(salvoResult.getResultList());
         //then
         assertThat(salvoResult.getResultList()).isEqualTo(Arrays.asList(1, 3));
     }
@@ -65,8 +64,6 @@ public class GameInProgressTest {
         when(secondTestWrapper.raport()).thenReturn(new Salvo(Arrays.asList(1, 2, 3)));
         GameInProgress gameInProgress = new GameInProgress(Arrays.asList(otherTestWrapper, secondTestWrapper), testFleet);
         gameInProgress.process();
-        System.out.println(gameInProgress.isEndOfTheGame());
+        assertThat(gameInProgress.areAllShipsSunk()).isTrue();
     }
-
-
 }

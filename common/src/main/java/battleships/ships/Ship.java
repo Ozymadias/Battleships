@@ -1,11 +1,15 @@
 package battleships.ships;
 
+import battleships.communication.Messagable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Ship {
+public class Ship implements Messagable{
     private List<Mast> masts;
+
+    public Ship() {}
 
     public static Ship createShip(Integer... positions) {
         List<Mast> masts = new ArrayList<>();
@@ -17,6 +21,10 @@ public class Ship {
 
     private Ship(List<Mast> shipMasts) {
         this.masts = shipMasts;
+    }
+
+    public void setMasts(List<Mast> masts) {
+        this.masts = masts;
     }
 
     public List<Mast> getMasts() {

@@ -36,6 +36,21 @@ echo "***********************"
 echo "Running mvn sonar:sonar"
 echo "***********************"
 mvn org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar >>$LOG_FILE
+NO_OF_COMMITS=`git rev-list master --count`
+NO_OF_INTERFACES=`grep --include=\*.java -r interface.*{ | wc -l`
+NO_OF_PACKAGES=`grep --include=\*.java -r package | awk 'BEGIN { FS = ":" } {print $2} ' |sort |uniq |wc -l`
+NO_OF_PUBLIC_METHODS=`grep --include=\*.java -r public  | grep -v -e public.*class -e public.*interface |wc -l`
+echo "Number of commits"
+echo  $NO_OF_COMMITS
+echo "Number of interfaces"
+echo  $NO_OF_INTERFACES
+echo "Number of packages" 
+echo $NO_OF_PACKAGES
+echo "Number of public methods"
+echo $NO_OF_PUBLIC_METHODS
+echo "Number of lines of Java code"
+wc -l `find -name '*.java'` |grep total | awk '{ print $1}'
+
 firefox target/client/target/client/checkstyle.html
 firefox target/server/target/server/checkstyle.html
 firefox target/common/target/common/checkstyle.html

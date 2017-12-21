@@ -9,6 +9,7 @@ import org.mockito.ArgumentCaptor;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -40,11 +41,21 @@ public class GameInProgressTest {
     @Test
     public void shouldPassWhenGameStateIsProcessedAndCorrectSalvoResultIsReturned() {
         //given
+        //AT THE MOMENT CAN"T BE DONE BETTER! WILL BE REFACTORED IN FUTURE need to do it this way
+        //so I will not get immutable lists.
         ArgumentCaptor<Messagable> captor = ArgumentCaptor.forClass(Messagable.class);
-        when(firstMockShips.getAllPositions()).thenReturn(Arrays.asList(1, 5, 6, 3));
-        when(secondMockShips.getAllPositions()).thenReturn(Arrays.asList(1, 2));
-        when(firstTestWrapper.raport()).thenReturn(new Salvo(Arrays.asList(1, 2)));
-        when(secondTestWrapper.raport()).thenReturn(new Salvo(Arrays.asList(5, 6)));
+        ArrayList<Integer> firstFleet = new ArrayList<>();
+        firstFleet.addAll(Arrays.asList(1, 5, 3, 6));
+        ArrayList<Integer> secondFleet = new ArrayList<>();
+        secondFleet.addAll(Arrays.asList(1, 2));
+        ArrayList<Integer> firstSalvo = new ArrayList<>();
+        firstSalvo.addAll(Arrays.asList(1, 2));
+        ArrayList<Integer> secondSalvo = new ArrayList<>();
+        secondSalvo.addAll(Arrays.asList(5, 6));
+        when(firstMockShips.getAllPositions()).thenReturn(firstFleet);
+        when(secondMockShips.getAllPositions()).thenReturn(secondFleet);
+        when(firstTestWrapper.raport()).thenReturn(new Salvo(firstSalvo));
+        when(secondTestWrapper.raport()).thenReturn(new Salvo(secondSalvo));
         GameInProgress gameInProgress = new GameInProgress(handlerWrappersMocks, mockedFleet);
         //when
         gameInProgress.process();
@@ -58,8 +69,8 @@ public class GameInProgressTest {
     public void shouldPassWhenEndBooleanIsTrueAfterOneOfFleetsIsDead() {
         //given
         List<Fleet> testFleet = Arrays
-                .asList(new Fleet(Collections.singletonList(Ship.createShip(1, 2, 3)))
-                        , new Fleet(Collections.singletonList(Ship.createShip(4, 5, 6))));
+                .asList(new Fleet(Arrays.asList(Ship.createShip(1, 2, 3)))
+                        , new Fleet(Arrays.asList(Ship.createShip(4, 5, 6))));
         when(otherTestWrapper.raport()).thenReturn(new Salvo(Arrays.asList(5, 6)));
         when(secondTestWrapper.raport()).thenReturn(new Salvo(Arrays.asList(1, 2, 3)));
         GameInProgress gameInProgress = new GameInProgress(Arrays.asList(otherTestWrapper, secondTestWrapper), testFleet);

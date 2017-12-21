@@ -76,6 +76,10 @@ public class App extends Application {
             rootLayout = loader.load();
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
+            RootLayoutController controller = loader.getController();
+            //todo init here with feet and client handler??
+            controller.setClientHandler(clientHandler);
+
             clientHandler.sendMessage(new Fleet(Arrays.asList(Ship.createShip(1, 2, 3, 4))));
         } catch (IOException e) {
             e.printStackTrace();

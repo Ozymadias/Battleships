@@ -1,5 +1,8 @@
 package battleships.game;
 
+import battleships.ships.Fleet;
+import battleships.ships.Ship;
+
 import java.util.*;
 
 class ShipsRandomize {
@@ -19,18 +22,23 @@ class ShipsRandomize {
         return new ShipsRandomize(horizontalSequenceSet, board);
     }
 
-    Board placeAllFloat(){
-        List<Integer> ships = Arrays.asList(4, 3, 3, 2, 2, 2, 1, 1, 1, 1);
-        ships.forEach( masts -> placeShipHorizontally(masts));
-        return board;
+    Fleet placeAllFloat(){
+        List<Integer> shipsToPlace = Arrays.asList(4, 3, 3, 2, 2, 2, 1, 1, 1, 1);
+        List<Ship> ships = new ArrayList<>();
+        shipsToPlace.forEach( masts -> ships.add(placeShipHorizontally(masts)));
+        return new Fleet(ships);
     }
 
-    private void placeShipHorizontally(int length){
+    private Ship placeShipHorizontally(int length){
         Integer randomRow;
         do{
             randomRow = new Random().nextInt(SEQUENCE_COUNT);
         }while(!horizontalSequences.get(randomRow).canContainShip(length));
 
-        horizontalSequences.randomlyPlaceShip(randomRow, length);
+        return horizontalSequences.randomlyPlaceShip(randomRow, length);
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

@@ -1,5 +1,7 @@
 package battleships.game;
 
+import battleships.communication.ClientHandler;
+import battleships.ships.Fleet;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
@@ -11,13 +13,21 @@ public class PlayerBoardViewController {
     @FXML
     private GridPane dockedGridPane;
 
+    private Fleet fleet;
+
     private Board board;
+
+    ClientHandler clientHandler;
+
+    public void setClientHandler(ClientHandler clientHandler) {
+        this.clientHandler = clientHandler;
+    }
 
     @FXML
     private void initialize(){
-        board = Board.build();
-        ShipsRandomize shipsRandomize = ShipsRandomize.build(board);
-        board = shipsRandomize.placeAllFloat();
+        ShipsRandomize shipsRandomize = ShipsRandomize.build(Board.build());
+        fleet = shipsRandomize.placeAllFloat();
+        Board board = shipsRandomize.getBoard();
         setUpPlayerBoardDocked();
     }
 
@@ -30,5 +40,9 @@ public class PlayerBoardViewController {
                 dockedGridPane.getChildren().addAll(boardNode.getStackPane());
             }
         }
+    }
+
+    public Fleet getFleet(){
+        return fleet;
     }
 }

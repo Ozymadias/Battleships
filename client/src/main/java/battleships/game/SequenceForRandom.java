@@ -1,5 +1,6 @@
 package battleships.game;
 
+import battleships.ships.Ship;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
@@ -54,9 +55,10 @@ public class SequenceForRandom {
         fields.get(fieldPosition).setBuffer();
     }
 
-    void setShip(List<Integer> fieldsPositions){
+    Ship setShip(List<Integer> fieldsPositions){
         for(Integer position : fieldsPositions){
             fields.get(position).setShipPartOn();
         }
+        return Ship.viaList(fieldsPositions);
     }
 }

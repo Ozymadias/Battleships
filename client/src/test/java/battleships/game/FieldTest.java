@@ -28,7 +28,7 @@ public class FieldTest {
         //when
         Field field = new Field(position);
         //then
-        assertThat(field.getState()).isEqualTo(FieldState.EMPTY);
+        assertThat(field.isEmpty()).isTrue();
     }
 
     @Test(dataProvider = "positionsPoll")
@@ -46,7 +46,7 @@ public class FieldTest {
         //when
         field.setShipPartOn();
         //then
-        assertThat(field.getState()).isEqualTo(FieldState.UNBROKEN_SHIP_PART);
+        assertThat(field.isShipOn()).isTrue();
     }
 
 }

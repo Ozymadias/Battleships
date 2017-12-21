@@ -18,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import static battleships.logging.ConfigurationValueName.IP;
@@ -31,7 +30,6 @@ public class App extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private ServerLoginManager loginManager;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -49,7 +47,8 @@ public class App extends Application {
      * binds it with stage
      * and shows form
      */
-    public void showLoginWindow() {
+
+    private void showLoginWindow(){
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(LOGIN_FXML));
@@ -75,7 +74,6 @@ public class App extends Application {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
             rootLayout = loader.load();
-            final RootLayoutController controller = loader.getController();
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
             clientHandler.sendMessage(new Fleet(Arrays.asList(Ship.createShip(1, 2, 3, 4))));
@@ -87,7 +85,7 @@ public class App extends Application {
     public void loggingSuccessful(Map<ConfigurationValueName, ConfigurationValue> loggingDataMap) {
         String host = loggingDataMap.get(IP).stringValue();
         String port = loggingDataMap.get(PORT).stringValue();
-        Socket socket = null;
+        Socket socket;
         try {
             socket = new Socket(host, Integer.parseInt(port));
             ClientHandler clientHandler = new ClientHandlerBuilder().setSocket(socket).addMessageSender().addMessageReceiver().build();

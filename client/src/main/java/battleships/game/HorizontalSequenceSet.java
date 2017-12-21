@@ -9,14 +9,17 @@ public class HorizontalSequenceSet implements SequencesSet {
 
     private final List<SequenceForRandom> horizontalSequences;
 
-    private static final int INCREMENTATION = 1;
+    private static final int STEP_OF_FIELDS_IN_SEQUENCE = 1;
+    private static final int SEQUENCE_STEP = 1;
+    private static final int SEQUENCE_LENGTH = 10;
+    private static final int FIRST_SEQUENCE_INDEX = 0;
 
     private HorizontalSequenceSet(List<SequenceForRandom> horizontalSequences) {
         this.horizontalSequences = horizontalSequences;
     }
 
     public static HorizontalSequenceSet build(Board board) {
-        List<SequenceForRandom> sequenceList = IntStream.iterate(0, i -> i+10)
+        List<SequenceForRandom> sequenceList = IntStream.iterate(0, i -> i+SEQUENCE_LENGTH)
                 .limit(SEQUENCE_COUNT)
                 .mapToObj(i-> createSingleSequence(i, board))
                 .collect(Collectors.toList());
@@ -24,7 +27,7 @@ public class HorizontalSequenceSet implements SequencesSet {
     }
 
     private static SequenceForRandom createSingleSequence(Integer first, Board board){
-        List<Integer> numbersInSequence = IntStream.iterate(first, i->i+INCREMENTATION)
+        List<Integer> numbersInSequence = IntStream.iterate(first, i->i+STEP_OF_FIELDS_IN_SEQUENCE)
                 .limit(SEQUENCE_LENGTH)
                 .boxed()
                 .collect(Collectors.toList());
@@ -47,23 +50,18 @@ public class HorizontalSequenceSet implements SequencesSet {
     }
 
     private void setBufferAround(Integer sequenceIndex, LinkedList<Integer> fieldsIndexesInSequence) {
-        if(sequenceIndex > 0){
-            horizontalSequences.get(sequenceIndex-1).setBuffered(fieldsIndexesInSequence);
+        if(sequenceIndex > FIRST_SEQUENCE_INDEX){
+            horizontalSequences.get(sequenceIndex-SEQUENCE_STEP).setBuffered(fieldsIndexesInSequence);
         }
-        if(sequenceIndex < 9){
-            horizontalSequences.get(sequenceIndex+1).setBuffered(fieldsIndexesInSequence);
+        int lastSequenceIndex = horizontalSequences.size() - STEP_OF_FIELDS_IN_SEQUENCE;
+        if(sequenceIndex < lastSequenceIndex){
+            horizontalSequences.get(sequenceIndex+SEQUENCE_STEP).setBuffered(fieldsIndexesInSequence);
         }
         if(!BordersCheck.isOnLeftBorder(fieldsIndexesInSequence.getFirst())){
-            horizontalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getFirst()-1);
+            horizontalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getFirst()-STEP_OF_FIELDS_IN_SEQUENCE);
         }
         if(!BordersCheck.isOnRightBorder(fieldsIndexesInSequence.getLast())){
-            horizontalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getLast()+1);
+            horizontalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getLast()+STEP_OF_FIELDS_IN_SEQUENCE);
         }
-    }
-
-    public String statesMarksToString(){
-        return horizontalSequences.stream()
-                .map(SequenceForRandom::statesMarksToString)
-                .collect(Collectors.joining("\n"));
     }
 }

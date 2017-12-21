@@ -2,16 +2,26 @@ package battleships.game;
 
 class BordersCheck {
 
-    static Boolean isOnTopBorder(Integer number) { return number >= 0 && number <=9; }
+    private static final int TOP_LEFT_CORNER_POSITION = 0;
+    private static final int TOP_RIGHT_CORNER_POSITION = 9;
+    private static final int BOTTOM_LEFT_CORNER_POSITION = 90;
+    private static final int BOTTOM_RIGHT_CORNER_POSITION = 99;
+    private static final int SEQUENCE_LENGTH = 10;
 
-    static Boolean isOnBottomBorder(Integer number) { return number >= 90 && number <=99; }
+    static Boolean isOnTopBorder(Integer number) {
+        return number >= TOP_LEFT_CORNER_POSITION && number <= TOP_RIGHT_CORNER_POSITION;
+    }
+
+    static Boolean isOnBottomBorder(Integer number) {
+        return number >= BOTTOM_LEFT_CORNER_POSITION && number <= BOTTOM_RIGHT_CORNER_POSITION;
+    }
 
     static Boolean isOnLeftBorder(Integer number){
-        return new Integer(number % 10).equals(0);
+        return new Integer(number % SEQUENCE_LENGTH).equals(0);
     }
 
     static Boolean isOnRightBorder(Integer number){
-        return new Integer(number % 10).equals(9);
+        return new Integer(number % SEQUENCE_LENGTH).equals(SEQUENCE_LENGTH - 1);
     }
 
 

@@ -2,12 +2,19 @@ package battleships.game;
 
 import battleships.RootLayoutController;
 import battleships.communication.messages.Salvo;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class OpponentBoardViewController {
 
@@ -18,12 +25,23 @@ public class OpponentBoardViewController {
     @FXML
     private GridPane dockedGridPane;
 
+    @FXML
+    private Text shootsLeftCountText;
+
+    @FXML
+    private Button salvoBtn;
+
+    private Integer shootsLeftCount = 0;
+
+    private List<Integer> salvoList = new ArrayList<>();
+
     private Board opponentBoard;
 
     @FXML
     private void initialize(){
         opponentBoard = Board.build();
         setUpBoardView();
+        shootsLeftCountText.setText(shootsLeftCount.toString());
     }
 
     private void setUpBoardView() {
@@ -31,8 +49,8 @@ public class OpponentBoardViewController {
             for (int col = 0; col < BOARD_COLUMN_COUNT; col++) {
                 BoardNode boardNode = this.opponentBoard.rectangleForPosition(row * BOARD_COLUMN_COUNT + col);
                 boardNode.getStackPane().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-                    opponentBoard.shootAtField(boardNode.getIndex());
-                    setUpBoardView();
+                    int shotPosition = boardNode.getIndex();
+                    processShot(shotPosition);
                 });
                 GridPane.setRowIndex(boardNode.getStackPane(), row);
                 GridPane.setColumnIndex(boardNode.getStackPane(), col);
@@ -42,11 +60,32 @@ public class OpponentBoardViewController {
     }
 
     public void sendSalvoClick(ActionEvent actionEvent) {
-        Salvo salvo = new Salvo(Arrays.asList(1, 2, 3, 4, 5, 6));
-        rootLayoutController.process(salvo);
+        rootLayoutController.process(new Salvo(this.salvoList));
+        salvoList.clear();
+        salvoBtn.setDisable(true);
     }
 
     public void setRootLayoutController(RootLayoutController rootLayoutController) {
         this.rootLayoutController = rootLayoutController;
     }
+
+    public void setShootsLeftCount(Integer count){
+        this.shootsLeftCount = count;
+        this.shootsLeftCountText.setText(count.toString());
+        if(shootsLeftCount <= 0){
+            salvoBtn.setDisable(false);
+        }else{
+            salvoBtn.setDisable(true);
+        }
+    }
+
+    private void processShot(Integer fieldPosition){
+        if(this.shootsLeftCount > 0){
+            opponentBoard.shootAtField(fieldPosition);
+            setShootsLeftCount(this.shootsLeftCount-1);
+            setUpBoardView();
+            salvoList.add(fieldPosition);
+        }
+    }
+
 }

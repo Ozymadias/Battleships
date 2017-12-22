@@ -70,6 +70,7 @@ public class RootLayoutController {
         borderPane.setRight(loader.<BorderPane>load());
         OpponentBoardViewController controller = loader.getController();
         controller.setRootLayoutController(this);
+        controller.setShootsLeftCount(20);
     }
 
     public void sendFleet(){
@@ -78,7 +79,7 @@ public class RootLayoutController {
     }
 
     public void process(Salvo salvo) {
-        log.info("preparing salvo to send");
+        log.info("preparing salvo to send: " + salvo.getSalvoPositions().toString());
         clientHandler.sendMessage(this.fleet);
     }
 }

@@ -3,18 +3,20 @@ package battleships;
 import battleships.communication.ClientHandler;
 import battleships.communication.Messagable;
 
-public class HandlerWrapper {
+public class HandlerWrapper implements BattleObserver {
     private final ClientHandler clientHandler;
 
     public HandlerWrapper(ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
     }
 
-    public void getNotified(Messagable messagable) {
+    @Override
+    public void sendMessage(Messagable messagable) {
         clientHandler.sendMessage(messagable);
     }
 
-    public Messagable raport() {
+    @Override
+    public Messagable receiveMessage() {
         return clientHandler.receiveMessage();
     }
 }

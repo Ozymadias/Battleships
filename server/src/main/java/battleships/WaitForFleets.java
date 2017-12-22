@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public class WaitForFleets implements GameState {
     private final BattleshipLog log = BattleshipLog.provideLogger(WaitForFleets.class);
-    private final List<HandlerWrapper> observers;
+    private final List<BattleObserver> observers;
 
-    WaitForFleets(List<HandlerWrapper> observers) {
+    WaitForFleets(List<BattleObserver> observers) {
         this.observers = observers;
     }
 
@@ -19,7 +19,7 @@ public class WaitForFleets implements GameState {
         log.info("Waiting for fleet");
         return new GameInProgress(observers, observers
                 .stream()
-                .map(handlerWrapper -> (Fleet) handlerWrapper.raport())
+                .map(handlerWrapper -> (Fleet) handlerWrapper.receiveMessage())
                 .collect(Collectors.toList()));
     }
 

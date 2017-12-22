@@ -3,10 +3,13 @@ package battleships.game;
 import battleships.ships.Ship;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SequenceForRandom {
+
+    private final int STEP = 1;
 
     private final List<Field> fields;
 
@@ -30,7 +33,7 @@ public class SequenceForRandom {
 
     Integer lastEmptyStartingBy(Integer position){
         Integer last = position;
-        while (last < fields.size() - 1
+        while (last < fields.size() - STEP
                 && fields.get(last).isEmpty()){
             last++;
         }
@@ -43,12 +46,13 @@ public class SequenceForRandom {
             fields.get(position).setBuffer();
         }
 
-        if(!(BordersCheck.isOnLeftBorder(fieldsPositions.get(0)))){
-            fields.get(fieldsPositions.get(0)-1).setBuffer();
+        LinkedList<Integer> fieldsPos = new LinkedList<>(fieldsPositions);
+        if(!(BordersCheck.isOnLeftBorder(fieldsPos.getFirst()))){
+            fields.get(fieldsPos.getFirst()-STEP).setBuffer();
         }
 
-        if(!(BordersCheck.isOnRightBorder(fieldsPositions.get(fieldsPositions.size()-1)))){
-            fields.get(fieldsPositions.get(fieldsPositions.size()-1)+1).setBuffer();
+        if(!(BordersCheck.isOnRightBorder(fieldsPos.getLast()))){
+            fields.get(fieldsPos.getLast()+STEP).setBuffer();
         }
     }
 

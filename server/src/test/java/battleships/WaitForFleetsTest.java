@@ -12,7 +12,7 @@ import static org.mockito.Mockito.*;
 public class WaitForFleetsTest {
     private HandlerWrapper firstTestWrapper;
     private HandlerWrapper secondTestWrapper;
-    private List<HandlerWrapper> handlerWrappersMocks;
+    private List<BattleObserver> handlerWrappersMocks;
 
     @BeforeTest
     public void setUp() {
@@ -25,14 +25,14 @@ public class WaitForFleetsTest {
     public void shouldPassWhenFirstHandlerReportsCorrectly() {
         WaitForFleets waitForFleets = new WaitForFleets(handlerWrappersMocks);
         waitForFleets.process();
-        verify(firstTestWrapper, atLeast(1)).raport();
+        verify(firstTestWrapper, atLeast(1)).receiveMessage();
     }
 
     @Test
     public void shouldPassWhenSecondHandlerReportsCorrectly() {
         WaitForFleets waitForFleets = new WaitForFleets(handlerWrappersMocks);
         waitForFleets.process();
-        verify(secondTestWrapper, atLeast(1)).raport();
+        verify(secondTestWrapper, atLeast(1)).receiveMessage();
     }
 
     @Test

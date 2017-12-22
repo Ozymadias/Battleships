@@ -8,7 +8,6 @@ import java.net.Socket;
 
 public class MessageReceiver {
     private final ObjectInputStream ois;
-
     public MessageReceiver(ObjectInputStream ois) {
         this.ois = ois;
     }

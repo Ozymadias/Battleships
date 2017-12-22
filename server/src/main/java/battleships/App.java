@@ -1,13 +1,10 @@
 package battleships;
 
 import battleships.clientshandling.ClientCreator;
-import battleships.communication.ClientHandler;
 import battleships.communication.Server;
 import battleships.communication.ServerBuilder;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Battleship server!
@@ -21,7 +18,8 @@ public class App {
                 .openServerSocket()
                 .build();
 
-        Map<Players,ClientHandler> clientHandlers = new ClientCreator().createClientHandlers(server.createSockets());
-        new Game(clientHandlers).start();
+        new Game(new ClientCreator()
+                .createClientHandlers(server.createSockets()))
+                .start();
     }
 }

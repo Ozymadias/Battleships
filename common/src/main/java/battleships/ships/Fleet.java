@@ -1,9 +1,21 @@
 package battleships.ships;
 
-import java.util.List;
+import battleships.communication.Messagable;
 
-public class Fleet {
-    private final List<Ship> ships;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Fleet implements Messagable {
+    private List<Ship> ships;
+
+    public Fleet(){
+        ships = new ArrayList<Ship>();
+    }
+
+    public void setShips(List<Ship> ships) {
+        this.ships = ships;
+    }
 
     public Fleet(List<Ship> ships) {
         this.ships = ships;
@@ -11,5 +23,15 @@ public class Fleet {
 
     public List<Ship> getShips() {
         return ships;
+    }
+
+    public List<Integer> getAllPositions() {
+        return ships
+                .stream()
+                .flatMap(ship1 -> ship1
+                        .getMasts()
+                        .stream())
+                .map(Mast::getPosition)
+                .collect(Collectors.toList());
     }
 }

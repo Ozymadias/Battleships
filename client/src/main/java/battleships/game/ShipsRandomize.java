@@ -5,24 +5,30 @@ import battleships.ships.Ship;
 
 import java.util.*;
 
-class ShipsRandomize {
+public class ShipsRandomize {
 
     private static final int SEQUENCE_COUNT = 10;
 
     final private HorizontalSequenceSet horizontalSequences;
-    final private Board board;
+    private Board board;
 
     public ShipsRandomize(HorizontalSequenceSet horizontalSequences, Board board) {
         this.horizontalSequences = horizontalSequences;
         this.board = board;
     }
 
-    static ShipsRandomize build(Board board){
+    public static ShipsRandomize build(){
+        Board board = Board.build();
+        HorizontalSequenceSet horizontalSequenceSet = HorizontalSequenceSet.build(Board.build());
+        return new ShipsRandomize(horizontalSequenceSet, board);
+    }
+
+    public static ShipsRandomize build(Board board){
         HorizontalSequenceSet horizontalSequenceSet = HorizontalSequenceSet.build(board);
         return new ShipsRandomize(horizontalSequenceSet, board);
     }
 
-    Fleet placeAllFloat(){
+    public Fleet placeAllFleet(){
         List<Integer> shipsToPlace = Arrays.asList(4, 3, 3, 2, 2, 2, 1, 1, 1, 1);
         List<Ship> ships = new ArrayList<>();
         shipsToPlace.forEach( masts -> ships.add(placeShipHorizontally(masts)));

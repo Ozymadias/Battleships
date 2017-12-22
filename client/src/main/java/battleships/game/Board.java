@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-class Board {
+public class Board {
+
+    //todo why not board with one row before and after border??
 
     private static final int BOARD_FIELDS_COUNT = 100;
 
@@ -14,7 +16,7 @@ class Board {
         this.fields = fields;
     }
 
-    static Board build(){
+    public static Board build(){
         List<Field> fields = IntStream.range(0,BOARD_FIELDS_COUNT)
                 .mapToObj(Field::new)
                 .collect(Collectors.toList());

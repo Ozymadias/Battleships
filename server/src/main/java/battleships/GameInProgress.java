@@ -2,6 +2,7 @@ package battleships;
 
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
+import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
 import battleships.ships.Ship;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GameInProgress implements GameState {
+    private final BattleshipLog log = BattleshipLog.provideLogger(GameInProgress.class);
     private final List<HandlerWrapper> observers;
     private final List<Fleet> playersFleets;
 
@@ -20,6 +22,7 @@ public class GameInProgress implements GameState {
 
     @Override
     public GameState process() {
+        log.info("Waiting for salvo");
         List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.raport())
                 .collect(Collectors.toList());
         processSalvo(salvos, playersFleets);

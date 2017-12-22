@@ -2,7 +2,6 @@ package battleships;
 
 import battleships.communication.ClientHandler;
 import battleships.communication.ClientHandlerBuilder;
-import battleships.controller.communication.ServerLoginManager;
 import battleships.logging.ConfigurationValue;
 import battleships.logging.ConfigurationValueName;
 import battleships.logging.LoggingController;
@@ -74,13 +73,10 @@ public class App extends Application {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
             rootLayout = loader.load();
+            RootLayoutController controller = loader.getController();
+            controller.initWithFleet(clientHandler);
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
-            RootLayoutController controller = loader.getController();
-            //todo init here with feet and client handler??
-            controller.setClientHandler(clientHandler);
-
-            clientHandler.sendMessage(new Fleet(Arrays.asList(Ship.createShip(1, 2, 3, 4))));
         } catch (IOException e) {
             e.printStackTrace();
         }

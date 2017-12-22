@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class GameInProgress implements GameState {
-    private final List<HandlerWrapper> observers;
+    private final List<BattleObserver> observers;
     private final List<Fleet> playersFleets;
     private final BattleshipLog log = BattleshipLog.provideLogger(GameInProgress.class);
 
-    GameInProgress(List<HandlerWrapper> observers, List<Fleet> playersFleets) {
+    GameInProgress(List<BattleObserver> observers, List<Fleet> playersFleets) {
         this.observers = observers;
         this.playersFleets = playersFleets;
     }
@@ -24,7 +24,7 @@ public class GameInProgress implements GameState {
     @Override
     public GameState process() {
         log.info("Received fleets!");
-        List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.raport())
+        List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.receiveMessage())
                 .collect(Collectors.toList());
         processSalvo(salvos, playersFleets);
         if (areAllShipsSunk())
@@ -42,11 +42,7 @@ public class GameInProgress implements GameState {
                                 .getSalvoPositions()));
 
         IntStream.range(0, observers.size())
-                .forEach(i -> observers.get(i).getNotified(new SalvoResult(fleet.get(i).getAllPositions())));
-    }
-
-    private void sunkMeBaby(Fleet fleet1, List<Integer> resultList) {
-        fleet1.getShips().forEach(ship -> resultList.forEach(ship::killMast));
+                .forEach(i -> observers.get(i).sendMessage(new SalvoResult(fleet.get(i).getAllPositions())));
     }
 
     @Override
@@ -55,7 +51,7 @@ public class GameInProgress implements GameState {
     }
 
     boolean areAllShipsSunk() {
-        return playersFleets.stream().noneMatch(this::allMyFriendsAreDead);
+        return playersFleets.stream().anyMatch(this::allMyFriendsAreDead);
     }
 
     private boolean allMyFriendsAreDead(Fleet fleet) {

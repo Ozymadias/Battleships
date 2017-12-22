@@ -6,10 +6,10 @@ import java.util.List;
 
 public class EndOfTheGame implements GameState {
 
-    private final List<HandlerWrapper> observers;
+    private final List<BattleObserver> observers;
     private final List<Fleet> playersFleets;
 
-    EndOfTheGame(List<HandlerWrapper> observers, List<Fleet> playersFleets) {
+    EndOfTheGame(List<BattleObserver> observers, List<Fleet> playersFleets) {
         this.observers = observers;
         this.playersFleets = playersFleets;
     }

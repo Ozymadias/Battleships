@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 public class SendWelcomeMessageTest {
     private HandlerWrapper firstTestWrapper;
     private HandlerWrapper secondTestWrapper;
-    private List<HandlerWrapper> handlerWrappersMocks;
+    private List<BattleObserver> handlerWrappersMocks;
 
     @BeforeTest
     public void setUp() {
@@ -26,14 +26,14 @@ public class SendWelcomeMessageTest {
     public void shouldPassWhenFirstWrapperIsCorrectlyNotifiedByWelcomeMessage() {
         SendWelcomeMessage sendWelcomeMessage = new SendWelcomeMessage(handlerWrappersMocks);
         sendWelcomeMessage.process();
-        verify(firstTestWrapper, atLeast(1)).getNotified(any(WelcomeMessage.class));
+        verify(firstTestWrapper, atLeast(1)).sendMessage(any(WelcomeMessage.class));
     }
 
     @Test
     public void shouldPassWhenSecondWrapperIsCorrectlyNotifiedByWelcomeMessage() {
         SendWelcomeMessage sendWelcomeMessage = new SendWelcomeMessage(handlerWrappersMocks);
         sendWelcomeMessage.process();
-        verify(secondTestWrapper, atLeast(1)).getNotified(any(WelcomeMessage.class));
+        verify(secondTestWrapper, atLeast(1)).sendMessage(any(WelcomeMessage.class));
     }
 
     @Test

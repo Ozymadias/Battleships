@@ -1,7 +1,9 @@
 package battleships;
 
 import battleships.communication.ClientHandler;
+import battleships.communication.messages.Salvo;
 import battleships.game.Board;
+import battleships.game.OpponentBoardViewController;
 import battleships.game.PlayerBoardViewController;
 import battleships.game.ShipsRandomize;
 import battleships.logger.BattleshipLog;
@@ -23,8 +25,12 @@ public class RootLayoutController {
 
     private ClientHandler clientHandler;
 
+    private Fleet fleet;
+
     @FXML
     BorderPane borderPane;
+
+
 
     @FXML
     private void initialize(){
@@ -35,12 +41,12 @@ public class RootLayoutController {
         }
     }
 
-    public void initWithFleet(ClientHandler clientHandler){
+    public void init(ClientHandler clientHandler){
         this.clientHandler = clientHandler;
         ShipsRandomize shipsRandomize = ShipsRandomize.build(Board.build());
-        Fleet fleet = shipsRandomize.placeAllFleet();
+        this.fleet = shipsRandomize.placeAllFleet();
         Board board = shipsRandomize.getBoard();
-        sendFleet(fleet);
+        sendFleet();
         try {
             addPlayerBoardView(board, fleet);
         } catch (IOException e) {
@@ -55,17 +61,24 @@ public class RootLayoutController {
         final PlayerBoardViewController controller = loader.getController();
         controller.setBoard(board);
         controller.setUpPlayerBoardDocked();
+        controller.setRootLayoutController(this);
     }
 
     private void addOpponentBoardView() throws IOException {
         final FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource(OPPONENT_BOARD_VIEW_FXML));
         borderPane.setRight(loader.<BorderPane>load());
+        OpponentBoardViewController controller = loader.getController();
+        controller.setRootLayoutController(this);
     }
 
-    public void sendFleet(Fleet fleet){
+    public void sendFleet(){
         log.info("preparing fleet to send");
-        clientHandler.sendMessage(fleet);
+        clientHandler.sendMessage(this.fleet);
     }
 
+    public void process(Salvo salvo) {
+        log.info("preparing salvo to send");
+        clientHandler.sendMessage(this.fleet);
+    }
 }

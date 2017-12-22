@@ -5,8 +5,6 @@ import battleships.communication.ClientHandlerBuilder;
 import battleships.logging.ConfigurationValue;
 import battleships.logging.ConfigurationValueName;
 import battleships.logging.LoggingController;
-import battleships.ships.Fleet;
-import battleships.ships.Ship;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.Map;
 
 import static battleships.logging.ConfigurationValueName.IP;
@@ -74,7 +71,7 @@ public class App extends Application {
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
             rootLayout = loader.load();
             RootLayoutController controller = loader.getController();
-            controller.initWithFleet(clientHandler);
+            controller.init(clientHandler);
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
         } catch (IOException e) {

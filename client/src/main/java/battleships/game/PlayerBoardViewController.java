@@ -1,5 +1,6 @@
 package battleships.game;
 
+import battleships.RootLayoutController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
@@ -8,6 +9,7 @@ public class PlayerBoardViewController {
     private static final int BOARD_ROW_COUNT = 10;
     private static final int BOARD_COLUMN_COUNT = 10;
     private Board board;
+    private RootLayoutController rootLayoutController;
 
     @FXML
     private GridPane dockedGridPane;
@@ -31,5 +33,9 @@ public class PlayerBoardViewController {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+
+    public void setRootLayoutController(RootLayoutController rootLayoutController) {
+        this.rootLayoutController = rootLayoutController;
     }
 }

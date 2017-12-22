@@ -47,4 +47,7 @@
    <padding>
       <Insets top="10.0" />
    </padding>
+   <right>
+      <Button mnemonicParsing="false" onAction="#sendSalvoClick" text="Salvo" BorderPane.alignment="CENTER" />
+   </right>
 </BorderPane>

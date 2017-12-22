@@ -17,4 +17,9 @@ public class SalvoResult implements Messagable {
     public List<Integer> getResultList() {
         return resultList;
     }
+
+    @Override
+    public String toString() {
+        return resultList.toString();
+    }
 }

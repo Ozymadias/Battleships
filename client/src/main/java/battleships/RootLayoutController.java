@@ -21,7 +21,7 @@ public class RootLayoutController {
     private static final String PLAYER_BOARD_VIEW_FXML = "/fxml/PlayerBoardViewLayout.fxml";
     private static final String OPPONENT_BOARD_VIEW_FXML = "/fxml/OpponentBoardViewLayout.fxml";
 
-    BattleshipLog log = BattleshipLog.provideLogger(RootLayoutController.class);
+    private final BattleshipLog log = BattleshipLog.provideLogger(RootLayoutController.class);
 
     private ClientHandler clientHandler;
 
@@ -73,13 +73,13 @@ public class RootLayoutController {
         controller.setShootsLeftCount(20);
     }
 
-    public void sendFleet(){
+    void sendFleet(){
         log.info("preparing fleet to send");
         clientHandler.sendMessage(this.fleet);
     }
 
     public void process(Salvo salvo) {
         log.info("preparing salvo to send: " + salvo.getSalvoPositions().toString());
-        clientHandler.sendMessage(this.fleet);
+        clientHandler.sendMessage(salvo);
     }
 }

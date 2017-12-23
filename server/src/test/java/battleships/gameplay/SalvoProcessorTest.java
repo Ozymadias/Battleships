@@ -38,19 +38,6 @@ public class SalvoProcessorTest {
         assertThat(results.get(playerNumber).getResultList()).isEqualTo(expectedResult);
     }
 
-//    @Test(dataProvider = "provider")
-//    public void shouldPassWhenGivenDataIsProcessedToCorrectSalvoValue(Quadruplet quadruplet, List expectedResult, int playerNumber) {
-//        //given
-//        salvos.add(quadruplet.firstSalvo);
-//        salvos.add(quadruplet.secondSalvo);
-//        fleets.add(quadruplet.firstFleet);
-//        fleets.add(quadruplet.secondFleet);
-//        //when
-//        List<SalvoResult> results = new SalvoProcessor().process(salvos, fleets);
-//        //then
-//        assertThat(results.get(playerNumber).getSalvoPositions()).isEqualTo(quadruplet.secondSalvo.getSalvoPositions());
-//    }
-
     @DataProvider(name = "provider")
     public static Object[][] provider() {
         return new Object[][]{

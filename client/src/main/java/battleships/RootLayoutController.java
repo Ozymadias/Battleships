@@ -74,12 +74,12 @@ public class RootLayoutController {
     }
 
     public void sendFleet(){
-        log.info("preparing fleet to send");
+        log.info("preparing fleet to send " + this.fleet.getShips().toString());
         clientHandler.sendMessage(this.fleet);
     }
 
     public void process(Salvo salvo) {
         log.info("preparing salvo to send: " + salvo.getSalvoPositions().toString());
-        clientHandler.sendMessage(this.fleet);
+        clientHandler.sendMessage(salvo);
     }
 }

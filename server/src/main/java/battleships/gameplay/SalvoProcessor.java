@@ -12,11 +12,12 @@ import java.util.stream.IntStream;
 class SalvoProcessor {
     List<SalvoResult> process(List<Salvo> salvos, List<Fleet> fleets) {
         Collections.reverse(salvos);
-
         List<SalvoResult> salvoResults = new ArrayList<>();
 
         IntStream.range(0, fleets.size())
-                .forEach(p -> salvoResults.add(calculate(salvos.get(p), fleets.get(p))));
+                .boxed()
+                .sorted(Collections.reverseOrder())
+                .forEachOrdered(p -> salvoResults.add(calculate(salvos.get(p), fleets.get(p))));
 
         return salvoResults;
     }

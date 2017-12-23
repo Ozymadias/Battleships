@@ -26,7 +26,7 @@ public class SalvoProcessorTest {
     }
 
     @Test(dataProvider = "provider")
-    public void shouldPassWhenGivenDataIsProcessedToCorrectValue(Quadruplet quadruplet, List expectedResult, int playerNumber) {
+    public void shouldPassWhenGivenDataIsProcessedToCorrectResultValue(Quadruplet quadruplet, List expectedResult, int playerNumber) {
         //given
         salvos.add(quadruplet.firstSalvo);
         salvos.add(quadruplet.secondSalvo);
@@ -38,6 +38,19 @@ public class SalvoProcessorTest {
         assertThat(results.get(playerNumber).getResultList()).isEqualTo(expectedResult);
     }
 
+//    @Test(dataProvider = "provider")
+//    public void shouldPassWhenGivenDataIsProcessedToCorrectSalvoValue(Quadruplet quadruplet, List expectedResult, int playerNumber) {
+//        //given
+//        salvos.add(quadruplet.firstSalvo);
+//        salvos.add(quadruplet.secondSalvo);
+//        fleets.add(quadruplet.firstFleet);
+//        fleets.add(quadruplet.secondFleet);
+//        //when
+//        List<SalvoResult> results = new SalvoProcessor().process(salvos, fleets);
+//        //then
+//        assertThat(results.get(playerNumber).getSalvoPositions()).isEqualTo(quadruplet.secondSalvo.getSalvoPositions());
+//    }
+
     @DataProvider(name = "provider")
     public static Object[][] provider() {
         return new Object[][]{
@@ -46,43 +59,43 @@ public class SalvoProcessorTest {
                         Salvo.createForPositions(5, 6, 7),
                         new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
                         new Fleet(Collections.singletonList(Ship.createShip(1, 2, 3)))),
-                        Arrays.asList(1, 2, 3), 1},
+                        Arrays.asList(1, 2, 3), 0},
                 {new Quadruplet(
                         Salvo.createForPositions(59),
                         Salvo.createForPositions(7, 8),
                         new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
                         new Fleet(Collections.singletonList(Ship.createShip(1, 2, 3, 4, 5, 59)))),
-                        Collections.singletonList(59), 1},
+                        Collections.singletonList(59), 0},
                 {new Quadruplet(
                         Salvo.createForPositions(1, 2, 3, 4, 5, 6),
                         Salvo.createForPositions(7, 8),
                         new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
                         new Fleet(Collections.singletonList(Ship.createShip(59, 22, 41, 12)))),
-                        Collections.emptyList(), 1},
-                {new Quadruplet(
-                        Salvo.createForPositions(78, 79, 0, 1, 2, 54),
-                        Salvo.createForPositions(7, 8),
-                        new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
-                        new Fleet(Collections.singletonList(Ship.createShip(78, 22, 0, 1, 12, 54)))),
-                        Arrays.asList(78, 0, 1, 54), 1},
-                {new Quadruplet(
-                        Salvo.createForPositions(78, 79, 0, 1, 2, 54),
-                        Salvo.createForPositions(7, 8),
-                        new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
-                        new Fleet(Collections.singletonList(Ship.createShip(78, 22, 0, 1, 12, 54)))),
                         Collections.emptyList(), 0},
+                {new Quadruplet(
+                        Salvo.createForPositions(78, 79, 0, 1, 2, 54),
+                        Salvo.createForPositions(7, 8),
+                        new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Collections.singletonList(Ship.createShip(78, 22, 0, 1, 12, 54)))),
+                        Arrays.asList(78, 0, 1, 54), 0},
+                {new Quadruplet(
+                        Salvo.createForPositions(78, 79, 0, 1, 2, 54),
+                        Salvo.createForPositions(7, 8),
+                        new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Collections.singletonList(Ship.createShip(78, 22, 0, 1, 12, 54)))),
+                        Collections.emptyList(), 1},
                 {new Quadruplet(
                         Salvo.createForPositions(78, 79, 0, 1, 2, 54),
                         Salvo.createForPositions(3),
                         new Fleet(Collections.singletonList(Ship.createShip(3, 3, 3, 3, 3, 3))),
                         new Fleet(Collections.singletonList(Ship.createShip(6, 54, 3, 5, 7)))),
-                        Collections.singletonList(3), 0},
+                        Collections.singletonList(3), 1},
                 {new Quadruplet(
                         Salvo.createForPositions(78, 79, 0, 1, 2, 54),
                         Salvo.createForPositions(3, 76, 75, 11, 45, 32, 67, 32, 53, 23),
                         new Fleet(Collections.singletonList(Ship.createShip(3, 7, 6, 78))),
                         new Fleet(Collections.singletonList(Ship.createShip(6, 54, 3, 5, 7)))),
-                        Collections.singletonList(3), 0}
+                        Collections.singletonList(3), 1}
         };
     }
 

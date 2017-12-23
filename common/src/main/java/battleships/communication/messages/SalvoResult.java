@@ -21,11 +21,6 @@ public class SalvoResult implements Messagable {
     }
 
     public List<Integer> getSalvoPositions() {
-        return resultList;
-    }
-
-    @Override
-    public String toString() {
-        return resultList.toString() + salvoPositions.toString();
+        return salvoPositions;
     }
 }

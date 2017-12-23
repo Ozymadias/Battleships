@@ -53,10 +53,4 @@ public class Ship implements Messagable {
                 .filter((p) -> p.getPosition().equals(position))
                 .forEach(Mast::kill);
     }
-
-    public String toString() {
-        return masts.stream()
-                .map(Mast::toString)
-                .collect(Collectors.joining(" ,"));
-    }
 }

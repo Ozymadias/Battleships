@@ -28,9 +28,4 @@ public class Salvo implements Messagable {
     public List<Integer> getSalvoPositions() {
         return salvoPositions;
     }
-
-    @Override
-    public String toString() {
-        return salvoPositions.toString();
-    }
 }

@@ -54,7 +54,6 @@ public class LoggingController {
 
     @FXML
     private Button logInButton;
-    private ClientHandler clientHandler;
 
     @FXML
     void OnActionLoginButton(ActionEvent event){

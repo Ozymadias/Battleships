@@ -10,17 +10,11 @@ public class ShipsRandomize {
     private static final int SEQUENCE_COUNT = 10;
 
     final private HorizontalSequenceSet horizontalSequences;
-    private Board board;
+    private final Board board;
 
-    public ShipsRandomize(HorizontalSequenceSet horizontalSequences, Board board) {
+    private ShipsRandomize(HorizontalSequenceSet horizontalSequences, Board board) {
         this.horizontalSequences = horizontalSequences;
         this.board = board;
-    }
-
-    public static ShipsRandomize build(){
-        Board board = Board.build();
-        HorizontalSequenceSet horizontalSequenceSet = HorizontalSequenceSet.build(Board.build());
-        return new ShipsRandomize(horizontalSequenceSet, board);
     }
 
     public static ShipsRandomize build(Board board){

@@ -6,8 +6,7 @@ import java.util.Random;
 
 interface SequencesSet {
 
-    public static final int SEQUENCE_COUNT = 10;
-    public static final int SEQUENCE_LENGTH = 10;
+    int SEQUENCE_COUNT = 10;
 
     public SequenceForRandom get(Integer index);
 

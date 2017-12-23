@@ -41,7 +41,6 @@ public class SequenceForRandom {
         return last;
     }
 
-    //todo: to wydzielić do klasy trzymającej daną klasę z otoczeniem!!!
     void setBuffered(List<Integer> fieldsPositions){
         for(Integer position : fieldsPositions){
             fields.get(position).setBuffer();

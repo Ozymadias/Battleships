@@ -33,7 +33,7 @@ public class OpponentBoardViewController {
 
     private Integer shootsLeftCount = 0;
 
-    private List<Integer> salvoList = new ArrayList<>();
+    private final List<Integer> salvoList = new ArrayList<>();
 
     private Board opponentBoard;
 

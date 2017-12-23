@@ -29,7 +29,7 @@ public class NameValidatorTest {
     }
 
     @Test(dataProvider = "namePool")
-    public void shouldPassWhenValidationOfNameThatIsOtherThanNullIsCorrect(ConfigurationValue stringToValidate, boolean expectedResult) throws Exception {
+    public void shouldPassWhenValidationOfNameThatIsOtherThanNullIsCorrect(ConfigurationValue stringToValidate, boolean expectedResult){
         assertThat(nameValidator.validate(stringToValidate)).isEqualTo(expectedResult);
     }
 }

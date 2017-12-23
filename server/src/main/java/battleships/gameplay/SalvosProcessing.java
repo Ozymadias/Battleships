@@ -2,7 +2,6 @@ package battleships.gameplay;
 
 import battleships.BattleObserver;
 import battleships.communication.messages.Salvo;
-import battleships.communication.messages.SalvoResult;
 import battleships.ships.Fleet;
 
 import java.util.List;
@@ -23,7 +22,7 @@ class SalvosProcessing implements GameState {
 
     @Override
     public GameState process() {
-        return new ShipsSinking(observers, playersFleets, new SalvoProcessor().process(salvos, playersFleets));
+        return new SinkingShips(observers, playersFleets, new SalvoProcessor().process(salvos, playersFleets));
     }
 
     @Override

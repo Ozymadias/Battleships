@@ -1,6 +1,5 @@
 package battleships.gameplay;
 
-import battleships.ships.Ship;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 

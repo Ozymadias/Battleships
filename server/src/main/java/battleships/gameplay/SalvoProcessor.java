@@ -7,17 +7,23 @@ import battleships.ships.Fleet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class SalvoProcessor {
     public List<SalvoResult> process(List<Salvo> salvos, List<Fleet> fleets) {
         Collections.reverse(salvos);
-        List<Integer> resultListOfPlayer0 = new ArrayList<>(salvos.get(0).getSalvoPositions());
-        List<Integer> resultListOfPlayer1 = new ArrayList<>(salvos.get(1).getSalvoPositions());
-        resultListOfPlayer0.retainAll(fleets.get(0).getAllPositions());
-        resultListOfPlayer1.retainAll(fleets.get(1).getAllPositions());
+
         List<SalvoResult> salvoResults = new ArrayList<>();
-        salvoResults.add(new SalvoResult(resultListOfPlayer0, salvos.get(0).getSalvoPositions()));
-        salvoResults.add(new SalvoResult(resultListOfPlayer1, salvos.get(1).getSalvoPositions()));
+
+        IntStream.range(0, fleets.size())
+                .forEach(p -> salvoResults.add(calculate(salvos.get(p), fleets.get(p))));
+
         return salvoResults;
+    }
+
+    private SalvoResult calculate(Salvo salvo, Fleet fleet) {
+        List<Integer> resultingPositions = new ArrayList<>(salvo.getSalvoPositions());
+        resultingPositions.retainAll(fleet.getAllPositions());
+        return new SalvoResult(resultingPositions, salvo.getSalvoPositions());
     }
 }

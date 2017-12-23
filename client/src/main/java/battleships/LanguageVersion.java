@@ -54,7 +54,6 @@ public class LanguageVersion {
                                 (a, b) -> b, () -> new EnumMap<>(LocalizationStringMarker.class)));
 
             } catch (IOException e) {
-                //TODO:Add logger here when we will have it in common libraries!!!
                 e.printStackTrace();
             }
             return translationStringEnumMap;

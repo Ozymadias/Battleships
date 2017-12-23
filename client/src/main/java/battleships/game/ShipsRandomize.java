@@ -1,36 +1,44 @@
 package battleships.game;
 
+import battleships.ships.Fleet;
+import battleships.ships.Ship;
+
 import java.util.*;
 
-class ShipsRandomize {
+public class ShipsRandomize {
 
     private static final int SEQUENCE_COUNT = 10;
 
     final private HorizontalSequenceSet horizontalSequences;
-    final private Board board;
+    private final Board board;
 
-    public ShipsRandomize(HorizontalSequenceSet horizontalSequences, Board board) {
+    private ShipsRandomize(HorizontalSequenceSet horizontalSequences, Board board) {
         this.horizontalSequences = horizontalSequences;
         this.board = board;
     }
 
-    static ShipsRandomize build(Board board){
+    public static ShipsRandomize build(Board board){
         HorizontalSequenceSet horizontalSequenceSet = HorizontalSequenceSet.build(board);
         return new ShipsRandomize(horizontalSequenceSet, board);
     }
 
-    Board placeAllFloat(){
-        List<Integer> ships = Arrays.asList(4, 3, 3, 2, 2, 2, 1, 1, 1, 1);
-        ships.forEach( masts -> placeShipHorizontally(masts));
-        return board;
+    public Fleet placeAllFleet(){
+        List<Integer> shipsToPlace = Arrays.asList(4, 3, 3, 2, 2, 2, 1, 1, 1, 1);
+        List<Ship> ships = new ArrayList<>();
+        shipsToPlace.forEach( masts -> ships.add(placeShipHorizontally(masts)));
+        return new Fleet(ships);
     }
 
-    private void placeShipHorizontally(int length){
+    private Ship placeShipHorizontally(int length){
         Integer randomRow;
         do{
             randomRow = new Random().nextInt(SEQUENCE_COUNT);
         }while(!horizontalSequences.get(randomRow).canContainShip(length));
 
-        horizontalSequences.randomlyPlaceShip(randomRow, length);
+        return horizontalSequences.randomlyPlaceShip(randomRow, length);
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

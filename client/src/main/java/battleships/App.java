@@ -2,12 +2,9 @@ package battleships;
 
 import battleships.communication.ClientHandler;
 import battleships.communication.ClientHandlerBuilder;
-import battleships.controller.communication.ServerLoginManager;
 import battleships.logging.ConfigurationValue;
 import battleships.logging.ConfigurationValueName;
 import battleships.logging.LoggingController;
-import battleships.ships.Fleet;
-import battleships.ships.Ship;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.Map;
 
 import static battleships.logging.ConfigurationValueName.IP;
@@ -29,10 +25,9 @@ public class App extends Application {
     private static final String ROOT_LAYOUT_FXML = "/fxml/RootLayout.fxml";
 
     private Stage primaryStage;
-    private BorderPane rootLayout;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle(APP_NAME);
         showLoginWindow();
@@ -69,14 +64,15 @@ public class App extends Application {
      *
      * @param clientHandler
      */
-    public void initRootLayout(ClientHandler clientHandler) {
+    private void initRootLayout(ClientHandler clientHandler) {
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
-            rootLayout = loader.load();
+            BorderPane rootLayout = loader.load();
+            RootLayoutController controller = loader.getController();
+            controller.init(clientHandler);
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
-            clientHandler.sendMessage(new Fleet(Arrays.asList(Ship.createShip(1, 2, 3, 4))));
         } catch (IOException e) {
             e.printStackTrace();
         }

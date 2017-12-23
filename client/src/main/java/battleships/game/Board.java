@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-class Board {
+public class Board {
 
     private static final int BOARD_FIELDS_COUNT = 100;
 
@@ -14,7 +14,7 @@ class Board {
         this.fields = fields;
     }
 
-    static Board build(){
+    public static Board build(){
         List<Field> fields = IntStream.range(0,BOARD_FIELDS_COUNT)
                 .mapToObj(Field::new)
                 .collect(Collectors.toList());

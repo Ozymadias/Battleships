@@ -30,7 +30,7 @@ public class ShipsRandomizeTest {
         ShipsRandomize firstRandomShipsSet = ShipsRandomize.build(Board.build());
         Fleet fleet = firstRandomShipsSet.placeAllFleet();
 
-        Set<Integer> setOfPositions = new HashSet<Integer>(fleet.getAllPositions());
+        Set<Integer> setOfPositions = new HashSet<>(fleet.getAllPositions());
 
         assertThat(fleet.getAllPositions().size())
                 .isEqualTo(setOfPositions.size());

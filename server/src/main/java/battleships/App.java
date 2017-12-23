@@ -3,6 +3,7 @@ package battleships;
 import battleships.clientshandling.ClientCreator;
 import battleships.communication.Server;
 import battleships.communication.ServerBuilder;
+import battleships.gameplay.Game;
 
 import java.io.IOException;
 

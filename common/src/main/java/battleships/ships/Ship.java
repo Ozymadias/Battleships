@@ -8,20 +8,21 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Ship implements Messagable{
+public class Ship implements Messagable {
     private List<Mast> masts;
 
-    public Ship() {}
+    public Ship() {
+    }
 
-    public static Ship viaList(List<Integer> positions){
+    public static Ship viaList(List<Integer> positions) {
         List<Mast> masts = new ArrayList<>();
-        positions.stream().forEach(p -> masts.add(new Mast(p)));
+        positions.forEach(p -> masts.add(new Mast(p)));
         return new Ship(masts);
     }
 
     public static Ship createShip(Integer... positions) {
-        List<Mast> masts=  new ArrayList<>();
-        for(Integer i: positions) {
+        List<Mast> masts = new ArrayList<>();
+        for (Integer i : positions) {
             masts.add(new Mast(i));
         }
         return new Ship(masts);
@@ -51,11 +52,5 @@ public class Ship implements Messagable{
         masts.stream()
                 .filter((p) -> p.getPosition().equals(position))
                 .forEach(Mast::kill);
-    }
-
-    public String toString(){
-        return masts.stream()
-                .map(Mast::toString)
-                .collect(Collectors.joining(" ,"));
     }
 }

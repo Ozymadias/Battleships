@@ -1,5 +1,7 @@
-package battleships;
+package battleships.gameplay;
 
+import battleships.BattleObserver;
+import battleships.HandlerWrapper;
 import battleships.communication.messages.WelcomeMessage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -10,7 +12,7 @@ import java.util.List;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
-public class SendWelcomeMessageTest {
+public class SendingWelcomeMessageTest {
     private HandlerWrapper firstTestWrapper;
     private HandlerWrapper secondTestWrapper;
     private List<BattleObserver> handlerWrappersMocks;
@@ -24,21 +26,21 @@ public class SendWelcomeMessageTest {
 
     @Test
     public void shouldPassWhenFirstWrapperIsCorrectlyNotifiedByWelcomeMessage() {
-        SendWelcomeMessage sendWelcomeMessage = new SendWelcomeMessage(handlerWrappersMocks);
-        sendWelcomeMessage.process();
+        SendingWelcomeMessage sendingWelcomeMessage = new SendingWelcomeMessage(handlerWrappersMocks);
+        sendingWelcomeMessage.process();
         verify(firstTestWrapper, atLeast(1)).sendMessage(any(WelcomeMessage.class));
     }
 
     @Test
     public void shouldPassWhenSecondWrapperIsCorrectlyNotifiedByWelcomeMessage() {
-        SendWelcomeMessage sendWelcomeMessage = new SendWelcomeMessage(handlerWrappersMocks);
-        sendWelcomeMessage.process();
+        SendingWelcomeMessage sendingWelcomeMessage = new SendingWelcomeMessage(handlerWrappersMocks);
+        sendingWelcomeMessage.process();
         verify(secondTestWrapper, atLeast(1)).sendMessage(any(WelcomeMessage.class));
     }
 
     @Test
     public void shouldPassWhenGameStateIsNotEndGameState() {
-        SendWelcomeMessage sendWelcomeMessage = new SendWelcomeMessage(handlerWrappersMocks);
-        assertThat(sendWelcomeMessage.isEndOfTheGame()).isFalse();
+        SendingWelcomeMessage sendingWelcomeMessage = new SendingWelcomeMessage(handlerWrappersMocks);
+        assertThat(sendingWelcomeMessage.isEndOfTheGame()).isFalse();
     }
 }

@@ -8,13 +8,11 @@ import battleships.game.PlayerBoardViewController;
 import battleships.game.ShipsRandomize;
 import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
-import battleships.ships.Ship;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class RootLayoutController {
 
@@ -30,14 +28,12 @@ public class RootLayoutController {
     @FXML
     BorderPane borderPane;
 
-
-
     @FXML
     private void initialize(){
         try{
             addOpponentBoardView();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 
@@ -48,20 +44,19 @@ public class RootLayoutController {
         Board board = shipsRandomize.getBoard();
         sendFleet();
         try {
-            addPlayerBoardView(board, fleet);
+            addPlayerBoardView(board);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 
-    private void addPlayerBoardView(Board board, Fleet fleet) throws IOException {
+    private void addPlayerBoardView(Board board) throws IOException {
         final FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource(PLAYER_BOARD_VIEW_FXML));
         borderPane.setLeft(loader.<BorderPane>load());
         final PlayerBoardViewController controller = loader.getController();
         controller.setBoard(board);
         controller.setUpPlayerBoardDocked();
-        controller.setRootLayoutController(this);
     }
 
     private void addOpponentBoardView() throws IOException {
@@ -72,6 +67,7 @@ public class RootLayoutController {
         controller.setRootLayoutController(this);
         controller.setShootsLeftCount(20);
     }
+
 
     void sendFleet(){
         log.info("preparing fleet to send " + this.fleet.getShips().toString());

@@ -39,7 +39,7 @@ public class LanguageVersionTest {
     }
 
     @Test(dataProvider = "englishData")
-    public void shouldPassWhenTranslationMapProvidesCorrectTranslationStringInEnglish(LocalizationStringMarker localizationStringMarker, String expectedString) throws Exception {
+    public void shouldPassWhenTranslationMapProvidesCorrectTranslationStringInEnglish(LocalizationStringMarker localizationStringMarker, String expectedString){
         //Given
         languageVersion = new LanguageVersion(EN);
         //Then
@@ -47,7 +47,7 @@ public class LanguageVersionTest {
     }
 
     @Test(dataProvider = "polishData")
-    public void shouldPassWhenTranslationMapProvidesCorrectTranslationStringInPolish(LocalizationStringMarker localizationStringMarker, String expectedString) throws Exception {
+    public void shouldPassWhenTranslationMapProvidesCorrectTranslationStringInPolish(LocalizationStringMarker localizationStringMarker, String expectedString){
         //Given
         languageVersion = new LanguageVersion(PL);
         //Then

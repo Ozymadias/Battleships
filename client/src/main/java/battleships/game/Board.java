@@ -6,8 +6,6 @@ import java.util.stream.IntStream;
 
 public class Board {
 
-    //todo why not board with one row before and after border??
-
     private static final int BOARD_FIELDS_COUNT = 100;
 
     private final List<Field> fields;

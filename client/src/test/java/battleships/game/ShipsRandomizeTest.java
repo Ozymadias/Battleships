@@ -26,7 +26,7 @@ public class ShipsRandomizeTest {
     }
 
     @Test
-    public void givenBoradWhenRandomizeFleet_eachPositionOfmastInFleetShouldDiffers(){
+    public void givenBroadWhenRandomizeFleet_eachPositionOfMastInFleetShouldDiffers(){
         ShipsRandomize firstRandomShipsSet = ShipsRandomize.build(Board.build());
         Fleet fleet = firstRandomShipsSet.placeAllFleet();
 

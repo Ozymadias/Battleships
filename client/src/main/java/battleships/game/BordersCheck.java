@@ -17,11 +17,13 @@ class BordersCheck {
     }
 
     static Boolean isOnLeftBorder(Integer number){
-        return new Integer(number % SEQUENCE_LENGTH).equals(0);
+        return (number >= TOP_LEFT_CORNER_POSITION && number <= BOTTOM_LEFT_CORNER_POSITION)
+            && (new Integer(number % SEQUENCE_LENGTH)).equals(0);
     }
 
     static Boolean isOnRightBorder(Integer number){
-        return new Integer(number % SEQUENCE_LENGTH).equals(SEQUENCE_LENGTH - 1);
+        return (number >= TOP_RIGHT_CORNER_POSITION && number <= BOTTOM_RIGHT_CORNER_POSITION)
+               && (new Integer(number % SEQUENCE_LENGTH)).equals(SEQUENCE_LENGTH - 1);
     }
 
 

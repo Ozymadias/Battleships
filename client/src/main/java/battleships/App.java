@@ -25,10 +25,9 @@ public class App extends Application {
     private static final String ROOT_LAYOUT_FXML = "/fxml/RootLayout.fxml";
 
     private Stage primaryStage;
-    private BorderPane rootLayout;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage){
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle(APP_NAME);
         showLoginWindow();
@@ -65,11 +64,11 @@ public class App extends Application {
      *
      * @param clientHandler
      */
-    public void initRootLayout(ClientHandler clientHandler) {
+    private void initRootLayout(ClientHandler clientHandler) {
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
-            rootLayout = loader.load();
+            BorderPane rootLayout = loader.load();
             RootLayoutController controller = loader.getController();
             controller.init(clientHandler);
             primaryStage.setScene(new Scene(rootLayout));

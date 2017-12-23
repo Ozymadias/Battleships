@@ -42,7 +42,7 @@ public class PortConfigurationValidatorTest {
     }
 
     @Test(dataProvider = "portPool")
-    public void shouldPassWhenValidatorPerformsCorrectValidationOnGivenData(ConfigurationValue portStringToValidate, boolean expectedValidationResult) throws Exception {
+    public void shouldPassWhenValidatorPerformsCorrectValidationOnGivenData(ConfigurationValue portStringToValidate, boolean expectedValidationResult){
         assertThat(portConfigValidator.validate(portStringToValidate)).isEqualTo(expectedValidationResult);
     }
 }

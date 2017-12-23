@@ -28,13 +28,4 @@ class WaitingForFleets implements GameState {
     public boolean isEndOfTheGame() {
         return false;
     }
-
-
-//    boolean areAllShipsSunk() {
-//        return playersFleets.stream().anyMatch(this::allMyFriendsAreDead);
-//    }
-//
-//    private boolean allMyFriendsAreDead(Fleet fleet) {
-//        return fleet.getShips().stream().allMatch(Ship::isSunk);
-//    }
 }

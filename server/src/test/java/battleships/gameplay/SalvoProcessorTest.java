@@ -5,6 +5,7 @@ import battleships.communication.messages.SalvoResult;
 import battleships.ships.Fleet;
 import battleships.ships.Ship;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -23,13 +24,79 @@ public class SalvoProcessorTest {
         fleets = new ArrayList<>();
     }
 
-    @Test
-    public void testName() {
-        salvos.add(Salvo.createForPositions(1, 2, 3));
-        salvos.add(Salvo.createForPositions(5, 6, 7));
-        fleets.add(new Fleet(Arrays.asList(Ship.createShip(3, 5, 4))));
-        fleets.add(new Fleet(Arrays.asList(Ship.createShip(1, 2, 3))));
-        List<SalvoResult> results = new SalvoProcessor().process(salvos,fleets);
-        assertThat(results.get(1).getResultList()).isEqualTo(Arrays.asList());
+    @Test(dataProvider = "provider")
+    public void shouldPassWhenGivenDataIsProcessedToCorrectValue(Quadruplet quadruplet, List expectedResult, int playerNumber) {
+        //given
+        salvos.add(quadruplet.firstSalvo);
+        salvos.add(quadruplet.secondSalvo);
+        fleets.add(quadruplet.firstFleet);
+        fleets.add(quadruplet.secondFleet);
+        //when
+        List<SalvoResult> results = new SalvoProcessor().process(salvos, fleets);
+        //then
+        assertThat(results.get(playerNumber).getResultList()).isEqualTo(expectedResult);
+    }
+
+    @DataProvider(name = "provider")
+    public static Object[][] provider() {
+        return new Object[][]{
+                {new Quadruplet(
+                        Salvo.createForPositions(1, 2, 3, 4, 5),
+                        Salvo.createForPositions(5, 6, 7),
+                        new Fleet(Arrays.asList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Arrays.asList(Ship.createShip(1, 2, 3)))),
+                        Arrays.asList(1, 2, 3), 1},
+                {new Quadruplet(
+                        Salvo.createForPositions(59),
+                        Salvo.createForPositions(7, 8),
+                        new Fleet(Arrays.asList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Arrays.asList(Ship.createShip(1, 2, 3, 4, 5, 59)))),
+                        Arrays.asList(59), 1},
+                {new Quadruplet(
+                        Salvo.createForPositions(1, 2, 3, 4, 5, 6),
+                        Salvo.createForPositions(7, 8),
+                        new Fleet(Arrays.asList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Arrays.asList(Ship.createShip(59, 22, 41, 12)))),
+                        Arrays.asList(), 1},
+                {new Quadruplet(
+                        Salvo.createForPositions(78, 79, 0, 1, 2, 54),
+                        Salvo.createForPositions(7, 8),
+                        new Fleet(Arrays.asList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Arrays.asList(Ship.createShip(78, 22, 0, 1, 12, 54)))),
+                        Arrays.asList(78, 0, 1, 54), 1},
+                {new Quadruplet(
+                        Salvo.createForPositions(78, 79, 0, 1, 2, 54),
+                        Salvo.createForPositions(7, 8),
+                        new Fleet(Arrays.asList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Arrays.asList(Ship.createShip(78, 22, 0, 1, 12, 54)))),
+                        Arrays.asList(), 0},
+                {new Quadruplet(
+                        Salvo.createForPositions(78, 79, 0, 1, 2, 54),
+                        Salvo.createForPositions(3),
+                        new Fleet(Arrays.asList(Ship.createShip(3, 3, 3, 3, 3, 3))),
+                        new Fleet(Arrays.asList(Ship.createShip(6, 54, 3, 5, 7)))),
+                        Arrays.asList(3), 0},
+                {new Quadruplet(
+                        Salvo.createForPositions(78, 79, 0, 1, 2, 54),
+                        Salvo.createForPositions(3, 76, 75, 11, 45, 32, 67, 32, 53, 23),
+                        new Fleet(Arrays.asList(Ship.createShip(3, 7, 6, 78))),
+                        new Fleet(Arrays.asList(Ship.createShip(6, 54, 3, 5, 7)))),
+                        Arrays.asList(3), 0}
+        };
+    }
+
+    private static class Quadruplet {
+
+        Salvo firstSalvo;
+        Salvo secondSalvo;
+        Fleet firstFleet;
+        Fleet secondFleet;
+
+        private Quadruplet(Salvo firstSalvo, Salvo SecondSalvo, Fleet firstFleet, Fleet secondFleet) {
+            this.firstSalvo = firstSalvo;
+            secondSalvo = SecondSalvo;
+            this.firstFleet = firstFleet;
+            this.secondFleet = secondFleet;
+        }
     }
 }

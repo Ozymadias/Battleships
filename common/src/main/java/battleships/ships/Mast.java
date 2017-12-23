@@ -32,4 +32,8 @@ public class Mast implements Messagable {
     void kill() {
         isAlive = false;
     }
+
+    public String toString(){
+        return position.toString();
+    }
 }

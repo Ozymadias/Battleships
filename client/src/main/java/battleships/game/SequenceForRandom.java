@@ -3,6 +3,7 @@ package battleships.game;
 import battleships.ships.Ship;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -60,10 +61,12 @@ public class SequenceForRandom {
         fields.get(fieldPosition).setBuffer();
     }
 
-    Ship setShip(List<Integer> fieldsPositions){
-        for(Integer position : fieldsPositions){
+    Ship setShip(List<Integer> positionsInSequence){
+        List<Integer> boardIndexes = new ArrayList<>();
+        for(Integer position : positionsInSequence){
             fields.get(position).setShipPartOn();
+            boardIndexes.add(fields.get(position).getPosition());
         }
-        return Ship.viaList(fieldsPositions);
+        return Ship.viaList(boardIndexes);
     }
 }

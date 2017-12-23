@@ -13,11 +13,11 @@ public class SalvoProcessor {
         Collections.reverse(salvos);
         List<Integer> resultListOfPlayer0 = new ArrayList<>(salvos.get(0).getSalvoPositions());
         List<Integer> resultListOfPlayer1 = new ArrayList<>(salvos.get(1).getSalvoPositions());
-        resultListOfPlayer0.retainAll(fleets.get(1).getAllPositions());
-        resultListOfPlayer1.retainAll(fleets.get(0).getAllPositions());
+        resultListOfPlayer0.retainAll(fleets.get(0).getAllPositions());
+        resultListOfPlayer1.retainAll(fleets.get(1).getAllPositions());
         List<SalvoResult> salvoResults = new ArrayList<>();
-        salvoResults.add(new SalvoResult(resultListOfPlayer0, salvos.get(1).getSalvoPositions()));
-        salvoResults.add(new SalvoResult(resultListOfPlayer1, salvos.get(0).getSalvoPositions()));
+        salvoResults.add(new SalvoResult(resultListOfPlayer0, salvos.get(0).getSalvoPositions()));
+        salvoResults.add(new SalvoResult(resultListOfPlayer1, salvos.get(1).getSalvoPositions()));
         return salvoResults;
     }
 }

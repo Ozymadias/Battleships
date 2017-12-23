@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Ship implements Messagable{
     private List<Mast> masts;
@@ -52,4 +53,9 @@ public class Ship implements Messagable{
                 .forEach(Mast::kill);
     }
 
+    public String toString(){
+        return masts.stream()
+                .map(Mast::toString)
+                .collect(Collectors.joining(" ,"));
+    }
 }

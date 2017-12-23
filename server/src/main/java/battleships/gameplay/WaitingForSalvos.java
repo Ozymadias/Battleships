@@ -24,7 +24,7 @@ class WaitingForSalvos implements GameState {
         log.info("Waiting for salvos");
         List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.receiveMessage())
                 .collect(Collectors.toList());
-        return new SendingSalvoResults(observers, playersFleets, new SalvoProcessor().process(salvos, playersFleets));
+        return new SalvosProcessing(observers, playersFleets,salvos);
     }
 
     @Override

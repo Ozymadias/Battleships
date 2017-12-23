@@ -33,9 +33,9 @@ class ProcessingSalvos implements GameState {
                         .removeAll(salvos
                                 .get(i1)
                                 .getSalvoPositions()));
-        log.info(new SalvoResult(playersFleets.get(1).getAllPositions()).toString());
-        IntStream.range(0, observers.size())
-                .forEach(i -> observers.get(i).sendMessage(new SalvoResult(playersFleets.get(i).getAllPositions())));
+        //log.info(new SalvoResult(playersFleets.get(1).getAllPositions()).toString());
+//        IntStream.range(0, observers.size())
+//                .forEach(i -> observers.get(i).sendMessage(new SalvoResult(playersFleets.get(i).getAllPositions())));
         log.info("Results were send");
         return new ProcessingSalvos(observers,playersFleets,salvos);
     }

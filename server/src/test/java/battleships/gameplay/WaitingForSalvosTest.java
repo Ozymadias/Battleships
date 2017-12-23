@@ -2,6 +2,7 @@ package battleships.gameplay;
 
 import battleships.BattleObserver;
 import battleships.HandlerWrapper;
+import battleships.communication.messages.Salvo;
 import battleships.ships.Fleet;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -25,7 +26,6 @@ public class WaitingForSalvosTest {
         secondBattleObserver = mock(HandlerWrapper.class);
         observersList = Arrays.asList(firstBattleObserver, secondBattleObserver);
         fleets = mock(ArrayList.class);
-
     }
 
     @Test

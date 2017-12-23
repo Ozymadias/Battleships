@@ -1,6 +1,7 @@
 package battleships.logging;
 
 import battleships.*;
+import battleships.communication.ClientHandler;
 import battleships.logging.validation.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -52,11 +54,12 @@ public class LoggingController {
 
     @FXML
     private Button logInButton;
+    private ClientHandler clientHandler;
 
     @FXML
-    void OnActionLoginButton(ActionEvent event) {
+    void OnActionLoginButton(ActionEvent event){
         if(new Validator().validate(configFieldsValues())){
-            mainApp.loggingSuccessful();
+            mainApp.loggingSuccessful(configFieldsValues());
         }else{
             invalidLoggingDataAlert();
         }

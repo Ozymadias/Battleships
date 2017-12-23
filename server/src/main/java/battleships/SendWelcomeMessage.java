@@ -1,25 +1,24 @@
 package battleships;
 
-import battleships.communication.ClientHandler;
 import battleships.communication.messages.WelcomeMessage;
+import battleships.logger.BattleshipLog;
 
-import java.util.Map;
-
-import static battleships.Players.*;
+import java.util.List;
 
 public class SendWelcomeMessage implements GameState {
+    private final BattleshipLog log = BattleshipLog.provideLogger(SendWelcomeMessage.class);
 
+    private final List<BattleObserver> handlerWrappers;
 
-    private final Map<Players, ClientHandler> clientHandlerMap;
-
-    public SendWelcomeMessage(Map<Players, ClientHandler> clientHandlerMap) {
-        this.clientHandlerMap = clientHandlerMap;
+    SendWelcomeMessage(List<BattleObserver> clientHandlerMap) {
+        this.handlerWrappers = clientHandlerMap;
     }
 
     public GameState process() {
-        clientHandlerMap.get(PLAYER1).sendMessage(new WelcomeMessage("Welcome in a new Battleships game"));
-        clientHandlerMap.get(PLAYER2).sendMessage(new WelcomeMessage("Welcome in a new Battleships game"));
-        return new SendGoodByeMessage(clientHandlerMap);
+        log.info("Sending welcome messages!");
+        handlerWrappers
+                .forEach(p -> p.sendMessage(new WelcomeMessage("Im death destroyer of worlds and you enter my domain")));
+        return new WaitForFleets(handlerWrappers);
     }
 
     public boolean isEndOfTheGame() {

@@ -8,7 +8,7 @@
     <name>server</name>
 
     <parent>
-        <groupId>sunday.murder.stormtroopers</groupId>
+        <groupId>battleships</groupId>
         <artifactId>battleships</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -40,7 +40,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>sunday.murder.stormtroopers</groupId>
+            <groupId>battleships</groupId>
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

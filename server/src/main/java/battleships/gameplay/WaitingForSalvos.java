@@ -24,23 +24,11 @@ class WaitingForSalvos implements GameState {
         log.info("Waiting for salvos");
         List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.receiveMessage())
                 .collect(Collectors.toList());
-        return new ProcessingSalvos(observers, playersFleets, salvos);
-    }
-
-    private void processSalvo(List<Salvo> salvo, List<Fleet> fleet) {
-
+        return new SendingSalvoResults(observers, playersFleets, new SalvoProcessor().process(salvos, playersFleets));
     }
 
     @Override
     public boolean isEndOfTheGame() {
         return false;
     }
-
-//    boolean areAllShipsSunk() {
-//        return playersFleets.stream().anyMatch(this::allMyFriendsAreDead);
-//    }
-//
-//    private boolean allMyFriendsAreDead(Fleet fleet) {
-//        return fleet.getShips().stream().allMatch(Ship::isSunk);
-//    }
 }

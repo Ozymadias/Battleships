@@ -6,7 +6,7 @@ import java.util.List;
 
 public class SalvoResult implements Messagable {
 
-    private List<Integer> resultList;
+    private final List<Integer> resultList;
     private final List<Integer> salvoPositions;
 
 

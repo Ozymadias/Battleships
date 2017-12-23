@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Game {
     private final BattleshipLog log = BattleshipLog.provideLogger(Game.class);
-    private List<BattleObserver> clientHandlers;
+    private final List<BattleObserver> clientHandlers;
 
     public Game(List<BattleObserver> clientHandlers) {
         this.clientHandlers = clientHandlers;

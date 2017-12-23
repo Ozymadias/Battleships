@@ -2,7 +2,6 @@ package battleships.gameplay;
 
 import battleships.BattleObserver;
 import battleships.HandlerWrapper;
-import battleships.communication.messages.Salvo;
 import battleships.ships.Fleet;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;

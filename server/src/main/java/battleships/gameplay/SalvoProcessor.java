@@ -9,8 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class SalvoProcessor {
-    public List<SalvoResult> process(List<Salvo> salvos, List<Fleet> fleets) {
+class SalvoProcessor {
+    List<SalvoResult> process(List<Salvo> salvos, List<Fleet> fleets) {
         Collections.reverse(salvos);
 
         List<SalvoResult> salvoResults = new ArrayList<>();

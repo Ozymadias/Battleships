@@ -88,10 +88,10 @@ public class SalvoProcessorTest {
 
     private static class Quadruplet {
 
-        Salvo firstSalvo;
-        Salvo secondSalvo;
-        Fleet firstFleet;
-        Fleet secondFleet;
+        final Salvo firstSalvo;
+        final Salvo secondSalvo;
+        final Fleet firstFleet;
+        final Fleet secondFleet;
 
         private Quadruplet(Salvo firstSalvo, Salvo SecondSalvo, Fleet firstFleet, Fleet secondFleet) {
             this.firstSalvo = firstSalvo;

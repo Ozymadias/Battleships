@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>battleships</groupId>
+    <groupId>sunday.murder.stormtroopers</groupId>
     <artifactId>battleships</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -19,6 +19,33 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jacksonVersion>2.9.2</jacksonVersion>
         <log4jVersion>1.2.17</log4jVersion>
+        <mockitoCoreVersion>2.13.0</mockitoCoreVersion>
+        <assertjCoreVersion>3.8.0</assertjCoreVersion>
+        <testngVersion>6.13.1</testngVersion>
+        <commonLangsVersion>2.6</commonLangsVersion>
+        <mavenReleasePluginVersion>2.5.3</mavenReleasePluginVersion>
+        <mavenAssemblyPluginVersion>3.1.0</mavenAssemblyPluginVersion>
+        <mavenAntrunPluginVersion>1.8</mavenAntrunPluginVersion>
+        <mavenCompilerPluginVersion>3.7.0</mavenCompilerPluginVersion>
+        <mavenCleanPluginVersion>3.0.0</mavenCleanPluginVersion>
+        <mavenDeployPluginVersion>2.8.2</mavenDeployPluginVersion>
+        <mavenInstallPluginVersion>2.5.2</mavenInstallPluginVersion>
+        <mavenJarPluginVersion>3.0.2</mavenJarPluginVersion>
+        <mavenEnforcerPluginVersion>3.0.0-M1</mavenEnforcerPluginVersion>
+        <requiredMavenVersion>3.5.0</requiredMavenVersion>
+        <requiredJavaVersion>1.8</requiredJavaVersion>
+        <sonarMavenPluginVersion>3.4.0.905</sonarMavenPluginVersion>
+        <MavenSurefirePluginVersion>2.20.1</MavenSurefirePluginVersion>
+        <MavenProjectInfoReportsPluginVersion>2.9</MavenProjectInfoReportsPluginVersion>
+        <MavenResourcePluginVersion>3.0.2</MavenResourcePluginVersion>
+        <MavenSitePluginVersion>3.6</MavenSitePluginVersion>
+        <JacocoMavenPluginVersion>0.7.9</JacocoMavenPluginVersion>
+        <MavenCheckstylePluginVersion>2.17</MavenCheckstylePluginVersion>
+        <ExecMavenPluginVersion>1.6.0</ExecMavenPluginVersion>
+        <MavenDependencyPluginVersion>3.0.2</MavenDependencyPluginVersion>
+        <MavenJxrPluginVersion>2.5</MavenJxrPluginVersion>
+        <FindBugsMavenPluginVersion>3.0.5</FindBugsMavenPluginVersion>
+        <VersionsMavenPluginVersion>2.5</VersionsMavenPluginVersion>
         <maven-compiler-plugin.configuration.version>1.8</maven-compiler-plugin.configuration.version>
     </properties>
 
@@ -27,38 +54,47 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.8</version>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${mavenReleasePluginVersion}</version>
                 </plugin>
-
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${mavenAssemblyPluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>${mavenAntrunPluginVersion}</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.6.1</version>
+                    <version>${mavenCompilerPluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>${mavenCleanPluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>${mavenDeployPluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
+                    <version>${mavenInstallPluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>${mavenJarPluginVersion}</version>
                     <configuration>
                         <archive>
                             <manifest>
@@ -72,7 +108,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.4.1</version>
+                    <version>${mavenEnforcerPluginVersion}</version>
                     <executions>
                         <execution>
                             <id>enforce-maven</id>
@@ -84,10 +120,10 @@
                     <configuration>
                         <rules>
                             <requireMavenVersion>
-                                <version>3.5.0</version>
+                                <version>${requiredMavenVersion}</version>
                             </requireMavenVersion>
                             <requireJavaVersion>
-                                <version>1.8</version>
+                                <version>${requiredJavaVersion}</version>
                             </requireJavaVersion>
                         </rules>
                     </configuration>
@@ -96,19 +132,19 @@
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.3.0.603</version>
+                    <version>${sonarMavenPluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.20</version>
+                    <version>${MavenSurefirePluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>2.9</version>
+                    <version>${MavenProjectInfoReportsPluginVersion}</version>
                     <configuration>
                         <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                     </configuration>
@@ -117,19 +153,19 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>${MavenResourcePluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>3.6</version>
+                    <version>${MavenSitePluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.7.9</version>
+                    <version>${JacocoMavenPluginVersion}</version>
                     <executions>
                         <execution>
                             <id>jacoco-initialize</id>
@@ -150,7 +186,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.17</version>
+                    <version>${MavenCheckstylePluginVersion}</version>
                     <configuration>
                         <configLocation>google_checks.xml</configLocation>
                     </configuration>
@@ -159,13 +195,13 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
-                    <version>1.6.0</version>
+                    <version>${ExecMavenPluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>${MavenDependencyPluginVersion}</version>
                     <executions>
                         <execution>
                             <id>copy-dependencies</id>
@@ -192,7 +228,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.9</version>
+                <version>${JacocoMavenPluginVersion}</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -204,17 +240,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.5</version>
+                <version>${MavenJxrPluginVersion}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.4</version>
+                <version>${FindBugsMavenPluginVersion}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>2.5</version>
+                <version>${VersionsMavenPluginVersion}</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -232,19 +268,19 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.12.0</version>
+            <version>${mockitoCoreVersion}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.8.0</version>
+            <version>${assertjCoreVersion}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.13.1</version>
+            <version>${testngVersion}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

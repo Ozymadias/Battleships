@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>battleships</artifactId>
-        <groupId>battleships</groupId>
+        <groupId>sunday.murder.stormtroopers</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -30,7 +30,7 @@
             <dependency>
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
-                <version>2.6</version>
+                <version>${commonLangsVersion}</version>
             </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

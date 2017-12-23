@@ -1,5 +1,7 @@
 package battleships.game;
 
+import battleships.ships.Ship;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,10 +45,10 @@ public class HorizontalSequenceSet implements SequencesSet {
     }
 
     @Override
-    public void putShipIntoSequence(Integer sequenceIndex, Integer firstPositionOfShip, Integer shipLength) {
+    public Ship putShipIntoSequence(Integer sequenceIndex, Integer firstPositionOfShip, Integer shipLength) {
         List<Integer> fieldsIndexesInSequence = IntStream.range(firstPositionOfShip, firstPositionOfShip+shipLength).boxed().collect(Collectors.toList());
         setBufferAround(sequenceIndex, new LinkedList<>(fieldsIndexesInSequence));
-        horizontalSequences.get(sequenceIndex).setShip(fieldsIndexesInSequence);
+        return horizontalSequences.get(sequenceIndex).setShip(fieldsIndexesInSequence);
     }
 
     private void setBufferAround(Integer sequenceIndex, LinkedList<Integer> fieldsIndexesInSequence) {

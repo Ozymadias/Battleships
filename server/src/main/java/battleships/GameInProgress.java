@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class GameInProgress implements GameState {
+
     private final List<BattleObserver> observers;
     private final List<Fleet> playersFleets;
     private final BattleshipLog log = BattleshipLog.provideLogger(GameInProgress.class);

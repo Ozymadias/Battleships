@@ -15,7 +15,7 @@ public class Ship implements Messagable{
 
     public static Ship viaList(List<Integer> positions){
         List<Mast> masts = new ArrayList<>();
-        positions.stream().forEach(p -> masts.add(new Mast(p)));
+        positions.forEach(p -> masts.add(new Mast(p)));
         return new Ship(masts);
     }
 

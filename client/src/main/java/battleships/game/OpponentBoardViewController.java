@@ -1,27 +1,26 @@
 package battleships.game;
 
-import battleships.RootLayoutController;
 import battleships.communication.DataBus;
+import battleships.communication.Member;
+import battleships.communication.Messagable;
 import battleships.communication.messages.Salvo;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import battleships.logger.BattleshipLog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class OpponentBoardViewController {
+public class OpponentBoardViewController implements Member{
 
     private static final int BOARD_ROW_COUNT = 10;
     private static final int BOARD_COLUMN_COUNT = 10;
-    private RootLayoutController rootLayoutController;
+
+    private final BattleshipLog log = BattleshipLog.provideLogger(OpponentBoardViewController.class);
 
     @FXML
     private GridPane dockedGridPane;
@@ -43,6 +42,7 @@ public class OpponentBoardViewController {
         opponentBoard = Board.build();
         setUpBoardView();
         shootsLeftCountText.setText(shootsLeftCount.toString());
+        DataBus.getInstance().subscribeMember(this);
     }
 
     private void setUpBoardView() {
@@ -61,13 +61,9 @@ public class OpponentBoardViewController {
     }
 
     public void sendSalvoClick(ActionEvent actionEvent) {
-        DataBus.getInstance().publish(new Salvo(this.salvoList));
-        salvoList.clear();
         salvoBtn.setDisable(true);
-    }
-
-    public void setRootLayoutController(RootLayoutController rootLayoutController) {
-        this.rootLayoutController = rootLayoutController;
+        DataBus.getInstance().sendRequest(new Salvo(this.salvoList));
+        salvoList.clear();
     }
 
     public void setShootsLeftCount(Integer count){
@@ -89,4 +85,9 @@ public class OpponentBoardViewController {
         }
     }
 
+    @Override
+    public void accept(Messagable event) {
+        salvoBtn.setDisable(false);
+        log.info("replay received by controller");
+    }
 }

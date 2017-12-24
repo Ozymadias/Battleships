@@ -63,7 +63,6 @@ public class RootLayoutController {
         loader.setLocation(App.class.getResource(OPPONENT_BOARD_VIEW_FXML));
         borderPane.setRight(loader.<BorderPane>load());
         OpponentBoardViewController controller = loader.getController();
-        controller.setRootLayoutController(this);
         controller.setShootsLeftCount(20);
     }
 

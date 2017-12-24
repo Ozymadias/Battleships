@@ -6,7 +6,7 @@ import battleships.ships.Fleet;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ServerComm implements Member{
+public class ServerComm implements Member, Publisher {
 
     private ClientHandler clientHandler;
     private final BattleshipLog log = BattleshipLog.provideLogger(ServerComm.class);
@@ -24,11 +24,25 @@ public class ServerComm implements Member{
     @Override
     //albo może accept ma też zwracać wiadmość??
     public void accept(Messagable event) {
-        log.info("preparing " + event.getClass() + " to send via data bus" + event.toString());
-        clientHandler.sendMessage(event);
-
-        //z tym że po wysłaniu salwy każdorazowo powinien nasłuchiwać odpowiedzi -> a może ta logika w databus??
+        if(event instanceof Fleet || event instanceof Fleet) {
+            log.info("preparing " + event.getClass() + " to send to socket");
+            clientHandler.sendMessage(event);
+        }
     }
 
-    //nasłuchiwanie przychodzącej wiadomości na osobnym wątku??
+    @Override
+    public Messagable processRequest(Messagable event) {
+        log.info("preparing " + event.getClass() + " to send to socket");
+        clientHandler.sendMessage(event);
+        log.info("wating for replay...");
+        Messagable messagable = clientHandler.receiveMessage();
+        log.info("processing replay...");
+        return messagable;
+    }
+
+    public void init() {
+        //waiting for welcome message
+        clientHandler.receiveMessage();
+    }
+
 }

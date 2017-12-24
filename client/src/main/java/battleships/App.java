@@ -88,6 +88,8 @@ public class App extends Application {
 
     private void setUpConnection(String host, Integer port) throws IOException {
         this.serverComm = ServerComm.build(host, port);
-        DataBus.getInstance().subscribe(serverComm);
+        serverComm.init();
+        DataBus.getInstance().subscribeMember(serverComm);
+        DataBus.getInstance().subscribePublisher(serverComm);
     }
 }

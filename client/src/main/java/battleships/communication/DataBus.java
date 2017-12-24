@@ -12,6 +12,7 @@ public class DataBus {
     private static final DataBus INSTANCE = new DataBus();
 
     private Set<Member> listeners = new HashSet<>();
+    private Set<Publisher> publishers = new HashSet<>();
 
     public static DataBus getInstance() {
         return INSTANCE;
@@ -25,8 +26,19 @@ public class DataBus {
         //if is an instance of SalvoResult -> to odbierać powninien OpponentBoardViewConroller
     }
 
-    public void subscribe(Member member){
+    public void sendRequest(Messagable event){
+        for(Publisher publisher : publishers){
+            Messagable replay = publisher.processRequest(event);
+            publish(replay);
+        }
+    }
+
+    public void subscribeMember(Member member){
         this.listeners.add(member);
+    }
+
+    public void subscribePublisher(Publisher publisher){
+        this.publishers.add(publisher);
     }
 
     public void unsubscribe(Member member){

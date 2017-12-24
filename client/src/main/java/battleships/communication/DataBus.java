@@ -21,9 +21,6 @@ public class DataBus {
     public void publish(Messagable event){
         log.info("DataBus is publishing " + event.getClass());
         listeners.forEach(listener -> listener.accept(event));
-        //if is an instance of Fleet or Salvo -> to odbierać powinien server
-        //if is an instance of SalvoFromEnemy -> to obierać powinnien PlayerBoardViewController
-        //if is an instance of SalvoResult -> to odbierać powninien OpponentBoardViewConroller
     }
 
     public void sendRequest(Messagable event){

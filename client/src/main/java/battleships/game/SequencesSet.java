@@ -8,7 +8,7 @@ interface SequencesSet {
 
     int SEQUENCE_COUNT = 10;
 
-    public SequenceForRandom get(Integer index);
+    SequenceForRandom get(Integer index);
 
     default Ship randomlyPlaceShip(Integer sequenceIndex, Integer shipLength){
         Integer firstEmptyPosition = this.get(sequenceIndex).firstEmptyFor(shipLength);

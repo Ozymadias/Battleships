@@ -20,8 +20,6 @@ public class RootLayoutController {
 
     private final BattleshipLog log = BattleshipLog.provideLogger(RootLayoutController.class);
 
-    private Fleet fleet;
-
     @FXML
     BorderPane borderPane;
 
@@ -36,11 +34,11 @@ public class RootLayoutController {
         }
     }
 
-    public Board preparePlayerData(){
+    private Board preparePlayerData(){
         ShipsRandomize shipsRandomize = ShipsRandomize.build(Board.build());
-        this.fleet = shipsRandomize.placeAllFleet();
+        Fleet fleet = shipsRandomize.placeAllFleet();
         Board board = shipsRandomize.getBoard();
-        DataBus.getInstance().publish(this.fleet);
+        DataBus.getInstance().publish(fleet);
         try {
             addPlayerBoardView(board);
         } catch (IOException e) {

@@ -13,7 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.Map;
 
 import static battleships.logging.ConfigurationValueName.IP;

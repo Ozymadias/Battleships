@@ -1,5 +1,6 @@
 package battleships.communication;
 
+import battleships.communication.messages.Salvo;
 import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
 
@@ -8,7 +9,7 @@ import java.net.Socket;
 
 public class ServerComm implements Member, Publisher {
 
-    private ClientHandler clientHandler;
+    private final ClientHandler clientHandler;
     private final BattleshipLog log = BattleshipLog.provideLogger(ServerComm.class);
 
     private ServerComm(ClientHandler clientHandler) {
@@ -22,9 +23,8 @@ public class ServerComm implements Member, Publisher {
     }
 
     @Override
-    //albo może accept ma też zwracać wiadmość??
     public void accept(Messagable event) {
-        if(event instanceof Fleet || event instanceof Fleet) {
+        if(event instanceof Fleet || event instanceof Salvo) {
             log.info("preparing " + event.getClass() + " to send to socket");
             clientHandler.sendMessage(event);
         }

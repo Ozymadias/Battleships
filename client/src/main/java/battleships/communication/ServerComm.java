@@ -12,7 +12,7 @@ public class ServerComm implements Member, Publisher {
     private final ClientHandler clientHandler;
     private final BattleshipLog log = BattleshipLog.provideLogger(ServerComm.class);
 
-    private ServerComm(ClientHandler clientHandler) {
+    ServerComm(ClientHandler clientHandler) {
         this.clientHandler = clientHandler;
     }
 

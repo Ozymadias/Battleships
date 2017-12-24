@@ -18,7 +18,7 @@ public class RootLayoutController {
     private static final String PLAYER_BOARD_VIEW_FXML = "/fxml/PlayerBoardViewLayout.fxml";
     private static final String OPPONENT_BOARD_VIEW_FXML = "/fxml/OpponentBoardViewLayout.fxml";
 
-    BattleshipLog log = BattleshipLog.provideLogger(RootLayoutController.class);
+    private final BattleshipLog log = BattleshipLog.provideLogger(RootLayoutController.class);
 
     private Fleet fleet;
 

@@ -1,4 +1,4 @@
-package battleships;
+package battleships.gameplay;
 
 public interface GameState {
     GameState process();

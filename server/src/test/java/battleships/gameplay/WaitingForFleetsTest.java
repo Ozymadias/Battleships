@@ -1,5 +1,7 @@
-package battleships;
+package battleships.gameplay;
 
+import battleships.BattleObserver;
+import battleships.HandlerWrapper;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -9,7 +11,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class WaitForFleetsTest {
+public class WaitingForFleetsTest {
     private HandlerWrapper firstTestWrapper;
     private HandlerWrapper secondTestWrapper;
     private List<BattleObserver> handlerWrappersMocks;
@@ -23,21 +25,21 @@ public class WaitForFleetsTest {
 
     @Test
     public void shouldPassWhenFirstHandlerReportsCorrectly() {
-        WaitForFleets waitForFleets = new WaitForFleets(handlerWrappersMocks);
-        waitForFleets.process();
+        WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
+        waitingForFleets.process();
         verify(firstTestWrapper, atLeast(1)).receiveMessage();
     }
 
     @Test
     public void shouldPassWhenSecondHandlerReportsCorrectly() {
-        WaitForFleets waitForFleets = new WaitForFleets(handlerWrappersMocks);
-        waitForFleets.process();
+        WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
+        waitingForFleets.process();
         verify(secondTestWrapper, atLeast(1)).receiveMessage();
     }
 
     @Test
     public void shouldPassWhenGameStateIsNotEndOfGame() {
-        WaitForFleets waitForFleets = new WaitForFleets(handlerWrappersMocks);
-        assertThat(waitForFleets.isEndOfTheGame()).isFalse();
+        WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
+        assertThat(waitingForFleets.isEndOfTheGame()).isFalse();
     }
 }

@@ -1,15 +1,16 @@
-package battleships;
+package battleships.gameplay;
 
+import battleships.BattleObserver;
 import battleships.ships.Fleet;
 
 import java.util.List;
 
-public class EndOfTheGame implements GameState {
+class EndingGame implements GameState {
 
     private final List<BattleObserver> observers;
     private final List<Fleet> playersFleets;
 
-    EndOfTheGame(List<BattleObserver> observers, List<Fleet> playersFleets) {
+    EndingGame(List<BattleObserver> observers, List<Fleet> playersFleets) {
         this.observers = observers;
         this.playersFleets = playersFleets;
     }

@@ -1,6 +1,7 @@
 package battleships.communication;
 
 import battleships.communication.messages.GoodByeMessage;
+import battleships.communication.messages.Salvo;
 import battleships.communication.messages.WelcomeMessage;
 import battleships.ships.Fleet;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -17,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = GoodByeMessage.class, name = "GoodByeMessage"),
         @JsonSubTypes.Type(value = WelcomeMessage.class, name = "WelcomeMessage"),
-        @JsonSubTypes.Type(value = Fleet.class, name = "Fleet")}
+        @JsonSubTypes.Type(value = Fleet.class, name = "Fleet"),
+        @JsonSubTypes.Type(value = Salvo.class, name = "Salvo")}
 )
 public interface Messagable {
 }

@@ -68,8 +68,6 @@ public class App extends Application {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
             BorderPane rootLayout = loader.load();
-            RootLayoutController controller = loader.getController();
-            controller.init();
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
         } catch (IOException e) {

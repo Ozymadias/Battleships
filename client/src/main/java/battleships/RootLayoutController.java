@@ -1,7 +1,6 @@
 package battleships;
 
 import battleships.communication.DataBus;
-import battleships.communication.ServerComm;
 import battleships.game.Board;
 import battleships.game.OpponentBoardViewController;
 import battleships.game.PlayerBoardViewController;
@@ -30,12 +29,14 @@ public class RootLayoutController {
     private void initialize(){
         try{
             addOpponentBoardView();
+            Board playerBoard = preparePlayerData();
+            addPlayerBoardView(playerBoard);
         } catch (IOException e) {
             log.error(e);
         }
     }
 
-    public void init(){
+    public Board preparePlayerData(){
         ShipsRandomize shipsRandomize = ShipsRandomize.build(Board.build());
         this.fleet = shipsRandomize.placeAllFleet();
         Board board = shipsRandomize.getBoard();
@@ -45,6 +46,7 @@ public class RootLayoutController {
         } catch (IOException e) {
             log.error(e);
         }
+        return board;
     }
 
     private void addPlayerBoardView(Board board) throws IOException {

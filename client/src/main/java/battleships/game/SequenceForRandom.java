@@ -62,10 +62,15 @@ public class SequenceForRandom {
 
     Ship setShip(List<Integer> positionsInSequence){
         List<Integer> boardIndexes = new ArrayList<>();
-        for(Integer position : positionsInSequence){
-            fields.get(position).setShipPartOn();
-            boardIndexes.add(fields.get(position).getPosition());
-        }
+
+        positionsInSequence.stream()
+                .forEach(
+                        position -> {
+                            fields.get(position).setShipPartOn();
+                            boardIndexes.add(fields.get(position).getPosition());
+                        }
+                );
+
         return Ship.viaList(boardIndexes);
     }
 }

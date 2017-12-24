@@ -1,6 +1,7 @@
 package battleships.game;
 
 import battleships.RootLayoutController;
+import battleships.communication.DataBus;
 import battleships.communication.messages.Salvo;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -60,7 +61,7 @@ public class OpponentBoardViewController {
     }
 
     public void sendSalvoClick(ActionEvent actionEvent) {
-        rootLayoutController.process(new Salvo(this.salvoList));
+        DataBus.getInstance().publish(new Salvo(this.salvoList));
         salvoList.clear();
         salvoBtn.setDisable(true);
     }

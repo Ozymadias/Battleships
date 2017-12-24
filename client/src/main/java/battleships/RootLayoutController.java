@@ -1,7 +1,7 @@
 package battleships;
 
-import battleships.communication.ClientHandler;
-import battleships.communication.messages.Salvo;
+import battleships.communication.DataBus;
+import battleships.communication.ServerComm;
 import battleships.game.Board;
 import battleships.game.OpponentBoardViewController;
 import battleships.game.PlayerBoardViewController;
@@ -21,8 +21,6 @@ public class RootLayoutController {
 
     BattleshipLog log = BattleshipLog.provideLogger(RootLayoutController.class);
 
-    private ClientHandler clientHandler;
-
     private Fleet fleet;
 
     @FXML
@@ -37,12 +35,11 @@ public class RootLayoutController {
         }
     }
 
-    public void init(ClientHandler clientHandler){
-        this.clientHandler = clientHandler;
+    public void init(){
         ShipsRandomize shipsRandomize = ShipsRandomize.build(Board.build());
         this.fleet = shipsRandomize.placeAllFleet();
         Board board = shipsRandomize.getBoard();
-        sendFleet();
+        DataBus.getInstance().publish(this.fleet);
         try {
             addPlayerBoardView(board);
         } catch (IOException e) {
@@ -68,13 +65,4 @@ public class RootLayoutController {
         controller.setShootsLeftCount(20);
     }
 
-    private void sendFleet(){
-        log.info("preparing fleet to send " + this.fleet.getShips().toString());
-        clientHandler.sendMessage(this.fleet);
-    }
-
-    public void process(Salvo salvo) {
-        log.info("preparing salvo to send: " + salvo.getSalvoPositions().toString());
-        clientHandler.sendMessage(salvo);
-    }
 }

@@ -1,7 +1,6 @@
 package battleships.logging;
 
 import battleships.App;
-import battleships.LanguageVersion;
 import battleships.logging.validation.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,14 +12,11 @@ import javafx.scene.text.Text;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
-import static battleships.LocalizationStringMarker.*;
 import static battleships.logging.ConfigurationValueName.*;
-import static battleships.logging.LanguageLoadOption.EN;
-import static battleships.logging.LanguageLoadOption.PL;
 
 public class LoggingController {
-    private LanguageVersion languageVersion;
 
     private App mainApp;
 
@@ -73,12 +69,14 @@ public class LoggingController {
 
     @FXML
     void polishVersion(ActionEvent event) {
-        initialize(PL);
+        mainApp.languageLoadOption = LanguageLoadOption.PL;
+        assignKeyTranslation();
     }
 
     @FXML
     void englishVersion(ActionEvent event) {
-        initialize(EN);
+        mainApp.languageLoadOption = LanguageLoadOption.EN;
+        assignKeyTranslation();
     }
 
 
@@ -86,22 +84,16 @@ public class LoggingController {
     void initialize() {
         playerNameInput.setText("player");
         serverPortInput.setText("4321");
-        languageVersion = new LanguageVersion(EN);
-        assignKeyTranslation();
+        serverIPInput.setText("127.0.0.1");
     }
 
-    private void assignKeyTranslation() {
-        playerNameText.setText(languageVersion.provideTranslation(PLAYER_NAME));
-        serverPortText.setText(languageVersion.provideTranslation(SERVER_PORT));
-        serverIPText.setText(languageVersion.provideTranslation(SERVER_IP));
-        logInButton.setText(languageVersion.provideTranslation(LOG_IN));
-        checkBoxRandomShipPlacement.setText(languageVersion.provideTranslation(RANDOM_SHIPS));
-    }
-
-    @FXML
-    private void initialize(LanguageLoadOption languageLoadOption) {
-        languageVersion = new LanguageVersion(languageLoadOption);
-        assignKeyTranslation();
+    public void assignKeyTranslation() {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(mainApp.languageLoadOption.toString());
+        playerNameText.setText(resourceBundle.getString("PLAYER_NAME"));
+        serverPortText.setText(resourceBundle.getString("SERVER_PORT"));
+        serverIPText.setText(resourceBundle.getString("SERVER_IP"));
+        logInButton.setText(resourceBundle.getString("LOG_IN"));
+        checkBoxRandomShipPlacement.setText(resourceBundle.getString("RANDOM_SHIPS"));
     }
 
     public void setMainApp(App mainApp) {
@@ -109,9 +101,11 @@ public class LoggingController {
     }
 
     private void invalidLoggingDataAlert(){
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(mainApp.languageLoadOption.toString());
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning Dialog");
-        alert.setHeaderText("Logging data is invalid");
+        alert.setTitle(resourceBundle.getString("WARNING_DIALOG"));
+        alert.setHeaderText(resourceBundle.getString("INVALID_LOGGING_DATA"));
         alert.setContentText("...");
 
         alert.showAndWait();

@@ -5,6 +5,7 @@ import battleships.communication.ServerComm;
 import battleships.logger.BattleshipLog;
 import battleships.logging.ConfigurationValue;
 import battleships.logging.ConfigurationValueName;
+import battleships.logging.LanguageLoadOption;
 import battleships.logging.LoggingController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import static battleships.logging.ConfigurationValueName.IP;
 import static battleships.logging.ConfigurationValueName.PORT;
@@ -24,6 +26,8 @@ public class App extends Application {
     private static final String LOGIN_FXML = "/fxml/login.fxml";
     private static final String ROOT_LAYOUT_FXML = "/fxml/RootLayout.fxml";
     private final BattleshipLog log = BattleshipLog.provideLogger(App.class);
+
+    public LanguageLoadOption languageLoadOption = LanguageLoadOption.EN;
 
     private Stage primaryStage;
 
@@ -51,6 +55,7 @@ public class App extends Application {
             primaryStage.setScene(new Scene(initLayout));
             final LoggingController controller = loader.getController();
             controller.setMainApp(this);
+            controller.assignKeyTranslation();
             primaryStage.show();
         } catch (IOException e) {
             log.error(e.getMessage());
@@ -64,9 +69,14 @@ public class App extends Application {
      */
     private void initRootLayout() {
         try {
+            final ResourceBundle resourceBundle = ResourceBundle.getBundle(languageLoadOption.toString());
             final FXMLLoader loader = new FXMLLoader();
+            loader.setResources(resourceBundle);
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
             BorderPane rootLayout = loader.load();
+            final RootLayoutController controller = loader.getController();
+            controller.setResourceBundle(resourceBundle);
+            controller.init();
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
         } catch (IOException e) {

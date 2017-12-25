@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="mainPane" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleships.game.OpponentBoardViewController">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="battleships.game.OpponentBoardViewController">
    <center>
       <GridPane fx:id="dockedGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="300.0" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -55,7 +55,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Left shoots" wrappingWidth="45.7294921875">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="%LEFT_SHOOTS" wrappingWidth="60.0">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>

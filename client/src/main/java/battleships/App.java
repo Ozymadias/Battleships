@@ -27,7 +27,7 @@ public class App extends Application {
     private static final String ROOT_LAYOUT_FXML = "/fxml/RootLayout.fxml";
     private final BattleshipLog log = BattleshipLog.provideLogger(App.class);
 
-    public LanguageLoadOption languageLoadOption = LanguageLoadOption.EN;
+    private ResourceBundle resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.EN.toString());
 
     private Stage primaryStage;
 
@@ -50,6 +50,7 @@ public class App extends Application {
     private void showLoginWindow(){
         try {
             final FXMLLoader loader = new FXMLLoader();
+            loader.setResources(resourceBundle);
             loader.setLocation(App.class.getResource(LOGIN_FXML));
             final AnchorPane initLayout = loader.load();
             primaryStage.setScene(new Scene(initLayout));
@@ -69,22 +70,20 @@ public class App extends Application {
      */
     private void initRootLayout() {
         try {
-            final ResourceBundle resourceBundle = ResourceBundle.getBundle(languageLoadOption.toString());
             final FXMLLoader loader = new FXMLLoader();
-            loader.setResources(resourceBundle);
+            loader.setResources(this.resourceBundle);
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
             BorderPane rootLayout = loader.load();
-            final RootLayoutController controller = loader.getController();
-            controller.setResourceBundle(resourceBundle);
-            controller.init();
             primaryStage.setScene(new Scene(rootLayout));
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             log.error(e.getMessage());
         }
     }
 
-    public void loggingSuccessful(Map<ConfigurationValueName, ConfigurationValue> loggingDataMap) {
+    public void loggingSuccessful(Map<ConfigurationValueName, ConfigurationValue> loggingDataMap, ResourceBundle resourceBundle) {
+        this.resourceBundle = resourceBundle;
         String host = loggingDataMap.get(IP).stringValue();
         String port = loggingDataMap.get(PORT).stringValue();
         try {

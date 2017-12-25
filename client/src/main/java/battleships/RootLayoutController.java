@@ -9,6 +9,7 @@ import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
 import javax.print.DocFlavor;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RootLayoutController {
+public class RootLayoutController implements Initializable {
 
     private static final String PLAYER_BOARD_VIEW_FXML = "/fxml/PlayerBoardViewLayout.fxml";
     private static final String OPPONENT_BOARD_VIEW_FXML = "/fxml/OpponentBoardViewLayout.fxml";
@@ -28,15 +29,9 @@ public class RootLayoutController {
     @FXML
     BorderPane borderPane;
 
-    public void setResourceBundle(ResourceBundle resourceBundle) {
-        this.resourceBundle = resourceBundle;
-    }
-
-    @FXML
-    private void initialize(){
-    }
-
-    public void init(){
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.resourceBundle = resources;
         try{
             addOpponentBoardView();
             Board playerBoard = preparePlayerData();

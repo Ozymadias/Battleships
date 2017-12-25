@@ -4,21 +4,24 @@ import battleships.App;
 import battleships.logging.validation.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.net.URL;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import static battleships.logging.ConfigurationValueName.*;
 
-public class LoggingController {
+public class LoggingController implements Initializable {
 
     private App mainApp;
+    private ResourceBundle resourceBundle;
 
     @FXML
     private Button polishButton;
@@ -53,7 +56,7 @@ public class LoggingController {
     @FXML
     void onActionLoginButton(ActionEvent event){
         if(new Validator().validate(configFieldsValues())){
-            mainApp.loggingSuccessful(configFieldsValues());
+            mainApp.loggingSuccessful(configFieldsValues(), resourceBundle);
         }else{
             invalidLoggingDataAlert();
         }
@@ -69,26 +72,25 @@ public class LoggingController {
 
     @FXML
     void polishVersion(ActionEvent event) {
-        mainApp.languageLoadOption = LanguageLoadOption.PL;
+        resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.PL.toString());
         assignKeyTranslation();
     }
 
     @FXML
     void englishVersion(ActionEvent event) {
-        mainApp.languageLoadOption = LanguageLoadOption.EN;
+        resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.EN.toString());
         assignKeyTranslation();
     }
 
-
-    @FXML
-    void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.resourceBundle = resources;
         playerNameInput.setText("player");
         serverPortInput.setText("4321");
         serverIPInput.setText("127.0.0.1");
     }
 
     public void assignKeyTranslation() {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(mainApp.languageLoadOption.toString());
         playerNameText.setText(resourceBundle.getString("PLAYER_NAME"));
         serverPortText.setText(resourceBundle.getString("SERVER_PORT"));
         serverIPText.setText(resourceBundle.getString("SERVER_IP"));
@@ -101,8 +103,6 @@ public class LoggingController {
     }
 
     private void invalidLoggingDataAlert(){
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(mainApp.languageLoadOption.toString());
-
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(resourceBundle.getString("WARNING_DIALOG"));
         alert.setHeaderText(resourceBundle.getString("INVALID_LOGGING_DATA"));

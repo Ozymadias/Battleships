@@ -94,13 +94,13 @@ public class OpponentBoardViewController implements Member{
             processSalvoCount((SalvoCount) event);
             log.info("SalvoCount received by controller");
         }else if(event instanceof SalvoResult){
-            updateBoard((SalvoResult) ((SalvoResult) event).getResultList());
+            updateBoard((ArrayList<Integer>) ((SalvoResult) event).getResultList());
             log.info("SalvoResult received by controller");
         }
     }
 
-    private void updateBoard(SalvoResult resultList) {
-        resultList.getResultList().stream()
+    private void updateBoard(ArrayList<Integer> resultList) {
+        resultList.stream()
                 .forEach(pos -> opponentBoard.getFields().get(pos).setBrokenShipPartOn());
         setUpBoardView();
     }

@@ -85,7 +85,6 @@ public class LoggingController {
     @FXML
     void initialize() {
         playerNameInput.setText("player");
-        serverIPInput.setText("127.0.0.1");
         serverPortInput.setText("4321");
         languageVersion = new LanguageVersion(EN);
         assignKeyTranslation();

@@ -26,7 +26,7 @@ public class SalvoProcessorTest {
     }
 
     @Test(dataProvider = "provider")
-    public void shouldPassWhenGivenDataIsProcessedToCorrectResultValue(Quadruplet quadruplet, List expectedResult, int playerNumber) {
+    public void givenSalvosAndFleetsWhenProcessedThenSalvoResultHasCorrectResultList(Quadruplet quadruplet, List expectedResult, int playerNumber) {
         //given
         salvos.add(quadruplet.firstSalvo);
         salvos.add(quadruplet.secondSalvo);
@@ -48,17 +48,36 @@ public class SalvoProcessorTest {
                         new Fleet(Collections.singletonList(Ship.createShip(1, 2, 3)))),
                         Arrays.asList(1, 2, 3), 0},
                 {new Quadruplet(
+                        Salvo.createForPositions(1, 2, 3, 4, 5),
+                        Salvo.createForPositions(5, 6, 7),
+                        new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Collections.singletonList(Ship.createShip(1, 2, 3)))),
+                        Arrays.asList(5), 1},
+                {new Quadruplet(
                         Salvo.createForPositions(59),
                         Salvo.createForPositions(7, 8),
                         new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
                         new Fleet(Collections.singletonList(Ship.createShip(1, 2, 3, 4, 5, 59)))),
                         Collections.singletonList(59), 0},
                 {new Quadruplet(
+                        Salvo.createForPositions(59),
+                        Salvo.createForPositions(7, 8),
+                        new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Collections.singletonList(Ship.createShip(1, 2, 3, 4, 5, 59)))),
+                        Collections.emptyList(), 1},
+
+                {new Quadruplet(
                         Salvo.createForPositions(1, 2, 3, 4, 5, 6),
                         Salvo.createForPositions(7, 8),
                         new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
                         new Fleet(Collections.singletonList(Ship.createShip(59, 22, 41, 12)))),
                         Collections.emptyList(), 0},
+                {new Quadruplet(
+                        Salvo.createForPositions(1, 2, 3, 4, 5, 6),
+                        Salvo.createForPositions(7, 8),
+                        new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Collections.singletonList(Ship.createShip(59, 22, 41, 12)))),
+                        Collections.emptyList(), 1},
                 {new Quadruplet(
                         Salvo.createForPositions(78, 79, 0, 1, 2, 54),
                         Salvo.createForPositions(7, 8),
@@ -76,6 +95,12 @@ public class SalvoProcessorTest {
                         Salvo.createForPositions(3),
                         new Fleet(Collections.singletonList(Ship.createShip(3, 3, 3, 3, 3, 3))),
                         new Fleet(Collections.singletonList(Ship.createShip(6, 54, 3, 5, 7)))),
+                        Collections.singletonList(54), 0},
+                {new Quadruplet(
+                        Salvo.createForPositions(78, 79, 0, 1, 2, 54),
+                        Salvo.createForPositions(3),
+                        new Fleet(Collections.singletonList(Ship.createShip(3, 3, 3, 3, 3, 3))),
+                        new Fleet(Collections.singletonList(Ship.createShip(6, 54, 3, 5, 7)))),
                         Collections.singletonList(3), 1},
                 {new Quadruplet(
                         Salvo.createForPositions(78, 79, 0, 1, 2, 54),
@@ -86,7 +111,38 @@ public class SalvoProcessorTest {
         };
     }
 
-    private static class Quadruplet {
+    @Test(dataProvider = "provider2")
+    public void givenSalvosAndFleetsWhenProcessedThenSalvoResultHasCorrectSalvoPositions(Quadruplet quadruplet, List expectedResult, int playerNumber) {
+        //given
+        salvos.add(quadruplet.firstSalvo);
+        salvos.add(quadruplet.secondSalvo);
+        fleets.add(quadruplet.firstFleet);
+        fleets.add(quadruplet.secondFleet);
+        //when
+        List<SalvoResult> results = new SalvoProcessor().process(salvos, fleets);
+        //then
+        assertThat(results.get(playerNumber).getSalvoPositions()).isEqualTo(expectedResult);
+    }
+
+    @DataProvider(name = "provider2")
+    public static Object[][] provider2() {
+        return new Object[][]{
+                {new Quadruplet(
+                        Salvo.createForPositions(1, 2, 3, 4, 5),
+                        Salvo.createForPositions(5, 6, 7),
+                        new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Collections.singletonList(Ship.createShip(1, 2, 3)))),
+                        Arrays.asList(5, 6, 7), 0},
+                {new Quadruplet(
+                        Salvo.createForPositions(1, 2, 3, 4, 5),
+                        Salvo.createForPositions(5, 6, 7),
+                        new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))),
+                        new Fleet(Collections.singletonList(Ship.createShip(1, 2, 3)))),
+                        Arrays.asList(1, 2, 3, 4, 5), 1},
+        };
+    }
+
+        private static class Quadruplet {
 
         final Salvo firstSalvo;
         final Salvo secondSalvo;
@@ -95,7 +151,7 @@ public class SalvoProcessorTest {
 
         private Quadruplet(Salvo firstSalvo, Salvo SecondSalvo, Fleet firstFleet, Fleet secondFleet) {
             this.firstSalvo = firstSalvo;
-            secondSalvo = SecondSalvo;
+            this.secondSalvo = SecondSalvo;
             this.firstFleet = firstFleet;
             this.secondFleet = secondFleet;
         }

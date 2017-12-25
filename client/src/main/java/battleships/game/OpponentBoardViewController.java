@@ -61,7 +61,8 @@ public class OpponentBoardViewController implements Member{
         }
     }
 
-    public void sendSalvoClick(ActionEvent actionEvent) {
+    @FXML
+    private void sendSalvoClick(ActionEvent actionEvent) {
         salvoBtn.setDisable(true);
         DataBus.getInstance().sendRequest(new Salvo(this.salvoList));
         salvoList.clear();

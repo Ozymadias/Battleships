@@ -55,7 +55,7 @@ public class HorizontalSequenceSet implements SequencesSet {
         if(sequenceIndex > FIRST_SEQUENCE_INDEX){
             horizontalSequences.get(sequenceIndex-SEQUENCE_STEP).setBuffered(fieldsIndexesInSequence);
         }
-        int lastSequenceIndex = horizontalSequences.size() - STEP_OF_FIELDS_IN_SEQUENCE;
+        int lastSequenceIndex = horizontalSequences.size() - SEQUENCE_STEP;
         if(sequenceIndex < lastSequenceIndex){
             horizontalSequences.get(sequenceIndex+SEQUENCE_STEP).setBuffered(fieldsIndexesInSequence);
         }

@@ -60,7 +60,7 @@ public class PlayerBoardViewController implements Member{
 
     private SalvoCount countRemainUnbrokenMasts() {
        long count = board.getFields().stream()
-                                     .filter(field -> field.isUnbrokenShipOn() == true)
+                                     .filter(field -> field.isUnbrokenShipOn())
                                      .count();
        return new SalvoCount((int) count);
     }

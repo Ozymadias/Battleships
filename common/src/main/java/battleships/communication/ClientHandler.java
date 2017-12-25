@@ -1,8 +1,8 @@
 package battleships.communication;
 
-        import battleships.communication.jsonHandlers.JsonMarshaller;
-        import battleships.communication.jsonHandlers.JsonUnmarshaller;
-        import battleships.communication.jsonHandlers.MessagableMapperBuilder;
+        import battleships.communication.jsonhandlers.JsonMarshaller;
+        import battleships.communication.jsonhandlers.JsonUnmarshaller;
+        import battleships.communication.jsonhandlers.MessagableMapperBuilder;
         import battleships.communication.messages.WelcomeMessage;
 
         import java.util.Optional;

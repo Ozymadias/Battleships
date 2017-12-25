@@ -5,7 +5,6 @@ import battleships.communication.Member;
 import battleships.communication.Messagable;
 import battleships.communication.messages.Salvo;
 import battleships.logger.BattleshipLog;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -60,7 +59,7 @@ public class OpponentBoardViewController implements Member{
         }
     }
 
-    public void sendSalvoClick(ActionEvent actionEvent) {
+    public void sendSalvoClick() {
         salvoBtn.setDisable(true);
         DataBus.getInstance().sendRequest(new Salvo(this.salvoList));
         salvoList.clear();

@@ -26,7 +26,6 @@ public class App extends Application {
     private final BattleshipLog log = BattleshipLog.provideLogger(App.class);
 
     private Stage primaryStage;
-    private ServerComm serverComm;
 
     @Override
     public void start(Stage primaryStage){
@@ -88,7 +87,7 @@ public class App extends Application {
     }
 
     private void setUpConnection(String host, Integer port) throws IOException {
-        this.serverComm = ServerComm.build(host, port);
+        ServerComm serverComm = ServerComm.build(host, port);
         serverComm.init();
         DataBus.getInstance().subscribeMember(serverComm);
         DataBus.getInstance().subscribePublisher(serverComm);

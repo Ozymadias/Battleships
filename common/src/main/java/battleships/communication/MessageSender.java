@@ -1,9 +1,12 @@
 package battleships.communication;
 
+import battleships.logger.BattleshipLog;
+
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 public class MessageSender {
+    private final BattleshipLog log = BattleshipLog.provideLogger(MessageSender.class);
     private ObjectOutputStream oos;
 
     public MessageSender(ObjectOutputStream oos) {
@@ -12,8 +15,9 @@ public class MessageSender {
     public void sendMessageString(String m) {
         try {
             oos.writeObject(m);
+            log.info("message send: " + m);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 }

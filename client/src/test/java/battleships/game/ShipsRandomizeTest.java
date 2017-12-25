@@ -1,7 +1,6 @@
 package battleships.game;
 
 import battleships.ships.Fleet;
-import battleships.ships.Ship;
 import org.testng.annotations.Test;
 
 import java.util.HashSet;

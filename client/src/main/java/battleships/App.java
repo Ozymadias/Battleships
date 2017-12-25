@@ -1,7 +1,7 @@
 package battleships;
 
-import battleships.communication.ClientHandler;
-import battleships.communication.ClientHandlerBuilder;
+import battleships.communication.DataBus;
+import battleships.communication.ServerComm;
 import battleships.logging.ConfigurationValue;
 import battleships.logging.ConfigurationValueName;
 import battleships.logging.LoggingController;
@@ -13,7 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.util.Map;
 
 import static battleships.logging.ConfigurationValueName.IP;
@@ -25,6 +24,7 @@ public class App extends Application {
     private static final String ROOT_LAYOUT_FXML = "/fxml/RootLayout.fxml";
 
     private Stage primaryStage;
+    private ServerComm serverComm;
 
     @Override
     public void start(Stage primaryStage){
@@ -61,16 +61,12 @@ public class App extends Application {
      * loads game form from fxml file
      * binds it with stage
      * and shows form
-     *
-     * @param clientHandler
      */
-    private void initRootLayout(ClientHandler clientHandler) {
+    private void initRootLayout() {
         try {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
             BorderPane rootLayout = loader.load();
-            RootLayoutController controller = loader.getController();
-            controller.init(clientHandler);
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
         } catch (IOException e) {
@@ -81,13 +77,18 @@ public class App extends Application {
     public void loggingSuccessful(Map<ConfigurationValueName, ConfigurationValue> loggingDataMap) {
         String host = loggingDataMap.get(IP).stringValue();
         String port = loggingDataMap.get(PORT).stringValue();
-        Socket socket;
         try {
-            socket = new Socket(host, Integer.parseInt(port));
-            ClientHandler clientHandler = new ClientHandlerBuilder().setSocket(socket).addMessageSender().addMessageReceiver().build();
-            initRootLayout(clientHandler);
+            setUpConnection(host, Integer.parseInt(port));
+            initRootLayout();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setUpConnection(String host, Integer port) throws IOException {
+        this.serverComm = ServerComm.build(host, port);
+        serverComm.init();
+        DataBus.getInstance().subscribeMember(serverComm);
+        DataBus.getInstance().subscribePublisher(serverComm);
     }
 }

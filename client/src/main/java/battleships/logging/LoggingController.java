@@ -1,7 +1,6 @@
 package battleships.logging;
 
 import battleships.*;
-import battleships.communication.ClientHandler;
 import battleships.logging.validation.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

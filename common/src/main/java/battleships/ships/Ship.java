@@ -3,10 +3,7 @@ package battleships.ships;
 import battleships.communication.Messagable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Ship implements Messagable {
     private List<Mast> masts;

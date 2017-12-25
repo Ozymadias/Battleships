@@ -1,5 +1,6 @@
 package battleships;
 
+import battleships.logger.BattleshipLog;
 import battleships.logging.LanguageLoadOption;
 
 import java.io.IOException;
@@ -36,11 +37,14 @@ public class LanguageVersion {
      * LanguageVersionBuilder builds EnumMap of LocalizationStringMarker and Strings.
      */
     private static class LanguageVersionBuilder {
+        private LanguageVersionBuilder() {
+        }
 
         /**
          * Loads LocalizationStringMarker and String representation from correct *.property file.
          */
         static Map<LocalizationStringMarker, String> build(LanguageLoadOption fileName) {
+            final BattleshipLog log = BattleshipLog.provideLogger(LanguageVersionBuilder.class);
             Properties properties = new Properties();
             Map<LocalizationStringMarker, String> translationStringEnumMap = new EnumMap<>(LocalizationStringMarker.class);
 
@@ -54,7 +58,7 @@ public class LanguageVersion {
                                 (a, b) -> b, () -> new EnumMap<>(LocalizationStringMarker.class)));
 
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e.getMessage());
             }
             return translationStringEnumMap;
         }

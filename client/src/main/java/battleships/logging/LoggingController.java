@@ -1,6 +1,7 @@
 package battleships.logging;
 
-import battleships.*;
+import battleships.App;
+import battleships.LanguageVersion;
 import battleships.logging.validation.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,14 +11,13 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.util.EnumMap;
 import java.util.Map;
 
+import static battleships.LocalizationStringMarker.*;
 import static battleships.logging.ConfigurationValueName.*;
 import static battleships.logging.LanguageLoadOption.EN;
 import static battleships.logging.LanguageLoadOption.PL;
-import static battleships.LocalizationStringMarker.*;
 
 public class LoggingController {
     private LanguageVersion languageVersion;
@@ -55,7 +55,7 @@ public class LoggingController {
     private Button logInButton;
 
     @FXML
-    void OnActionLoginButton(ActionEvent event){
+    void onActionLoginButton(ActionEvent event){
         if(new Validator().validate(configFieldsValues())){
             mainApp.loggingSuccessful(configFieldsValues());
         }else{
@@ -72,12 +72,12 @@ public class LoggingController {
     }
 
     @FXML
-    void PolishVersion(ActionEvent event) {
+    void polishVersion(ActionEvent event) {
         initialize(PL);
     }
 
     @FXML
-    void EnglishVersion(ActionEvent event) {
+    void englishVersion(ActionEvent event) {
         initialize(EN);
     }
 
@@ -85,7 +85,6 @@ public class LoggingController {
     @FXML
     void initialize() {
         playerNameInput.setText("player");
-        serverIPInput.setText("127.0.0.1");
         serverPortInput.setText("4321");
         languageVersion = new LanguageVersion(EN);
         assignKeyTranslation();

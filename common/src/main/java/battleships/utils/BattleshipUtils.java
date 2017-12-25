@@ -3,6 +3,8 @@ package battleships.utils;
 import org.apache.commons.lang.StringUtils;
 
 public class BattleshipUtils {
+    private BattleshipUtils() {
+    }
 
     public static boolean checkIfStringIsNumeric(String toCheck) {
         return StringUtils.isNumeric(toCheck);

@@ -1,4 +1,4 @@
-package battleships.communication.jsonHandlers;
+package battleships.communication.jsonhandlers;
 
 import battleships.communication.Marshaller;
 import battleships.communication.Messagable;

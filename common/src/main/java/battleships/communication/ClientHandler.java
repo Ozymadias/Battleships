@@ -15,7 +15,7 @@ public class ClientHandler {
     private final JsonUnmarshaller jsonUnmarshaller;
 
 
-    public ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {
+    ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {
         this.messageSender = messageSender;
         this.messageReceiver = messageReceiver;
         this.jsonMarshaller = new JsonMarshaller(new MessagableMapperBuilder().withObjectMapper().build());

@@ -11,10 +11,11 @@ public class VerticalSequenceSet implements SequencesSet{
 
     private final List<SequenceForRandom> verticalSequences;
 
-    private static final int STEP_OF_FIELDS_IN_SEQUENCE = 10;
+    private static final int STEP_OF_FIELDS_POSITIONS_IN_SEQUENCE = 10;
     private static final int SEQUENCE_STEP = 1;
     private static final int SEQUENCE_LENGTH = 10;
     private static final int FIRST_SEQUENCE_INDEX = 0;
+    private static final int FIELD_INDEX_INCREMENTATION = 1;
 
     public VerticalSequenceSet(List<SequenceForRandom> verticalSequences) {
         this.verticalSequences = verticalSequences;
@@ -29,7 +30,7 @@ public class VerticalSequenceSet implements SequencesSet{
     }
 
     private static SequenceForRandom createSingleSequence(int first, Board board) {
-        List<Integer> numbersInSequence = IntStream.iterate(first, i->i+STEP_OF_FIELDS_IN_SEQUENCE)
+        List<Integer> numbersInSequence = IntStream.iterate(first, i->i+STEP_OF_FIELDS_POSITIONS_IN_SEQUENCE)
                 .limit(SEQUENCE_LENGTH)
                 .boxed()
                 .collect(Collectors.toList());
@@ -62,11 +63,12 @@ public class VerticalSequenceSet implements SequencesSet{
         if(sequenceIndex < lastSequenceIndex){
             verticalSequences.get(sequenceIndex+SEQUENCE_STEP).setBuffered(fieldsIndexesInSequence);
         }
-        if(!BordersCheck.isOnTopBorder(fieldsIndexesInSequence.getFirst())){
-            verticalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getFirst()-STEP_OF_FIELDS_IN_SEQUENCE);
+
+        if(!BordersCheck.isOnLeftBorder(fieldsIndexesInSequence.getFirst())){
+            verticalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getFirst()-FIELD_INDEX_INCREMENTATION);
         }
-        if(!BordersCheck.isOnBottomBorder(fieldsIndexesInSequence.getLast())){
-            verticalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getLast()+STEP_OF_FIELDS_IN_SEQUENCE);
+        if(!BordersCheck.isOnRightBorder(fieldsIndexesInSequence.getLast())){
+            verticalSequences.get(sequenceIndex).setBuffered(fieldsIndexesInSequence.getLast()+FIELD_INDEX_INCREMENTATION);
         }
     }
 }

@@ -6,13 +6,23 @@ import java.util.List;
 
 public class SalvoResult implements Messagable {
 
-    private final List<Integer> resultList;
-    private final List<Integer> salvoPositions;
+    private List<Integer> resultList;
+    private List<Integer> salvoPositions;
 
+    public SalvoResult() {
+    }
 
     public SalvoResult(List<Integer> resultList, List<Integer> salvoPositions) {
 
         this.resultList = resultList;
+        this.salvoPositions = salvoPositions;
+    }
+
+    public void setResultList(List<Integer> resultList) {
+        this.resultList = resultList;
+    }
+
+    public void setSalvoPositions(List<Integer> salvoPositions) {
         this.salvoPositions = salvoPositions;
     }
 

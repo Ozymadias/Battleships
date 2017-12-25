@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class SequenceForRandom {
 
-    private final int STEP = 1;
+    private static final int STEP = 1;
 
     private final List<Field> fields;
 
@@ -63,7 +63,7 @@ public class SequenceForRandom {
     Ship setShip(List<Integer> positionsInSequence){
         List<Integer> boardIndexes = new ArrayList<>();
 
-        positionsInSequence.stream()
+        positionsInSequence
                 .forEach(
                         position -> {
                             fields.get(position).setUnbrokenShipPartOn();

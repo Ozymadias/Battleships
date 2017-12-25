@@ -24,7 +24,7 @@ class SinkingShips implements GameState {
     public GameState process() {
         IntStream.range(0, playersFleets.size())
                 .forEach(p -> killShips(playersFleets.get(p).getShips(), results.get(p)));
-        return new WaitingForSalvos(observers, playersFleets);
+        return new SendingSalvoResults(observers,playersFleets,results);
     }
 
     private void killShips(List<Ship> toBeKilled, SalvoResult toKill) {

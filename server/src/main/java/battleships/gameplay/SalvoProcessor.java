@@ -5,9 +5,7 @@ import battleships.communication.messages.SalvoResult;
 import battleships.ships.Fleet;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
 
 class SalvoProcessor {
     List<SalvoResult> process(List<Salvo> salvos, List<Fleet> fleets) {

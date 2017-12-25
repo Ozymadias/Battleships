@@ -9,8 +9,10 @@ public class ShipsRandomize {
 
     private static final int SEQUENCE_COUNT = 10;
 
+
     final private HorizontalSequenceSet horizontalSequences;
     final private VerticalSequenceSet verticalSequenceSet;
+
     private final Board board;
 
     private ShipsRandomize(HorizontalSequenceSet horizontalSequences, VerticalSequenceSet verticalSequenceSet, Board board) {
@@ -19,13 +21,13 @@ public class ShipsRandomize {
         this.board = board;
     }
 
-    public static ShipsRandomize build(Board board){
+    public static ShipsRandomize build(Board board) {
         HorizontalSequenceSet horizontalSequenceSet = HorizontalSequenceSet.build(board);
         VerticalSequenceSet verticalSequenceSet = VerticalSequenceSet.build(board);
         return new ShipsRandomize(horizontalSequenceSet, verticalSequenceSet, board);
     }
 
-    public Fleet placeAllFleet(){
+    public Fleet placeAllFleet() {
         List<Integer> shipsToPlace = Arrays.asList(4, 3, 3, 2, 2, 2, 1, 1, 1, 1);
         List<Ship> ships = new ArrayList<>();
         shipsToPlace.forEach(masts -> ships.add(placeShip(masts)));
@@ -52,9 +54,9 @@ public class ShipsRandomize {
 
     private Ship placeShipHorizontally(int length){
         Integer randomRow;
-        do{
+        do {
             randomRow = new Random().nextInt(SEQUENCE_COUNT);
-        }while(!horizontalSequences.get(randomRow).canContainShip(length));
+        } while (!horizontalSequences.get(randomRow).canContainShip(length));
 
         return horizontalSequences.randomlyPlaceShip(randomRow, length);
     }

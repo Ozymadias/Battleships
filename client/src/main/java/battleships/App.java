@@ -2,6 +2,7 @@ package battleships;
 
 import battleships.communication.DataBus;
 import battleships.communication.ServerComm;
+import battleships.logger.BattleshipLog;
 import battleships.logging.ConfigurationValue;
 import battleships.logging.ConfigurationValueName;
 import battleships.logging.LoggingController;
@@ -22,9 +23,9 @@ public class App extends Application {
     private static final String APP_NAME = "BATTLESHIPS!";
     private static final String LOGIN_FXML = "/fxml/login.fxml";
     private static final String ROOT_LAYOUT_FXML = "/fxml/RootLayout.fxml";
+    private final BattleshipLog log = BattleshipLog.provideLogger(App.class);
 
     private Stage primaryStage;
-    private ServerComm serverComm;
 
     @Override
     public void start(Stage primaryStage){
@@ -52,7 +53,7 @@ public class App extends Application {
             controller.setMainApp(this);
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -69,7 +70,7 @@ public class App extends Application {
             primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -80,12 +81,12 @@ public class App extends Application {
             setUpConnection(host, Integer.parseInt(port));
             initRootLayout();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
     private void setUpConnection(String host, Integer port) throws IOException {
-        this.serverComm = ServerComm.build(host, port);
+        ServerComm serverComm = ServerComm.build(host, port);
         serverComm.init();
         DataBus.getInstance().subscribeMember(serverComm);
         DataBus.getInstance().subscribePublisher(serverComm);

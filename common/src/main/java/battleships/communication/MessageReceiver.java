@@ -1,14 +1,15 @@
 package battleships.communication;
 
+import battleships.logger.BattleshipLog;
 import battleships.utils.BattleshipUtils;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.net.Socket;
 
 public class MessageReceiver {
     private final ObjectInputStream ois;
-    public MessageReceiver(ObjectInputStream ois) {
+    private final BattleshipLog log = BattleshipLog.provideLogger(MessageSender.class);
+    MessageReceiver(ObjectInputStream ois) {
         this.ois = ois;
     }
 
@@ -16,10 +17,9 @@ public class MessageReceiver {
         String s = BattleshipUtils.provideEmptyString();
         try {
             s = (String) ois.readObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            log.info("message send: " + s);
+        } catch (IOException | ClassNotFoundException e) {
+            log.error(e.getMessage());
         }
         return s;
     }

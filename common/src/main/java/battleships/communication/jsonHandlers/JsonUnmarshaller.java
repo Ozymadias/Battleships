@@ -1,13 +1,15 @@
 package battleships.communication.jsonHandlers;
 
 import battleships.communication.Messagable;
+import battleships.communication.MessageSender;
 import battleships.communication.Unmarshaller;
+import battleships.logger.BattleshipLog;
 
 import java.io.IOException;
 import java.util.Optional;
 
 public class JsonUnmarshaller implements Unmarshaller {
-
+    private final BattleshipLog log = BattleshipLog.provideLogger(MessageSender.class);
     private final MessagableMapper messagableMapper;
 
     public JsonUnmarshaller(MessagableMapper messagableMapper) {
@@ -19,7 +21,7 @@ public class JsonUnmarshaller implements Unmarshaller {
         try {
             return Optional.of(this.messagableMapper.readValue(message, Messagable.class));
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return Optional.empty();
         }
     }

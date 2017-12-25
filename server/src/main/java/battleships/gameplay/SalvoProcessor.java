@@ -11,20 +11,18 @@ import java.util.stream.IntStream;
 
 class SalvoProcessor {
     List<SalvoResult> process(List<Salvo> salvos, List<Fleet> fleets) {
-        Collections.reverse(salvos);
+
         List<SalvoResult> salvoResults = new ArrayList<>();
 
-        IntStream.range(0, fleets.size())
-                .boxed()
-                .sorted(Collections.reverseOrder())
-                .forEachOrdered(p -> salvoResults.add(calculate(salvos.get(p), fleets.get(p))));
+        salvoResults.add(calculate(salvos.get(0), fleets.get(1), salvos.get(1)));
+        salvoResults.add(calculate(salvos.get(1), fleets.get(0), salvos.get(0)));
 
         return salvoResults;
     }
 
-    private SalvoResult calculate(Salvo salvo, Fleet fleet) {
-        List<Integer> resultingPositions = new ArrayList<>(salvo.getSalvoPositions());
-        resultingPositions.retainAll(fleet.getAllPositions());
-        return new SalvoResult(resultingPositions, salvo.getSalvoPositions());
+    private SalvoResult calculate(Salvo mySalvo, Fleet enemyFleet, Salvo salvoFromEnemy ) {
+        List<Integer> resultingPositions = new ArrayList<>(mySalvo.getSalvoPositions());
+        resultingPositions.retainAll(enemyFleet.getAllPositions());
+        return new SalvoResult(resultingPositions, salvoFromEnemy.getSalvoPositions());
     }
 }

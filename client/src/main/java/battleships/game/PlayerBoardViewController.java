@@ -1,6 +1,5 @@
 package battleships.game;
 
-import battleships.RootLayoutController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
@@ -14,10 +13,7 @@ public class PlayerBoardViewController {
     private GridPane dockedGridPane;
 
     @FXML
-    private void initialize(){
-        ShipsRandomize shipsRandomize = ShipsRandomize.build(Board.build());
-        board = shipsRandomize.getBoard();
-    }
+    private void initialize(){}
 
     public void setUpPlayerBoardDocked() {
         for (int row = 0; row < BOARD_ROW_COUNT; row++) {

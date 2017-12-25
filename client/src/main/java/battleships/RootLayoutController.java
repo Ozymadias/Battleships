@@ -1,7 +1,6 @@
 package battleships;
 
-import battleships.communication.ClientHandler;
-import battleships.communication.messages.Salvo;
+import battleships.communication.DataBus;
 import battleships.game.Board;
 import battleships.game.OpponentBoardViewController;
 import battleships.game.PlayerBoardViewController;
@@ -21,10 +20,6 @@ public class RootLayoutController {
 
     private final BattleshipLog log = BattleshipLog.provideLogger(RootLayoutController.class);
 
-    private ClientHandler clientHandler;
-
-    private Fleet fleet;
-
     @FXML
     BorderPane borderPane;
 
@@ -32,22 +27,24 @@ public class RootLayoutController {
     private void initialize(){
         try{
             addOpponentBoardView();
+            Board playerBoard = preparePlayerData();
+            addPlayerBoardView(playerBoard);
         } catch (IOException e) {
             log.error(e);
         }
     }
 
-    public void init(ClientHandler clientHandler){
-        this.clientHandler = clientHandler;
+    private Board preparePlayerData(){
         ShipsRandomize shipsRandomize = ShipsRandomize.build(Board.build());
-        this.fleet = shipsRandomize.placeAllFleet();
+        Fleet fleet = shipsRandomize.placeAllFleet();
         Board board = shipsRandomize.getBoard();
-        sendFleet();
+        DataBus.getInstance().publish(fleet);
         try {
             addPlayerBoardView(board);
         } catch (IOException e) {
             log.error(e);
         }
+        return board;
     }
 
     private void addPlayerBoardView(Board board) throws IOException {
@@ -64,18 +61,7 @@ public class RootLayoutController {
         loader.setLocation(App.class.getResource(OPPONENT_BOARD_VIEW_FXML));
         borderPane.setRight(loader.<BorderPane>load());
         OpponentBoardViewController controller = loader.getController();
-        controller.setRootLayoutController(this);
         controller.setShootsLeftCount(20);
     }
 
-
-    void sendFleet(){
-        log.info("preparing fleet to send " + this.fleet.getShips().toString());
-        clientHandler.sendMessage(this.fleet);
-    }
-
-    public void process(Salvo salvo) {
-        log.info("preparing salvo to send: " + salvo.getSalvoPositions().toString());
-        clientHandler.sendMessage(salvo);
-    }
 }

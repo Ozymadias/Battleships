@@ -4,6 +4,7 @@ import battleships.communication.DataBus;
 import battleships.communication.Member;
 import battleships.communication.Messagable;
 import battleships.communication.messages.Salvo;
+import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -87,7 +88,23 @@ public class OpponentBoardViewController implements Member{
 
     @Override
     public void accept(Messagable event) {
-        salvoBtn.setDisable(false);
-        log.info("replay received by controller");
+        if(event instanceof SalvoCount){
+            salvoBtn.setDisable(false);
+            processSalvoCount((SalvoCount) event);
+            log.info("SalvoCount received by controller");
+        }else if(event instanceof SalvoResult){
+            updateBoard((SalvoResult) ((SalvoResult) event).getResultList());
+            log.info("SalvoResult received by controller");
+        }
+    }
+
+    private void updateBoard(SalvoResult resultList) {
+        resultList.getResultList().stream()
+                .forEach(pos -> opponentBoard.getFields().get(pos).setBrokenShipPartOn());
+        setUpBoardView();
+    }
+
+    private void processSalvoCount(SalvoCount event) {
+        setShootsLeftCount(event.getCount());
     }
 }

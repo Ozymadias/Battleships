@@ -2,7 +2,7 @@ package battleships.communication;
 
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
-import battleships.communication.messages.WelcomeMessage;
+import battleships.game.OpponentBoardViewController;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -12,23 +12,25 @@ public class DataBusTest {
 
     DataBus dataBus;
     ServerComm serverComm;
+    OpponentBoardViewController opponentBoardViewController;
 
     @BeforeClass
     public void beforeClass(){
         dataBus = DataBus.getInstance();
         serverComm = mock(ServerComm.class);
-        dataBus.subscribeMember(serverComm);
+        opponentBoardViewController = mock(OpponentBoardViewController.class);
+        dataBus.subscribeMember(opponentBoardViewController);
         dataBus.subscribePublisher(serverComm);
     }
 
     @Test
-    public void givenDataBusWithServerCommAsMember_whenPublishingMessageViaDataBus_thenServerCommMethodAcceptShouldBeTriggerred(){
+    public void givenDataBusWithOpponentBoardViewControllerAsMember_whenPublishingMessageViaDataBus_thenOpponentBoardViewControllerMethodAcceptShouldBeTriggerred(){
         //given
-        Messagable welcomeMessage = new WelcomeMessage("hello!");
+        SalvoResult salvoResult = mock(SalvoResult.class);
         //when
-        dataBus.publish(welcomeMessage);
+        dataBus.publish(salvoResult);
         //then
-        verify(serverComm, times(1)).accept(welcomeMessage);
+        verify(opponentBoardViewController, times(1)).accept(salvoResult);
     }
 
     @Test

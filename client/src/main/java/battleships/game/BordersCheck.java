@@ -8,6 +8,9 @@ class BordersCheck {
     private static final int BOTTOM_RIGHT_CORNER_POSITION = 99;
     private static final int SEQUENCE_LENGTH = 10;
 
+    private BordersCheck() {
+    }
+
     static Boolean isOnTopBorder(Integer number) {
         return number >= TOP_LEFT_CORNER_POSITION && number <= TOP_RIGHT_CORNER_POSITION;
     }
@@ -18,12 +21,12 @@ class BordersCheck {
 
     static Boolean isOnLeftBorder(Integer number){
         return (number >= TOP_LEFT_CORNER_POSITION && number <= BOTTOM_LEFT_CORNER_POSITION)
-            && (new Integer(number % SEQUENCE_LENGTH)).equals(0);
+            && (number % SEQUENCE_LENGTH)==(0);
     }
 
     static Boolean isOnRightBorder(Integer number){
         return (number >= TOP_RIGHT_CORNER_POSITION && number <= BOTTOM_RIGHT_CORNER_POSITION)
-               && (new Integer(number % SEQUENCE_LENGTH)).equals(SEQUENCE_LENGTH - 1);
+               && (number % SEQUENCE_LENGTH)==(SEQUENCE_LENGTH - 1);
     }
 
 

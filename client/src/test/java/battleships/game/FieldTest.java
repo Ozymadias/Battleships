@@ -44,7 +44,7 @@ public class FieldTest {
         //given
         Field field = new Field(position);
         //when
-        field.setShipPartOn();
+        field.setUnbrokenShipPartOn();
         //then
         assertThat(field.isShipOn()).isTrue();
     }

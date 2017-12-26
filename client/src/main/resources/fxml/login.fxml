@@ -11,7 +11,7 @@
         <Image url="@/ship.png"/>
     </ImageView>
     <Button fx:id="logInButton" layoutX="580.0" layoutY="297.0" mnemonicParsing="false"
-            onAction="#OnActionLoginButton" prefHeight="38.0" prefWidth="138.0"
+            onAction="#onActionLoginButton" prefHeight="38.0" prefWidth="138.0"
             text="Login to server"/>
     <TextField fx:id="playerNameInput" layoutX="528.0" layoutY="103.0" prefHeight="27.0" prefWidth="200.0">
         <font>
@@ -43,14 +43,14 @@
     </Text>
     <CheckBox fx:id="checkBoxRandomShipPlacement" layoutX="14.0" layoutY="326.0" mnemonicParsing="false"
               text="CheckBox"/>
-    <Button fx:id="polishButton" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#PolishVersion"
+    <Button fx:id="polishButton" layoutX="14.0" layoutY="9.0" mnemonicParsing="false" onAction="#polishVersion"
             text="">
         <Image fx:id="polishSmall" url="@/polish_flag_small.png"/>
         <graphic>
             <ImageView image="$polishSmall"/>
         </graphic>
     </Button>
-    <Button fx:id="englishButton" layoutX="65.0" layoutY="9.0" mnemonicParsing="false" onAction="#EnglishVersion"
+    <Button fx:id="englishButton" layoutX="65.0" layoutY="9.0" mnemonicParsing="false" onAction="#englishVersion"
             text="">
         <Image fx:id="englishSmall" url="@/english_flag_small.png"/>
         <graphic>

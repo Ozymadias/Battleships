@@ -1,32 +1,29 @@
 package battleships.communication.messages;
 
 import battleships.communication.Messagable;
+
 import battleships.game.GameResult;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import java.util.List;
 
 public class SalvoResult implements Messagable {
 
-    private List<Integer> resultList;
-    private List<Integer> salvoPositions;
+    private final List<Integer> resultList;
+    private final List<Integer> salvoPositions;
     private GameResult gameResult;
-
-    public SalvoResult() {
-    }
-
-    public SalvoResult(List<Integer> resultList, List<Integer> salvoPositions, GameResult gameResult) {
+    @JsonCreator
+    public SalvoResult(
+            @JsonProperty("resultList") List<Integer> resultList,
+            @JsonProperty("salvoPositions") List<Integer> salvoPositions,
+            @JsonProperty("gameResult") GameResult gameResult) {
 
         this.resultList = resultList;
         this.salvoPositions = salvoPositions;
         this.gameResult = gameResult;
-    }
-
-    public void setResultList(List<Integer> resultList) {
-        this.resultList = resultList;
-    }
-
-    public void setSalvoPositions(List<Integer> salvoPositions) {
-        this.salvoPositions = salvoPositions;
     }
 
     public void setGameResult(GameResult gameResult) {

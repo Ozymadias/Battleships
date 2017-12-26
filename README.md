@@ -59,6 +59,8 @@ Game is based on salvos, you have as many shots as undamaged masts of your ships
 Results of each salvo will be displayed when both players finished firing their shots. 
 Salvo counter will reduce every time you lose a mast. 
 
+Game ends when one of players lose all ships. 
+
 ## Built With
 
 * [IntelliJ Idea](https://www.jetbrains.com/idea)

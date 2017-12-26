@@ -66,7 +66,7 @@ public class SequenceForRandom {
         positionsInSequence
                 .forEach(
                         position -> {
-                            fields.get(position).setShipPartOn();
+                            fields.get(position).setUnbrokenShipPartOn();
                             boardIndexes.add(fields.get(position).getPosition());
                         }
                 );

@@ -43,7 +43,6 @@ public class App extends Application {
      * binds it with stage
      * and shows form
      */
-
     private void showLoginWindow(){
         try {
             final FXMLLoader loader = new FXMLLoader();

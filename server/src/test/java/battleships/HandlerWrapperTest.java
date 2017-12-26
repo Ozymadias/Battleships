@@ -32,7 +32,7 @@ public class HandlerWrapperTest {
         //given
         HandlerWrapper handlerWrapper = new HandlerWrapper(clientHandlerMock);
         //when
-        handlerWrapper.sendMessage(new WelcomeMessage());
+        handlerWrapper.sendMessage(new WelcomeMessage("hello"));
         //then
         verify(clientHandlerMock, atLeast(1)).sendMessage(any(WelcomeMessage.class));
     }

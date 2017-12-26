@@ -19,5 +19,6 @@ public class Game {
         do {
             gameState = gameState.process();
         } while (!gameState.isEndOfTheGame());
+        log.info("Game ended");
     }
 }

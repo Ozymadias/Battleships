@@ -37,21 +37,21 @@ public class SendingSalvoResultsTest {
 
     @Test
     public void shouldPassWhenCorrectMessagesAreSentToSecondBattleObserver() {
-        SendingSalvoResults sendingSalvoResults = new SendingSalvoResults(observers, mockFleets, results);
+        SendingSalvoResults sendingSalvoResults = new SendingSalvoResults(observers, mockFleets, results, false);
         sendingSalvoResults.process();
         verify(secondBattleObserver, atLeast(1)).sendMessage(any(SalvoResult.class));
     }
 
     @Test
     public void shouldPassWhenCorrectMessagesAreSentToFirstBattleObserver() {
-        SendingSalvoResults sendingSalvoResults = new SendingSalvoResults(observers, mockFleets, results);
+        SendingSalvoResults sendingSalvoResults = new SendingSalvoResults(observers, mockFleets, results, false);
         sendingSalvoResults.process();
         verify(firstBattleObserver, atLeast(1)).sendMessage(any(SalvoResult.class));
     }
 
     @Test
     public void shouldPassWhenStateIsNotEndOfTheGame() {
-        SendingSalvoResults sendingSalvoResults = new SendingSalvoResults(observers, mockFleets, results);
+        SendingSalvoResults sendingSalvoResults = new SendingSalvoResults(observers, mockFleets, results, false);
         assertThat(sendingSalvoResults.isEndOfTheGame()).isFalse();
     }
 }

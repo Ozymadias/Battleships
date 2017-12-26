@@ -23,11 +23,15 @@ class SendingSalvoResults implements GameState{
     @Override
     public GameState process() {
         IntStream.range(0,observers.size()).forEach(p->observers.get(p).sendMessage(results.get(p)));
-        return new WaitingForSalvos(observers, playersFleets);
+        if (isEndOfTheGame) {
+            return new EndingGame();
+        } else {
+            return new WaitingForSalvos(observers, playersFleets);
+        }
     }
 
     @Override
     public boolean isEndOfTheGame() {
-        return isEndOfTheGame;
+        return false;
     }
 }

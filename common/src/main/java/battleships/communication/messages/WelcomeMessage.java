@@ -2,25 +2,21 @@ package battleships.communication.messages;
 
 import battleships.communication.Messagable;
 import battleships.utils.BattleshipUtils;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class WelcomeMessage implements Messagable {
 
-    private String body;
+    private final String body;
 
-    public WelcomeMessage(){
-        this.body = BattleshipUtils.provideEmptyString();
-    }
-
-    public WelcomeMessage(final String body){
+    @JsonCreator
+    public WelcomeMessage(
+            @JsonProperty("body") final String body){
         this.body = body;
     }
 
     String getBody() {
         return this.body;
-    }
-
-    void setBody(String body) {
-        this.body = body;
     }
 
 }

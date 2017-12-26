@@ -1,24 +1,18 @@
 package battleships.ships;
 
 import battleships.communication.Messagable;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Mast implements Messagable {
-    private boolean isAlive = true;
-    private Integer position;
+    private boolean isAlive;
+    private final Integer position;
 
-    public Mast() {
-    }
-
-    public void setAlive(boolean alive) {
-        isAlive = alive;
-    }
-
-    public void setPosition(Integer position) {
+    @JsonCreator
+    Mast(
+            @JsonProperty("position") Integer position) {
         this.position = position;
-    }
-
-    Mast(Integer position) {
-        this.position = position;
+        this.isAlive = true;
     }
 
     boolean isAlive() {

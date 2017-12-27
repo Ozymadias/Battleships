@@ -6,7 +6,6 @@ import battleships.communication.Messagable;
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;

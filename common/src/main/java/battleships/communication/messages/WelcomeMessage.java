@@ -1,7 +1,6 @@
 package battleships.communication.messages;
 
 import battleships.communication.Messagable;
-import battleships.utils.BattleshipUtils;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

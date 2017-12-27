@@ -10,8 +10,8 @@ public class ShipsRandomize {
     private static final int SEQUENCE_COUNT = 10;
 
 
-    final private HorizontalSequenceSet horizontalSequences;
-    final private VerticalSequenceSet verticalSequenceSet;
+    private final HorizontalSequenceSet horizontalSequences;
+    private final VerticalSequenceSet verticalSequenceSet;
 
     private final Board board;
 

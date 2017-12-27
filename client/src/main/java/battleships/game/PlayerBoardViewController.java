@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 
 import java.net.URL;
 import java.util.List;
@@ -65,12 +66,14 @@ public class PlayerBoardViewController implements Member, Initializable {
             case WIN: resultInfo = "WIN_INFO"; break;
             case LOOSE: resultInfo = "LOOSE_INFO"; break;
             case DRAW: resultInfo = "DRAW_INFO"; break;
+            case NONE: return;
         }
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(resourceBundle.getString("INFORMATION_DIALOG"));
         alert.setHeaderText(resourceBundle.getString("GAME_RESULT_HEADER"));
         alert.setContentText(resourceBundle.getString(resultInfo));
+        alert.initModality(Modality.APPLICATION_MODAL);
         alert.showAndWait();
     }
 

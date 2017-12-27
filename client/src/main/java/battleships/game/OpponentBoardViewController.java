@@ -94,9 +94,19 @@ public class OpponentBoardViewController implements Member{
             processSalvoCount((SalvoCount) event);
             log.info("SalvoCount received by controller");
         }else if(event instanceof SalvoResult){
-            updateBoard((ArrayList<Integer>) ((SalvoResult) event).getResultList());
+            SalvoResult salvoResult = (SalvoResult) event;
+            updateBoard((ArrayList<Integer>) salvoResult.getResultList());
             log.info("SalvoResult received by controller");
+            if(salvoResult.getGameResult() != GameResult.NONE){
+                gameEnd();
+            }
         }
+    }
+
+    private void gameEnd() {
+        salvoBtn.setDisable(true);
+        this.shootsLeftCount = 0;
+        dockedGridPane.setDisable(true);
     }
 
     private void updateBoard(ArrayList<Integer> resultList) {

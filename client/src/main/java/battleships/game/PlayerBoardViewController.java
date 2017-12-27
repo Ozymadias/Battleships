@@ -4,22 +4,30 @@ import battleships.communication.DataBus;
 import battleships.communication.Member;
 import battleships.communication.Messagable;
 import battleships.communication.messages.SalvoResult;
+import battleships.utils.BattleshipUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class PlayerBoardViewController implements Member{
+public class PlayerBoardViewController implements Member, Initializable {
 
     private static final int BOARD_ROW_COUNT = 10;
     private static final int BOARD_COLUMN_COUNT = 10;
     private Board board;
+    private ResourceBundle resourceBundle;
 
     @FXML
     private GridPane dockedGridPane;
 
-    @FXML
-    private void initialize(){
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.resourceBundle = resources;
         DataBus.getInstance().subscribeMember(this);
     }
 
@@ -41,8 +49,32 @@ public class PlayerBoardViewController implements Member{
     @Override
     public void accept(Messagable event) {
         if(event instanceof SalvoResult){
-            processSalvo(((SalvoResult) event).getSalvoPositions());
+            SalvoResult salvoResult = (SalvoResult) event;
+            processSalvo(salvoResult.getSalvoPositions());
+            if(salvoResult.getGameResult() != GameResult.NONE){
+                processGameResult(salvoResult.getGameResult());
+            }
         }
+    }
+
+    private void processGameResult(GameResult gameResult) {
+        dockedGridPane.setDisable(true);
+
+        String resultInfo = BattleshipUtils.provideEmptyString();
+
+        switch (gameResult){
+            case WIN: resultInfo = "WIN_INFO"; break;
+            case LOOSE: resultInfo = "LOOSE_INFO"; break;
+            case DRAW: resultInfo = "DRAW_INFO"; break;
+            case NONE: return;
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(resourceBundle.getString("INFORMATION_DIALOG"));
+        alert.setHeaderText(resourceBundle.getString("GAME_RESULT_HEADER"));
+        alert.setContentText(resourceBundle.getString(resultInfo));
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.showAndWait();
     }
 
     private void processSalvo(List<Integer> salvoPositions){

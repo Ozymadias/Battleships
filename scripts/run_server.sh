@@ -6,4 +6,4 @@ if [ $# -eq 0 ]
   exit 1;
 fi
 
-java -Dport=$1 -jar ../server/target/server-1.0-SNAPSHOT.jar
+java -Dport=$1 -jar ../server/target/server-1.0.jar

@@ -33,7 +33,7 @@ java -jar <modulename>.jar
 ```
 Step 5: Runing server module require use of -Dport=<portNumber> command:
 ```
-java -jar <modulename>.jar -Dport=SamplePortNumber
+java -Dport=SamplePortNumber -jar <modulename>.jar 
 ```
 ## Gameplay
 In order to play you need to run client.

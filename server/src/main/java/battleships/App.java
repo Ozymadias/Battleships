@@ -12,19 +12,19 @@ import java.io.IOException;
  */
 public class App {
 
-    public static void main(String[] args) throws IOException {
-        String portString = System.getProperty("port","4321");
-        int port = Integer.parseInt(portString);
+  public static void main(String[] args) throws IOException {
+    String portString = System.getProperty("port", "4321");
+    int port = Integer.parseInt(portString);
 
-        Server server = new ServerBuilder()
-                .setPort(port)
-                .openServerSocket()
-                .build();
+    Server server = new ServerBuilder()
+        .setPort(port)
+        .openServerSocket()
+        .build();
 
-        while (true) {
-            new Game(new ClientCreator()
-                    .createClientHandlers(server.createSockets()))
-                    .start();
-        }
+    while (true) {
+      new Game(new ClientCreator()
+          .createClientHandlers(server.createSockets()))
+          .start();
     }
+  }
 }

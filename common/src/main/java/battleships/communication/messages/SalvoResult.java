@@ -9,33 +9,34 @@ import java.util.List;
 
 public class SalvoResult implements Messagable {
 
-    private final List<Integer> resultList;
-    private final List<Integer> salvoPositions;
-    private GameResult gameResult;
-    @JsonCreator
-    public SalvoResult(
-            @JsonProperty("resultList") List<Integer> resultList,
-            @JsonProperty("salvoPositions") List<Integer> salvoPositions,
-            @JsonProperty("gameResult") GameResult gameResult) {
+  private final List<Integer> resultList;
+  private final List<Integer> salvoPositions;
+  private GameResult gameResult;
 
-        this.resultList = resultList;
-        this.salvoPositions = salvoPositions;
-        this.gameResult = gameResult;
-    }
+  @JsonCreator
+  public SalvoResult(
+      @JsonProperty("resultList") List<Integer> resultList,
+      @JsonProperty("salvoPositions") List<Integer> salvoPositions,
+      @JsonProperty("gameResult") GameResult gameResult) {
 
-    public void setGameResult(GameResult gameResult) {
-        this.gameResult = gameResult;
-    }
+    this.resultList = resultList;
+    this.salvoPositions = salvoPositions;
+    this.gameResult = gameResult;
+  }
 
-    public List<Integer> getResultList() {
-        return resultList;
-    }
+  public void setGameResult(GameResult gameResult) {
+    this.gameResult = gameResult;
+  }
 
-    public List<Integer> getSalvoPositions() {
-        return salvoPositions;
-    }
+  public List<Integer> getResultList() {
+    return resultList;
+  }
 
-    public GameResult getGameResult() {
-        return gameResult;
-    }
+  public List<Integer> getSalvoPositions() {
+    return salvoPositions;
+  }
+
+  public GameResult getGameResult() {
+    return gameResult;
+  }
 }

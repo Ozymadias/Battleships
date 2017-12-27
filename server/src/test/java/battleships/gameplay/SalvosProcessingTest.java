@@ -9,15 +9,15 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
 
 public class SalvosProcessingTest {
-    private SalvosProcessing salvosProcessing;
+  private SalvosProcessing salvosProcessing;
 
-    @BeforeTest
-    public void setUp() {
-        salvosProcessing = new SalvosProcessing(mock(ArrayList.class), mock(ArrayList.class), mock(ArrayList.class));
-    }
+  @BeforeTest
+  public void setUp() {
+    salvosProcessing = new SalvosProcessing(mock(ArrayList.class), mock(ArrayList.class), mock(ArrayList.class));
+  }
 
-    @Test
-    public void shouldPassWhenSalvoProcessingIsNotEndOfGame() {
-        assertThat(salvosProcessing.isEndOfTheGame()).isFalse();
-    }
+  @Test
+  public void shouldPassWhenSalvoProcessingIsNotEndOfGame() {
+    assertThat(salvosProcessing.isEndOfTheGame()).isFalse();
+  }
 }

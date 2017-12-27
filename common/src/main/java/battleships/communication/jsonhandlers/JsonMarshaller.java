@@ -7,18 +7,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class JsonMarshaller implements Marshaller {
 
-    private final MessagableMapper messagableMapper;
+  private final MessagableMapper messagableMapper;
 
-    public JsonMarshaller(MessagableMapper messagableMapper) {
-        this.messagableMapper = messagableMapper;
-    }
+  public JsonMarshaller(MessagableMapper messagableMapper) {
+    this.messagableMapper = messagableMapper;
+  }
 
-    @Override
-    public String toString(Messagable messagable) {
-        try {
-            return this.messagableMapper.writeValueAsString(messagable);
-        } catch (JsonProcessingException e) {
-            return BattleshipUtils.provideEmptyString();
-        }
+  @Override
+  public String toString(Messagable messagable) {
+    try {
+      return this.messagableMapper.writeValueAsString(messagable);
+    } catch (JsonProcessingException e) {
+      return BattleshipUtils.provideEmptyString();
     }
+  }
 }

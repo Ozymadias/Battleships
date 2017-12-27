@@ -13,30 +13,30 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class ServerTest {
-    private Server server;
+  private Server server;
 
-    @DataProvider(name = "clientPool")
-    private static Object[][] clientPool() {
+  @DataProvider(name = "clientPool")
+  private static Object[][] clientPool() {
 
-        return new Object[][]{
-                {2, true},
-                {4, false},
-                {0, false}
+    return new Object[][] {
+        {2, true},
+        {4, false},
+        {0, false}
 
-        };
-    }
+    };
+  }
 
-    @BeforeTest
-    private void setUp() throws IOException {
-        ServerSocket serverSocket = mock(ServerSocket.class);
-        when(serverSocket.accept()).thenReturn(new Socket());
-        server = new Server(serverSocket);
-    }
+  @BeforeTest
+  private void setUp() throws IOException {
+    ServerSocket serverSocket = mock(ServerSocket.class);
+    when(serverSocket.accept()).thenReturn(new Socket());
+    server = new Server(serverSocket);
+  }
 
-    @Test(dataProvider = "clientPool")
-    public void shouldPassWhenServerReturnsCorrectListOfSockets(int count, boolean expectedResult) throws Exception {
-        assertThat(server.createSockets().size() == count).isEqualTo(expectedResult);
-    }
+  @Test(dataProvider = "clientPool")
+  public void shouldPassWhenServerReturnsCorrectListOfSockets(int count, boolean expectedResult) throws Exception {
+    assertThat(server.createSockets().size() == count).isEqualTo(expectedResult);
+  }
 
 
 }

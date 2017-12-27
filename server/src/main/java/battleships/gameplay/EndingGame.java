@@ -1,24 +1,15 @@
 package battleships.gameplay;
 
-import battleships.BattleObserver;
-import battleships.ships.Fleet;
+import battleships.logger.BattleshipLog;
 
-import java.util.List;
-
-class EndingGame implements GameState {
-
-    private final List<BattleObserver> observers;
-    private final List<Fleet> playersFleets;
-
-    EndingGame(List<BattleObserver> observers, List<Fleet> playersFleets) {
-        this.observers = observers;
-        this.playersFleets = playersFleets;
-    }
-
+public class EndingGame implements GameState{
+    private final BattleshipLog log = BattleshipLog.provideLogger(EndingGame.class);
+    @Override
     public GameState process() {
         return this;
     }
 
+    @Override
     public boolean isEndOfTheGame() {
         return true;
     }

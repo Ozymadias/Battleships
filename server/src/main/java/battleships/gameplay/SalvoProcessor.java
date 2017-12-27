@@ -2,12 +2,11 @@ package battleships.gameplay;
 
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
+import battleships.game.GameResult;
 import battleships.ships.Fleet;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
 
 class SalvoProcessor {
     List<SalvoResult> process(List<Salvo> salvos, List<Fleet> fleets) {
@@ -23,6 +22,6 @@ class SalvoProcessor {
     private SalvoResult calculate(Salvo mySalvo, Fleet enemyFleet, Salvo salvoFromEnemy ) {
         List<Integer> resultingPositions = new ArrayList<>(mySalvo.getSalvoPositions());
         resultingPositions.retainAll(enemyFleet.getAllPositions());
-        return new SalvoResult(resultingPositions, salvoFromEnemy.getSalvoPositions());
+        return new SalvoResult(resultingPositions, salvoFromEnemy.getSalvoPositions(), GameResult.NONE);
     }
 }

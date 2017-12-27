@@ -1,4 +1,4 @@
-package battleships.communication.jsonHandlers;
+package battleships.communication.jsonhandlers;
 
 import battleships.communication.Marshaller;
 import battleships.communication.Messagable;
@@ -31,10 +31,8 @@ public class JsonMarshallerTest {
         return new Object[][]{
                 {new WelcomeMessage("hello"), "{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}"},
                 {new WelcomeMessage(""), "{\"@type\":\"WelcomeMessage\",\"body\":\"\"}"},
-                {new WelcomeMessage(), "{\"@type\":\"WelcomeMessage\",\"body\":\"\"}"},
                 {new GoodByeMessage("good bye!"), "{\"@type\":\"GoodByeMessage\",\"body\":\"good bye!\"}"},
-                {new GoodByeMessage(""), "{\"@type\":\"GoodByeMessage\",\"body\":\"\"}"},
-                {new GoodByeMessage(), "{\"@type\":\"GoodByeMessage\",\"body\":\"\"}"}
+                {new GoodByeMessage(""), "{\"@type\":\"GoodByeMessage\",\"body\":\"\"}"}
         };
     }
 

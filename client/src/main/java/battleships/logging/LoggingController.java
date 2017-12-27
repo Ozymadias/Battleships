@@ -1,28 +1,27 @@
 package battleships.logging;
 
-import battleships.*;
+import battleships.App;
 import battleships.logging.validation.Validator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
+import java.net.URL;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import static battleships.logging.ConfigurationValueName.*;
-import static battleships.logging.LanguageLoadOption.EN;
-import static battleships.logging.LanguageLoadOption.PL;
-import static battleships.LocalizationStringMarker.*;
 
-public class LoggingController {
-    private LanguageVersion languageVersion;
+public class LoggingController implements Initializable {
 
     private App mainApp;
+    private ResourceBundle resourceBundle;
 
     @FXML
     private Button polishButton;
@@ -55,9 +54,9 @@ public class LoggingController {
     private Button logInButton;
 
     @FXML
-    void OnActionLoginButton(ActionEvent event){
+    void onActionLoginButton(ActionEvent event){
         if(new Validator().validate(configFieldsValues())){
-            mainApp.loggingSuccessful(configFieldsValues());
+            mainApp.loggingSuccessful(configFieldsValues(), resourceBundle);
         }else{
             invalidLoggingDataAlert();
         }
@@ -72,37 +71,31 @@ public class LoggingController {
     }
 
     @FXML
-    void PolishVersion(ActionEvent event) {
-        initialize(PL);
+    void polishVersion(ActionEvent event) {
+        resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.PL.toString());
+        assignKeyTranslation();
     }
 
     @FXML
-    void EnglishVersion(ActionEvent event) {
-        initialize(EN);
+    void englishVersion(ActionEvent event) {
+        resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.EN.toString());
+        assignKeyTranslation();
     }
 
-
-    @FXML
-    void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.resourceBundle = resources;
         playerNameInput.setText("player");
-        serverIPInput.setText("127.0.0.1");
         serverPortInput.setText("4321");
-        languageVersion = new LanguageVersion(EN);
-        assignKeyTranslation();
+        serverIPInput.setText("127.0.0.1");
     }
 
-    private void assignKeyTranslation() {
-        playerNameText.setText(languageVersion.provideTranslation(PLAYER_NAME));
-        serverPortText.setText(languageVersion.provideTranslation(SERVER_PORT));
-        serverIPText.setText(languageVersion.provideTranslation(SERVER_IP));
-        logInButton.setText(languageVersion.provideTranslation(LOG_IN));
-        checkBoxRandomShipPlacement.setText(languageVersion.provideTranslation(RANDOM_SHIPS));
-    }
-
-    @FXML
-    private void initialize(LanguageLoadOption languageLoadOption) {
-        languageVersion = new LanguageVersion(languageLoadOption);
-        assignKeyTranslation();
+    public void assignKeyTranslation() {
+        playerNameText.setText(resourceBundle.getString("PLAYER_NAME"));
+        serverPortText.setText(resourceBundle.getString("SERVER_PORT"));
+        serverIPText.setText(resourceBundle.getString("SERVER_IP"));
+        logInButton.setText(resourceBundle.getString("LOG_IN"));
+        checkBoxRandomShipPlacement.setText(resourceBundle.getString("RANDOM_SHIPS"));
     }
 
     public void setMainApp(App mainApp) {
@@ -111,8 +104,8 @@ public class LoggingController {
 
     private void invalidLoggingDataAlert(){
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning Dialog");
-        alert.setHeaderText("Logging data is invalid");
+        alert.setTitle(resourceBundle.getString("WARNING_DIALOG"));
+        alert.setHeaderText(resourceBundle.getString("INVALID_LOGGING_DATA"));
         alert.setContentText("...");
 
         alert.showAndWait();

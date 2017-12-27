@@ -1,4 +1,4 @@
-package battleships.communication.jsonHandlers;
+package battleships.communication.jsonhandlers;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

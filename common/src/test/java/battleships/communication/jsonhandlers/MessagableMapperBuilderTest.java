@@ -1,6 +1,5 @@
-package battleships.communication.jsonHandlers;
+package battleships.communication.jsonhandlers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import org.testng.annotations.Test;
 

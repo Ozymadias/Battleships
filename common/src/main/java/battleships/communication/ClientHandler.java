@@ -1,10 +1,11 @@
 package battleships.communication;
 
-import battleships.communication.jsonHandlers.JsonMarshaller;
-import battleships.communication.jsonHandlers.JsonUnmarshaller;
-import battleships.communication.jsonHandlers.MessagableMapperBuilder;
+        import battleships.communication.jsonhandlers.JsonMarshaller;
+        import battleships.communication.jsonhandlers.JsonUnmarshaller;
+        import battleships.communication.jsonhandlers.MessagableMapperBuilder;
+        import battleships.communication.messages.WelcomeMessage;
 
-import java.util.Optional;
+        import java.util.Optional;
 
 public class ClientHandler {
 
@@ -14,7 +15,7 @@ public class ClientHandler {
     private final JsonUnmarshaller jsonUnmarshaller;
 
 
-    public ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {
+    ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {
         this.messageSender = messageSender;
         this.messageReceiver = messageReceiver;
         this.jsonMarshaller = new JsonMarshaller(new MessagableMapperBuilder().withObjectMapper().build());
@@ -29,7 +30,6 @@ public class ClientHandler {
     public Messagable receiveMessage() {
         String s = messageReceiver.receiveMessageString();
         Optional<Messagable> m = jsonUnmarshaller.toMessagable(s);
-        return m.get();
+        return m.orElseGet(() -> new WelcomeMessage("Something WentWrong"));
     }
-
 }

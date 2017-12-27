@@ -9,12 +9,12 @@ import battleships.utils.BattleshipUtils;
  */
 class NameValidator implements ConfigurationValidator {
 
-    /**
-     * Calls stringValue() on passed parameter and checks if result is not
-     * empty String as any String that is not empty is considered as valid name.
-     */
-    @Override
-    public boolean validate(ConfigurationValue toValidate) {
-        return !BattleshipUtils.checkIfStringIsEmpty(toValidate.stringValue());
-    }
+  /**
+   * Calls stringValue() on passed parameter and checks if result is not
+   * empty String as any String that is not empty is considered as valid name.
+   */
+  @Override
+  public boolean validate(ConfigurationValue toValidate) {
+    return !BattleshipUtils.checkIfStringIsEmpty(toValidate.stringValue());
+  }
 }

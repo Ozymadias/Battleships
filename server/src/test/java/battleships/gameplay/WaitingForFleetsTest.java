@@ -12,34 +12,34 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 public class WaitingForFleetsTest {
-    private HandlerWrapper firstTestWrapper;
-    private HandlerWrapper secondTestWrapper;
-    private List<BattleObserver> handlerWrappersMocks;
+  private HandlerWrapper firstTestWrapper;
+  private HandlerWrapper secondTestWrapper;
+  private List<BattleObserver> handlerWrappersMocks;
 
-    @BeforeTest
-    public void setUp() {
-        firstTestWrapper = mock(HandlerWrapper.class);
-        secondTestWrapper = mock(HandlerWrapper.class);
-        handlerWrappersMocks = Arrays.asList(firstTestWrapper, secondTestWrapper);
-    }
+  @BeforeTest
+  public void setUp() {
+    firstTestWrapper = mock(HandlerWrapper.class);
+    secondTestWrapper = mock(HandlerWrapper.class);
+    handlerWrappersMocks = Arrays.asList(firstTestWrapper, secondTestWrapper);
+  }
 
-    @Test
-    public void shouldPassWhenFirstHandlerReportsCorrectly() {
-        WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
-        waitingForFleets.process();
-        verify(firstTestWrapper, atLeast(1)).receiveMessage();
-    }
+  @Test
+  public void shouldPassWhenFirstHandlerReportsCorrectly() {
+    WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
+    waitingForFleets.process();
+    verify(firstTestWrapper, atLeast(1)).receiveMessage();
+  }
 
-    @Test
-    public void shouldPassWhenSecondHandlerReportsCorrectly() {
-        WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
-        waitingForFleets.process();
-        verify(secondTestWrapper, atLeast(1)).receiveMessage();
-    }
+  @Test
+  public void shouldPassWhenSecondHandlerReportsCorrectly() {
+    WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
+    waitingForFleets.process();
+    verify(secondTestWrapper, atLeast(1)).receiveMessage();
+  }
 
-    @Test
-    public void shouldPassWhenGameStateIsNotEndOfGame() {
-        WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
-        assertThat(waitingForFleets.isEndOfTheGame()).isFalse();
-    }
+  @Test
+  public void shouldPassWhenGameStateIsNotEndOfGame() {
+    WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
+    assertThat(waitingForFleets.isEndOfTheGame()).isFalse();
+  }
 }

@@ -8,28 +8,28 @@ import org.testng.annotations.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class NameValidatorTest {
-    private NameValidator nameValidator;
+  private NameValidator nameValidator;
 
-    @BeforeTest
+  @BeforeTest
 
-    private void setUp() {
-        nameValidator = new NameValidator();
-    }
+  private void setUp() {
+    nameValidator = new NameValidator();
+  }
 
-    @DataProvider(name = "namePool")
-    private static Object[][] namePool() {
+  @DataProvider(name = "namePool")
+  private static Object[][] namePool() {
 
-        return new Object[][]{
-                {(ConfigurationValue) () -> "wololo", true},
-                {(ConfigurationValue) () -> "Iga", true},
-                {(ConfigurationValue) () -> "Krzysztof", true},
-                {(ConfigurationValue) () -> "", false},
-                {(ConfigurationValue) () -> "Blob zabojca z kosmosu", true},
-        };
-    }
+    return new Object[][] {
+        {(ConfigurationValue) () -> "wololo", true},
+        {(ConfigurationValue) () -> "Iga", true},
+        {(ConfigurationValue) () -> "Krzysztof", true},
+        {(ConfigurationValue) () -> "", false},
+        {(ConfigurationValue) () -> "Blob zabojca z kosmosu", true},
+    };
+  }
 
-    @Test(dataProvider = "namePool")
-    public void shouldPassWhenValidationOfNameThatIsOtherThanNullIsCorrect(ConfigurationValue stringToValidate, boolean expectedResult){
-        assertThat(nameValidator.validate(stringToValidate)).isEqualTo(expectedResult);
-    }
+  @Test(dataProvider = "namePool")
+  public void shouldPassWhenValidationOfNameThatIsOtherThanNullIsCorrect(ConfigurationValue stringToValidate, boolean expectedResult) {
+    assertThat(nameValidator.validate(stringToValidate)).isEqualTo(expectedResult);
+  }
 }

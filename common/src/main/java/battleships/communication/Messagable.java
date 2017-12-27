@@ -16,12 +16,12 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
-@JsonSubTypes({
-        @JsonSubTypes.Type(value = GoodByeMessage.class, name = "GoodByeMessage"),
-        @JsonSubTypes.Type(value = WelcomeMessage.class, name = "WelcomeMessage"),
-        @JsonSubTypes.Type(value = Fleet.class, name = "Fleet"),
-        @JsonSubTypes.Type(value = Salvo.class, name = "Salvo"),
-        @JsonSubTypes.Type(value = SalvoResult.class, name = "SalvoResult")}
+@JsonSubTypes( {
+    @JsonSubTypes.Type(value = GoodByeMessage.class, name = "GoodByeMessage"),
+    @JsonSubTypes.Type(value = WelcomeMessage.class, name = "WelcomeMessage"),
+    @JsonSubTypes.Type(value = Fleet.class, name = "Fleet"),
+    @JsonSubTypes.Type(value = Salvo.class, name = "Salvo"),
+    @JsonSubTypes.Type(value = SalvoResult.class, name = "SalvoResult")}
 )
 public interface Messagable {
 }

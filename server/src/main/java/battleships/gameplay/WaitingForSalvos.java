@@ -10,25 +10,25 @@ import java.util.stream.Collectors;
 
 class WaitingForSalvos implements GameState {
 
-    private final List<BattleObserver> observers;
-    private final List<Fleet> playersFleets;
-    private final BattleshipLog log = BattleshipLog.provideLogger(WaitingForSalvos.class);
+  private final List<BattleObserver> observers;
+  private final List<Fleet> playersFleets;
+  private final BattleshipLog log = BattleshipLog.provideLogger(WaitingForSalvos.class);
 
-    WaitingForSalvos(List<BattleObserver> observers, List<Fleet> playersFleets) {
-        this.observers = observers;
-        this.playersFleets = playersFleets;
-    }
+  WaitingForSalvos(List<BattleObserver> observers, List<Fleet> playersFleets) {
+    this.observers = observers;
+    this.playersFleets = playersFleets;
+  }
 
-    @Override
-    public GameState process() {
-        log.info("Waiting for salvos");
-        List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.receiveMessage())
-                .collect(Collectors.toList());
-        return new SalvosProcessing(observers, playersFleets,salvos);
-    }
+  @Override
+  public GameState process() {
+    log.info("Waiting for salvos");
+    List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.receiveMessage())
+        .collect(Collectors.toList());
+    return new SalvosProcessing(observers, playersFleets, salvos);
+  }
 
-    @Override
-    public boolean isEndOfTheGame() {
-        return false;
-    }
+  @Override
+  public boolean isEndOfTheGame() {
+    return false;
+  }
 }

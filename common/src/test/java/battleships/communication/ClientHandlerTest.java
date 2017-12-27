@@ -10,27 +10,27 @@ import static org.mockito.Mockito.mockingDetails;
 import static org.mockito.Mockito.when;
 
 public class ClientHandlerTest {
-    private MessageSender messageSenderMock;
-    private MessageReceiver messageReceiverMock;
+  private MessageSender messageSenderMock;
+  private MessageReceiver messageReceiverMock;
 
-    @BeforeTest
-    public void setUp() throws Exception {
-        messageSenderMock = mock(MessageSender.class);
-        messageReceiverMock = mock(MessageReceiver.class);
-    }
+  @BeforeTest
+  public void setUp() throws Exception {
+    messageSenderMock = mock(MessageSender.class);
+    messageReceiverMock = mock(MessageReceiver.class);
+  }
 
-    @Test
-    public void shouldPassWhenHandlerCorrectlySendsMessage() throws Exception {
-        ClientHandler clientHandler = new ClientHandler(messageSenderMock, messageReceiverMock);
-        clientHandler.sendMessage(new GoodByeMessage("good bye!"));
-        assertThat(mockingDetails(messageSenderMock).getInvocations().size()).isEqualTo(1);
-    }
+  @Test
+  public void shouldPassWhenHandlerCorrectlySendsMessage() throws Exception {
+    ClientHandler clientHandler = new ClientHandler(messageSenderMock, messageReceiverMock);
+    clientHandler.sendMessage(new GoodByeMessage("good bye!"));
+    assertThat(mockingDetails(messageSenderMock).getInvocations().size()).isEqualTo(1);
+  }
 
-    @Test
-    public void shouldPassWhenHandlerCorrectlyRecieveMessage() throws Exception {
-        ClientHandler clientHandler = new ClientHandler(messageSenderMock, messageReceiverMock);
-        when(messageReceiverMock.receiveMessageString()).thenReturn("{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}");
-        clientHandler.receiveMessage();
-        assertThat(mockingDetails(messageReceiverMock).getInvocations().size()).isEqualTo(1);
-    }
+  @Test
+  public void shouldPassWhenHandlerCorrectlyRecieveMessage() throws Exception {
+    ClientHandler clientHandler = new ClientHandler(messageSenderMock, messageReceiverMock);
+    when(messageReceiverMock.receiveMessageString()).thenReturn("{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}");
+    clientHandler.receiveMessage();
+    assertThat(mockingDetails(messageReceiverMock).getInvocations().size()).isEqualTo(1);
+  }
 }

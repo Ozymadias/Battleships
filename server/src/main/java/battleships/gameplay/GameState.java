@@ -1,7 +1,7 @@
 package battleships.gameplay;
 
 public interface GameState {
-    GameState process();
+  GameState process();
 
-    boolean isEndOfTheGame();
+  boolean isEndOfTheGame();
 }

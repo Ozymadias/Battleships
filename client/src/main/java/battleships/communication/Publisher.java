@@ -1,5 +1,5 @@
 package battleships.communication;
 
 interface Publisher {
-    Messagable processRequest(Messagable event);
+  Messagable processRequest(Messagable event);
 }

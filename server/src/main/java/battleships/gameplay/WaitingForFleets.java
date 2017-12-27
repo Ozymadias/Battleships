@@ -8,24 +8,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 class WaitingForFleets implements GameState {
-    private final BattleshipLog log = BattleshipLog.provideLogger(WaitingForFleets.class);
-    private final List<BattleObserver> observers;
+  private final BattleshipLog log = BattleshipLog.provideLogger(WaitingForFleets.class);
+  private final List<BattleObserver> observers;
 
-    WaitingForFleets(List<BattleObserver> observers) {
-        this.observers = observers;
-    }
+  WaitingForFleets(List<BattleObserver> observers) {
+    this.observers = observers;
+  }
 
-    @Override
-    public GameState process() {
-        log.info("Waiting for fleet");
-        return new WaitingForSalvos(observers, observers
-                .stream()
-                .map(handlerWrapper -> (Fleet) handlerWrapper.receiveMessage())
-                .collect(Collectors.toList()));
-    }
+  @Override
+  public GameState process() {
+    log.info("Waiting for fleet");
+    return new WaitingForSalvos(observers, observers
+        .stream()
+        .map(handlerWrapper -> (Fleet) handlerWrapper.receiveMessage())
+        .collect(Collectors.toList()));
+  }
 
-    @Override
-    public boolean isEndOfTheGame() {
-        return false;
-    }
+  @Override
+  public boolean isEndOfTheGame() {
+    return false;
+  }
 }

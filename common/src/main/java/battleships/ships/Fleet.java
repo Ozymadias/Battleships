@@ -9,25 +9,25 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Fleet implements Messagable {
-    private final List<Ship> ships;
+  private final List<Ship> ships;
 
-    @JsonCreator
-    public Fleet(
-            @JsonProperty("ships") List<Ship> ships) {
-        this.ships = ships;
-    }
+  @JsonCreator
+  public Fleet(
+      @JsonProperty("ships") List<Ship> ships) {
+    this.ships = ships;
+  }
 
-    public List<Ship> getShips() {
-        return ships;
-    }
+  public List<Ship> getShips() {
+    return ships;
+  }
 
-    public List<Integer> getAllPositions() {
-        return ships
-                .stream()
-                .flatMap(ship1 -> ship1
-                        .getMasts()
-                        .stream())
-                .map(Mast::getPosition)
-                .collect(Collectors.toList());
-    }
+  public List<Integer> getAllPositions() {
+    return ships
+        .stream()
+        .flatMap(ship1 -> ship1
+            .getMasts()
+            .stream())
+        .map(Mast::getPosition)
+        .collect(Collectors.toList());
+  }
 }

@@ -1,12 +1,9 @@
 package battleships.communication.messages;
 
 import battleships.communication.Messagable;
-
 import battleships.game.GameResult;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 import java.util.List;
 

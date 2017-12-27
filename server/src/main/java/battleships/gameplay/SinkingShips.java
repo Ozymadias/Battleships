@@ -6,7 +6,6 @@ import battleships.ships.Fleet;
 import battleships.ships.Ship;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 class SinkingShips implements GameState {
     private final List<BattleObserver> observers;

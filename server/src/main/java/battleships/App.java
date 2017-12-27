@@ -14,7 +14,7 @@ public class App {
 
     public static void main(String[] args) throws IOException {
         String portString = System.getProperty("port","4321");
-        int port = Integer.valueOf(portString);
+        int port = Integer.parseInt(portString);
 
         Server server = new ServerBuilder()
                 .setPort(port)

@@ -87,7 +87,6 @@ public class LoggingController implements Initializable {
         this.resourceBundle = resources;
         playerNameInput.setText("player");
         serverPortInput.setText("4321");
-        serverIPInput.setText("127.0.0.1");
     }
 
     public void assignKeyTranslation() {

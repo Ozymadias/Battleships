@@ -1,15 +1,14 @@
 package battleships.logging.validation;
 
-
-import battleships.logging.ConfigurationValue;
+import battleships.logging.ConfigValue;
 import battleships.utils.BattleshipUtils;
-
 import java.util.Arrays;
 
+
 /**
- * IP address validator. Takes ConfigurationValue as a parameter, than splits String that is the result of stringValue();
- * it into segments by IP_ADDRESS_REGEX. After that checks if every segment is correct length, contains only numbers and
- * is in correct range for IP address.
+ * IP address validator. Takes ConfigValue as a parameter, than splits String that is the result
+ * of stringValue(); it into segments by IP_ADDRESS_REGEX. After that checks if every segment is
+ * correct length, contains only numbers and is in correct range for IP address.
  */
 class IpConfigurationValidator implements ConfigurationValidator {
 
@@ -21,21 +20,22 @@ class IpConfigurationValidator implements ConfigurationValidator {
   private static final int IP_SEGMENTS_COUNT = 4;
 
   /**
-   * Check if IP segment contains only numbers
+   * Check if IP segment contains only numbers.
    */
   private boolean isNumeric(String toValidate) {
     return BattleshipUtils.checkIfStringIsNumeric(toValidate);
   }
 
   /**
-   * Check if IP segment length is correct
+   * Check if IP segment length is correct.
    */
   private boolean hasCorrectLength(String toValidate) {
-    return toValidate.length() > MIN_IP_SEGMENT_LENGTH && toValidate.length() <= MAX_IP_SEGMENT_LENGTH;
+    return toValidate.length() > MIN_IP_SEGMENT_LENGTH
+        && toValidate.length() <= MAX_IP_SEGMENT_LENGTH;
   }
 
   /**
-   * Check if IP segment is in correct range
+   * Check if IP segment is in correct range.
    */
   private boolean isWithinCorrectRange(String toValidate) {
     Integer evaluationInteger = Integer.parseInt(toValidate);
@@ -44,11 +44,11 @@ class IpConfigurationValidator implements ConfigurationValidator {
   }
 
   /**
-   * It validates a given ConfigurationValue and checks if its a correct IP address
+   * It validates a given ConfigValue and checks if its a correct IP address.
    */
   @Override
-  public boolean validate(ConfigurationValue toValidate) {
-    Long evaluation = Arrays.stream(splitIPByDot(toValidate))
+  public boolean validate(ConfigValue toValidate) {
+    Long evaluation = Arrays.stream(splitIpByDot(toValidate))
         .filter(this::hasCorrectLength)
         .filter(this::isNumeric)
         .filter(this::isWithinCorrectRange)
@@ -57,9 +57,9 @@ class IpConfigurationValidator implements ConfigurationValidator {
   }
 
   /**
-   * Splits IP by regex and creates array of Strings that represent IP segments
+   * Splits IP by regex and creates array of Strings that represent IP segments.
    */
-  private String[] splitIPByDot(ConfigurationValue toValidate) {
+  private String[] splitIpByDot(ConfigValue toValidate) {
     return toValidate.stringValue().split(IP_ADDRESS_REGEX);
   }
 }

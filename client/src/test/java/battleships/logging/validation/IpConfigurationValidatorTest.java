@@ -1,6 +1,6 @@
 package battleships.logging.validation;
 
-import battleships.logging.ConfigurationValue;
+import battleships.logging.ConfigValue;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -20,27 +20,27 @@ public class IpConfigurationValidatorTest {
   private static Object[][] ipPool() {
 
     return new Object[][] {
-        {(ConfigurationValue) () -> "wololo", false},
-        {(ConfigurationValue) () -> "0.0.0.0", true},
-        {(ConfigurationValue) () -> "255.255.255.0", true},
-        {(ConfigurationValue) () -> "10.10.10.33", true},
-        {(ConfigurationValue) () -> "10.0.r.33", false},
-        {(ConfigurationValue) () -> "10.0.0.3453", false},
-        {(ConfigurationValue) () -> "wololo", false},
-        {(ConfigurationValue) () -> "You.Are.Not.Stupid", false},
-        {(ConfigurationValue) () -> "", false},
-        {(ConfigurationValue) () -> "10.10.10.10.10", false},
-        {(ConfigurationValue) () -> "340.42", false},
-        {(ConfigurationValue) () -> "33.42.34.", false},
-        {(ConfigurationValue) () -> "33.422.34", false},
-        {(ConfigurationValue) () -> "33.22.34", false},
-        {(ConfigurationValue) () -> "333.22.34.523", false},
-        {(ConfigurationValue) () -> "100334", false},
+        {(ConfigValue) () -> "wololo", false},
+        {(ConfigValue) () -> "0.0.0.0", true},
+        {(ConfigValue) () -> "255.255.255.0", true},
+        {(ConfigValue) () -> "10.10.10.33", true},
+        {(ConfigValue) () -> "10.0.r.33", false},
+        {(ConfigValue) () -> "10.0.0.3453", false},
+        {(ConfigValue) () -> "wololo", false},
+        {(ConfigValue) () -> "You.Are.Not.Stupid", false},
+        {(ConfigValue) () -> "", false},
+        {(ConfigValue) () -> "10.10.10.10.10", false},
+        {(ConfigValue) () -> "340.42", false},
+        {(ConfigValue) () -> "33.42.34.", false},
+        {(ConfigValue) () -> "33.422.34", false},
+        {(ConfigValue) () -> "33.22.34", false},
+        {(ConfigValue) () -> "333.22.34.523", false},
+        {(ConfigValue) () -> "100334", false},
     };
   }
 
   @Test(dataProvider = "ipPool")
-  public void shouldPassIfPerformsCorrectValidationOfGivenData(ConfigurationValue ipToValidate, Boolean expectedResult) {
+  public void shouldPassIfPerformsCorrectValidationOfGivenData(ConfigValue ipToValidate, Boolean expectedResult) {
     assertThat(ipValidator.validate(ipToValidate)).isEqualTo(expectedResult);
   }
 }

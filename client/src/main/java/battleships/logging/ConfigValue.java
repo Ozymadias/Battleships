@@ -1,5 +1,5 @@
 package battleships.logging;
 
-public interface ConfigurationValue {
+public interface ConfigValue {
   String stringValue();
 }

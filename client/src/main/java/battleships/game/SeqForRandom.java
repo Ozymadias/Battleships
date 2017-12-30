@@ -1,20 +1,22 @@
 package battleships.game;
 
 import battleships.ships.Ship;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SequenceForRandom {
+import org.apache.commons.lang.StringUtils;
+
+
+public class SeqForRandom {
 
   private static final int STEP = 1;
 
   private final List<Field> fields;
 
-  SequenceForRandom(List<Field> fields) {
+  SeqForRandom(List<Field> fields) {
     this.fields = fields;
   }
 
@@ -68,8 +70,7 @@ public class SequenceForRandom {
             position -> {
               fields.get(position).setUnbrokenShipPartOn();
               boardIndexes.add(fields.get(position).getPosition());
-            }
-        );
+            });
 
     return Ship.viaList(boardIndexes);
   }

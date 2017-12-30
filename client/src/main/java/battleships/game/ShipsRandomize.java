@@ -3,28 +3,32 @@ package battleships.game;
 import battleships.ships.Fleet;
 import battleships.ships.Ship;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 
 public class ShipsRandomize {
 
   private static final int SEQUENCE_COUNT = 10;
 
 
-  private final HorizontalSequenceSet horizontalSequences;
-  private final VerticalSequenceSet verticalSequenceSet;
+  private final HorizontalSeqSet horizontalSequences;
+  private final VerticalSeqSet verticalSeqSet;
 
   private final Board board;
 
-  private ShipsRandomize(HorizontalSequenceSet horizontalSequences, VerticalSequenceSet verticalSequenceSet, Board board) {
-    this.horizontalSequences = horizontalSequences;
-    this.verticalSequenceSet = verticalSequenceSet;
+  private ShipsRandomize(HorizontalSeqSet horizontal, VerticalSeqSet verticalSet, Board board) {
+    this.horizontalSequences = horizontal;
+    this.verticalSeqSet = verticalSet;
     this.board = board;
   }
 
   public static ShipsRandomize build(Board board) {
-    HorizontalSequenceSet horizontalSequenceSet = HorizontalSequenceSet.build(board);
-    VerticalSequenceSet verticalSequenceSet = VerticalSequenceSet.build(board);
-    return new ShipsRandomize(horizontalSequenceSet, verticalSequenceSet, board);
+    HorizontalSeqSet horizontalSeqSet = HorizontalSeqSet.build(board);
+    VerticalSeqSet verticalSeqSet = VerticalSeqSet.build(board);
+    return new ShipsRandomize(horizontalSeqSet, verticalSeqSet, board);
   }
 
   public Fleet placeAllFleet() {
@@ -47,9 +51,9 @@ public class ShipsRandomize {
     Integer randomRow;
     do {
       randomRow = new Random().nextInt(SEQUENCE_COUNT);
-    } while (!verticalSequenceSet.get(randomRow).canContainShip(length));
+    } while (!verticalSeqSet.get(randomRow).canContainShip(length));
 
-    return verticalSequenceSet.randomlyPlaceShip(randomRow, length);
+    return verticalSeqSet.randomlyPlaceShip(randomRow, length);
   }
 
   private Ship placeShipHorizontally(int length) {

@@ -18,7 +18,11 @@ public class ServerComm implements Member, Publisher {
 
   public static ServerComm build(String host, Integer port) throws IOException {
     Socket socket = new Socket(host, port);
-    ClientHandler clientHandler = new ClientHandlerBuilder().setSocket(socket).addMessageSender().addMessageReceiver().build();
+    ClientHandler clientHandler = new ClientHandlerBuilder()
+        .setSocket(socket)
+        .addMessageSender()
+        .addMessageReceiver()
+        .build();
     return new ServerComm(clientHandler);
   }
 

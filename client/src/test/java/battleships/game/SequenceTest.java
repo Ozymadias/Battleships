@@ -16,7 +16,7 @@ public class SequenceTest {
         .limit(10)
         .mapToObj(Field::new)
         .collect(Collectors.toList());
-    SequenceForRandom sequence = new SequenceForRandom(fields);
+    SeqForRandom sequence = new SeqForRandom(fields);
     assertThat(sequence.canContainShip(4)).isTrue();
   }
 

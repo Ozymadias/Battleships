@@ -4,6 +4,6 @@ import java.util.Optional;
 
 public interface Unmarshaller {
 
-  public Optional<Messagable> toMessagable(String message);
+  Optional<Messagable> toMessagable(String message);
 
 }

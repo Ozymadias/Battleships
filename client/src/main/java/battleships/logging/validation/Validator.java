@@ -1,11 +1,13 @@
 package battleships.logging.validation;
 
-import battleships.logging.ConfigurationValueName;
-import battleships.logging.ConfigurationValue;
+import static battleships.logging.ConfigValueName.IP;
+import static battleships.logging.ConfigValueName.NAME;
+import static battleships.logging.ConfigValueName.PORT;
 
+import battleships.logging.ConfigValue;
+import battleships.logging.ConfigValueName;
 import java.util.Map;
 
-import static battleships.logging.ConfigurationValueName.*;
 
 /**
  * It performs a validation of values that are passed.
@@ -16,7 +18,8 @@ public class Validator {
   private final ConfigurationValidator portConfigurationValidator;
 
   /**
-   * Specific objects that implements ConfigurationValidator are created for purpose of later validation.
+   * Specific objects that implements ConfigurationValidator are created for purpose of
+   * later validation.
    */
   public Validator() {
     nameValidator = new NameValidator();
@@ -25,9 +28,10 @@ public class Validator {
   }
 
   /**
-   * Accept EnumMap of ConfigurationValueName as a parameter, and returns a boolean result of evaluation of each parameters.
+   * Accept EnumMap of ConfigValueName as a parameter, and returns a boolean result of
+   * evaluation of each parameters.
    */
-  public boolean validate(Map<ConfigurationValueName, ConfigurationValue> configurationEnumMap) {
+  public boolean validate(Map<ConfigValueName, ConfigValue> configurationEnumMap) {
     return nameValidator.validate(configurationEnumMap.get(NAME))
         && ipConfigurationValidator.validate(configurationEnumMap.get(IP))
         && portConfigurationValidator.validate(configurationEnumMap.get(PORT));

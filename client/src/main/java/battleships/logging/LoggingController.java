@@ -1,7 +1,15 @@
 package battleships.logging;
 
+import static battleships.logging.ConfigValueName.IP;
+import static battleships.logging.ConfigValueName.NAME;
+import static battleships.logging.ConfigValueName.PORT;
+
 import battleships.App;
 import battleships.logging.validation.Validator;
+import java.net.URL;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,12 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import java.net.URL;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.ResourceBundle;
 
-import static battleships.logging.ConfigurationValueName.*;
 
 public class LoggingController implements Initializable {
 
@@ -42,13 +45,13 @@ public class LoggingController implements Initializable {
   private Text serverPortText;
 
   @FXML
-  private Text serverIPText;
+  private Text serverIpText;
 
   @FXML
   private TextField serverPortInput;
 
   @FXML
-  private TextField serverIPInput;
+  private TextField serverIpInput;
 
   @FXML
   private Button logInButton;
@@ -56,15 +59,15 @@ public class LoggingController implements Initializable {
   @FXML
   void onActionLoginButton(ActionEvent event) {
     if (new Validator().validate(configFieldsValues())) {
-      mainApp.loggingSuccessful(configFieldsValues(), resourceBundle);
+      mainApp.loginSuccessful(configFieldsValues(), resourceBundle);
     } else {
       invalidLoggingDataAlert();
     }
   }
 
-  private Map<ConfigurationValueName, ConfigurationValue> configFieldsValues() {
-    Map<ConfigurationValueName, ConfigurationValue> validationMap = new EnumMap<>(ConfigurationValueName.class);
-    validationMap.put(IP, () -> serverIPInput.getText());
+  private Map<ConfigValueName, ConfigValue> configFieldsValues() {
+    Map<ConfigValueName, ConfigValue> validationMap = new EnumMap<>(ConfigValueName.class);
+    validationMap.put(IP, () -> serverIpInput.getText());
     validationMap.put(PORT, () -> serverPortInput.getText());
     validationMap.put(NAME, () -> playerNameInput.getText());
     return validationMap;
@@ -89,10 +92,13 @@ public class LoggingController implements Initializable {
     serverPortInput.setText("4321");
   }
 
+  /**
+   * Set text for elements of gui corresponding to selected language version.
+   */
   public void assignKeyTranslation() {
     playerNameText.setText(resourceBundle.getString("PLAYER_NAME"));
     serverPortText.setText(resourceBundle.getString("SERVER_PORT"));
-    serverIPText.setText(resourceBundle.getString("SERVER_IP"));
+    serverIpText.setText(resourceBundle.getString("SERVER_IP"));
     logInButton.setText(resourceBundle.getString("LOG_IN"));
     checkBoxRandomShipPlacement.setText(resourceBundle.getString("RANDOM_SHIPS"));
   }

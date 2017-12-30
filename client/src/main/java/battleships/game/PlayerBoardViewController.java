@@ -4,16 +4,15 @@ import battleships.communication.DataBus;
 import battleships.communication.Member;
 import battleships.communication.Messagable;
 import battleships.communication.messages.SalvoResult;
-import battleships.utils.BattleshipUtils;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class PlayerBoardViewController implements Member, Initializable {
 
@@ -60,7 +59,7 @@ public class PlayerBoardViewController implements Member, Initializable {
   private void processGameResult(GameResult gameResult) {
     dockedGridPane.setDisable(true);
 
-    String resultInfo = BattleshipUtils.provideEmptyString();
+    String resultInfo;
 
     switch (gameResult) {
       case WIN:
@@ -72,7 +71,7 @@ public class PlayerBoardViewController implements Member, Initializable {
       case DRAW:
         resultInfo = "DRAW_INFO";
         break;
-      case NONE:
+      default:
         return;
     }
 
@@ -99,7 +98,7 @@ public class PlayerBoardViewController implements Member, Initializable {
 
   private SalvoCount countRemainUnbrokenMasts() {
     long count = board.getFields().stream()
-        .filter(field -> field.isUnbrokenShipOn())
+        .filter(Field::isUnbrokenShipOn)
         .count();
     return new SalvoCount((int) count);
   }

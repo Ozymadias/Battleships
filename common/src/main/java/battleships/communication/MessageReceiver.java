@@ -14,6 +14,10 @@ public class MessageReceiver {
     this.ois = ois;
   }
 
+  /**
+   * Reads string from given ObjectInputStream.
+   * @return Returns string received from ObjectInputStream.
+   */
   public String receiveMessageString() {
     String s = BattleshipUtils.provideEmptyString();
     try {

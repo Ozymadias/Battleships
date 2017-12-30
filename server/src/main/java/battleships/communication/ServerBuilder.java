@@ -15,6 +15,11 @@ public class ServerBuilder {
     return this;
   }
 
+  /**Creates new ServerSocket for given port.
+   * @return ServerBuilder with created and opened ServerSocket for port that was given as parameter.
+   * @throws IOException can throw ISException when creating ServerSocket fails.
+   */
+
   public ServerBuilder openServerSocket() throws IOException {
     serverSocket = new ServerSocket(port);
     log.info("Server started");

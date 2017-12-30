@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-LOG_FILE="$PWD/"demo.log
+LOG_FILE="$PWD/"clone.log
 
 if [ $# -eq 0 ]
   then
@@ -11,52 +11,9 @@ fi
 
 echo "Cloning git repository"
 git clone https://github.com/szczepanskikrs/Battleships.git $1 >$LOG_FILE
-echo "**********************"
-echo "Running mvn clean test"
-echo "**********************"
-cd $1
-mvn clean test >> $LOG_FILE
-echo "************************"
-echo "Summary of tests results"
-echo "************************"
-cat $LOG_FILE |grep -A2 Results |grep "Tests run" | awk 'BEGIN { FS = "[:,]" } { sumRun+=$2; sumFailures+=$4; sumErrors+=$6; sumSkipped+=$8 } END {print "Total tests run:" sumRun;print "Failures:" sumFailures;print "Errors:" sumErrors;print "Skipped:" sumSkipped} '
-echo "*******************"
-echo "Running mvn install"
-echo "*******************"
-mvn install >>$LOG_FILE
-echo "*********************************"
-echo "Running mvn checkstyle:checkstyle"
-echo "*********************************"
-mvn checkstyle:checkstyle >> $LOG_FILE
-echo "**********************************"
-echo "Running mvn site && mvn site:stage"
-echo "**********************************"
-(mvn site && mvn site:stage) >>$LOG_FILE
-echo "***********************"
-echo "Running mvn sonar:sonar"
-echo "***********************"
-mvn org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar >>$LOG_FILE
-NO_OF_COMMITS=`git rev-list master --count`
-NO_OF_INTERFACES=`grep --include=\*.java -r interface.*{ | wc -l`
-NO_OF_PACKAGES=`grep --include=\*.java -r package | awk 'BEGIN { FS = ":" } {print $2} ' |sort |uniq |wc -l`
-NO_OF_PUBLIC_METHODS=`grep --include=\*.java -r public  | grep -v -e public.*class -e public.*interface |wc -l`
-echo "Number of commits"
-echo  $NO_OF_COMMITS
-echo "Number of interfaces"
-echo  $NO_OF_INTERFACES
-echo "Number of packages" 
-echo $NO_OF_PACKAGES
-echo "Number of public methods"
-echo $NO_OF_PUBLIC_METHODS
-echo "Number of lines of Java code"
-wc -l `find -name '*.java'` |grep total | awk '{ print $1}'
-
-firefox target/client/target/client/checkstyle.html
-firefox target/server/target/server/checkstyle.html
-firefox target/common/target/common/checkstyle.html
-firefox target/site/index.html
-firefox https://github.com/szczepanskikrs/Battleships/blob/master/Estimates.md
-firefox https://github.com/szczepanskikrs/Battleships/blob/master/Requirements.md
-echo "****************"
-echo "***SUCCESS!!!***"
-echo "****************"
+read -p "Clone successful! Do want to run tests now(Y/N)?"
+if [ "${REPLY^^}" != "Y" ]; then
+   exit;
+fi
+cd $1/scripts
+sh ./deployment_script.sh

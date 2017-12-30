@@ -18,8 +18,12 @@ public class ClientHandler {
   ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {
     this.messageSender = messageSender;
     this.messageReceiver = messageReceiver;
-    this.jsonMarshaller = new JsonMarshaller(new MessagableMapperBuilder().withObjectMapper().build());
-    this.jsonUnmarshaller = new JsonUnmarshaller(new MessagableMapperBuilder().withObjectMapper().build());
+    this.jsonMarshaller = new JsonMarshaller(new MessagableMapperBuilder()
+        .withObjectMapper()
+        .build());
+    this.jsonUnmarshaller = new JsonUnmarshaller(new MessagableMapperBuilder()
+        .withObjectMapper()
+        .build());
   }
 
   public void sendMessage(Messagable message) {
@@ -27,9 +31,14 @@ public class ClientHandler {
     messageSender.sendMessageString(s);
   }
 
+  /**
+   * Receives message from Receiver than converts it Messagable.
+   *
+   * @return optional Messagable received by MessageReceiver and converted by jsonUnmarshaller.
+   */
   public Messagable receiveMessage() {
     String s = messageReceiver.receiveMessageString();
     Optional<Messagable> m = jsonUnmarshaller.toMessagable(s);
-    return m.orElseGet(() -> new WelcomeMessage("Something WentWrong"));
+    return m.orElseGet(() -> new WelcomeMessage("Something went wrong"));
   }
 }

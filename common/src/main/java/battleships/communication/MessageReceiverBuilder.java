@@ -15,6 +15,12 @@ public class MessageReceiverBuilder {
     return new MessageReceiver(ois);
   }
 
+  /**
+   * Creates new ObjectInputStream created with socket InputStream as a parameter.
+   *
+   * @param socket Accepts socket as a parameter.
+   * @return returns this instance of builder with desired ObjectInputStream.
+   */
   public MessageReceiverBuilder addSocket(Socket socket) {
     InputStream is;
     try {

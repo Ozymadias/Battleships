@@ -1,9 +1,10 @@
 package battleships.communication;
 
-
 import battleships.logger.BattleshipLog;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class MessageSenderBuilder {
@@ -14,6 +15,11 @@ public class MessageSenderBuilder {
     return new MessageSender(oos);
   }
 
+  /**
+   * Creates new ObjectOutputSteam created with socket OutputStream as a parameter.
+   * @param socket Accepts socket as a parameter.
+   * @return returns this instance of builder with desired ObjectOutputStream.
+   */
   public MessageSenderBuilder addSocket(Socket socket) {
     OutputStream os;
     try {

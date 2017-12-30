@@ -2,7 +2,7 @@ package battleships;
 
 import battleships.communication.Messagable;
 
-public interface BattleObserver {
+public interface Observers {
   void sendMessage(Messagable messagable);
 
   Messagable receiveMessage();

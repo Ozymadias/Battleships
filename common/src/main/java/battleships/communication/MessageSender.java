@@ -13,10 +13,14 @@ public class MessageSender {
     this.oos = oos;
   }
 
-  public void sendMessageString(String m) {
+  /**
+   * Uses ObjectOutputStream to write given message via OutputStream.
+   * @param message Accepts String as a parameter.
+   */
+  public void sendMessageString(String message) {
     try {
-      oos.writeObject(m);
-      log.info("message send: " + m);
+      oos.writeObject(message);
+      log.info("message send: " + message);
     } catch (IOException e) {
       log.error(e);
     }

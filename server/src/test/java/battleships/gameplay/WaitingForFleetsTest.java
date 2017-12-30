@@ -1,6 +1,6 @@
 package battleships.gameplay;
 
-import battleships.BattleObserver;
+import battleships.Observers;
 import battleships.HandlerWrapper;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 public class WaitingForFleetsTest {
   private HandlerWrapper firstTestWrapper;
   private HandlerWrapper secondTestWrapper;
-  private List<BattleObserver> handlerWrappersMocks;
+  private List<Observers> handlerWrappersMocks;
 
   @BeforeTest
   public void setUp() {

@@ -1,6 +1,6 @@
 package battleships.gameplay;
 
-import battleships.BattleObserver;
+import battleships.Observers;
 import battleships.HandlerWrapper;
 import battleships.ships.Fleet;
 import org.testng.annotations.BeforeTest;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.*;
 public class WaitingForSalvosTest {
   private HandlerWrapper firstBattleObserver;
   private HandlerWrapper secondBattleObserver;
-  private List<BattleObserver> observersList;
+  private List<Observers> observersList;
   private List<Fleet> fleets;
 
   @BeforeTest

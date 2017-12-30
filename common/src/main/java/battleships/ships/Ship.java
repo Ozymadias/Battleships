@@ -10,12 +10,24 @@ import java.util.List;
 public class Ship implements Messagable {
   private final List<Mast> masts;
 
+  /**
+   * Creates ship from list integers representing desired ship positions.
+   *
+   * @param positions Accepts list of integers representing positions of ship you want to create.
+   * @return returns ships with masts on given positions.
+   */
   public static Ship viaList(List<Integer> positions) {
     List<Mast> masts = new ArrayList<>();
     positions.forEach(p -> masts.add(new Mast(p)));
     return new Ship(masts);
   }
 
+  /**
+   * Creates ship from vararg of integers representing desired ship positions.
+   *
+   * @param positions Accepts vararg of integers representing position of ship you want to create.
+   * @return returns ships with masts on given positions.
+   */
   public static Ship createShip(Integer... positions) {
     List<Mast> masts = new ArrayList<>();
     for (Integer i : positions) {
@@ -42,9 +54,14 @@ public class Ship implements Messagable {
     return getHitPointsLeft() == 0;
   }
 
+  /**
+   * Kills mast on position given in parameter.
+   *
+   * @param position Accepts Integer that represents position of mast you want to kill.
+   */
   public void killMast(Integer position) {
     masts.stream()
-        .filter((p) -> p.getPosition().equals(position))
+        .filter(p -> p.getPosition().equals(position))
         .forEach(Mast::kill);
   }
 }

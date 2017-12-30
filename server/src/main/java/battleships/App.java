@@ -8,10 +8,12 @@ import battleships.gameplay.Game;
 import java.io.IOException;
 
 /**
- * Battleship server!
+ * Battleship server.
  */
 public class App {
-
+  /**
+   * Runs server, creates socket and starts game.
+   */
   public static void main(String[] args) throws IOException {
     String portString = System.getProperty("port", "4321");
     int port = Integer.parseInt(portString);
@@ -20,8 +22,8 @@ public class App {
         .setPort(port)
         .openServerSocket()
         .build();
-
-    while (true) {
+    boolean isAlwaysWorking = true;
+    while (isAlwaysWorking) {
       new Game(new ClientCreator()
           .createClientHandlers(server.createSockets()))
           .start();

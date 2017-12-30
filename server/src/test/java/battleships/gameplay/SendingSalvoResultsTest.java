@@ -1,6 +1,6 @@
 package battleships.gameplay;
 
-import battleships.BattleObserver;
+import battleships.Observers;
 import battleships.HandlerWrapper;
 import battleships.communication.messages.SalvoResult;
 import battleships.ships.Fleet;
@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class SendingSalvoResultsTest {
-  private List<BattleObserver> observers;
+  private List<Observers> observers;
   private HandlerWrapper firstBattleObserver;
   private HandlerWrapper secondBattleObserver;
   private SalvoResult firstSalvoMock;

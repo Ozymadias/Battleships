@@ -1,3 +1,2 @@
 #!/bin/bash
-set -e
-java -jar ../client/target/client-1.0.jar
+java -jar ../client/target/client*.jar

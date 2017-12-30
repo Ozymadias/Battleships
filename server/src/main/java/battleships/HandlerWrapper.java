@@ -3,7 +3,7 @@ package battleships;
 import battleships.communication.ClientHandler;
 import battleships.communication.Messagable;
 
-public class HandlerWrapper implements BattleObserver {
+public class HandlerWrapper implements Observers {
   private final ClientHandler clientHandler;
 
   public HandlerWrapper(ClientHandler clientHandler) {

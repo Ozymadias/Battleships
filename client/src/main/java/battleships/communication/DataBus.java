@@ -23,6 +23,11 @@ public class DataBus {
     listeners.forEach(listener -> listener.accept(event));
   }
 
+  /**
+   * Distribute requested messagable.
+   *
+   * @param event accepts instance of Messagable as a parameter.
+   */
   public void sendRequest(Messagable event) {
     for (Publisher publisher : publishers) {
       Messagable replay = publisher.processRequest(event);

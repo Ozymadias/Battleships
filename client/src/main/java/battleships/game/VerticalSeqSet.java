@@ -3,6 +3,7 @@ package battleships.game;
 import static battleships.game.SeqCount.DEFAULT;
 
 import battleships.ships.Ship;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,12 @@ public class VerticalSeqSet implements SeqSet {
     this.verticalSequences = verticalSequences;
   }
 
+  /**
+   * Generate list of all possible vertical sequences for given board.
+   *
+   * @param board board that game will be played on.
+   * @return list of all possible vertical sequences.
+   */
   public static VerticalSeqSet build(Board board) {
     List<SeqForRandom> sequenceList = IntStream.iterate(0, i -> i + SEQUENCE_STEP)
         .limit(DEFAULT.getValue())

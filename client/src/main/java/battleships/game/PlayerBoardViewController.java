@@ -30,6 +30,9 @@ public class PlayerBoardViewController implements Member, Initializable {
     DataBus.getInstance().subscribeMember(this);
   }
 
+  /**
+   * Assign board representation to javaFx representation of a board.
+   */
   public void setUpPlayerBoardDocked() {
     for (int row = 0; row < BOARD_ROW_COUNT; row++) {
       for (int col = 0; col < BOARD_COLUMN_COUNT; col++) {

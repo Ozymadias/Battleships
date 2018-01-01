@@ -67,6 +67,11 @@ public class OpponentBoardViewController implements Member {
     salvoList.clear();
   }
 
+  /**
+   * Prevents player from shooting blank salvo. In order to shoot player needs to mark
+   * number of shots on the board otherwise salvo button will be disabled.
+   * @param count integer representation of shots left in turn.
+   */
   public void setShootsLeftCount(Integer count) {
     this.shootsLeftCount = count;
     this.shootsLeftCountText.setText(count.toString());

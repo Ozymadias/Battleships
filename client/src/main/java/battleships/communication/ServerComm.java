@@ -16,6 +16,15 @@ public class ServerComm implements Member, Publisher {
     this.clientHandler = clientHandler;
   }
 
+  /**
+   * Builds a instance of ServerComm with data provided as a parameters.
+   *
+   * @param host string representation of host IP address.
+   * @param port integer representation of host port.
+   * @return instance of ServerComm for given login data.
+   * @throws IOException if connection is refused or other problem with connection occurred
+   *                     throws IOException
+   */
   public static ServerComm build(String host, Integer port) throws IOException {
     Socket socket = new Socket(host, port);
     ClientHandler clientHandler = new ClientHandlerBuilder()

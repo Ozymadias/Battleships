@@ -1,6 +1,6 @@
 # Battleships
 [![Build Status](https://travis-ci.org/szczepanskikrs/Battleships.svg?branch=server-client-basics)](https://travis-ci.org/szczepanskikrs/Battleships)
-* [Our team Trello](https://trello.com/b/CTmsQaTy/battleships)
+[![Trello](https://img.shields.io/badge/Trello-Battleships-orange.svg)](https://trello.com/b/CTmsQaTy/battleships)
 
 Battleship game over the network using Java client - server architecture.
 ## Getting Started
@@ -9,8 +9,8 @@ In order to run this game you need to install:
 * [Maven 3.5.0](https://maven.apache.org)
 * [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-Optional for documentation purpose:
-* [Sonar Qube](https://www.sonarqube.org/)
+Optional for quality monitoring:
+* [SonarQube](https://www.sonarqube.org/)
 ### Installing
 In order to install you need to run this command in main game directory:
 
@@ -43,7 +43,7 @@ java -Dport=SamplePortNumber -jar <modulename>.jar
 ## Running with scripts
 1: Cloning repository using script.
 
-If you want to use scripts in order to clone repository you should run demo_script.sh from /scripts folder. This script will clone repository. Please remember script needs to create new folder! If you provide name of folder that already exist script will not work!
+If you want to use script in order to clone repository you should use [this](https://nofile.io/f/d9vpPTcCBGu/demo_script.sh) script.  It will clone repository. Please remember script needs to create new folder! If you provide name of folder that already exist script will not work!
 
 ```
 ./demo_script.sh <dir where repository will be cloned>
@@ -55,16 +55,18 @@ Clone successful! Do want to run tests now(Y/N)?
 ```
 
 2: Testing and deployment using script.
-In order to run tests, install, create documentation you should use deployment_script.sh from folder /scripts
+
+In order to run tests, install, create documentation you should use deployment_script.sh from folder ../scripts
 
 ```
 ./deployment_script.sh
 ```
 
-Script will perform testing, then ask if you want to perform installation and documentation. Final step will be to create Sonar Qube report, please remember in order for this step to work you need to have Sonar Qube server running on your machine. 
+Runs mvn tests, then prompts if you wish to run mvn install and create documentation, last step requires a running SonarQube server on your machine.
 
 3: Showing documentation 
-If you want to open all documentation run show_dosc.sh from /scripts
+
+If you want to open all documentation run show_dosc.sh from ../scripts
 
 In order for following scripts to work you need to run deployment_script.sh first!!!
 
@@ -79,24 +81,21 @@ In order for following scripts to work you need to run deployment_script.sh firs
 In order for any of fallowing scripts to work you need to run deployment_script.sh first!!!
 
 
-In order to launch server and client use game.sh from folder /scripts this will run one instance of server with default port 4321 and two instances of client.
-
 ```
 ./game.sh
 ```
+Will run one instance of server with default port 4321 and two instances of client.
 
-In order to launch only server please use run_server.sh from folder /scripts this will run one instance of server. Script accept port number as a parameter. Please remember you can have only one instance of server per port.
 
 ```
 ./run_server.sh <port>
 ```
-
-In order to launch only client please use run_client.sh from folder /scripts this will run one instance of client.
+Will run one instance of server. Script accept port number as a parameter.
 
 ```
 ./run_client.sh
 ```
-
+Will run one instance of client.
 ## Gameplay
 In order to play you need to run client.
 

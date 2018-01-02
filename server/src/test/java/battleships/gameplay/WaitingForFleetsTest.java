@@ -2,7 +2,7 @@ package battleships.gameplay;
 
 import battleships.Observers;
 import battleships.HandlerWrapper;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -12,34 +12,45 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 public class WaitingForFleetsTest {
-  private HandlerWrapper firstTestWrapper;
-  private HandlerWrapper secondTestWrapper;
+
+  private Observers firstBattleObserver;
+  private Observers secondBattleObserver;
   private List<Observers> handlerWrappersMocks;
 
-  @BeforeTest
+  @BeforeMethod
   public void setUp() {
-    firstTestWrapper = mock(HandlerWrapper.class);
-    secondTestWrapper = mock(HandlerWrapper.class);
-    handlerWrappersMocks = Arrays.asList(firstTestWrapper, secondTestWrapper);
+    firstBattleObserver = mock(HandlerWrapper.class);
+    secondBattleObserver = mock(HandlerWrapper.class);
+    handlerWrappersMocks = Arrays.asList(firstBattleObserver, secondBattleObserver);
   }
 
   @Test
-  public void shouldPassWhenFirstHandlerReportsCorrectly() {
+  public void whenProcessingWaitingForFleets_expectFirstObserverReceivesMessageOnce() {
+    //given
     WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
+    //when
     waitingForFleets.process();
-    verify(firstTestWrapper, atLeast(1)).receiveMessage();
+    //then
+    verify(firstBattleObserver, times(1)).receiveMessage();
   }
 
   @Test
-  public void shouldPassWhenSecondHandlerReportsCorrectly() {
+  public void whenProcessingWaitingForFleets_expectSecondObserverReceivesMessageOnce() {
+    //given
     WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
+    //when
     waitingForFleets.process();
-    verify(secondTestWrapper, atLeast(1)).receiveMessage();
+    //then
+    verify(secondBattleObserver, times(1)).receiveMessage();
   }
 
   @Test
-  public void shouldPassWhenGameStateIsNotEndOfGame() {
+  public void whenCheckingForEndOfTheGame_expectItIsNotEndOfTheGame() {
+    //given
     WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
-    assertThat(waitingForFleets.isEndOfTheGame()).isFalse();
+    //when
+    boolean isEndOfTheGame = waitingForFleets.isEndOfTheGame();
+    //then
+    assertThat(isEndOfTheGame).isFalse();
   }
 }

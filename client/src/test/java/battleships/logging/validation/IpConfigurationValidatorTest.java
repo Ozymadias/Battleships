@@ -11,7 +11,6 @@ public class IpConfigurationValidatorTest {
   private IpConfigurationValidator ipValidator;
 
   @BeforeTest
-
   private void setUp() {
     ipValidator = new IpConfigurationValidator();
   }
@@ -40,7 +39,10 @@ public class IpConfigurationValidatorTest {
   }
 
   @Test(dataProvider = "ipPool")
-  public void shouldPassIfPerformsCorrectValidationOfGivenData(ConfigValue ipToValidate, Boolean expectedResult) {
-    assertThat(ipValidator.validate(ipToValidate)).isEqualTo(expectedResult);
+  public void whenValidateIP_expectItIsInCorrectFormatOrNot(ConfigValue ipToValidate, Boolean expectedResult) {
+    //when
+    boolean isIPValid = ipValidator.validate(ipToValidate);
+    //then
+    assertThat(isIPValid).isEqualTo(expectedResult);
   }
 }

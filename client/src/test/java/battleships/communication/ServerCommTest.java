@@ -23,7 +23,7 @@ public class ServerCommTest {
   }
 
   @Test
-  public void givenFleet_whenAcceptingFleetByServerComm_clientHandlerShouldInvokeSendMessage() {
+  public void whenAcceptingFleetByServerComm_expectClientHandlerInvokeSendMessageOnce() {
     //given
     Messagable messagable = new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4)));
     //when
@@ -33,7 +33,7 @@ public class ServerCommTest {
   }
 
   @Test
-  public void givenSalvo_whenAcceptingSalvoByServerComm_clientHandlerShouldInvokeSendMessage() {
+  public void whenAcceptingSalvoByServerComm_expectClientHandlerInvokeSendMessageOnce() {
     //given
     Messagable messagable = Salvo.createForPositions(1, 2, 3, 4);
     //when
@@ -43,7 +43,7 @@ public class ServerCommTest {
   }
 
   @Test
-  public void givenWelcomeMessage_whenAcceptingWelcomeMessageByServerComm_clientHandlerShouldNotInvokeSendMessage() {
+  public void whenAcceptingWelcomeMessageByServerComm_expectClientHandlerNotInvokeSendMessage() {
     //given
     Messagable messagable = new WelcomeMessage("hello!");
     //when
@@ -53,7 +53,7 @@ public class ServerCommTest {
   }
 
   @Test
-  public void givenSalvo_whenInvokingProcessRequestOnServerComm_clientHandlerShouldInvokeSendMessage() {
+  public void whenInvokingProcessRequestOnServerComm_expectClientHandlerInvokeSendMessageOnce() {
     //given
     Messagable messagable = Salvo.createForPositions(1, 2, 3, 4);
     //when
@@ -63,7 +63,7 @@ public class ServerCommTest {
   }
 
   @Test
-  public void givenSalvo_whenInvokingProcessRequestOnServerComm_clientHandlerShouldInvokeReceiveMessage() {
+  public void whenInvokingProcessRequestOnServerComm_expectClientHandlerInvokeReceiveMessageOnce() {
     //given
     Messagable messagable = Salvo.createForPositions(1, 2, 3, 4);
     //when
@@ -73,7 +73,7 @@ public class ServerCommTest {
   }
 
   @Test
-  public void givenServerComm_whenInvokingInit_clientHandlerShouldInvokeReceiveMessage() {
+  public void whenInvokingInit_expectClientHandlerInvokeReceiveMessageOnce() {
     serverComm.init();
     verify(clientHandler, times(1)).receiveMessage();
   }

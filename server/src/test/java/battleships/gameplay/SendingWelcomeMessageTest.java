@@ -3,6 +3,7 @@ package battleships.gameplay;
 import battleships.Observers;
 import battleships.HandlerWrapper;
 import battleships.communication.messages.WelcomeMessage;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -13,34 +14,45 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
 public class SendingWelcomeMessageTest {
-  private HandlerWrapper firstTestWrapper;
-  private HandlerWrapper secondTestWrapper;
-  private List<Observers> handlerWrappersMocks;
 
-  @BeforeTest
+  private Observers firstBattleObserver;
+  private Observers secondBattleObserver;
+  private List<Observers> battleObservers;
+
+  @BeforeMethod
   public void setUp() {
-    firstTestWrapper = mock(HandlerWrapper.class);
-    secondTestWrapper = mock(HandlerWrapper.class);
-    handlerWrappersMocks = Arrays.asList(firstTestWrapper, secondTestWrapper);
+    firstBattleObserver = mock(HandlerWrapper.class);
+    secondBattleObserver = mock(HandlerWrapper.class);
+    battleObservers = Arrays.asList(firstBattleObserver, secondBattleObserver);
   }
 
   @Test
-  public void shouldPassWhenFirstWrapperIsCorrectlyNotifiedByWelcomeMessage() {
-    SendingWelcomeMessage sendingWelcomeMessage = new SendingWelcomeMessage(handlerWrappersMocks);
+  public void whenProcessingSendingWelcomeMessage_expectWelcomeMessageIsSendToFirstObserverOnce() {
+    //given
+    SendingWelcomeMessage sendingWelcomeMessage = new SendingWelcomeMessage(battleObservers);
+    //when
     sendingWelcomeMessage.process();
-    verify(firstTestWrapper, atLeast(1)).sendMessage(any(WelcomeMessage.class));
+    //then
+    verify(firstBattleObserver, times(1)).sendMessage(any(WelcomeMessage.class));
   }
 
   @Test
-  public void shouldPassWhenSecondWrapperIsCorrectlyNotifiedByWelcomeMessage() {
-    SendingWelcomeMessage sendingWelcomeMessage = new SendingWelcomeMessage(handlerWrappersMocks);
+  public void whenProcessingSendingWelcomeMessage_expectWelcomeMessageIsSendToSecondObserverOnce() {
+    //given
+    SendingWelcomeMessage sendingWelcomeMessage = new SendingWelcomeMessage(battleObservers);
+    //when
     sendingWelcomeMessage.process();
-    verify(secondTestWrapper, atLeast(1)).sendMessage(any(WelcomeMessage.class));
+    //then
+    verify(secondBattleObserver, times(1)).sendMessage(any(WelcomeMessage.class));
   }
 
   @Test
-  public void shouldPassWhenGameStateIsNotEndGameState() {
-    SendingWelcomeMessage sendingWelcomeMessage = new SendingWelcomeMessage(handlerWrappersMocks);
-    assertThat(sendingWelcomeMessage.isEndOfTheGame()).isFalse();
+  public void whenCheckingForEndOfTheGame_expectItIsNotEndOfTheGame() {
+    //given
+    SendingWelcomeMessage sendingWelcomeMessage = new SendingWelcomeMessage(battleObservers);
+    //when
+    boolean isEndOfTheGame = sendingWelcomeMessage.isEndOfTheGame();
+    //then
+    assertThat(isEndOfTheGame).isFalse();
   }
 }

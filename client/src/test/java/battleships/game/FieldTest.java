@@ -16,37 +16,41 @@ public class FieldTest {
 
 
   @Test(dataProvider = "positionsPoll")
-  public void givenSomePosition_whenCreatingField_itsPositionShouldBeEqualAsGiven(Integer position) {
+  public void whenCreatingField_expectItsPositionIsEqualGivenPosition(Integer position) {
     //when
     Field field = new Field(position);
+    int fieldPosition = field.getPosition();
     //then
-    assertThat(field.getPosition()).isEqualTo(position);
+    assertThat(fieldPosition).isEqualTo(position);
   }
 
   @Test(dataProvider = "positionsPoll")
-  public void givenSomePosition_whenCreatingField_itsStateShouldBeEmpty(Integer position) {
+  public void whenCreatingField_expectItsStateIsEmpty(Integer position) {
     //when
     Field field = new Field(position);
+    boolean isFieldEmpty = field.isEmpty();
     //then
-    assertThat(field.isEmpty()).isTrue();
+    assertThat(isFieldEmpty).isTrue();
   }
 
   @Test(dataProvider = "positionsPoll")
-  public void givenSomePosition_whenCreatingField_isShotReturnsFalse(Integer position) {
+  public void whenCreatingField_expectItIsNotShot(Integer position) {
     //when
     Field field = new Field(position);
+    boolean isFieldShot = field.isShot();
     //then
-    assertThat(field.isShot()).isEqualTo(false);
+    assertThat(isFieldShot).isEqualTo(false);
   }
 
   @Test(dataProvider = "positionsPoll")
-  public void givenSomeField_whenSettingShipPartOnIt_thenFieldStateShouldBe_UNBROKEN_SHIP_PART(Integer position) {
+  public void whenSettingShipPartOnField_expectFieldStateIsUNBROKEN_SHIP_PART(Integer position) {
     //given
     Field field = new Field(position);
     //when
     field.setUnbrokenShipPartOn();
+    boolean isShipOnField = field.isShipOn();
     //then
-    assertThat(field.isShipOn()).isTrue();
+    assertThat(isShipOnField).isTrue();
   }
 
 }

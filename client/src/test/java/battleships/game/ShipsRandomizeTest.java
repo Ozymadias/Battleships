@@ -1,38 +1,47 @@
 package battleships.game;
 
 import battleships.ships.Fleet;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ShipsRandomizeTest {
-
+  ShipsRandomize firstRandomShipsSet;
+  Fleet firstFleet;
+  ShipsRandomize secondRandomShipsSet;
+  Fleet secondFleet;
+  @BeforeTest
+  public void setUpShipsRandomize() {
+    firstRandomShipsSet = ShipsRandomize.build(Board.build());
+    firstFleet = firstRandomShipsSet.placeAllFleet();
+    secondRandomShipsSet = ShipsRandomize.build(Board.build());
+    secondFleet = secondRandomShipsSet.placeAllFleet();
+  }
   @Test
-  public void givenTwoDifferentDrawOfShips_boardsShouldDiffers() {
-    ShipsRandomize firstRandomShipsSet = ShipsRandomize.build(Board.build());
-    firstRandomShipsSet.placeAllFleet();
+  public void whenRandomizeTwoBoards_expectBoardsAreDifferent() {
+    //when
     Board firstBoard = firstRandomShipsSet.getBoard();
-
-    ShipsRandomize secondRandomShipsSet = ShipsRandomize.build(Board.build());
-    secondRandomShipsSet.placeAllFleet();
     Board secondBoard = secondRandomShipsSet.getBoard();
-
+    //then
     assertThat(firstBoard.getFields())
         .isNotEqualTo(secondBoard.getFields());
   }
 
   @Test
-  public void givenBroadWhenRandomizeFleet_eachPositionOfMastInFleetShouldDiffers() {
-    ShipsRandomize firstRandomShipsSet = ShipsRandomize.build(Board.build());
-    Fleet fleet = firstRandomShipsSet.placeAllFleet();
-
-    Set<Integer> setOfPositions = new HashSet<>(fleet.getAllPositions());
-
-    assertThat(fleet.getAllPositions().size())
-        .isEqualTo(setOfPositions.size());
+  public void WhenRandomizeFleet_expectEachPositionOfMastInFleetShouldDiffers() {
+    //when
+    List<Integer> listOfFleetPositions = firstFleet.getAllPositions();
+    Set<Integer> setOfPositions = new HashSet<>(listOfFleetPositions);
+    int sizeOfList = listOfFleetPositions.size();
+    int sizeOfSet = setOfPositions.size();
+    //then
+    assertThat(sizeOfList)
+        .isEqualTo(sizeOfSet);
   }
 
 }

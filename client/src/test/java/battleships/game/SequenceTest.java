@@ -10,14 +10,33 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class SequenceTest {
 
-  @Test
-  public void givenSequenceOfEmptyFields_whenCheckingIfCanContainShipOf4Masts_expectedIsTrue() {
-    List<Field> fields = IntStream.iterate(0, i -> i + 1)
+  private List<Field> getListOfEmptyFields() {
+    return IntStream.iterate(0, i -> i + 1)
         .limit(10)
         .mapToObj(Field::new)
         .collect(Collectors.toList());
+  }
+  @Test
+  public void whenCheckingIfSequenceOfEmptyFieldsCanContainShipOf4Masts_expectItCan() {
+    //given
+    List<Field> fields = getListOfEmptyFields();
     SeqForRandom sequence = new SeqForRandom(fields);
-    assertThat(sequence.canContainShip(4)).isTrue();
+    //when
+    boolean canSequenceContainsShip = sequence.canContainShip(4);
+    //then
+    assertThat(canSequenceContainsShip).isTrue();
+  }
+
+  @Test
+  public void whenCheckingIfSequenceOfBufferFieldsCanContainShipOf4Masts_expectItCanNot() {
+    //given
+    List<Field> fields = getListOfEmptyFields();
+    fields.forEach(Field::setBuffer);
+    SeqForRandom sequence = new SeqForRandom(fields);
+    //when
+    boolean canSequenceContainsShip = sequence.canContainShip(4);
+    //then
+    assertThat(canSequenceContainsShip).isFalse();
   }
 
 }

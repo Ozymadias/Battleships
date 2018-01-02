@@ -43,17 +43,26 @@ public class BattleshipUtilsTest {
   }
 
   @Test(dataProvider = "isNumericPool")
-  public void shouldPassWhenGivenStringIsCorrectlyEvaluatedThatItContainsOnlyNumbers(String toCheck, boolean expectedResult) {
-    assertThat(BattleshipUtils.checkIfStringIsNumeric(toCheck)).isEqualTo(expectedResult);
+  public void whenCheckingIfStringIsNumeric_expectIsNumericOrNot(String toCheck, boolean expectedResult) {
+    //when
+    boolean isStringNumeric = BattleshipUtils.checkIfStringIsNumeric(toCheck);
+    //then
+    assertThat(isStringNumeric).isEqualTo(expectedResult);
   }
 
   @Test(dataProvider = "isEmptyPool")
-  public void shouldPassWhenStringIsCorrectlyEvaluatedThatItIsNotEmptyOrNull(String toCheck, boolean expectedResult) {
-    assertThat(BattleshipUtils.checkIfStringIsEmpty(toCheck)).isEqualTo(expectedResult);
+  public void whenCheckingIfStringIsEmpty_expectItIsEmptyOrNot(String toCheck, boolean expectedResult) {
+    //when
+    boolean isStringEmpty = BattleshipUtils.checkIfStringIsEmpty(toCheck);
+    //then
+    assertThat(isStringEmpty).isEqualTo(expectedResult);
   }
 
   @Test
-  public void checkIfMethodReturnCorrectValueOfEmptyString() {
-    assertThat(BattleshipUtils.provideEmptyString()).isEqualTo("");
+  public void whenRunningProvideEmptyStringMethod_expectItReturnsEmptyString() {
+    //when
+    String emptyString = BattleshipUtils.provideEmptyString();
+    //then
+    assertThat(emptyString).isEqualTo("");
   }
 }

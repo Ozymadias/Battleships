@@ -24,7 +24,7 @@ public class DataBusTest {
   }
 
   @Test
-  public void givenDataBusWithOpponentBoardViewControllerAsMember_whenPublishingMessageViaDataBus_thenOpponentBoardViewControllerMethodAcceptShouldBeTriggerred() {
+  public void whenPublishingMessageViaDataBus_expectOpponentBoardViewControllerMethodAcceptIsTriggeredOnce() {
     //given
     SalvoResult salvoResult = mock(SalvoResult.class);
     //when
@@ -34,7 +34,7 @@ public class DataBusTest {
   }
 
   @Test
-  public void givenDataBusWithServerCommAsMember_whenSendingRequestViaDataBus_thenServerCommMethodProcessRequestShouldBeTriggerred() {
+  public void whenSendingRequestViaDataBus_expectServerCommMethodProcessRequestIsTriggeredOnce() {
     //given
     Messagable salvo = Salvo.createForPositions(1, 2, 3, 4);
     //when

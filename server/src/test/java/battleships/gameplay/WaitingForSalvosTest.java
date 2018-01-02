@@ -3,6 +3,7 @@ package battleships.gameplay;
 import battleships.Observers;
 import battleships.HandlerWrapper;
 import battleships.ships.Fleet;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -19,7 +20,7 @@ public class WaitingForSalvosTest {
   private List<Observers> observersList;
   private List<Fleet> fleets;
 
-  @BeforeTest
+  @BeforeMethod
   public void setUp() {
     firstBattleObserver = mock(HandlerWrapper.class);
     secondBattleObserver = mock(HandlerWrapper.class);
@@ -28,22 +29,32 @@ public class WaitingForSalvosTest {
   }
 
   @Test
-  public void shouldPassWhenFirstBattleObserverReceivesMessage() {
+  public void whenProcessingWaitingForSalvos_expectFirstObserverReceivesMessageOnce() {
+    //given
     WaitingForSalvos waitingForSalvosTest = new WaitingForSalvos(observersList, fleets);
+    //when
     waitingForSalvosTest.process();
-    verify(firstBattleObserver, atLeast(1)).receiveMessage();
+    //then
+    verify(firstBattleObserver, times(1)).receiveMessage();
   }
 
   @Test
-  public void shouldPassWhenSecondBattleObserverReceivesMessage() {
+  public void whenProcessingWaitingForSalvos_expectSecondObserverReceivesMessageOnce() {
+    //given
     WaitingForSalvos waitingForSalvosTest = new WaitingForSalvos(observersList, fleets);
+    //when
     waitingForSalvosTest.process();
-    verify(secondBattleObserver, atLeast(1)).receiveMessage();
+    //then
+    verify(secondBattleObserver, times(1)).receiveMessage();
   }
 
   @Test
-  public void shouldPassWhenWaitingForSalvosIsNotEndOfGame() {
+  public void whenCheckingForEndOfTheGame_expectItIsNotEndOfTheGame() {
+    //given
     WaitingForSalvos waitingForSalvosTest = new WaitingForSalvos(observersList, fleets);
-    assertThat(waitingForSalvosTest.isEndOfTheGame()).isFalse();
+    //when
+    boolean isEndOfTheGame = waitingForSalvosTest.isEndOfTheGame();
+    //then
+    assertThat(isEndOfTheGame).isFalse();
   }
 }

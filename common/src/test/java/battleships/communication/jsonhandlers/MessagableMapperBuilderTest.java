@@ -8,7 +8,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class MessagableMapperBuilderTest {
 
     @Test
-    public void givenObjectMapper_whenBuildingMessagableMapperWithVisibilityOfNonPrivateAccessors_thenVisibilityOfGetterIsNonPrivate(){
+    public void whenBuildingMessagableMapperWithVisibilityOfNonPrivateAccessors_expectVisibilityOfGetterIsNonPrivate(){
         MessagableMapper messagableMapper = new MessagableMapperBuilder()
                 .withObjectMapper()
                 .buildWithVisibilityOfNonPrivateAccessors();
@@ -17,7 +17,7 @@ public class MessagableMapperBuilderTest {
     }
 
     @Test
-    public void givenObjectMapper_whenBuildingMessagableMapperWithVisibilityOfNonPrivateAccessors_thenVisibilityOfSetterIsNonPrivate(){
+    public void whenBuildingMessagableMapperWithVisibilityOfNonPrivateAccessors_expectVisibilityOfSetterIsNonPrivate(){
         MessagableMapper messagableMapper = new MessagableMapperBuilder()
                 .withObjectMapper()
                 .buildWithVisibilityOfNonPrivateAccessors();

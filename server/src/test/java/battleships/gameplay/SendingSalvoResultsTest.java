@@ -14,12 +14,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 public class SendingSalvoResultsTest {
+
   private List<Observers> observers;
-  private HandlerWrapper firstBattleObserver;
-  private HandlerWrapper secondBattleObserver;
+  private Observers firstBattleObserver;
+  private Observers secondBattleObserver;
   private SalvoResult firstSalvoMock;
   private SalvoResult secondSalvoMock;
   private List<Fleet> mockFleets = mock(List.class);
@@ -36,22 +38,32 @@ public class SendingSalvoResultsTest {
   }
 
   @Test
-  public void shouldPassWhenCorrectMessagesAreSentToSecondBattleObserver() {
+  public void whenProcessingSendingSalvoResults_expectSalvoResultIsSendBySecondObserverOnce() {
+    //given
     SendingSalvoResults sendingSalvoResults = new SendingSalvoResults(observers, mockFleets, results, false);
+    //when
     sendingSalvoResults.process();
-    verify(secondBattleObserver, atLeast(1)).sendMessage(any(SalvoResult.class));
+    //then
+    verify(secondBattleObserver, times(1)).sendMessage(any(SalvoResult.class));
   }
 
   @Test
-  public void shouldPassWhenCorrectMessagesAreSentToFirstBattleObserver() {
+  public void whenProcessingSendingSalvoResults_expectSalvoResultIsSendByFirstObserverOnce() {
+    //given
     SendingSalvoResults sendingSalvoResults = new SendingSalvoResults(observers, mockFleets, results, false);
+    //when
     sendingSalvoResults.process();
-    verify(firstBattleObserver, atLeast(1)).sendMessage(any(SalvoResult.class));
+    //then
+    verify(firstBattleObserver, times(1)).sendMessage(any(SalvoResult.class));
   }
 
   @Test
-  public void shouldPassWhenStateIsNotEndOfTheGame() {
+  public void whenCheckingForEndOfTheGame_expectItIsNotEndOfTheGame() {
+    //given
     SendingSalvoResults sendingSalvoResults = new SendingSalvoResults(observers, mockFleets, results, false);
-    assertThat(sendingSalvoResults.isEndOfTheGame()).isFalse();
+    //when
+    boolean isEndOfTheGame = sendingSalvoResults.isEndOfTheGame();
+    //then
+    assertThat(isEndOfTheGame).isFalse();
   }
 }

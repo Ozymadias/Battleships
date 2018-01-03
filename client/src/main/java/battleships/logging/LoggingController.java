@@ -2,7 +2,6 @@ package battleships.logging;
 
 import battleships.App;
 import battleships.logging.validation.Validator;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -18,6 +17,7 @@ import java.util.ResourceBundle;
 
 import static battleships.logging.ConfigurationValueName.*;
 
+//TODO: document me master!
 public class LoggingController implements Initializable {
 
   private App mainApp;
@@ -54,7 +54,7 @@ public class LoggingController implements Initializable {
   private Button logInButton;
 
   @FXML
-  void onActionLoginButton(ActionEvent event) {
+  void onActionLoginButton() {
     if (new Validator().validate(configFieldsValues())) {
       mainApp.loggingSuccessful(configFieldsValues(), resourceBundle);
     } else {
@@ -62,6 +62,7 @@ public class LoggingController implements Initializable {
     }
   }
 
+  //TODO: separate logic from UI - pass texts to map, not use map here
   private Map<ConfigurationValueName, ConfigurationValue> configFieldsValues() {
     Map<ConfigurationValueName, ConfigurationValue> validationMap = new EnumMap<>(ConfigurationValueName.class);
     validationMap.put(IP, () -> serverIPInput.getText());
@@ -70,14 +71,15 @@ public class LoggingController implements Initializable {
     return validationMap;
   }
 
+  //TODO: redundant event here and there
   @FXML
-  void polishVersion(ActionEvent event) {
+  void polishVersion() {
     resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.PL.toString());
     assignKeyTranslation();
   }
 
   @FXML
-  void englishVersion(ActionEvent event) {
+  void englishVersion() {
     resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.EN.toString());
     assignKeyTranslation();
   }
@@ -85,6 +87,7 @@ public class LoggingController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resourceBundle = resources;
+    //TODO: this should go in a bundle and be localized, so in PL version you won't see "player" :P
     playerNameInput.setText("player");
     serverPortInput.setText("4321");
   }
@@ -102,6 +105,8 @@ public class LoggingController implements Initializable {
   }
 
   private void invalidLoggingDataAlert() {
+	  //TODO: look for a constructor with more params, instead of using setters all the time
+	  //TODO: also, if you create various alerts all the time, how about your own code that does that? Alerts, Warnings, Confirmations etc.
     Alert alert = new Alert(Alert.AlertType.WARNING);
     alert.setTitle(resourceBundle.getString("WARNING_DIALOG"));
     alert.setHeaderText(resourceBundle.getString("INVALID_LOGGING_DATA"));

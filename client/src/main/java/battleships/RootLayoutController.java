@@ -16,11 +16,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+//TODO: document me master!
 public class RootLayoutController implements Initializable {
 
   private static final String PLAYER_BOARD_VIEW_FXML = "/fxml/PlayerBoardViewLayout.fxml";
   private static final String OPPONENT_BOARD_VIEW_FXML = "/fxml/OpponentBoardViewLayout.fxml";
 
+  //TODO: package?
   ResourceBundle resourceBundle;
 
   private final BattleshipLog log = BattleshipLog.provideLogger(RootLayoutController.class);

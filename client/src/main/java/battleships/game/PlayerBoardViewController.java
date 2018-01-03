@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+//TODO: I'm lacking Javadocs! Please, add them master!
 public class PlayerBoardViewController implements Member, Initializable {
 
   private static final int BOARD_ROW_COUNT = 10;
@@ -31,6 +32,7 @@ public class PlayerBoardViewController implements Member, Initializable {
     DataBus.getInstance().subscribeMember(this);
   }
 
+  //TODO: am I performant?
   public void setUpPlayerBoardDocked() {
     for (int row = 0; row < BOARD_ROW_COUNT; row++) {
       for (int col = 0; col < BOARD_COLUMN_COUNT; col++) {
@@ -46,6 +48,7 @@ public class PlayerBoardViewController implements Member, Initializable {
     this.board = board;
   }
 
+  //TODO: Tomek to send link over
   @Override
   public void accept(Messagable event) {
     if (event instanceof SalvoResult) {
@@ -60,21 +63,13 @@ public class PlayerBoardViewController implements Member, Initializable {
   private void processGameResult(GameResult gameResult) {
     dockedGridPane.setDisable(true);
 
-    String resultInfo = BattleshipUtils.provideEmptyString();
 
-    switch (gameResult) {
-      case WIN:
-        resultInfo = "WIN_INFO";
-        break;
-      case LOOSE:
-        resultInfo = "LOOSE_INFO";
-        break;
-      case DRAW:
-        resultInfo = "DRAW_INFO";
-        break;
-      case NONE:
-        return;
-    }
+    String resultInfo = BattleshipUtils.provideEmptyString();
+    //TODO: consider this version instead (will have to change strings downstream (resultInfo)
+    if (gameResult == GameResult.NONE) return;
+
+    resultInfo = gameResult.toString();
+    
 
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle(resourceBundle.getString("INFORMATION_DIALOG"));
@@ -93,10 +88,14 @@ public class PlayerBoardViewController implements Member, Initializable {
   private void updateBoard(List<Integer> salvoPositions) {
     for (Integer positionOfShot : salvoPositions) {
       board.getFields().get(positionOfShot).shoot();
+      //TODO: what would be required to instead code:
+	//       shot(positionOfShot);
       setUpPlayerBoardDocked();
     }
   }
 
+  //TODO: count OF something, not count something, unless you want to ask somebody: hey, count something! 
+  //TODO: idiom for getting unbroken ship fields from the board should be on the board I think? Unless you only use it here and don't plan on using it elsewhere
   private SalvoCount countRemainUnbrokenMasts() {
     long count = board.getFields().stream()
         .filter(field -> field.isUnbrokenShipOn())

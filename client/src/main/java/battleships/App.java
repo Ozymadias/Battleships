@@ -81,7 +81,7 @@ public class App extends Application {
       log.error(e.getMessage());
     }
   }
-
+  //TODO: instead of argument as loggingDataMap, port and host, then
   public void loggingSuccessful(Map<ConfigurationValueName, ConfigurationValue> loggingDataMap, ResourceBundle resourceBundle) {
     this.resourceBundle = resourceBundle;
     String host = loggingDataMap.get(IP).stringValue();

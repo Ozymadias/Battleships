@@ -2,6 +2,7 @@ package battleships.game;
 
 import javafx.scene.paint.Color;
 
+//TODO: Learn OO hierarchy. And use it here. Instead of having one Field with hidden subtypes, use subtypes.
 class Field {
 
   private final Integer position;
@@ -30,6 +31,7 @@ class Field {
     this.state = FieldState.BROKEN_SHIP_PART;
   }
 
+  //TODO: I'm the one who knocks!
   void shoot() {
     isShot = true;
     if (this.state == FieldState.UNBROKEN_SHIP_PART) {

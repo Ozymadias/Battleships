@@ -1,9 +1,9 @@
 package battleships;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 
 public interface Observers {
-  void sendMessage(Messagable messagable);
+  void sendMessage(Messageable messageable);
 
-  Messagable receiveMessage();
+  Messageable receiveMessage();
 }

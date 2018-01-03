@@ -23,5 +23,5 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = Salvo.class, name = "Salvo"),
     @JsonSubTypes.Type(value = SalvoResult.class, name = "SalvoResult")}
 )
-public interface Messagable {
+public interface Messageable {
 }

@@ -1,10 +1,10 @@
 package battleships.ships;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Mast implements Messagable {
+public class Mast implements Messageable {
   private boolean isAlive;
   private final Integer position;
 

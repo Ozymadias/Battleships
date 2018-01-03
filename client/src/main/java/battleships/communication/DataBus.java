@@ -18,19 +18,19 @@ public class DataBus {
     return INSTANCE;
   }
 
-  public void publish(Messagable event) {
+  public void publish(Messageable event) {
     log.info("DataBus is publishing " + event.getClass());
     listeners.forEach(listener -> listener.accept(event));
   }
 
   /**
-   * Distribute requested messagable.
+   * Distribute requested messageable.
    *
-   * @param event accepts instance of Messagable as a parameter.
+   * @param event accepts instance of Messageable as a parameter.
    */
-  public void sendRequest(Messagable event) {
+  public void publishRequest(Messageable event) {
     for (Publisher publisher : publishers) {
-      Messagable replay = publisher.processRequest(event);
+      Messageable replay = publisher.processRequest(event);
       publish(replay);
     }
   }

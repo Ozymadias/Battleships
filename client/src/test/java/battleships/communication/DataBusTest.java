@@ -5,7 +5,7 @@ import battleships.communication.messages.SalvoResult;
 import battleships.game.OpponentBoardViewController;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
+import static battleships.utils.BattleshipUtils.*;
 import static org.mockito.Mockito.*;
 
 public class DataBusTest {
@@ -33,13 +33,18 @@ public class DataBusTest {
     verify(opponentBoardViewController, times(1)).accept(salvoResult);
   }
 
+
   @Test
   public void whenSendingRequestViaDataBus_expectServerCommMethodProcessRequestIsTriggeredOnce() {
     //given
-    Messagable salvo = Salvo.createForPositions(1, 2, 3, 4);
+    Messageable salvo = Salvo.createForPositions(
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99));
     //when
     when(serverComm.processRequest(salvo)).thenReturn(mock(SalvoResult.class));
-    dataBus.sendRequest(salvo);
+    dataBus.publishRequest(salvo);
     //then
     verify(serverComm, times(1)).processRequest(salvo);
   }

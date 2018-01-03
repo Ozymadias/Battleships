@@ -4,23 +4,23 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class MessagableMapperBuilder {
+public class MessageableMapperBuilder {
 
   private ObjectMapper objectMapper;
 
-  public MessagableMapperBuilder withObjectMapper() {
+  public MessageableMapperBuilder withObjectMapper() {
     this.objectMapper = new ObjectMapper();
     return this;
   }
 
-  public MessagableMapper buildWithVisibilityOfNonPrivateAccessors() {
+  public MessageableMapper buildWithVisibilityOfNonPrivateAccessors() {
     this.objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
     this.objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
-    return new MessagableMapper(objectMapper);
+    return new MessageableMapper(objectMapper);
   }
 
-  public MessagableMapper build() {
-    return new MessagableMapper(objectMapper);
+  public MessageableMapper build() {
+    return new MessageableMapper(objectMapper);
   }
 
 }

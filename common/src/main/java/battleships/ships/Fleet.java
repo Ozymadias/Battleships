@@ -1,13 +1,13 @@
 package battleships.ships;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Fleet implements Messagable {
+public class Fleet implements Messageable {
   private final List<Ship> ships;
 
   @JsonCreator

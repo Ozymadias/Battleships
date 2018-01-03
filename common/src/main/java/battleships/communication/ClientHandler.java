@@ -2,7 +2,7 @@ package battleships.communication;
 
 import battleships.communication.jsonhandlers.JsonMarshaller;
 import battleships.communication.jsonhandlers.JsonUnmarshaller;
-import battleships.communication.jsonhandlers.MessagableMapperBuilder;
+import battleships.communication.jsonhandlers.MessageableMapperBuilder;
 import battleships.communication.messages.WelcomeMessage;
 
 import java.util.Optional;
@@ -18,27 +18,27 @@ public class ClientHandler {
   ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {
     this.messageSender = messageSender;
     this.messageReceiver = messageReceiver;
-    this.jsonMarshaller = new JsonMarshaller(new MessagableMapperBuilder()
+    this.jsonMarshaller = new JsonMarshaller(new MessageableMapperBuilder()
         .withObjectMapper()
         .build());
-    this.jsonUnmarshaller = new JsonUnmarshaller(new MessagableMapperBuilder()
+    this.jsonUnmarshaller = new JsonUnmarshaller(new MessageableMapperBuilder()
         .withObjectMapper()
         .build());
   }
 
-  public void sendMessage(Messagable message) {
+  public void sendMessage(Messageable message) {
     String s = jsonMarshaller.toString(message);
     messageSender.sendMessageString(s);
   }
 
   /**
-   * Receives message from Receiver than converts it Messagable.
+   * Receives message from Receiver than converts it Messageable.
    *
-   * @return optional Messagable received by MessageReceiver and converted by jsonUnmarshaller.
+   * @return optional Messageable received by MessageReceiver and converted by jsonUnmarshaller.
    */
-  public Messagable receiveMessage() {
+  public Messageable receiveMessage() {
     String s = messageReceiver.receiveMessageString();
-    Optional<Messagable> m = jsonUnmarshaller.toMessagable(s);
+    Optional<Messageable> m = jsonUnmarshaller.toMessageable(s);
     return m.orElseGet(() -> new WelcomeMessage("Something went wrong"));
   }
 }

@@ -1,6 +1,6 @@
 package battleships.communication.jsonhandlers;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.communication.MessageSender;
 import battleships.communication.Unmarshaller;
 import battleships.logger.BattleshipLog;
@@ -10,16 +10,16 @@ import java.util.Optional;
 
 public class JsonUnmarshaller implements Unmarshaller {
   private final BattleshipLog log = BattleshipLog.provideLogger(MessageSender.class);
-  private final MessagableMapper messagableMapper;
+  private final MessageableMapper messageableMapper;
 
-  public JsonUnmarshaller(MessagableMapper messagableMapper) {
-    this.messagableMapper = messagableMapper;
+  public JsonUnmarshaller(MessageableMapper messageableMapper) {
+    this.messageableMapper = messageableMapper;
   }
 
   @Override
-  public Optional<Messagable> toMessagable(String message) {
+  public Optional<Messageable> toMessageable(String message) {
     try {
-      return Optional.of(this.messagableMapper.readValue(message, Messagable.class));
+      return Optional.of(this.messageableMapper.readValue(message, Messageable.class));
     } catch (IOException e) {
       log.error(e.getMessage());
       return Optional.empty();

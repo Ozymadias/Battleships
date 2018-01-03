@@ -14,22 +14,22 @@ public class ShipsRandomize {
   private static final int SEQUENCE_COUNT = 10;
 
 
-  private final HorizontalSeqSet horizontalSequences;
+  private final HorizontalSeqSet horizontalSeqSet;
   private final VerticalSeqSet verticalSeqSet;
 
   private final Board board;
 
-  private ShipsRandomize(HorizontalSeqSet horizontal, VerticalSeqSet verticalSet, Board board) {
-    this.horizontalSequences = horizontal;
+  private ShipsRandomize(HorizontalSeqSet horizontalSet, VerticalSeqSet verticalSet, Board board) {
+    this.horizontalSeqSet = horizontalSet;
     this.verticalSeqSet = verticalSet;
     this.board = board;
   }
 
   /**
-   * Accepts board as parameter and generates all possible vertical and horizontal sequences
-   * for given board.
-   * @param board representation of board that game will be played on.
-   * @return new instance of ShipRandomize with board and all sequences generated.
+   * Accepts a board as a parameter and generates all possible sequences
+   * for a given board.
+   * @param board representation of a board that game will be played on.
+   * @return new instance of ShipRandomize with a board and all sequences generated.
    */
   public static ShipsRandomize build(Board board) {
     HorizontalSeqSet horizontalSeqSet = HorizontalSeqSet.build(board);
@@ -59,28 +59,18 @@ public class ShipsRandomize {
   private Ship placeShip(int length) {
     Integer randomForDirection = new Random().nextInt(100);
     if (randomForDirection % 2 == 0) {
-      return placeShipHorizontally(length);
+      return placeShipInSequence(length, horizontalSeqSet);
     } else {
-      return placeShipVertically(length);
+      return placeShipInSequence(length, verticalSeqSet);
     }
   }
 
-  private Ship placeShipVertically(int length) {
+  private Ship placeShipInSequence(int length, SeqSet seqSet ) {
     Integer randomRow;
     do {
       randomRow = new Random().nextInt(SEQUENCE_COUNT);
-    } while (!verticalSeqSet.get(randomRow).canContainShip(length));
-
-    return verticalSeqSet.randomlyPlaceShip(randomRow, length);
-  }
-
-  private Ship placeShipHorizontally(int length) {
-    Integer randomRow;
-    do {
-      randomRow = new Random().nextInt(SEQUENCE_COUNT);
-    } while (!horizontalSequences.get(randomRow).canContainShip(length));
-
-    return horizontalSequences.randomlyPlaceShip(randomRow, length);
+    } while (!seqSet.get(randomRow).canContainShip(length));
+    return seqSet.randomlyPlaceShip(randomRow, length);
   }
 
   public Board getBoard() {

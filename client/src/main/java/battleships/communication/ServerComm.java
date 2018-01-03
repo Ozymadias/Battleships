@@ -17,13 +17,12 @@ public class ServerComm implements Member, Publisher {
   }
 
   /**
-   * Builds a instance of ServerComm with data provided as a parameters.
+   * Builds an instance of ServerComm with data provided as a parameters.
    *
    * @param host string representation of host IP address.
    * @param port integer representation of host port.
    * @return instance of ServerComm for given login data.
    * @throws IOException if connection is refused or other problem with connection occurred
-   *                     throws IOException
    */
   public static ServerComm build(String host, Integer port) throws IOException {
     Socket socket = new Socket(host, port);
@@ -36,7 +35,7 @@ public class ServerComm implements Member, Publisher {
   }
 
   @Override
-  public void accept(Messagable event) {
+  public void accept(Messageable event) {
     if (event instanceof Fleet || event instanceof Salvo) {
       log.info("preparing " + event.getClass() + " to send to socket");
       clientHandler.sendMessage(event);
@@ -44,13 +43,13 @@ public class ServerComm implements Member, Publisher {
   }
 
   @Override
-  public Messagable processRequest(Messagable event) {
+  public Messageable processRequest(Messageable event) {
     log.info("preparing " + event.getClass() + " to send to socket");
     clientHandler.sendMessage(event);
     log.info("wating for replay...");
-    Messagable messagable = clientHandler.receiveMessage();
+    Messageable messageable = clientHandler.receiveMessage();
     log.info("processing replay...");
-    return messagable;
+    return messageable;
   }
 
   public void init() {

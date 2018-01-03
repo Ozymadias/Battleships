@@ -1,6 +1,6 @@
 package battleships.communication.jsonhandlers;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.communication.Unmarshaller;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
@@ -24,8 +24,8 @@ public class JsonUnmarshallerTest {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
     objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
-    MessagableMapper messagableMapper = new MessagableMapper(objectMapper);
-    this.jsonUnmarshaller = new JsonUnmarshaller(messagableMapper);
+    MessageableMapper messageableMapper = new MessageableMapper(objectMapper);
+    this.jsonUnmarshaller = new JsonUnmarshaller(messageableMapper);
   }
 
   @DataProvider
@@ -37,10 +37,10 @@ public class JsonUnmarshallerTest {
   }
 
   @Test(dataProvider = "jsonBodyAndTypesPoll")
-  public void whenConvertingToMessagable_expectMessagableShouldHoldReferenceToClassObject(String jsonString, Class expectedClass) throws IOException, ClassNotFoundException {
+  public void whenConvertingToMessageable_expectMessageableShouldHoldReferenceToClassObject(String jsonString, Class expectedClass) throws IOException, ClassNotFoundException {
     //when
-    Messagable messagable = jsonUnmarshaller.toMessagable(jsonString).get();
+    Messageable messageable = jsonUnmarshaller.toMessageable(jsonString).get();
     //then
-    assertThat(messagable.getClass()).isEqualTo(expectedClass);
+    assertThat(messageable.getClass()).isEqualTo(expectedClass);
   }
 }

@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BoardTest {
 
   @Test
-  public void whenBuildingBoardWithCleanFields_expectFieldCountEquals100() {
+  public void whenBuildingBoardWithCleanFields_expectFieldsSizeEquals100() {
     //when
     Board board = Board.build();
     int sizeOfFields = board.getFields().size();

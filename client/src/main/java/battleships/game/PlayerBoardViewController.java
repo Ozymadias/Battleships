@@ -2,7 +2,7 @@ package battleships.game;
 
 import battleships.communication.DataBus;
 import battleships.communication.Member;
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.communication.messages.SalvoResult;
 import java.net.URL;
 import java.util.List;
@@ -49,7 +49,7 @@ public class PlayerBoardViewController implements Member, Initializable {
   }
 
   @Override
-  public void accept(Messagable event) {
+  public void accept(Messageable event) {
     if (event instanceof SalvoResult) {
       SalvoResult salvoResult = (SalvoResult) event;
       processSalvo(salvoResult.getSalvoPositions());

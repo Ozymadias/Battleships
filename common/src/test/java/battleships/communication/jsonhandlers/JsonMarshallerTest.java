@@ -1,7 +1,7 @@
 package battleships.communication.jsonhandlers;
 
 import battleships.communication.Marshaller;
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -22,8 +22,8 @@ public class JsonMarshallerTest {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
     objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
-    MessagableMapper messagableMapper = new MessagableMapper(objectMapper);
-    this.jsonMarshaller = new JsonMarshaller(messagableMapper);
+    MessageableMapper messageableMapper = new MessageableMapper(objectMapper);
+    this.jsonMarshaller = new JsonMarshaller(messageableMapper);
   }
 
   @DataProvider
@@ -37,9 +37,9 @@ public class JsonMarshallerTest {
   }
 
   @Test(dataProvider = "messagesPool")
-  public void whenConvertingToJsonString_expectJsonBodyContainsClassNameAndItsFields(Messagable messagable, String expectedJsonString) {
+  public void whenConvertingToJsonString_expectJsonBodyContainsClassNameAndItsFields(Messageable messageable, String expectedJsonString) {
     //when
-    String actualJsonString = jsonMarshaller.toString(messagable);
+    String actualJsonString = jsonMarshaller.toString(messageable);
     //then
     assertThat(actualJsonString).isEqualTo(expectedJsonString);
   }

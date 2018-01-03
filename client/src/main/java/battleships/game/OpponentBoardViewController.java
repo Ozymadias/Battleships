@@ -2,7 +2,7 @@ package battleships.game;
 
 import battleships.communication.DataBus;
 import battleships.communication.Member;
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
@@ -63,12 +63,12 @@ public class OpponentBoardViewController implements Member {
   @FXML
   private void sendSalvoClick() {
     salvoBtn.setDisable(true);
-    DataBus.getInstance().sendRequest(new Salvo(this.salvoList));
+    DataBus.getInstance().publishRequest(new Salvo(this.salvoList));
     salvoList.clear();
   }
 
   /**
-   * Prevents player from shooting blank salvo. In order to shoot player needs to mark
+   * Prevents player from shooting incomplete salvo. In order to shoot player needs to mark
    * number of shots on the board otherwise salvo button will be disabled.
    * @param count integer representation of shots left in turn.
    */
@@ -92,7 +92,7 @@ public class OpponentBoardViewController implements Member {
   }
 
   @Override
-  public void accept(Messagable event) {
+  public void accept(Messageable event) {
     if (event instanceof SalvoCount) {
       salvoBtn.setDisable(false);
       processSalvoCount((SalvoCount) event);

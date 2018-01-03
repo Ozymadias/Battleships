@@ -46,7 +46,25 @@
         <dependency>
             <groupId>battleships</groupId>
             <artifactId>common</artifactId>
-            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
         </dependency>
     </dependencies>
+
+    <description>
+        This is a client module of Battleships game.
+        The application provides user interface for battleships game,
+        it's require running sever app.
+    </description>
+
 </project>

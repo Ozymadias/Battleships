@@ -16,13 +16,7 @@
     </modules>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jacksonVersion>2.9.2</jacksonVersion>
-        <log4jVersion>1.2.17</log4jVersion>
-        <mockitoCoreVersion>2.13.0</mockitoCoreVersion>
-        <assertjCoreVersion>3.8.0</assertjCoreVersion>
-        <testngVersion>6.13.1</testngVersion>
-        <commonLangsVersion>2.6</commonLangsVersion>
+        <!-- general -->
         <mavenReleasePluginVersion>2.5.3</mavenReleasePluginVersion>
         <mavenAssemblyPluginVersion>3.1.0</mavenAssemblyPluginVersion>
         <mavenAntrunPluginVersion>1.8</mavenAntrunPluginVersion>
@@ -32,22 +26,97 @@
         <mavenInstallPluginVersion>2.5.2</mavenInstallPluginVersion>
         <mavenJarPluginVersion>3.0.2</mavenJarPluginVersion>
         <mavenEnforcerPluginVersion>3.0.0-M1</mavenEnforcerPluginVersion>
-        <requiredMavenVersion>3.5.0</requiredMavenVersion>
-        <requiredJavaVersion>1.8</requiredJavaVersion>
-        <sonarMavenPluginVersion>3.4.0.905</sonarMavenPluginVersion>
-        <MavenSurefirePluginVersion>2.20.1</MavenSurefirePluginVersion>
-        <MavenProjectInfoReportsPluginVersion>2.9</MavenProjectInfoReportsPluginVersion>
-        <MavenResourcePluginVersion>3.0.2</MavenResourcePluginVersion>
-        <MavenSitePluginVersion>3.6</MavenSitePluginVersion>
-        <JacocoMavenPluginVersion>0.7.9</JacocoMavenPluginVersion>
-        <MavenCheckstylePluginVersion>2.17</MavenCheckstylePluginVersion>
-        <ExecMavenPluginVersion>1.6.0</ExecMavenPluginVersion>
-        <MavenDependencyPluginVersion>3.0.2</MavenDependencyPluginVersion>
-        <MavenJxrPluginVersion>2.5</MavenJxrPluginVersion>
-        <FindBugsMavenPluginVersion>3.0.5</FindBugsMavenPluginVersion>
-        <VersionsMavenPluginVersion>2.5</VersionsMavenPluginVersion>
+        <mavenSurefirePluginVersion>2.20.1</mavenSurefirePluginVersion>
+        <mavenProjectInfoReportsPluginVersion>2.9</mavenProjectInfoReportsPluginVersion>
+        <mavenResourcePluginVersion>3.0.2</mavenResourcePluginVersion>
+        <mavenSitePluginVersion>3.6</mavenSitePluginVersion>
+        <mavenDependencyPluginVersion>3.0.2</mavenDependencyPluginVersion>
         <maven-compiler-plugin.configuration.version>1.8</maven-compiler-plugin.configuration.version>
+        <execMavenPluginVersion>1.6.0</execMavenPluginVersion>
+        <sonarMavenPluginVersion>3.4.0.905</sonarMavenPluginVersion>
+        <mavenReportsVersion>2.9</mavenReportsVersion>
+
+        <!-- reporting -->
+        <jdepsMavenPluginVersion>0.4.0</jdepsMavenPluginVersion>
+        <jacocoMavenPluginVersion>0.7.9</jacocoMavenPluginVersion>
+        <findBugsMavenPluginVersion>3.0.5</findBugsMavenPluginVersion>
+        <mavenCheckstylePluginVersion>2.17</mavenCheckstylePluginVersion>
+        <mavenJxrPluginVersion>2.5</mavenJxrPluginVersion>
+        <versionsMavenPluginVersion>2.5</versionsMavenPluginVersion>
+
+
+        <!-- testing -->
+        <mockitoCoreVersion>2.13.0</mockitoCoreVersion>
+        <assertjCoreVersion>3.9.0</assertjCoreVersion>
+        <testngVersion>6.13.1</testngVersion>
+        <mavenFailsafePluginVersion>2.20.1</mavenFailsafePluginVersion>
+
+        <!-- project settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.java.version>1.8</project.java.version>
+
+        <!-- other -->
+        <jacksonVersion>2.9.3</jacksonVersion>
+        <log4jVersion>1.2.17</log4jVersion>
+        <commonsLangVersion>2.6</commonsLangVersion>
+        <requiredJavaVersion>1.8</requiredJavaVersion>
+        <commonVersion>1.0</commonVersion>
+        <requiredMavenVersion>3.3.9</requiredMavenVersion>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockitoCoreVersion}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertjCoreVersion}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testngVersion}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commonsLangVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jacksonVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jacksonVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jacksonVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4jVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>battleships</groupId>
+                <artifactId>common</artifactId>
+                <version>${commonVersion}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
@@ -138,13 +207,13 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${MavenSurefirePluginVersion}</version>
+                    <version>${mavenSurefirePluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
-                    <version>${MavenProjectInfoReportsPluginVersion}</version>
+                    <version>${mavenProjectInfoReportsPluginVersion}</version>
                     <configuration>
                         <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                     </configuration>
@@ -153,55 +222,31 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>${MavenResourcePluginVersion}</version>
+                    <version>${mavenResourcePluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>${MavenSitePluginVersion}</version>
+                    <version>${mavenSitePluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${JacocoMavenPluginVersion}</version>
-                    <executions>
-                        <execution>
-                            <id>jacoco-initialize</id>
-                            <goals>
-                                <goal>prepare-agent</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>jacoco-verify</id>
-                            <phase>verify</phase>
-                            <goals>
-                                <goal>report</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>${MavenCheckstylePluginVersion}</version>
-                    <configuration>
-                        <configLocation>google_checks.xml</configLocation>
-                    </configuration>
+                    <version>${jacocoMavenPluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
-                    <version>${ExecMavenPluginVersion}</version>
+                    <version>${execMavenPluginVersion}</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>${MavenDependencyPluginVersion}</version>
+                    <version>${mavenDependencyPluginVersion}</version>
                     <executions>
                         <execution>
                             <id>copy-dependencies</id>
@@ -218,17 +263,88 @@
                         </execution>
                     </executions>
                 </plugin>
-
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${mavenFailsafePluginVersion}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>${findBugsMavenPluginVersion}</version>
+                    <configuration>
+                        <xmlOutput>true</xmlOutput>
+                        <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${mavenCheckstylePluginVersion}</version>
+                <configuration>
+                    <configLocation>google_checks.xml</configLocation>
+                    <failsOnError>true</failsOnError>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
     <reporting>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${mavenReportsVersion}</version>
+                <configuration>
+                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${JacocoMavenPluginVersion}</version>
+                <version>${jacocoMavenPluginVersion}</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -240,17 +356,29 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>${MavenJxrPluginVersion}</version>
+                <version>${mavenJxrPluginVersion}</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>${FindBugsMavenPluginVersion}</version>
+                <version>${findBugsMavenPluginVersion}</version>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${mavenCheckstylePluginVersion}</version>
+                <configuration>
+                    <configLocation>google_checks.xml</configLocation>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
-                <version>${VersionsMavenPluginVersion}</version>
+                <version>${versionsMavenPluginVersion}</version>
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -261,36 +389,40 @@
                     </reportSet>
                 </reportSets>
             </plugin>
+            <!-- We did not use jdepend from org.codehaus.mojo
+                 since it is not compatible with Java 8
+                 (it throws: "Unkown constant: 18" while using mvn site).
+                 The plugin below is using jdeps delivered with Java 8 -->
+            <plugin>
+                <groupId>com.github.marschall</groupId>
+                <artifactId>jdeps-maven-plugin</artifactId>
+                <version>${jdepsMavenPluginVersion}</version>
+                <!-- makes jdeps report disappear from parent module site
+                     since this module (battleships) does not contain any classes -->
+                <reportSets>
+                    <reportSet>
+                        <inherited>false</inherited>
+                    </reportSet>
+                </reportSets>
+            </plugin>
         </plugins>
     </reporting>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockitoCoreVersion}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>${assertjCoreVersion}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testngVersion}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+    <description>
+        This is a Battleships project. It's allows two users to play a battleships game using server-client architecture.
+        Project contains three modules: client, server, common.
+        The common module is a bunch of utils used by client and server.
+    </description>
 
-    <!-- declares a location to distribute site -->
+    <!-- declares a location to distribute site
+         proper linking between modules is handle by calling:
+         mvn site:site && mvn site:stage && mvn site:deploy -->
     <distributionManagement>
         <site>
-            <id>${project.artifactId}</id>
-            <url>file://${basedir}/target</url>
+            <id>${project.artifactId}-site</id>
+            <url>file://${project.build.directory}/completesite</url>
         </site>
     </distributionManagement>
+
 
 </project>

@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 LOG_FILE="$PWD/"test.log
+TMP_TI_LOG_FILE="$PWD/"test_ti_tmp.log
 
 echo "___________ ___________   _________ ___________ .___   _______      ________  ";
 echo "\__    ___/ \_   _____/  /   _____/ \__    ___/ |   |  \      \    /  _____/  ";
@@ -8,16 +9,32 @@ echo "  |    |     |    __)_   \_____  \    |    |    |   |  /   |   \  /   \  _
 echo "  |    |     |        \  /        \   |    |    |   | /    |    \ \    \_\  \ ";
 echo "  |____|    /_______  / /_______  /   |____|    |___| \____|__  /  \______  / ";
 echo "                    \/          \/                            \/          \/  ";
+
 cd ..
+
 START=$(date +%s)
 mvn clean test > $LOG_FILE
 END=$(date +%s)
 echo "************************"
-echo "Summary of tests results"
+echo "Summary of unit tests results"
 echo "************************"
 DIFF=$(( $END - $START ))
-echo "Running tests took $DIFF seconds"
+echo "Running unit tests took $DIFF seconds"
 cat $LOG_FILE |grep -A2 Results |grep "Tests run" | awk 'BEGIN { FS = "[:,]" } { sumRun+=$2; sumFailures+=$4; sumErrors+=$6; sumSkipped+=$8 } END {print "Total tests run:" sumRun;print "Failures:" sumFailures;print "Errors:" sumErrors;print "Skipped:" sumSkipped} '
+
+touch $TMP_TI_LOG_FILE
+START=$(date +%s)
+mvn failsafe:integration-test > $TMP_TI_LOG_FILE
+cat $TMP_TI_LOG_FILE >> $LOG_FILE
+END=$(date +%s)
+echo "************************"
+echo "Summary of integration tests results"
+echo "************************"
+DIFF=$(( $END - $START ))
+echo "Running integration tests took $DIFF seconds"
+cat $TMP_TI_LOG_FILE |grep -A2 Results |grep "Tests run" | awk 'BEGIN { FS = "[:,]" } { sumRun+=$2; sumFailures+=$4; sumErrors+=$6; sumSkipped+=$8 } END {print "Total tests run:" sumRun;print "Failures:" sumFailures;print "Errors:" sumErrors;print "Skipped:" sumSkipped} '
+rm $TMP_TI_LOG_FILE
+
 read -p "You are about to run MVN INSTALL do you want to continue(Y/N)?"
 if [ "${REPLY^^}" != "Y" ]; then
       exit;
@@ -45,10 +62,8 @@ echo "/    \  \/   |       _/  |    __)_   /  /_\  \    |    |    |   |  /   |  
 echo "\     \____  |    |   \  |        \ /    |    \   |    |    |   | /    |    \ \    \_\  \ ";
 echo " \______  /  |____|_  / /_______  / \____|__  /   |____|    |___| \____|__  /  \______  / ";
 echo "        \/          \/          \/          \/                            \/          \/  ";
-mvn checkstyle:checkstyle >> $LOG_FILE
 
-
-(mvn site && mvn site:stage) >>$LOG_FILE
+(mvn site:site && mvn site:stage && mvn site:deploy) >>$LOG_FILE
 echo "************************"
 echo "Documentation generated!"
 echo "************************"
@@ -104,3 +119,4 @@ echo " \_____  \  |    |   / /    \  \/  /    \  \/   |    __)_   \_____  \   \_
 echo " /        \ |    |  /  \     \____ \     \____  |        \  /        \  /        \ ";
 echo "/_______  / |______/    \______  /  \______  / /_______  / /_______  / /_______  / ";
 echo "        \/                     \/          \/          \/          \/          \/  ";
+

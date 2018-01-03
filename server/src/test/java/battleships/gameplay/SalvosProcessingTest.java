@@ -17,7 +17,10 @@ public class SalvosProcessingTest {
   }
 
   @Test
-  public void shouldPassWhenSalvoProcessingIsNotEndOfGame() {
-    assertThat(salvosProcessing.isEndOfTheGame()).isFalse();
+  public void whenCheckingForEndOfTheGame_expectItIsNotEndOfTheGame() {
+    //when
+    boolean isEndOfTheGame = salvosProcessing.isEndOfTheGame();
+    //then
+    assertThat(isEndOfTheGame).isFalse();
   }
 }

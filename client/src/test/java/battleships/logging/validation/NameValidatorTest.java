@@ -1,6 +1,6 @@
 package battleships.logging.validation;
 
-import battleships.logging.ConfigurationValue;
+import battleships.logging.ConfigValue;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -20,16 +20,17 @@ public class NameValidatorTest {
   private static Object[][] namePool() {
 
     return new Object[][] {
-        {(ConfigurationValue) () -> "wololo", true},
-        {(ConfigurationValue) () -> "Iga", true},
-        {(ConfigurationValue) () -> "Krzysztof", true},
-        {(ConfigurationValue) () -> "", false},
-        {(ConfigurationValue) () -> "Blob zabojca z kosmosu", true},
+        {(ConfigValue) () -> "wololo", true},
+        {(ConfigValue) () -> "Iga", true},
+        {(ConfigValue) () -> "Krzysztof", true},
+        {(ConfigValue) () -> "", false},
+        {(ConfigValue) () -> "Blob zabojca z kosmosu", true},
     };
   }
 
   @Test(dataProvider = "namePool")
-  public void shouldPassWhenValidationOfNameThatIsOtherThanNullIsCorrect(ConfigurationValue stringToValidate, boolean expectedResult) {
-    assertThat(nameValidator.validate(stringToValidate)).isEqualTo(expectedResult);
+  public void whenValidateName_expectItIsValidOrNot(ConfigValue stringToValidate, boolean expectedResult) {
+    boolean isNameValid = nameValidator.validate(stringToValidate);
+    assertThat(isNameValid).isEqualTo(expectedResult);
   }
 }

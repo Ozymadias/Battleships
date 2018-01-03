@@ -1,5 +1,6 @@
 # Battleships
 [![Build Status](https://travis-ci.org/szczepanskikrs/Battleships.svg?branch=server-client-basics)](https://travis-ci.org/szczepanskikrs/Battleships)
+[![Trello](https://img.shields.io/badge/Trello-Battleships-orange.svg)](https://trello.com/b/CTmsQaTy/battleships)
 
 Battleship game over the network using Java client - server architecture.
 ## Getting Started
@@ -7,6 +8,9 @@ Battleship game over the network using Java client - server architecture.
 In order to run this game you need to install:
 * [Maven 3.5.0](https://maven.apache.org)
 * [JDK 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+
+Optional for quality monitoring:
+* [SonarQube](https://www.sonarqube.org/)
 ### Installing
 In order to install you need to run this command in main game directory:
 
@@ -31,10 +35,67 @@ Step 4: Run module that you want with command:
 ```
 java -jar <modulename>.jar
 ```
-Step 5: Runing server module require use of -Dport=<portNumber> command:
+Step 5: Running server module require use of -Dport=<portNumber> command:
 ```
 java -Dport=SamplePortNumber -jar <modulename>.jar 
 ```
+
+## Running with scripts
+1: Cloning repository using script.
+
+If you want to use script in order to clone repository you should use [this](https://nofile.io/f/d9vpPTcCBGu/demo_script.sh) script.  It will clone repository. Please remember script needs to create new folder! If you provide name of folder that already exist script will not work!
+
+```
+./demo_script.sh <dir where repository will be cloned>
+```
+After cloning script will ask you if you want to continue and perform testing.
+
+```
+Clone successful! Do want to run tests now(Y/N)?
+```
+
+2: Testing and deployment using script.
+
+In order to run tests, install, create documentation you should use deployment_script.sh from folder ../scripts
+
+```
+./deployment_script.sh
+```
+
+Runs mvn tests, then prompts if you wish to run mvn install and create documentation, last step requires a running SonarQube server on your machine.
+
+3: Showing documentation 
+
+If you want to open all documentation run show_dosc.sh from ../scripts
+
+In order for following scripts to work you need to run deployment_script.sh first!!!
+
+```
+./show_docs.sh
+```
+
+
+4: Running client and server from scripts
+
+
+In order for any of fallowing scripts to work you need to run deployment_script.sh first!!!
+
+
+```
+./game.sh
+```
+Will run one instance of server with default port 4321 and two instances of client.
+
+
+```
+./run_server.sh <port>
+```
+Will run one instance of server. Script accept port number as a parameter.
+
+```
+./run_client.sh
+```
+Will run one instance of client.
 ## Gameplay
 In order to play you need to run client.
 
@@ -73,7 +134,7 @@ Victory popup as above will be displayed if you won.
  <p align="center">
 <img src="https://image.ibb.co/ea6Yew/2017_12_27_075500_362x182_scrot.png"><br/>
    </p> <br/>
-   Draw popup as above will be displayer if draw occured.
+   Draw popup as above will be displayer if draw occurred.
 <br/>
 Game ends when one of players lose all ships or both players lose all ships at once then draw happens. 
 

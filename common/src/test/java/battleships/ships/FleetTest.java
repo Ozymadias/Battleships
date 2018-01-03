@@ -9,8 +9,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class FleetTest {
 
   @Test
-  public void shouldPassWhenNumberOfPositionsIsEqualToExpected() {
+  public void whenFleetIsCreated_expectFleetHasCorrectSize() {
+    //when
     Fleet fleet = new Fleet(Arrays.asList(Ship.createShip(1, 2, 3), Ship.createShip(44, 21, 2, 24)));
-    assertThat(fleet.getAllPositions().size()).isEqualTo(7);
+    //then
+    int fleetSize = fleet.getAllPositions().size();
+    assertThat(fleetSize).isEqualTo(7);
   }
 }

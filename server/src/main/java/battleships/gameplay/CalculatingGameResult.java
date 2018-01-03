@@ -1,6 +1,6 @@
 package battleships.gameplay;
 
-import battleships.BattleObserver;
+import battleships.Observers;
 import battleships.communication.messages.SalvoResult;
 import battleships.game.GameResult;
 import battleships.logger.BattleshipLog;
@@ -12,26 +12,28 @@ import java.util.stream.Collectors;
 
 public class CalculatingGameResult implements GameState {
   private final BattleshipLog log = BattleshipLog.provideLogger(CalculatingGameResult.class);
-  private final List<BattleObserver> observers;
-  private final List<Fleet> playersFleets;
+  private final List<Observers> observers;
+  private final List<Fleet> fleets;
   private final List<SalvoResult> results;
 
-  public CalculatingGameResult(List<BattleObserver> observers, List<Fleet> playersFleets, List<SalvoResult> results) {
+  CalculatingGameResult(List<Observers> observers, List<Fleet> fleets, List<SalvoResult> results) {
     this.observers = observers;
-    this.playersFleets = playersFleets;
+    this.fleets = fleets;
     this.results = results;
   }
 
   @Override
   public GameState process() {
     log.info("processing game result");
-    boolean isEndOfTheGame = calculateGameResult(playersFleets, results);
-    return new SendingSalvoResults(observers, playersFleets, results, isEndOfTheGame);
+    boolean isEndOfTheGame = calculateGameResult(fleets, results);
+    return new SendingSalvoResults(observers, fleets, results, isEndOfTheGame);
   }
 
   private boolean calculateGameResult(List<Fleet> playersFleets, List<SalvoResult> results) {
 
-    List<Fleet> sunkenFleets = playersFleets.stream().filter(this::isFleetSunk).collect(Collectors.toList());
+    List<Fleet> sunkenFleets = playersFleets.stream()
+        .filter(this::isFleetSunk)
+        .collect(Collectors.toList());
 
     if (sunkenFleets.size() == 2) {
       results.forEach(p -> p.setGameResult(GameResult.DRAW));

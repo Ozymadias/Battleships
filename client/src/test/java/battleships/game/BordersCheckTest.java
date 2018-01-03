@@ -3,88 +3,81 @@ package battleships.game;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Random;
+import java.util.function.IntPredicate;
+import java.util.stream.IntStream;
+import static battleships.utils.BattleshipUtils.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BordersCheckTest {
 
+  private class PositionExpectedResultPair {
+    int position;
+    boolean expectedResult;
+    PositionExpectedResultPair(int position, IntPredicate intPredicate) {
+      this.position = position;
+      this.expectedResult = intPredicate.test(position);
+    }
+  }
+
+  private boolean isWithinRange(int position, int min , int max) {
+    return position>=min && position <=max;
+  }
+
   @DataProvider
-  public Object[][] testPollForTopBorder() {
-    return new Object[][] {
-        {0, true},
-        {5, true},
-        {9, true},
-        {10, false},
-        {55, false},
-        {99, false},
-        {-1, false},
-        {-10, false},
-        {120, false}
-    };
+  public Object[] testPollForTopBorder() {
+    return IntStream.generate(() -> provideRandomNumber(-10, 110))
+        .limit(20)
+        .mapToObj(i -> new PositionExpectedResultPair(i, j-> isWithinRange(j,0,9) ))
+        .toArray();
   }
 
   @Test(dataProvider = "testPollForTopBorder")
-  public void givenPosition_whenCheckingIfBelongsToTopBorder_resultShouldBeAsExpected(Integer position, boolean expectedResult) {
-    assertThat(BordersCheck.isOnTopBorder(position)).isEqualTo(expectedResult);
+  public void whenCheckingIfPositionBelongsToTopBorder_expectItBelongsOrNot(PositionExpectedResultPair positionExpectedResultPair) {
+    assertThat(BordersCheck.isOnTopBorder(positionExpectedResultPair.position))
+        .isEqualTo(positionExpectedResultPair.expectedResult);
   }
 
   @DataProvider
-  public Object[][] testPollForBottomBorderBorder() {
-    return new Object[][] {
-        {90, true},
-        {95, true},
-        {99, true},
-        {0, false},
-        {10, false},
-        {55, false},
-        {-1, false},
-        {-10, false},
-        {120, false}
-    };
+  public Object[] testPollForBottomBorder() {
+    return IntStream.generate(() -> provideRandomNumber(-10, 110))
+        .limit(20)
+        .mapToObj(i -> new PositionExpectedResultPair(i, j-> isWithinRange(j, 90, 99)))
+        .toArray();
   }
 
-  @Test(dataProvider = "testPollForBottomBorderBorder")
-  public void givenPosition_whenCheckingIfBelongsToBottomBorder_resultShouldBeAsExpected(Integer position, boolean expectedResult) {
-    assertThat(BordersCheck.isOnBottomBorder(position)).isEqualTo(expectedResult);
+  @Test(dataProvider = "testPollForBottomBorder")
+  public void whenCheckingIfPositionBelongsToBottomBorder_expectItBelongsOrNot(PositionExpectedResultPair positionExpectedResultPair) {
+    assertThat(BordersCheck.isOnBottomBorder(positionExpectedResultPair.position))
+        .isEqualTo(positionExpectedResultPair.expectedResult);
   }
 
   @DataProvider
-  public Object[][] testPollForLeftBorderBorder() {
-    return new Object[][] {
-        {0, true},
-        {10, true},
-        {90, true},
-        {55, false},
-        {-1, false},
-        {-10, false},
-        {120, false},
-        {100, false},
-    };
+  public Object[] testPollForLeftBorder() {
+    return IntStream.generate(() -> provideRandomNumber(-10, 110))
+        .limit(20)
+        .mapToObj(i -> new PositionExpectedResultPair(i, j-> j%10 == 0 && isWithinRange(j,0, 99)))
+        .toArray();
   }
 
-  @Test(dataProvider = "testPollForLeftBorderBorder")
-  public void givenPosition_whenCheckingIfBelongsToLeftBorder_resultShouldBeAsExpected(Integer position, boolean expectedResult) {
-    assertThat(BordersCheck.isOnLeftBorder(position)).isEqualTo(expectedResult);
+  @Test(dataProvider = "testPollForLeftBorder")
+  public void whenCheckingIfPositionBelongsToLeftBorder_expectItBelongsOrNot(PositionExpectedResultPair positionExpectedResultPair) {
+    assertThat(BordersCheck.isOnLeftBorder(positionExpectedResultPair.position))
+        .isEqualTo(positionExpectedResultPair.expectedResult);
   }
 
   @DataProvider
-  public Object[][] testPollForRightBorderBorder() {
-    return new Object[][] {
-        {9, true},
-        {39, true},
-        {99, true},
-        {55, false},
-        {-1, false},
-        {-10, false},
-        {120, false},
-        {100, false},
-        {-9, false},
-        {109, false}
-    };
+  public Object[] testPollForRightBorder() {
+    return IntStream.generate(() -> provideRandomNumber(-10, 110))
+        .limit(20)
+        .mapToObj(i -> new PositionExpectedResultPair(i, j -> j % 10 == 9 && isWithinRange(j, 0, 99)))
+        .toArray();
   }
 
-  @Test(dataProvider = "testPollForRightBorderBorder")
-  public void givenPosition_whenCheckingIfBelongsToRightBorder_resultShouldBeAsExpected(Integer position, boolean expectedResult) {
-    assertThat(BordersCheck.isOnRightBorder(position)).isEqualTo(expectedResult);
+  @Test(dataProvider = "testPollForRightBorder")
+  public void whenCheckingIfPositionBelongsToRightBorder_expectItBelongsOrNot(PositionExpectedResultPair positionExpectedResultPair) {
+    assertThat(BordersCheck.isOnRightBorder(positionExpectedResultPair.position))
+        .isEqualTo(positionExpectedResultPair.expectedResult);
   }
 
 }

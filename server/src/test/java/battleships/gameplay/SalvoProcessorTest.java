@@ -26,7 +26,7 @@ public class SalvoProcessorTest {
   }
 
   @Test(dataProvider = "provider")
-  public void givenSalvosAndFleetsWhenProcessedThenSalvoResultHasCorrectResultList(Quadruplet quadruplet, List expectedResult, int playerNumber) {
+  public void whenProcessingSalvosAndFleets_expectSalvoResultHasCorrectResultList(Quadruplet quadruplet, List expectedResult, int playerNumber) {
     //given
     salvos.add(quadruplet.firstSalvo);
     salvos.add(quadruplet.secondSalvo);
@@ -34,8 +34,9 @@ public class SalvoProcessorTest {
     fleets.add(quadruplet.secondFleet);
     //when
     List<SalvoResult> results = new SalvoProcessor().process(salvos, fleets);
+    List<Integer> resultList = results.get(playerNumber).getResultList();
     //then
-    assertThat(results.get(playerNumber).getResultList()).isEqualTo(expectedResult);
+    assertThat(resultList).isEqualTo(expectedResult);
   }
 
   @DataProvider(name = "provider")
@@ -112,7 +113,7 @@ public class SalvoProcessorTest {
   }
 
   @Test(dataProvider = "provider2")
-  public void givenSalvosAndFleetsWhenProcessedThenSalvoResultHasCorrectSalvoPositions(Quadruplet quadruplet, List expectedResult, int playerNumber) {
+  public void whenProcessingSalvosAndFleets_expectSalvoResultHasCorrectSalvoPositions(Quadruplet quadruplet, List expectedResult, int playerNumber) {
     //given
     salvos.add(quadruplet.firstSalvo);
     salvos.add(quadruplet.secondSalvo);
@@ -120,8 +121,9 @@ public class SalvoProcessorTest {
     fleets.add(quadruplet.secondFleet);
     //when
     List<SalvoResult> results = new SalvoProcessor().process(salvos, fleets);
+    List<Integer> salvoPositions = results.get(playerNumber).getSalvoPositions();
     //then
-    assertThat(results.get(playerNumber).getSalvoPositions()).isEqualTo(expectedResult);
+    assertThat(salvoPositions).isEqualTo(expectedResult);
   }
 
   @DataProvider(name = "provider2")

@@ -21,6 +21,12 @@ public class Server {
     return serverSocket.accept();
   }
 
+  /**
+   * Waits for two players to connect to the server.
+   * @return list of sockets bound to ServerSockets
+   * @throws IOException can throw IOException when binding to ServerSocket fails
+   */
+
   public List<Socket> createSockets() throws IOException {
     List<Socket> sockets = new ArrayList<>();
     sockets.add(assignSocket(serverSocket));

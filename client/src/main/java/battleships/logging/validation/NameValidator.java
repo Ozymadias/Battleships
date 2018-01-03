@@ -1,10 +1,10 @@
 package battleships.logging.validation;
 
-import battleships.logging.ConfigurationValue;
+import battleships.logging.ConfigValue;
 import battleships.utils.BattleshipUtils;
 
 /**
- * Takes ConfigurationValue as a parameter, than calls stringValue() and checks if result is not
+ * Takes ConfigValue as a parameter, than calls stringValue() and checks if result is not
  * empty String.
  */
 class NameValidator implements ConfigurationValidator {
@@ -14,7 +14,7 @@ class NameValidator implements ConfigurationValidator {
    * empty String as any String that is not empty is considered as valid name.
    */
   @Override
-  public boolean validate(ConfigurationValue toValidate) {
+  public boolean validate(ConfigValue toValidate) {
     return !BattleshipUtils.checkIfStringIsEmpty(toValidate.stringValue());
   }
 }

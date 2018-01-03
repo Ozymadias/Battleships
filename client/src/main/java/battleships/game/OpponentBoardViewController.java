@@ -2,18 +2,18 @@ package battleships.game;
 
 import battleships.communication.DataBus;
 import battleships.communication.Member;
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class OpponentBoardViewController implements Member {
 
@@ -35,11 +35,11 @@ public class OpponentBoardViewController implements Member {
 
   private final List<Integer> salvoList = new ArrayList<>();
 
-  private Board opponentBoard;
+  private Board enemyBoard;
 
   @FXML
   private void initialize() {
-    opponentBoard = Board.build();
+    enemyBoard = Board.build();
     setUpBoardView();
     shootsLeftCountText.setText(shootsLeftCount.toString());
     DataBus.getInstance().subscribeMember(this);
@@ -48,7 +48,7 @@ public class OpponentBoardViewController implements Member {
   private void setUpBoardView() {
     for (int row = 0; row < BOARD_ROW_COUNT; row++) {
       for (int col = 0; col < BOARD_COLUMN_COUNT; col++) {
-        BoardNode boardNode = this.opponentBoard.rectangleForPosition(row * BOARD_COLUMN_COUNT + col);
+        BoardNode boardNode = this.enemyBoard.rectangleForPosition(row * BOARD_COLUMN_COUNT + col);
         boardNode.getStackPane().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
           int shotPosition = boardNode.getIndex();
           processShot(shotPosition);
@@ -63,10 +63,15 @@ public class OpponentBoardViewController implements Member {
   @FXML
   private void sendSalvoClick() {
     salvoBtn.setDisable(true);
-    DataBus.getInstance().sendRequest(new Salvo(this.salvoList));
+    DataBus.getInstance().publishRequest(new Salvo(this.salvoList));
     salvoList.clear();
   }
 
+  /**
+   * Prevents player from shooting incomplete salvo. In order to shoot player needs to mark
+   * number of shots on the board otherwise salvo button will be disabled.
+   * @param count integer representation of shots left in turn.
+   */
   public void setShootsLeftCount(Integer count) {
     this.shootsLeftCount = count;
     this.shootsLeftCountText.setText(count.toString());
@@ -79,7 +84,7 @@ public class OpponentBoardViewController implements Member {
 
   private void processShot(Integer fieldPosition) {
     if (this.shootsLeftCount > 0) {
-      opponentBoard.shootAtField(fieldPosition);
+      enemyBoard.shootAtField(fieldPosition);
       setShootsLeftCount(this.shootsLeftCount - 1);
       setUpBoardView();
       salvoList.add(fieldPosition);
@@ -87,7 +92,7 @@ public class OpponentBoardViewController implements Member {
   }
 
   @Override
-  public void accept(Messagable event) {
+  public void accept(Messageable event) {
     if (event instanceof SalvoCount) {
       salvoBtn.setDisable(false);
       processSalvoCount((SalvoCount) event);
@@ -109,8 +114,8 @@ public class OpponentBoardViewController implements Member {
   }
 
   private void updateBoard(ArrayList<Integer> resultList) {
-    resultList.stream()
-        .forEach(pos -> opponentBoard.getFields().get(pos).setBrokenShipPartOn());
+    resultList
+        .forEach(pos -> enemyBoard.getFields().get(pos).setBrokenShipPartOn());
     setUpBoardView();
   }
 

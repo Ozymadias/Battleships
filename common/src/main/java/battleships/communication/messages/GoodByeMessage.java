@@ -1,10 +1,10 @@
 package battleships.communication.messages;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GoodByeMessage implements Messagable {
+public class GoodByeMessage implements Messageable {
 
   private final String body;
 

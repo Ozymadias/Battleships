@@ -1,6 +1,6 @@
 package battleships.logging.validation;
 
-import battleships.logging.ConfigurationValue;
+import battleships.logging.ConfigValue;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -20,29 +20,30 @@ public class PortConfigurationValidatorTest {
   private static Object[][] portPool() {
 
     return new Object[][] {
-        {(ConfigurationValue) () -> "maksiu", false},
-        {(ConfigurationValue) () -> "0.0.0.0", false},
-        {(ConfigurationValue) () -> "Iga", false},
-        {(ConfigurationValue) () -> "Krzychu", false},
-        {(ConfigurationValue) () -> "Robert", false},
-        {(ConfigurationValue) () -> "0", false},
-        {(ConfigurationValue) () -> "666", false},
-        {(ConfigurationValue) () -> "1666", true},
-        {(ConfigurationValue) () -> "65535", true},
-        {(ConfigurationValue) () -> "6535", true},
-        {(ConfigurationValue) () -> "4535", true},
-        {(ConfigurationValue) () -> "6635", true},
-        {(ConfigurationValue) () -> "65536", false},
-        {(ConfigurationValue) () -> "65.36", false},
-        {(ConfigurationValue) () -> "w2415", false},
-        {(ConfigurationValue) () -> "423415", false},
-        {(ConfigurationValue) () -> "-423415", false},
-        {(ConfigurationValue) () -> "-3415", false},
+        {(ConfigValue) () -> "maksiu", false},
+        {(ConfigValue) () -> "0.0.0.0", false},
+        {(ConfigValue) () -> "Iga", false},
+        {(ConfigValue) () -> "Krzychu", false},
+        {(ConfigValue) () -> "Robert", false},
+        {(ConfigValue) () -> "0", false},
+        {(ConfigValue) () -> "666", false},
+        {(ConfigValue) () -> "1666", true},
+        {(ConfigValue) () -> "65535", true},
+        {(ConfigValue) () -> "6535", true},
+        {(ConfigValue) () -> "4535", true},
+        {(ConfigValue) () -> "6635", true},
+        {(ConfigValue) () -> "65536", false},
+        {(ConfigValue) () -> "65.36", false},
+        {(ConfigValue) () -> "w2415", false},
+        {(ConfigValue) () -> "423415", false},
+        {(ConfigValue) () -> "-423415", false},
+        {(ConfigValue) () -> "-3415", false},
     };
   }
 
   @Test(dataProvider = "portPool")
-  public void shouldPassWhenValidatorPerformsCorrectValidationOnGivenData(ConfigurationValue portStringToValidate, boolean expectedValidationResult) {
-    assertThat(portConfigValidator.validate(portStringToValidate)).isEqualTo(expectedValidationResult);
+  public void whenValidatePort_expectItIsCorrectOrNot(ConfigValue portStringToValidate, boolean expectedValidationResult) {
+    boolean isPortValid = portConfigValidator.validate(portStringToValidate);
+    assertThat(isPortValid).isEqualTo(expectedValidationResult);
   }
 }

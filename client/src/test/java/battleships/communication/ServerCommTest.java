@@ -6,9 +6,8 @@ import battleships.ships.Fleet;
 import battleships.ships.Ship;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import java.util.Collections;
-
+import static battleships.utils.BattleshipUtils.*;
 import static org.mockito.Mockito.*;
 
 public class ServerCommTest {
@@ -23,57 +22,69 @@ public class ServerCommTest {
   }
 
   @Test
-  public void givenFleet_whenAcceptingFleetByServerComm_clientHandlerShouldInvokeSendMessage() {
+  public void whenAcceptingFleetByServerComm_expectClientHandlerInvokeSendMessageOnce() {
     //given
-    Messagable messagable = new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4)));
+    Messageable messageable = new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4)));
     //when
-    serverComm.accept(messagable);
+    serverComm.accept(messageable);
     //then
-    verify(clientHandler, times(1)).sendMessage(messagable);
+    verify(clientHandler, times(1)).sendMessage(messageable);
   }
 
   @Test
-  public void givenSalvo_whenAcceptingSalvoByServerComm_clientHandlerShouldInvokeSendMessage() {
+  public void whenAcceptingSalvoByServerComm_expectClientHandlerInvokeSendMessageOnce() {
     //given
-    Messagable messagable = Salvo.createForPositions(1, 2, 3, 4);
+    Messageable messageable = Salvo.createForPositions(
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99));
     //when
-    serverComm.accept(messagable);
+    serverComm.accept(messageable);
     //then
-    verify(clientHandler, times(1)).sendMessage(messagable);
+    verify(clientHandler, times(1)).sendMessage(messageable);
   }
 
   @Test
-  public void givenWelcomeMessage_whenAcceptingWelcomeMessageByServerComm_clientHandlerShouldNotInvokeSendMessage() {
+  public void whenAcceptingWelcomeMessageByServerComm_expectClientHandlerNotInvokeSendMessage() {
     //given
-    Messagable messagable = new WelcomeMessage("hello!");
+    Messageable messageable = new WelcomeMessage("hello!");
     //when
-    serverComm.accept(messagable);
+    serverComm.accept(messageable);
     //then
-    verify(clientHandler, times(0)).sendMessage(messagable);
+    verify(clientHandler, times(0)).sendMessage(messageable);
   }
 
   @Test
-  public void givenSalvo_whenInvokingProcessRequestOnServerComm_clientHandlerShouldInvokeSendMessage() {
+  public void whenInvokingProcessRequestOnServerComm_expectClientHandlerInvokeSendMessageOnce() {
     //given
-    Messagable messagable = Salvo.createForPositions(1, 2, 3, 4);
+    Messageable messageable = Salvo.createForPositions(
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99));
     //when
-    serverComm.processRequest(messagable);
+    serverComm.processRequest(messageable);
     //then
-    verify(clientHandler, times(1)).sendMessage(messagable);
+    verify(clientHandler, times(1)).sendMessage(messageable);
   }
 
   @Test
-  public void givenSalvo_whenInvokingProcessRequestOnServerComm_clientHandlerShouldInvokeReceiveMessage() {
+  public void whenInvokingProcessRequestOnServerComm_expectClientHandlerInvokeReceiveMessageOnce() {
     //given
-    Messagable messagable = Salvo.createForPositions(1, 2, 3, 4);
+    Messageable messageable = Salvo.createForPositions(
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99),
+        provideRandomNumber(0,99));
     //when
-    serverComm.processRequest(messagable);
+    serverComm.processRequest(messageable);
     //then
     verify(clientHandler, times(1)).receiveMessage();
   }
 
   @Test
-  public void givenServerComm_whenInvokingInit_clientHandlerShouldInvokeReceiveMessage() {
+  public void whenInvokingInit_expectClientHandlerInvokeReceiveMessageOnce() {
     serverComm.init();
     verify(clientHandler, times(1)).receiveMessage();
   }

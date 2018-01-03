@@ -7,23 +7,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class BoardTest {
 
   @Test
-  public void whenBuildingBoardWithCleanFields_fieldCountShouldEquals100() {
+  public void whenBuildingBoardWithCleanFields_expectFieldsSizeEquals100() {
+    //when
     Board board = Board.build();
-    assertThat(board.getFields().size()).isEqualTo(100);
+    int sizeOfFields = board.getFields().size();
+    //then
+    assertThat(sizeOfFields).isEqualTo(100);
   }
 
   @Test
-  public void whenBuildingBoardWithCleanFields_countOfEmptyFieldShouldBe100() {
+  public void whenBuildingBoardWithCleanFields_expectCountOfEmptyFieldIs100() {
+    //when
     Board board = Board.build();
-    assertThat(board.getFields().stream().filter(Field::isEmpty).count()).isEqualTo(100);
+    long sizeOfEmptyFields = board.getFields().stream().filter(Field::isEmpty).count();
+    //then
+    assertThat(sizeOfEmptyFields).isEqualTo(100);
   }
-
-  @Test
-  public void whenBuildingBoardWithCleanFields_listOfFieldsShouldHave100Elements() {
-    //given
-    Board sequencesGenerator = Board.build();
-    //when - then
-    assertThat(sequencesGenerator.getFields().size()).isEqualTo(100);
-  }
-
 }

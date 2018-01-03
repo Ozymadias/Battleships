@@ -1,8 +1,8 @@
 package battleships.game;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 
-public class SalvoCount implements Messagable {
+public class SalvoCount implements Messageable {
   private final Integer count;
 
   public SalvoCount(Integer count) {

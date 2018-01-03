@@ -1,9 +1,9 @@
 package battleships;
 
 import battleships.communication.ClientHandler;
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 
-public class HandlerWrapper implements BattleObserver {
+public class HandlerWrapper implements Observers {
   private final ClientHandler clientHandler;
 
   public HandlerWrapper(ClientHandler clientHandler) {
@@ -11,12 +11,12 @@ public class HandlerWrapper implements BattleObserver {
   }
 
   @Override
-  public void sendMessage(Messagable messagable) {
-    clientHandler.sendMessage(messagable);
+  public void sendMessage(Messageable messageable) {
+    clientHandler.sendMessage(messageable);
   }
 
   @Override
-  public Messagable receiveMessage() {
+  public Messageable receiveMessage() {
     return clientHandler.receiveMessage();
   }
 }

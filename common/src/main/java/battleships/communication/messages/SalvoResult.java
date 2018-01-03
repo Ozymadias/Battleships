@@ -1,13 +1,13 @@
 package battleships.communication.messages;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.game.GameResult;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class SalvoResult implements Messagable {
+public class SalvoResult implements Messageable {
 
   private final List<Integer> resultList;
   private final List<Integer> salvoPositions;

@@ -14,6 +14,10 @@ public class Board {
     this.fields = fields;
   }
 
+  /**
+   * Builds board with BOARD_FIELDS_COUNT as size.
+   * @return Board with list of new Fields.
+   */
   public static Board build() {
     List<Field> fields = IntStream.range(0, BOARD_FIELDS_COUNT)
         .mapToObj(Field::new)

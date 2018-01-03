@@ -1,6 +1,6 @@
 package battleships.communication.jsonhandlers;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.communication.Unmarshaller;
 import battleships.communication.messages.GoodByeMessage;
 import battleships.communication.messages.WelcomeMessage;
@@ -17,28 +17,30 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class JsonUnmarshallerTest {
 
-    private Unmarshaller jsonUnmarshaller;
+  private Unmarshaller jsonUnmarshaller;
 
-    @BeforeTest
-    protected void beforeTest(){
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
-        objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
-        MessagableMapper messagableMapper = new MessagableMapper(objectMapper);
-        this.jsonUnmarshaller = new JsonUnmarshaller(messagableMapper);
-    }
+  @BeforeTest
+  protected void beforeTest() {
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
+    objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
+    MessageableMapper messageableMapper = new MessageableMapper(objectMapper);
+    this.jsonUnmarshaller = new JsonUnmarshaller(messageableMapper);
+  }
 
-    @DataProvider
-    private Object[][] jsonBodyAndTypesPoll(){
-        return new Object[][] {
-                {"{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}", WelcomeMessage.class},
-                {"{\"@type\":\"GoodByeMessage\",\"body\":\"good bye\"}", GoodByeMessage.class}
-        };
-    }
+  @DataProvider
+  private Object[][] jsonBodyAndTypesPoll() {
+    return new Object[][] {
+        {"{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}", WelcomeMessage.class},
+        {"{\"@type\":\"GoodByeMessage\",\"body\":\"good bye\"}", GoodByeMessage.class}
+    };
+  }
 
-    @Test(dataProvider = "jsonBodyAndTypesPoll")
-    public void givenJsonString_whenConvertingToMessagable_thenMessagableShouldHoldReferenceToClassObjectAsExpected(String jsonString, Class expectedClass) throws IOException, ClassNotFoundException {
-        Messagable messagable = jsonUnmarshaller.toMessagable(jsonString).get();
-        assertThat(messagable.getClass()).isEqualTo(expectedClass);
-    }
+  @Test(dataProvider = "jsonBodyAndTypesPoll")
+  public void whenConvertingToMessageable_expectMessageableShouldHoldReferenceToClassObject(String jsonString, Class expectedClass) throws IOException, ClassNotFoundException {
+    //when
+    Messageable messageable = jsonUnmarshaller.toMessageable(jsonString).get();
+    //then
+    assertThat(messageable.getClass()).isEqualTo(expectedClass);
+  }
 }

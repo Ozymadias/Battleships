@@ -2,18 +2,17 @@ package battleships.game;
 
 import battleships.communication.DataBus;
 import battleships.communication.Member;
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.communication.messages.SalvoResult;
-import battleships.utils.BattleshipUtils;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class PlayerBoardViewController implements Member, Initializable {
 
@@ -31,6 +30,9 @@ public class PlayerBoardViewController implements Member, Initializable {
     DataBus.getInstance().subscribeMember(this);
   }
 
+  /**
+   * Assign board representation to javaFx representation of a board.
+   */
   public void setUpPlayerBoardDocked() {
     for (int row = 0; row < BOARD_ROW_COUNT; row++) {
       for (int col = 0; col < BOARD_COLUMN_COUNT; col++) {
@@ -47,7 +49,7 @@ public class PlayerBoardViewController implements Member, Initializable {
   }
 
   @Override
-  public void accept(Messagable event) {
+  public void accept(Messageable event) {
     if (event instanceof SalvoResult) {
       SalvoResult salvoResult = (SalvoResult) event;
       processSalvo(salvoResult.getSalvoPositions());
@@ -60,7 +62,7 @@ public class PlayerBoardViewController implements Member, Initializable {
   private void processGameResult(GameResult gameResult) {
     dockedGridPane.setDisable(true);
 
-    String resultInfo = BattleshipUtils.provideEmptyString();
+    String resultInfo;
 
     switch (gameResult) {
       case WIN:
@@ -72,7 +74,7 @@ public class PlayerBoardViewController implements Member, Initializable {
       case DRAW:
         resultInfo = "DRAW_INFO";
         break;
-      case NONE:
+      default:
         return;
     }
 
@@ -99,7 +101,7 @@ public class PlayerBoardViewController implements Member, Initializable {
 
   private SalvoCount countRemainUnbrokenMasts() {
     long count = board.getFields().stream()
-        .filter(field -> field.isUnbrokenShipOn())
+        .filter(Field::isUnbrokenShipOn)
         .count();
     return new SalvoCount((int) count);
   }

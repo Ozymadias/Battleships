@@ -1,6 +1,6 @@
 package battleships.gameplay;
 
-import battleships.BattleObserver;
+import battleships.Observers;
 import battleships.communication.messages.WelcomeMessage;
 import battleships.logger.BattleshipLog;
 
@@ -9,16 +9,16 @@ import java.util.List;
 class SendingWelcomeMessage implements GameState {
   private final BattleshipLog log = BattleshipLog.provideLogger(SendingWelcomeMessage.class);
 
-  private final List<BattleObserver> handlerWrappers;
+  private final List<Observers> handlerWrappers;
 
-  SendingWelcomeMessage(List<BattleObserver> clientHandlerMap) {
+  SendingWelcomeMessage(List<Observers> clientHandlerMap) {
     this.handlerWrappers = clientHandlerMap;
   }
 
   public GameState process() {
     log.info("Sending welcome messages!");
     handlerWrappers
-        .forEach(p -> p.sendMessage(new WelcomeMessage("Im death destroyer of worlds and you enter my domain")));
+        .forEach(p -> p.sendMessage(new WelcomeMessage("Welcome to battleships")));
     return new WaitingForFleets(handlerWrappers);
   }
 

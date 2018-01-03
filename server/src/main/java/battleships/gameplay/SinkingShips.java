@@ -1,6 +1,6 @@
 package battleships.gameplay;
 
-import battleships.BattleObserver;
+import battleships.Observers;
 import battleships.communication.messages.SalvoResult;
 import battleships.ships.Fleet;
 import battleships.ships.Ship;
@@ -8,11 +8,11 @@ import battleships.ships.Ship;
 import java.util.List;
 
 class SinkingShips implements GameState {
-  private final List<BattleObserver> observers;
+  private final List<Observers> observers;
   private final List<Fleet> playersFleets;
   private final List<SalvoResult> results;
 
-  SinkingShips(List<BattleObserver> observers, List<Fleet> playersFleets, List<SalvoResult> results) {
+  SinkingShips(List<Observers> observers, List<Fleet> playersFleets, List<SalvoResult> results) {
 
     this.observers = observers;
     this.playersFleets = playersFleets;

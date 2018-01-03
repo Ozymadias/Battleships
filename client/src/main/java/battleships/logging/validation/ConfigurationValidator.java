@@ -1,7 +1,7 @@
 package battleships.logging.validation;
 
-import battleships.logging.ConfigurationValue;
+import battleships.logging.ConfigValue;
 
 interface ConfigurationValidator {
-  boolean validate(ConfigurationValue toValidate);
+  boolean validate(ConfigValue toValidate);
 }

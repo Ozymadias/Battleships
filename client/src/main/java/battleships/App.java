@@ -1,12 +1,18 @@
 package battleships;
 
+import static battleships.logging.ConfigValueName.IP;
+import static battleships.logging.ConfigValueName.PORT;
+
 import battleships.communication.DataBus;
 import battleships.communication.ServerComm;
 import battleships.logger.BattleshipLog;
-import battleships.logging.ConfigurationValue;
-import battleships.logging.ConfigurationValueName;
+import battleships.logging.ConfigValue;
+import battleships.logging.ConfigValueName;
 import battleships.logging.LanguageLoadOption;
 import battleships.logging.LoggingController;
+import java.io.IOException;
+import java.util.Map;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,12 +20,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.ResourceBundle;
-
-import static battleships.logging.ConfigurationValueName.IP;
-import static battleships.logging.ConfigurationValueName.PORT;
 
 public class App extends Application {
   private static final String APP_NAME = "BATTLESHIPS!";
@@ -27,7 +27,8 @@ public class App extends Application {
   private static final String ROOT_LAYOUT_FXML = "/fxml/RootLayout.fxml";
   private final BattleshipLog log = BattleshipLog.provideLogger(App.class);
 
-  private ResourceBundle resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.EN.toString());
+  private ResourceBundle resourceBundle = ResourceBundle
+      .getBundle(LanguageLoadOption.EN.toString());
 
   private Stage primaryStage;
 
@@ -45,7 +46,7 @@ public class App extends Application {
   /**
    * loads logging form from fxml file
    * binds it with stage
-   * and shows form
+   * and shows form.
    */
   private void showLoginWindow() {
     try {
@@ -66,7 +67,7 @@ public class App extends Application {
   /**
    * loads game form from fxml file
    * binds it with stage
-   * and shows form
+   * and shows form.
    */
   private void initRootLayout() {
     try {
@@ -82,10 +83,15 @@ public class App extends Application {
     }
   }
 
-  public void loggingSuccessful(Map<ConfigurationValueName, ConfigurationValue> loggingDataMap, ResourceBundle resourceBundle) {
-    this.resourceBundle = resourceBundle;
-    String host = loggingDataMap.get(IP).stringValue();
-    String port = loggingDataMap.get(PORT).stringValue();
+  /**
+   * Tries to log in to the server with given loginData.
+   * @param loginData map of ConfigValueNames and ConfigValues.
+   * @param bundle ResourceBundle loaded from resources.
+   */
+  public void loginSuccessful(Map<ConfigValueName, ConfigValue> loginData, ResourceBundle bundle) {
+    this.resourceBundle = bundle;
+    String host = loginData.get(IP).stringValue();
+    String port = loginData.get(PORT).stringValue();
     try {
       setUpConnection(host, Integer.parseInt(port));
       initRootLayout();

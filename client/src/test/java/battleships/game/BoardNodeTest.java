@@ -16,23 +16,32 @@ public class BoardNodeTest {
   }
 
   @Test(dataProvider = "positionsPoll")
-  public void givenEmptyFieldWithSomePosition_whenBuildingBoardNodeWithField_boardNodeShouldContainOneChild(Integer position) {
+  public void whenBuildingBoardNodeWithField_expectBoardNodeContainsOneChild(Integer position) {
+    //given
     Field field = new Field(position);
+    //when
     BoardNode boardNode = BoardNode.build(field);
+    //then
     assertThat(boardNode.getStackPane().getChildren().size()).isEqualTo(1);
   }
 
   @Test(dataProvider = "positionsPoll")
-  public void givenEmptyFieldWithSomePosition_whenBuildingBoardNodeWithField_boardNodeOnlyChildShouldBeOfRectangleClass(Integer position) {
+  public void whenBuildingBoardNodeWithField_expectBoardNodeOnlyChildIsOfRectangleClass(Integer position) {
+    //given
     Field field = new Field(position);
+    //when
     BoardNode boardNode = BoardNode.build(field);
+    //then
     assertThat(boardNode.getStackPane().getChildren().get(0).getClass()).isEqualTo(Rectangle.class);
   }
 
   @Test(dataProvider = "positionsPoll")
-  public void givenEmptyFieldWithSomePosition_whenBuildingBoardNodeWithField_boadNodeIndexShouldEqualPosition(Integer position) {
+  public void whenBuildingBoardNodeWithField_expectBoardNodeIndexEqualsPosition(Integer position) {
+    //given
     Field field = new Field(position);
+    //when
     BoardNode boardNode = BoardNode.build(field);
+    //then
     assertThat(boardNode.getIndex()).isEqualTo(position);
   }
 

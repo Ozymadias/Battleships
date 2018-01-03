@@ -1,6 +1,6 @@
 package battleships.communication.messages;
 
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Salvo implements Messagable {
+public class Salvo implements Messageable {
   private final List<Integer> salvoPositions;
 
   public static Salvo createForPositions(Integer... positions) {

@@ -1,22 +1,22 @@
 package battleships.communication.jsonhandlers;
 
 import battleships.communication.Marshaller;
-import battleships.communication.Messagable;
+import battleships.communication.Messageable;
 import battleships.utils.BattleshipUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class JsonMarshaller implements Marshaller {
 
-  private final MessagableMapper messagableMapper;
+  private final MessageableMapper messageableMapper;
 
-  public JsonMarshaller(MessagableMapper messagableMapper) {
-    this.messagableMapper = messagableMapper;
+  public JsonMarshaller(MessageableMapper messageableMapper) {
+    this.messageableMapper = messageableMapper;
   }
 
   @Override
-  public String toString(Messagable messagable) {
+  public String toString(Messageable messageable) {
     try {
-      return this.messagableMapper.writeValueAsString(messagable);
+      return this.messageableMapper.writeValueAsString(messageable);
     } catch (JsonProcessingException e) {
       return BattleshipUtils.provideEmptyString();
     }

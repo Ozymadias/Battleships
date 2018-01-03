@@ -18,7 +18,7 @@
             <Font name="Ubuntu" size="11.0"/>
         </font>
     </TextField>
-    <TextField fx:id="serverIPInput" layoutX="528.0" layoutY="172.0" prefHeight="27.0" prefWidth="200.0">
+    <TextField fx:id="serverIpInput" layoutX="528.0" layoutY="172.0" prefHeight="27.0" prefWidth="200.0">
         <font>
             <Font name="Ubuntu" size="11.0"/>
         </font>
@@ -30,7 +30,7 @@
     </TextField>
     <Text fx:id="playerNameText" layoutX="528.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0"
           text="Player Name:"/>
-    <Text fx:id="serverIPText" layoutX="528.0" layoutY="160.0" scaleY="1.0000066081567769" strokeType="OUTSIDE"
+    <Text fx:id="serverIpText" layoutX="528.0" layoutY="160.0" scaleY="1.0000066081567769" strokeType="OUTSIDE"
           strokeWidth="0.0" text="Server IP:"/>
     <Text fx:id="serverPortText" layoutX="528.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0"
           text="Server port:"/>

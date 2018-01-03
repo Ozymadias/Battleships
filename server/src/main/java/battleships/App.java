@@ -22,11 +22,12 @@ public class App {
         .setPort(port)
         .openServerSocket()
         .build();
-    boolean isAlwaysWorking = true;
-    while (isAlwaysWorking) {
+    int count = 0;
+    while (count < Integer.MAX_VALUE) {
       new Game(new ClientCreator()
           .createClientHandlers(server.createSockets()))
           .start();
+      count++;
     }
   }
 }

@@ -1,6 +1,6 @@
 package battleships.communication;
 
-import battleships.communication.messages.GoodByeMessage;
+import battleships.communication.messages.WelcomeMessage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -24,7 +24,7 @@ public class ClientHandlerTest {
   @Test
   public void whenClientHandlerSendMessage_expectMessageSenderInvokeMethodOnce() throws Exception {
     //when
-    clientHandler.sendMessage(new GoodByeMessage("good bye!"));
+    clientHandler.sendMessage(new WelcomeMessage("Welcome!"));
     //then
     assertThat(mockingDetails(messageSenderMock).getInvocations().size()).isEqualTo(1);
   }

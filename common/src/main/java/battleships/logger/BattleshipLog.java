@@ -3,6 +3,9 @@ package battleships.logger;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+/**
+ * This is a wrapper class for log4j logger.
+ */
 public class BattleshipLog {
 
   private final Logger logger;
@@ -11,39 +14,34 @@ public class BattleshipLog {
     this.logger = logger;
   }
 
+  /**
+   * Provides BattleshipLog logger for specific class.
+   *
+   * @param classToLog class name where instance of logger is created.
+   */
   public static BattleshipLog provideLogger(Class<?> classToLog) {
     return new BattleshipLog(LogManager.getLogger(classToLog));
   }
 
-  public void debug(Object message, Throwable throwable) {
-    logger.debug(message, throwable);
+  /**
+   * For logging error provided in given message.
+   */
+  public void error(Object message) {
+    logger.error(message);
   }
 
-  public void debug(Object message) {
-    logger.debug(message);
-  }
-
-  public void error(Object object) {
-    logger.error(object);
-  }
-
-  public void error(String message, Throwable t) {
-    logger.error(message, t);
-  }
-
+  /**
+   * For logging info provided in given message.
+   */
   public void info(Object message) {
     logger.info(message);
   }
 
+  /**
+   * For logging info provided in given message and Throwable object.
+   */
   public void info(Object message, Throwable throwable) {
     logger.info(message, throwable);
   }
 
-  public void fatal(Object message, Throwable throwable) {
-    logger.fatal(message, throwable);
-  }
-
-  public void fatal(Object message) {
-    logger.fatal(message);
-  }
 }

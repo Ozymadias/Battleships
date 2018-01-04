@@ -4,7 +4,10 @@ import battleships.communication.Messageable;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Mast implements Messageable {
+/**
+ * This class represents mast that is send from a client to a server in a Fleet message.
+ */
+class Mast implements Messageable {
   private boolean isAlive;
   private final Integer position;
 
@@ -19,7 +22,7 @@ public class Mast implements Messageable {
     return isAlive;
   }
 
-  public Integer getPosition() {
+  Integer getPosition() {
     return position;
   }
 

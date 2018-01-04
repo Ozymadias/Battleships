@@ -6,6 +6,9 @@ import battleships.utils.BattleshipUtils;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+/**
+ * This class is used to read from a given ObjectInputStream to receive object in Json format.
+ */
 public class MessageReceiver {
   private final ObjectInputStream ois;
   private final BattleshipLog log = BattleshipLog.provideLogger(MessageSender.class);
@@ -16,16 +19,17 @@ public class MessageReceiver {
 
   /**
    * Reads string from given ObjectInputStream.
+   *
    * @return Returns string received from ObjectInputStream.
    */
   public String receiveMessageString() {
-    String s = BattleshipUtils.provideEmptyString();
+    String receivedString = BattleshipUtils.provideEmptyString();
     try {
-      s = (String) ois.readObject();
-      log.info("message send: " + s);
+      receivedString = (String) ois.readObject();
+      log.info("message received: " + receivedString);
     } catch (IOException | ClassNotFoundException e) {
       log.error(e.getMessage());
     }
-    return s;
+    return receivedString;
   }
 }

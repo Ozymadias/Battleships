@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a ship that is send from a client to a server in a Fleet message.
+ */
 public class Ship implements Messageable {
   private final List<Mast> masts;
 
@@ -50,6 +53,9 @@ public class Ship implements Messageable {
     return (int) masts.stream().filter(Mast::isAlive).count();
   }
 
+  /**
+   * Checks if ship is sunk.
+   */
   public boolean isSunk() {
     return getHitPointsLeft() == 0;
   }

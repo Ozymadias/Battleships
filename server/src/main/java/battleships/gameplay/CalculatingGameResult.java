@@ -9,6 +9,7 @@ import battleships.ships.Ship;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class CalculatingGameResult implements GameState {
   private final BattleshipLog log = BattleshipLog.provideLogger(CalculatingGameResult.class);
@@ -39,23 +40,30 @@ public class CalculatingGameResult implements GameState {
       results.forEach(p -> p.setGameResult(GameResult.DRAW));
       log.info("We have a draw");
       return true;
+
     } else if (sunkenFleets.size() == 1) {
-      if (playersFleets.get(0).equals(sunkenFleets.get(0))) {
-        log.info("Player 1 loose the game");
-        log.info("Player 2 win the game");
-        results.get(0).setGameResult(GameResult.LOOSE);
-        results.get(1).setGameResult(GameResult.WIN);
-        return true;
-      } else {
-        log.info("Player 1 win the game");
-        log.info("Player 2 loose the game");
-        results.get(0).setGameResult(GameResult.WIN);
-        results.get(1).setGameResult(GameResult.LOOSE);
-        return true;
-      }
+      assignLoser(playersFleets, results);
+      assignWinner(playersFleets, results);
+      log.info("We have winner and looser");
+      return true;
+
     }
     log.info("Game continue");
     return false;
+  }
+
+  private void assignLoser(List<Fleet> playersFleets, List<SalvoResult> results) {
+    IntStream
+        .range(0, playersFleets.size())
+        .filter(p -> isFleetSunk(playersFleets.get(p)))
+        .forEach(p -> results.get(p).setGameResult(GameResult.LOOSE));
+  }
+
+  private void assignWinner(List<Fleet> playersFleets, List<SalvoResult> results) {
+    IntStream
+        .range(0, playersFleets.size())
+        .filter(p -> !isFleetSunk(playersFleets.get(p)))
+        .forEach(p -> results.get(p).setGameResult(GameResult.WIN));
   }
 
   private boolean isFleetSunk(Fleet fleet) {

@@ -1,5 +1,8 @@
 package battleships.communication;
 
+import battleships.communication.jsonhandlers.JsonMarshaller;
+import battleships.communication.jsonhandlers.JsonUnmarshaller;
+
 import java.net.Socket;
 
 /**
@@ -44,6 +47,10 @@ public class ClientHandlerBuilder {
    * It returns new instance of ClientHandler class.
    */
   public ClientHandler build() {
-    return new ClientHandler(messageSender, messageReceiver);
+    return new ClientHandler(
+        messageSender,
+        messageReceiver,
+        JsonMarshaller.newInstance(),
+        JsonUnmarshaller.newInstance());
   }
 }

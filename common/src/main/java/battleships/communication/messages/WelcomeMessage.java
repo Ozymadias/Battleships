@@ -26,4 +26,30 @@ public class WelcomeMessage implements Messageable {
     return this.body;
   }
 
+  /**
+   * This is needed for Mockito testing purpose.
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (!(obj instanceof WelcomeMessage)) {
+      return false;
+    }
+
+    WelcomeMessage other = (WelcomeMessage) obj;
+    return body.equals(other.body);
+  }
+
+  /**
+   * This is needed for Mockito testing purpose.
+   */
+  @Override
+  public int hashCode() {
+    return body.hashCode();
+  }
 }

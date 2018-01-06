@@ -16,11 +16,15 @@ public class ClientHandler {
   private final JsonMarshaller jsonMarshaller;
   private final JsonUnmarshaller jsonUnmarshaller;
 
-  ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {
+  ClientHandler(MessageSender messageSender,
+                MessageReceiver messageReceiver,
+                JsonMarshaller jsonMarshaller,
+                JsonUnmarshaller jsonUnmarshaller
+                ) {
     this.messageSender = messageSender;
     this.messageReceiver = messageReceiver;
-    this.jsonMarshaller = JsonMarshaller.newInstance();
-    this.jsonUnmarshaller = JsonUnmarshaller.newInstance();
+    this.jsonMarshaller = jsonMarshaller;
+    this.jsonUnmarshaller = jsonUnmarshaller;
   }
 
   /**

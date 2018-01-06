@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 /**
  * This class is a Json implementation of Marshaller. Its main responsibility is to turn a Messageable
- * object into its Json String representation using MessageableMapper wrapper class.
+ * object into its Json String representation using MessageableMapper class.
  */
 
 public class JsonMarshaller implements Marshaller {

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 /**
  * This class is a Json implementation of Unmarshaller. Its main responsibility is to turn a Json String
- * object into its Messageable representation using MessageableMapper wrapper class.
+ * object into its Messageable representation using MessageableMapper class.
  */
 public class JsonUnmarshaller implements Unmarshaller {
   private final BattleshipLog log = BattleshipLog.provideLogger(MessageSender.class);

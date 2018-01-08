@@ -2,6 +2,8 @@ package battleships.communication.server;
 
 import battleships.communication.ClientHandler;
 import battleships.communication.Messageable;
+import battleships.communication.databus.data.FleetAdapter;
+import battleships.communication.databus.data.SalvoAdapter;
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.WelcomeMessage;
 import battleships.communication.server.ServerComm;
@@ -27,61 +29,54 @@ public class ServerCommTest {
   @Test
   public void whenAcceptingFleetByServerComm_expectClientHandlerInvokeSendMessageOnce() {
     //given
-    Messageable messageable = new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4)));
+    FleetAdapter fleetAdapter = new FleetAdapter();
+    fleetAdapter.setFleet(new Fleet(Collections.singletonList(Ship.createShip(3, 5, 4))));
     //when
-    serverComm.accept(messageable);
+    serverComm.visit(fleetAdapter);
     //then
-    verify(clientHandler, times(1)).sendMessage(messageable);
+    verify(clientHandler).sendMessage(fleetAdapter.getFleet());
   }
 
   @Test
   public void whenAcceptingSalvoByServerComm_expectClientHandlerInvokeSendMessageOnce() {
     //given
-    Messageable messageable = Salvo.createForPositions(
-        provideRandomNumber(0,99),
-        provideRandomNumber(0,99),
-        provideRandomNumber(0,99),
-        provideRandomNumber(0,99));
+    Salvo salvo= Salvo.createForPositions(
+            provideRandomNumber(0,99),
+            provideRandomNumber(0,99),
+            provideRandomNumber(0,99),
+            provideRandomNumber(0,99));
+    SalvoAdapter salvoAdapter = new SalvoAdapter();
+    salvoAdapter.setSalvo(salvo);
     //when
-    serverComm.accept(messageable);
+    serverComm.visit(salvoAdapter);
     //then
-    verify(clientHandler, times(1)).sendMessage(messageable);
-  }
-
-  @Test
-  public void whenAcceptingWelcomeMessageByServerComm_expectClientHandlerNotInvokeSendMessage() {
-    //given
-    Messageable messageable = new WelcomeMessage("hello!");
-    //when
-    serverComm.accept(messageable);
-    //then
-    verify(clientHandler, times(0)).sendMessage(messageable);
+    verify(clientHandler).sendMessage(salvo);
   }
 
   @Test
   public void whenInvokingProcessRequestOnServerComm_expectClientHandlerInvokeSendMessageOnce() {
     //given
-    Messageable messageable = Salvo.createForPositions(
+    Salvo salvo = Salvo.createForPositions(
         provideRandomNumber(0,99),
         provideRandomNumber(0,99),
         provideRandomNumber(0,99),
         provideRandomNumber(0,99));
     //when
-    serverComm.processRequest(messageable);
+    serverComm.processSalvoRequest(salvo);
     //then
-    verify(clientHandler, times(1)).sendMessage(messageable);
+    verify(clientHandler).sendMessage(salvo);
   }
 
   @Test
   public void whenInvokingProcessRequestOnServerComm_expectClientHandlerInvokeReceiveMessageOnce() {
     //given
-    Messageable messageable = Salvo.createForPositions(
+    Salvo salvo = Salvo.createForPositions(
         provideRandomNumber(0,99),
         provideRandomNumber(0,99),
         provideRandomNumber(0,99),
         provideRandomNumber(0,99));
     //when
-    serverComm.processRequest(messageable);
+    serverComm.processSalvoRequest(salvo);
     //then
     verify(clientHandler, times(1)).receiveMessage();
   }

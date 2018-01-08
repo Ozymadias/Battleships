@@ -2,8 +2,9 @@ package battleships.communication;
 
 import battleships.communication.databus.DataBus;
 import battleships.communication.databus.Publisher;
+import battleships.communication.databus.data.SalvoAdapter;
+import battleships.communication.databus.data.SalvoResultAdapter;
 import battleships.communication.messages.Salvo;
-import battleships.communication.messages.SalvoResult;
 import battleships.game.OpponentBoardViewController;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -28,26 +29,28 @@ public class DataBusTest {
   @Test
   public void whenPublishingMessageViaDataBus_expectOpponentBoardViewControllerMethodAcceptIsTriggeredOnce() {
     //given
-    SalvoResult salvoResult = mock(SalvoResult.class);
+    SalvoResultAdapter salvoResultAdapter = mock(SalvoResultAdapter.class);
     //when
-    dataBus.publish(salvoResult);
+    dataBus.publish(salvoResultAdapter);
     //then
-    verify(opponentBoardViewController, times(1)).accept(salvoResult);
+    verify(opponentBoardViewController, times(1)).visit(salvoResultAdapter);
   }
 
 
   @Test
   public void whenSendingRequestViaDataBus_expectServerCommMethodProcessRequestIsTriggeredOnce() {
     //given
-    Messageable salvo = Salvo.createForPositions(
+    Salvo salvo = Salvo.createForPositions(
         provideRandomNumber(0,99),
         provideRandomNumber(0,99),
         provideRandomNumber(0,99),
         provideRandomNumber(0,99));
+    SalvoAdapter salvoAdapter = new SalvoAdapter();
+    salvoAdapter.setSalvo(salvo);
     //when
-    when(serverComm.processRequest(salvo)).thenReturn(mock(SalvoResult.class));
+    when(serverComm.processSalvoRequest(salvo)).thenReturn(mock(SalvoAdapter.class));
     dataBus.publishRequest(salvo);
     //then
-    verify(serverComm, times(1)).processRequest(salvo);
+    verify(serverComm, times(1)).processSalvoRequest(salvo);
   }
 }

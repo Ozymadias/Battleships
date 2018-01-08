@@ -1,6 +1,6 @@
 package battleships.communication.databus;
 
-import battleships.communication.Messageable;
+import battleships.communication.messages.Salvo;
 
 /**
  * Publishers are receiving requests from DataBus.
@@ -12,5 +12,5 @@ public interface Publisher {
    * @param event event to which answer is expected
    * @return data as an instance of class implementing Messagable
    */
-  Messageable processRequest(DataType event);
+  DataType processSalvoRequest(Salvo salvo);
 }

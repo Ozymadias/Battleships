@@ -10,6 +10,8 @@ import battleships.communication.databus.data.FleetAdapter;
 import battleships.communication.databus.data.SalvoAdapter;
 import battleships.communication.databus.data.SalvoCountAdapter;
 import battleships.communication.databus.data.SalvoResultAdapter;
+import battleships.communication.messages.Salvo;
+import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
 
 class ServerComm implements DataTypeVisitor, Publisher {
@@ -54,7 +56,14 @@ class ServerComm implements DataTypeVisitor, Publisher {
   }
 
   @Override
-  public Messageable processRequest(DataType event) {
-    return null;
+  public DataType processSalvoRequest(Salvo salvo) {
+    log.info("preparing salvo to send to socket");
+    clientHandler.sendMessage(salvo);
+    log.info("wating for replay...");
+    SalvoResult salvoResult = (SalvoResult) clientHandler.receiveMessage();
+    log.info("processing replay...");
+    SalvoResultAdapter salvoResultAdapter = new SalvoResultAdapter();
+    salvoResultAdapter.setSalvoResult(salvoResult);
+    return salvoResultAdapter;
   }
 }

@@ -1,5 +1,6 @@
 package battleships.communication.databus;
 
+import battleships.communication.messages.Salvo;
 import battleships.logger.BattleshipLog;
 
 import java.util.HashSet;
@@ -21,6 +22,7 @@ public class DataBus {
 
   private Set<DataTypeVisitor> listeners = new HashSet<>();
   private Set<Publisher> publishers = new HashSet<>();
+  private DataTypeBunch dataTypeBunch;
 
   /**
    * Returns an instance of DataBus.
@@ -40,13 +42,13 @@ public class DataBus {
 
   /**
    * Send requests to all of publishers and then publishes response from them to all of members.
-   * @param data instance of class implementing Messageable for which answer is requested
+   * @param salvo
    */
-  public void publishRequest(DataType data) {
-//    for (Publisher publisher : publishers) {
-//      Messageable replay = publisher.processRequest(data);
-//      publish(replay);
-//    }
+  public void publishRequest(Salvo salvo) {
+    for (Publisher publisher : publishers) {
+      DataType replay = publisher.processSalvoRequest(salvo);
+      publish(replay);
+    }
   }
 
   /**

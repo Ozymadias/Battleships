@@ -65,9 +65,7 @@ public class OpponentBoardViewController implements DataTypeVisitor {
   @FXML
   private void sendSalvoClick() {
     salvoBtn.setDisable(true);
-    SalvoAdapter salvoAdapter = new SalvoAdapter();
-    salvoAdapter.setSalvo(new Salvo(this.salvoList));
-    DataBus.getInstance().publishRequest(salvoAdapter);
+    DataBus.getInstance().publishRequest(new Salvo(this.salvoList));
     salvoList.clear();
   }
 

@@ -20,4 +20,5 @@ public class SalvoCountAdapter implements DataType {
     public void acceptVisitor(DataTypeVisitor messagableVisitor) {
         messagableVisitor.visit(this);
     }
+
 }

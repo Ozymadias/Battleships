@@ -1,15 +1,18 @@
 package battleships.communication.server;
 
 import battleships.communication.ClientHandler;
-import battleships.communication.DataBus;
-import battleships.communication.Member;
+import battleships.communication.databus.DataBus;
+import battleships.communication.databus.DataType;
+import battleships.communication.databus.DataTypeVisitor;
 import battleships.communication.Messageable;
-import battleships.communication.Publisher;
-import battleships.communication.messages.Salvo;
+import battleships.communication.databus.Publisher;
+import battleships.communication.databus.data.FleetAdapter;
+import battleships.communication.databus.data.SalvoAdapter;
+import battleships.communication.databus.data.SalvoCountAdapter;
+import battleships.communication.databus.data.SalvoResultAdapter;
 import battleships.logger.BattleshipLog;
-import battleships.ships.Fleet;
 
-class ServerComm implements Member, Publisher {
+class ServerComm implements DataTypeVisitor, Publisher {
 
   private final BattleshipLog log = BattleshipLog.provideLogger(ServerComm.class);
 
@@ -24,26 +27,34 @@ class ServerComm implements Member, Publisher {
     DataBus.getInstance().subscribePublisher(this);
   }
 
-  @Override
-  public void accept(Messageable data) {
-    if (data instanceof Fleet || data instanceof Salvo) {
-      log.info("preparing " + data.getClass() + " to send to socket");
-      clientHandler.sendMessage(data);
-    }
-  }
-
-  @Override
-  public Messageable processRequest(Messageable event) {
-    log.info("preparing " + event.getClass() + " to send to socket");
-    clientHandler.sendMessage(event);
-    log.info("wating for replay...");
-    Messageable messageable = clientHandler.receiveMessage();
-    log.info("processing replay...");
-    return messageable;
-  }
-
-
   Messageable waitForMessage() {
     return clientHandler.receiveMessage();
+  }
+
+  @Override
+  public void visit(SalvoAdapter salvoAdapter) {
+    log.info("preparing salvo to send to socket");
+    clientHandler.sendMessage(salvoAdapter.getSalvo());
+  }
+
+  @Override
+  public void visit(SalvoCountAdapter salvoCountAdapter) {
+    //do nothing
+  }
+
+  @Override
+  public void visit(SalvoResultAdapter salvoResultAdapter) {
+    //do nothing
+  }
+
+  @Override
+  public void visit(FleetAdapter fleetAdapter) {
+    log.info("preparing fleet to send to socket");
+    clientHandler.sendMessage(fleetAdapter.getFleet());
+  }
+
+  @Override
+  public Messageable processRequest(DataType event) {
+    return null;
   }
 }

@@ -1,8 +1,11 @@
 package battleships.game;
 
-import battleships.communication.DataBus;
-import battleships.communication.Member;
-import battleships.communication.Messageable;
+import battleships.communication.databus.DataBus;
+import battleships.communication.databus.DataTypeVisitor;
+import battleships.communication.databus.data.FleetAdapter;
+import battleships.communication.databus.data.SalvoAdapter;
+import battleships.communication.databus.data.SalvoCountAdapter;
+import battleships.communication.databus.data.SalvoResultAdapter;
 import battleships.communication.messages.SalvoResult;
 import java.net.URL;
 import java.util.List;
@@ -16,7 +19,7 @@ import javafx.stage.Modality;
 /**
  * Controller of player board.
  */
-public class PlayerBoardViewController implements Member, Initializable {
+public class PlayerBoardViewController implements DataTypeVisitor, Initializable {
 
   private static final int BOARD_ROW_COUNT = 10;
   private static final int BOARD_COLUMN_COUNT = 10;
@@ -60,21 +63,6 @@ public class PlayerBoardViewController implements Member, Initializable {
     this.board = board;
   }
 
-  /**
-   * It handles processing of received data in case that is SalvoResult instance.
-   * @param data
-   */
-  @Override
-  public void accept(Messageable data) {
-    if (data instanceof SalvoResult) {
-      SalvoResult salvoResult = (SalvoResult) data;
-      processSalvo(salvoResult.getSalvoPositions());
-      if (salvoResult.getGameResult() != GameResult.NONE) {
-        processGameResult(salvoResult.getGameResult());
-      }
-    }
-  }
-
   private void processGameResult(GameResult gameResult) {
     dockedGridPane.setDisable(true);
 
@@ -93,7 +81,9 @@ public class PlayerBoardViewController implements Member, Initializable {
   private void processSalvo(List<Integer> salvoPositions) {
     updateBoard(salvoPositions);
     SalvoCount salvoCount = new SalvoCount(board.unbrokenMastCount());
-    DataBus.getInstance().publish(salvoCount);
+    SalvoCountAdapter salvoCountAdapter = new SalvoCountAdapter();
+    salvoCountAdapter.setSalvoCount(salvoCount);
+    DataBus.getInstance().publish(salvoCountAdapter);
   }
 
   private void updateBoard(List<Integer> salvoPositions) {
@@ -101,5 +91,29 @@ public class PlayerBoardViewController implements Member, Initializable {
       board.getFields().get(positionOfShot).shoot();
       setUpPlayerBoard();
     }
+  }
+
+  @Override
+  public void visit(SalvoAdapter salvoAdapter) {
+    //do nothing
+  }
+
+  @Override
+  public void visit(SalvoCountAdapter salvoCountAdapter) {
+    //do nothing
+  }
+
+  @Override
+  public void visit(SalvoResultAdapter salvoResultAdapter) {
+      SalvoResult salvoResult = salvoResultAdapter.getSalvoResult();
+      processSalvo(salvoResult.getSalvoPositions());
+      if (salvoResult.getGameResult() != GameResult.NONE) {
+        processGameResult(salvoResult.getGameResult());
+      }
+  }
+
+  @Override
+  public void visit(FleetAdapter fleetAdapter) {
+    //do nothing
   }
 }

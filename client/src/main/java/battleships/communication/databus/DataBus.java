@@ -1,4 +1,4 @@
-package battleships.communication;
+package battleships.communication.databus;
 
 import battleships.logger.BattleshipLog;
 
@@ -19,7 +19,7 @@ public class DataBus {
 
   private static final DataBus INSTANCE = new DataBus();
 
-  private Set<Member> listeners = new HashSet<>();
+  private Set<DataTypeVisitor> listeners = new HashSet<>();
   private Set<Publisher> publishers = new HashSet<>();
 
   /**
@@ -33,20 +33,20 @@ public class DataBus {
    * Using this method allows to distribute some data along all of members.
    * @param data instance of class implementing Messageable to be published
    */
-  public void publish(Messageable data) {
+  public void publish(DataType data) {
     log.info("DataBus is publishing " + data.getClass());
-    listeners.forEach(listener -> listener.accept(data));
+    listeners.forEach(listener -> data.acceptVisitor(listener));
   }
 
   /**
    * Send requests to all of publishers and then publishes response from them to all of members.
    * @param data instance of class implementing Messageable for which answer is requested
    */
-  public void publishRequest(Messageable data) {
-    for (Publisher publisher : publishers) {
-      Messageable replay = publisher.processRequest(data);
-      publish(replay);
-    }
+  public void publishRequest(DataType data) {
+//    for (Publisher publisher : publishers) {
+//      Messageable replay = publisher.processRequest(data);
+//      publish(replay);
+//    }
   }
 
   /**
@@ -54,7 +54,7 @@ public class DataBus {
    * When a member is registered it starts receiving data.
    * @param member instance of a class implementing interface Member to be registered
    */
-  public void subscribeMember(Member member) {
+  public void subscribeMember(DataTypeVisitor member) {
     this.listeners.add(member);
   }
 
@@ -72,7 +72,7 @@ public class DataBus {
    * Allows to remove particular object from the list of members.
    * @param member instance of a class implementing interface Member to be unregistered
    */
-  public void unsubscribe(Member member) {
+  public void unsubscribe(DataTypeVisitor member) {
     this.listeners.remove(member);
   }
 

@@ -1,10 +1,12 @@
 package battleships.game;
 
-import battleships.communication.DataBus;
-import battleships.communication.Member;
-import battleships.communication.Messageable;
+import battleships.communication.databus.DataBus;
+import battleships.communication.databus.DataTypeVisitor;
+import battleships.communication.databus.data.FleetAdapter;
+import battleships.communication.databus.data.SalvoAdapter;
+import battleships.communication.databus.data.SalvoCountAdapter;
+import battleships.communication.databus.data.SalvoResultAdapter;
 import battleships.communication.messages.Salvo;
-import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 
-public class OpponentBoardViewController implements Member {
+public class OpponentBoardViewController implements DataTypeVisitor {
 
   private static final int BOARD_ROW_COUNT = 10;
   private static final int BOARD_COLUMN_COUNT = 10;
@@ -63,7 +65,9 @@ public class OpponentBoardViewController implements Member {
   @FXML
   private void sendSalvoClick() {
     salvoBtn.setDisable(true);
-    DataBus.getInstance().publishRequest(new Salvo(this.salvoList));
+    SalvoAdapter salvoAdapter = new SalvoAdapter();
+    salvoAdapter.setSalvo(new Salvo(this.salvoList));
+    DataBus.getInstance().publishRequest(salvoAdapter);
     salvoList.clear();
   }
 
@@ -91,22 +95,6 @@ public class OpponentBoardViewController implements Member {
     }
   }
 
-  @Override
-  public void accept(Messageable data) {
-    if (data instanceof SalvoCount) {
-      salvoBtn.setDisable(false);
-      processSalvoCount((SalvoCount) data);
-      log.info("SalvoCount received by controller");
-    } else if (data instanceof SalvoResult) {
-      SalvoResult salvoResult = (SalvoResult) data;
-      updateBoard((ArrayList<Integer>) salvoResult.getResultList());
-      log.info("SalvoResult received by controller");
-      if (salvoResult.getGameResult() != GameResult.NONE) {
-        gameEnd();
-      }
-    }
-  }
-
   private void gameEnd() {
     salvoBtn.setDisable(true);
     this.shootsLeftCount = 0;
@@ -121,5 +109,31 @@ public class OpponentBoardViewController implements Member {
 
   private void processSalvoCount(SalvoCount event) {
     setShootsLeftCount(event.getCount());
+  }
+
+  @Override
+  public void visit(SalvoAdapter salvoAdapter) {
+    //do nothing
+  }
+
+  @Override
+  public void visit(SalvoCountAdapter salvoCountAdapter) {
+    salvoBtn.setDisable(false);
+    processSalvoCount(salvoCountAdapter.getSalvoCount());
+    log.info("SalvoCount received by controller");
+  }
+
+  @Override
+  public void visit(SalvoResultAdapter salvoResultAdapter) {
+    updateBoard((ArrayList<Integer>) salvoResultAdapter.getSalvoResult().getResultList());
+    log.info("SalvoResult received by controller");
+    if (salvoResultAdapter.getSalvoResult().getGameResult() != GameResult.NONE) {
+      gameEnd();
+    }
+  }
+
+  @Override
+  public void visit(FleetAdapter fleetAdapter) {
+    ///do nothing
   }
 }

@@ -1,4 +1,6 @@
-package battleships.communication;
+package battleships.communication.databus;
+
+import battleships.communication.Messageable;
 
 /**
  * Publishers are receiving requests from DataBus.
@@ -10,5 +12,5 @@ public interface Publisher {
    * @param event event to which answer is expected
    * @return data as an instance of class implementing Messagable
    */
-  Messageable processRequest(Messageable event);
+  Messageable processRequest(DataType event);
 }

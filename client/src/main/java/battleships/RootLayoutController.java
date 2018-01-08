@@ -1,6 +1,7 @@
 package battleships;
 
-import battleships.communication.DataBus;
+import battleships.communication.databus.DataBus;
+import battleships.communication.databus.data.FleetAdapter;
 import battleships.game.Board;
 import battleships.game.OpponentBoardViewController;
 import battleships.game.PlayerBoardViewController;
@@ -51,7 +52,9 @@ public class RootLayoutController implements Initializable {
     ShipsRandomize shipsRandomize = ShipsRandomize.build(Board.build());
     Fleet fleet = shipsRandomize.placeAllFleet();
     Board board = shipsRandomize.getBoard();
-    DataBus.getInstance().publish(fleet);
+    FleetAdapter fleetAdapter = new FleetAdapter();
+    fleetAdapter.setFleet(fleet);
+    DataBus.getInstance().publish(fleetAdapter);
     try {
       addPlayerBoardView(board);
     } catch (IOException e) {

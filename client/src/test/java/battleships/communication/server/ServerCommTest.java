@@ -1,7 +1,10 @@
-package battleships.communication;
+package battleships.communication.server;
 
+import battleships.communication.ClientHandler;
+import battleships.communication.Messageable;
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.WelcomeMessage;
+import battleships.communication.server.ServerComm;
 import battleships.ships.Fleet;
 import battleships.ships.Ship;
 import org.testng.annotations.BeforeMethod;
@@ -84,8 +87,8 @@ public class ServerCommTest {
   }
 
   @Test
-  public void whenInvokingInit_expectClientHandlerInvokeReceiveMessageOnce() {
-    serverComm.init();
+  public void whenInvokingWaitForMessage_expectClientHandlerInvokeReceiveMessageOnce() {
+    serverComm.waitForMessage();
     verify(clientHandler, times(1)).receiveMessage();
   }
 }

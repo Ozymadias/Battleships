@@ -92,13 +92,13 @@ public class OpponentBoardViewController implements Member {
   }
 
   @Override
-  public void accept(Messageable event) {
-    if (event instanceof SalvoCount) {
+  public void accept(Messageable data) {
+    if (data instanceof SalvoCount) {
       salvoBtn.setDisable(false);
-      processSalvoCount((SalvoCount) event);
+      processSalvoCount((SalvoCount) data);
       log.info("SalvoCount received by controller");
-    } else if (event instanceof SalvoResult) {
-      SalvoResult salvoResult = (SalvoResult) event;
+    } else if (data instanceof SalvoResult) {
+      SalvoResult salvoResult = (SalvoResult) data;
       updateBoard((ArrayList<Integer>) salvoResult.getResultList());
       log.info("SalvoResult received by controller");
       if (salvoResult.getGameResult() != GameResult.NONE) {

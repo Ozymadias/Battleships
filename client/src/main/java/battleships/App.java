@@ -1,17 +1,10 @@
 package battleships;
 
-import static battleships.logging.ConfigValueName.IP;
-import static battleships.logging.ConfigValueName.PORT;
-
-import battleships.communication.DataBus;
-import battleships.communication.ServerComm;
+import battleships.communication.server.ServerConnector;
 import battleships.logger.BattleshipLog;
-import battleships.logging.ConfigValue;
-import battleships.logging.ConfigValueName;
 import battleships.logging.LanguageLoadOption;
 import battleships.logging.LoggingController;
 import java.io.IOException;
-import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-
+/**
+ * main application class
+ */
 public class App extends Application {
   private static final String APP_NAME = "BATTLESHIPS!";
   private static final String LOGIN_FXML = "/fxml/login.fxml";
@@ -32,6 +27,11 @@ public class App extends Application {
 
   private Stage primaryStage;
 
+  /**
+   * method automatically called when the application is launched
+   * show window for logging to application
+   * @param primaryStage the main container for JavaFX application
+   */
   @Override
   public void start(Stage primaryStage) {
     this.primaryStage = primaryStage;
@@ -39,11 +39,15 @@ public class App extends Application {
     showLoginWindow();
   }
 
+  /**
+   * starts client application
+   * @param args args are not used
+   */
   public static void main(String[] args) {
     launch(args);
   }
 
-  /**
+  /*
    * loads logging form from fxml file
    * binds it with stage
    * and shows form.
@@ -64,7 +68,7 @@ public class App extends Application {
     }
   }
 
-  /**
+  /*
    * loads game form from fxml file
    * binds it with stage
    * and shows form.
@@ -84,16 +88,16 @@ public class App extends Application {
   }
 
   /**
-   * Tries to log in to the server with given loginData.
-   * @param loginData map of ConfigValueNames and ConfigValues.
-   * @param bundle ResourceBundle loaded from resources.
+   * Tries to log in to the server with given host and port data.
+   * Also set chosen resource bundle which points to selected language for application.
+   * @param host server to which application should connect
+   * @param port server port on which connection should be established
+   * @param bundle ResourceBundle loaded from resources, it points to selected language for application
    */
-  public void loginSuccessful(Map<ConfigValueName, ConfigValue> loginData, ResourceBundle bundle) {
+  public void submitLoggingData(String host, int port, ResourceBundle bundle) {
     this.resourceBundle = bundle;
-    String host = loginData.get(IP).stringValue();
-    String port = loginData.get(PORT).stringValue();
     try {
-      setUpConnection(host, Integer.parseInt(port));
+      setUpConnection(host, port);
       initRootLayout();
     } catch (IOException e) {
       log.error(e.getMessage());
@@ -101,9 +105,7 @@ public class App extends Application {
   }
 
   private void setUpConnection(String host, Integer port) throws IOException {
-    ServerComm serverComm = ServerComm.build(host, port);
-    serverComm.init();
-    DataBus.getInstance().subscribeMember(serverComm);
-    DataBus.getInstance().subscribePublisher(serverComm);
+    ServerConnector serverConnector = ServerConnector.buildWithHostAndPort(host, port);
+    serverConnector.setUp();
   }
 }

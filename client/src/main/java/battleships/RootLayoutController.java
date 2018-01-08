@@ -15,7 +15,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
-
+/**
+ * container for board of player and board of player enemy
+ */
 public class RootLayoutController implements Initializable {
 
   private static final String PLAYER_BOARD_VIEW_FXML = "/fxml/PlayerBoardViewLayout.fxml";
@@ -28,6 +30,11 @@ public class RootLayoutController implements Initializable {
   @FXML
   BorderPane borderPane;
 
+  /**
+   * this method is responsible for initialization of boards view
+   * @param location
+   * @param resources ResourceBundle delivering proper translation
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resourceBundle = resources;
@@ -60,7 +67,7 @@ public class RootLayoutController implements Initializable {
     borderPane.setLeft(loader.<BorderPane>load());
     final PlayerBoardViewController controller = loader.getController();
     controller.setBoard(board);
-    controller.setUpPlayerBoardDocked();
+    controller.setUpPlayerBoard();
   }
 
   private void addOpponentBoardView() throws IOException {

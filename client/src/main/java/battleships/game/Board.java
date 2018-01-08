@@ -36,4 +36,10 @@ public class Board {
   void shootAtField(Integer position) {
     fields.get(position).shoot();
   }
+
+  int unbrokenMastCount() {
+    return (int) fields.stream()
+            .filter(Field::isUnbrokenShipOn)
+            .count();
+  }
 }

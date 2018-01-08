@@ -59,7 +59,9 @@ public class LoggingController implements Initializable {
   @FXML
   void onActionLoginButton(ActionEvent event) {
     if (new Validator().validate(configFieldsValues())) {
-      mainApp.loginSuccessful(configFieldsValues(), resourceBundle);
+      String host = configFieldsValues().get(IP).stringValue();
+      int port = Integer.parseInt(configFieldsValues().get(PORT).stringValue());
+      mainApp.submitLoggingData(host, port, resourceBundle);
     } else {
       invalidLoggingDataAlert();
     }
@@ -88,7 +90,7 @@ public class LoggingController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resourceBundle = resources;
-    playerNameInput.setText("player");
+    playerNameInput.setText(resourceBundle.getString("PLAYER"));
     serverPortInput.setText("4321");
   }
 

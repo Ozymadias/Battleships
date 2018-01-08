@@ -8,6 +8,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a server that waits for connection from two clients.
+ * It's main responsibility is to accepts client's connections and create a list of sockets bound to this connections.
+ */
 public class Server {
 
   private final ServerSocket serverSocket;
@@ -23,10 +27,10 @@ public class Server {
 
   /**
    * Waits for two players to connect to the server.
+   *
    * @return list of sockets bound to ServerSockets
    * @throws IOException can throw IOException when binding to ServerSocket fails
    */
-
   public List<Socket> createSockets() throws IOException {
     List<Socket> sockets = new ArrayList<>();
     sockets.add(assignSocket(serverSocket));

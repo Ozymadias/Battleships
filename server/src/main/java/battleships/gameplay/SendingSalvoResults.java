@@ -13,13 +13,21 @@ class SendingSalvoResults implements GameState {
   private final List<SalvoResult> results;
   private final boolean isEndOfTheGame;
 
-  SendingSalvoResults(List<Observers> observers, List<Fleet> playersFleets, List<SalvoResult> results, boolean isEndOfTheGame) {
+  SendingSalvoResults(List<Observers> observers,
+                      List<Fleet> playersFleets,
+                      List<SalvoResult> results,
+                      boolean isEndOfTheGame) {
     this.observers = observers;
     this.playersFleets = playersFleets;
     this.results = results;
     this.isEndOfTheGame = isEndOfTheGame;
   }
 
+  /**
+   * This method process current game state. We send SalvoResult to both clients.
+   *
+   * @return next game state that is EndOfTheGame or WaitingForSalvos.
+   */
   @Override
   public GameState process() {
     IntStream
@@ -32,6 +40,9 @@ class SendingSalvoResults implements GameState {
     }
   }
 
+  /**
+   * This game state is not ending the game.
+   */
   @Override
   public boolean isEndOfTheGame() {
     return false;

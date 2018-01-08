@@ -22,9 +22,9 @@ class SinkingShips implements GameState {
   }
 
   /**
-   * Kills masts for ships on given coordinates.
+   * This method process current game state. We kill ships that are hit by salvos.
    *
-   * @return new CalculatingGameResult state.
+   * @return next game state that is CalculatingGameResult.
    */
   @Override
   public GameState process() {
@@ -41,6 +41,9 @@ class SinkingShips implements GameState {
         .forEach(p -> toKill.getResultList().forEach(p::killMast));
   }
 
+  /**
+   * This game state is not ending the game.
+   */
   @Override
   public boolean isEndOfTheGame() {
     return false;

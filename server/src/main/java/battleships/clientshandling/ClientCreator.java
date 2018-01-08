@@ -8,6 +8,10 @@ import java.net.Socket;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ *  The responsibility of this class is to create list of observers used to communicate to the clients.
+ *  This list contains two entries, one for each client.
+ */
 public class ClientCreator {
   /**
    * Create list of ClientHandlers.

@@ -22,6 +22,13 @@ class SalvosProcessing implements GameState {
     this.salvos = salvos;
   }
 
+  /**
+   * This method process current game state. We process salvos send by both clients. The result of this
+   * processing is SalvoResult list that is passed to the next game state. SalvoResult list is calculated based on
+   * player's fleet positions and salvos send by both players.
+   *
+   * @return next game state that is SinkingShips.
+   */
   @Override
   public GameState process() {
     log.info("processing salvos");
@@ -29,6 +36,9 @@ class SalvosProcessing implements GameState {
     return new SinkingShips(observers, playersFleets, resultList);
   }
 
+  /**
+   * This game state is not ending the game.
+   */
   @Override
   public boolean isEndOfTheGame() {
     return false;

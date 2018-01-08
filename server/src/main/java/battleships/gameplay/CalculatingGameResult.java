@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class CalculatingGameResult implements GameState {
+class CalculatingGameResult implements GameState {
   private final BattleshipLog log = BattleshipLog.provideLogger(CalculatingGameResult.class);
   private final List<Observers> observers;
   private final List<Fleet> fleets;
@@ -23,6 +23,11 @@ public class CalculatingGameResult implements GameState {
     this.results = results;
   }
 
+  /**
+   * This method process current game state. We decide if last salvo causes end of the game.
+   * We calculate game results and set game results for SalvoResult message for each player.
+   * @return next game state that is SendingSalvoResults.
+   */
   @Override
   public GameState process() {
     log.info("processing game result");
@@ -70,6 +75,9 @@ public class CalculatingGameResult implements GameState {
     return fleet.getShips().stream().allMatch(Ship::isSunk);
   }
 
+  /**
+   * This game state is not ending the game.
+   */
   @Override
   public boolean isEndOfTheGame() {
     return false;

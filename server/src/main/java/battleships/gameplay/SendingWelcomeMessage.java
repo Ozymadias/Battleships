@@ -15,6 +15,11 @@ class SendingWelcomeMessage implements GameState {
     this.handlerWrappers = clientHandlerMap;
   }
 
+  /**
+   * This method process current game state. We send WelcomeMessage to both clients.
+   *
+   * @return next game state that is WaitingForFleets.
+   */
   public GameState process() {
     log.info("Sending welcome messages!");
     handlerWrappers
@@ -22,6 +27,9 @@ class SendingWelcomeMessage implements GameState {
     return new WaitingForFleets(handlerWrappers);
   }
 
+  /**
+   * This game state is not ending the game.
+   */
   public boolean isEndOfTheGame() {
     return false;
   }

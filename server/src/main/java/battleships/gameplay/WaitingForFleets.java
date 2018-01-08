@@ -15,6 +15,11 @@ class WaitingForFleets implements GameState {
     this.observers = observers;
   }
 
+  /**
+   * This method process current game state. We receive fleets from both clients.
+   *
+   * @return next game state that is WaitingForSalvos.
+   */
   @Override
   public GameState process() {
     log.info("Waiting for fleet");
@@ -24,6 +29,9 @@ class WaitingForFleets implements GameState {
         .collect(Collectors.toList()));
   }
 
+  /**
+   * This game state is not ending the game.
+   */
   @Override
   public boolean isEndOfTheGame() {
     return false;

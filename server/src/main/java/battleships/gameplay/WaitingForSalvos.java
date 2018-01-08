@@ -19,6 +19,11 @@ class WaitingForSalvos implements GameState {
     this.playersFleets = playersFleets;
   }
 
+  /**
+   * This method process current game state. We receive salvos from both clients.
+   *
+   * @return next game state that is SalvoProcessing.
+   */
   @Override
   public GameState process() {
     log.info("Waiting for salvos");
@@ -27,6 +32,9 @@ class WaitingForSalvos implements GameState {
     return new SalvosProcessing(observers, playersFleets, salvos);
   }
 
+  /**
+   * This game state is not ending the game.
+   */
   @Override
   public boolean isEndOfTheGame() {
     return false;

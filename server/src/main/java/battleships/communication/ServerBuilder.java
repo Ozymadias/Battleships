@@ -5,11 +5,18 @@ import battleships.logger.BattleshipLog;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+/**
+ * It is a builder class for creating a server.
+ */
 public class ServerBuilder {
   private ServerSocket serverSocket;
   private Integer port;
   private final BattleshipLog log = BattleshipLog.provideLogger(ServerBuilder.class);
 
+  /**
+   * @param port server port to be set.
+   * @return instance of ServerBuilder.
+   */
   public ServerBuilder setPort(Integer port) {
     this.port = port;
     return this;
@@ -26,6 +33,9 @@ public class ServerBuilder {
     return this;
   }
 
+  /**
+   * It returns new Server object on given socket.
+   */
   public Server build() {
     return new Server(serverSocket);
   }

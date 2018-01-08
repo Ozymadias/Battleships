@@ -2,11 +2,13 @@ package battleships.communication;
 
 import battleships.communication.jsonhandlers.JsonMarshaller;
 import battleships.communication.jsonhandlers.JsonUnmarshaller;
-import battleships.communication.jsonhandlers.MessageableMapperBuilder;
 import battleships.communication.messages.WelcomeMessage;
 
 import java.util.Optional;
 
+/**
+ * This class is used by a server and a client to send and receive messages.
+ */
 public class ClientHandler {
 
   private final MessageReceiver messageReceiver;
@@ -14,21 +16,25 @@ public class ClientHandler {
   private final JsonMarshaller jsonMarshaller;
   private final JsonUnmarshaller jsonUnmarshaller;
 
-
-  ClientHandler(MessageSender messageSender, MessageReceiver messageReceiver) {
+  ClientHandler(MessageSender messageSender,
+                MessageReceiver messageReceiver,
+                JsonMarshaller jsonMarshaller,
+                JsonUnmarshaller jsonUnmarshaller
+                ) {
     this.messageSender = messageSender;
     this.messageReceiver = messageReceiver;
-    this.jsonMarshaller = new JsonMarshaller(new MessageableMapperBuilder()
-        .withObjectMapper()
-        .build());
-    this.jsonUnmarshaller = new JsonUnmarshaller(new MessageableMapperBuilder()
-        .withObjectMapper()
-        .build());
+    this.jsonMarshaller = jsonMarshaller;
+    this.jsonUnmarshaller = jsonUnmarshaller;
   }
 
+  /**
+   * It first converts message to the Json format and then send it to receiver.
+   *
+   * @param message Messageable object to be converted to Json format and then sent by message sender.
+   */
   public void sendMessage(Messageable message) {
-    String s = jsonMarshaller.toString(message);
-    messageSender.sendMessageString(s);
+    String messageString = jsonMarshaller.toString(message);
+    messageSender.sendMessageString(messageString);
   }
 
   /**
@@ -37,8 +43,8 @@ public class ClientHandler {
    * @return optional Messageable received by MessageReceiver and converted by jsonUnmarshaller.
    */
   public Messageable receiveMessage() {
-    String s = messageReceiver.receiveMessageString();
-    Optional<Messageable> m = jsonUnmarshaller.toMessageable(s);
-    return m.orElseGet(() -> new WelcomeMessage("Something went wrong"));
+    String messageString = messageReceiver.receiveMessageString();
+    Optional<Messageable> message = jsonUnmarshaller.toMessageable(messageString);
+    return message.orElseGet(() -> new WelcomeMessage("Something went wrong"));
   }
 }

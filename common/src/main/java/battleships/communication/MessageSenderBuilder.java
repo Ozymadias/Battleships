@@ -7,6 +7,10 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+/**
+ * This class is for building MessageSender object. First it is responsible for creating ObjectOutputStream
+ * based on socket output stream and then it creates MessageSender on a given ObjectOutputStream.
+ */
 public class MessageSenderBuilder {
   private ObjectOutputStream oos;
   private final BattleshipLog log = BattleshipLog.provideLogger(MessageSender.class);
@@ -17,6 +21,7 @@ public class MessageSenderBuilder {
 
   /**
    * Creates new ObjectOutputSteam created with socket OutputStream as a parameter.
+   *
    * @param socket Accepts socket as a parameter.
    * @return returns this instance of builder with desired ObjectOutputStream.
    */

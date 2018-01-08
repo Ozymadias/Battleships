@@ -6,14 +6,13 @@ enum FieldState {
   EMPTY(Color.AQUA, "e"),
   UNBROKEN_SHIP_PART(Color.GREEN, "o"),
   BROKEN_SHIP_PART(Color.YELLOW, "o"),
-  SUNK_SHIP_PART(Color.RED, "o"),
   BUFFER(Color.AQUA, "b");
 
-  public Color getColor() {
+  Color getColor() {
     return color;
   }
 
-  public String getStateMark() {
+  String getStateMark() {
     return stateMark;
   }
 

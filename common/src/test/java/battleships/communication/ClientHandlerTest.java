@@ -1,40 +1,56 @@
 package battleships.communication;
 
-import battleships.communication.messages.GoodByeMessage;
+import battleships.communication.jsonhandlers.JsonMarshaller;
+import battleships.communication.jsonhandlers.JsonUnmarshaller;
+import battleships.communication.messages.WelcomeMessage;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.mockingDetails;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class ClientHandlerTest {
   private MessageSender messageSenderMock;
   private MessageReceiver messageReceiverMock;
+  private JsonMarshaller jsonMarshaller;
+  private JsonUnmarshaller jsonUnmarshaller;
   private ClientHandler clientHandler;
 
   @BeforeTest
   public void setUp() throws Exception {
     messageSenderMock = mock(MessageSender.class);
     messageReceiverMock = mock(MessageReceiver.class);
-    clientHandler = new ClientHandler(messageSenderMock, messageReceiverMock);
+    jsonMarshaller = mock(JsonMarshaller.class);
+    jsonUnmarshaller = mock(JsonUnmarshaller.class);
+    clientHandler = new ClientHandler(messageSenderMock, messageReceiverMock, jsonMarshaller, jsonUnmarshaller);
   }
 
   @Test
-  public void whenClientHandlerSendMessage_expectMessageSenderInvokeMethodOnce() throws Exception {
+  public void whenClientHandlerSendMessage_expectMessageIsMarshalledAndSend() throws Exception {
     //when
-    clientHandler.sendMessage(new GoodByeMessage("good bye!"));
+    String jsonWelcomeMessage = "Json {Hello}";
+    when(jsonMarshaller.toString(new WelcomeMessage("Hello"))).thenReturn(jsonWelcomeMessage);
+    clientHandler.sendMessage(new WelcomeMessage("Hello"));
     //then
-    assertThat(mockingDetails(messageSenderMock).getInvocations().size()).isEqualTo(1);
+    verify(jsonMarshaller).toString(new WelcomeMessage("Hello"));
+    verify(messageSenderMock).sendMessageString(jsonWelcomeMessage);
   }
 
   @Test
-  public void whenClientHandlerReceivesMessage_expectMessageReceiverInvokeMethodOnce() throws Exception {
+  public void whenClientHandlerReceivesMessage_expectMessageIsReceivedAndUnmarshalled() throws Exception {
     //when
-    when(messageReceiverMock.receiveMessageString()).thenReturn("{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}");
-    clientHandler.receiveMessage();
+    String jsonWelcomeMessage = "Json {Hello}";
+    Messageable expectedMessage = new WelcomeMessage("Hello");
+    when(messageReceiverMock.receiveMessageString()).thenReturn(jsonWelcomeMessage);
+    when(jsonUnmarshaller.toMessageable(jsonWelcomeMessage)).thenReturn(Optional.of(expectedMessage));
+    Messageable message = clientHandler.receiveMessage();
     //then
-    assertThat(mockingDetails(messageReceiverMock).getInvocations().size()).isEqualTo(1);
+    verify(messageReceiverMock).receiveMessageString();
+    verify(jsonUnmarshaller).toMessageable(jsonWelcomeMessage);
+    assertThat(message).isEqualTo(expectedMessage);
   }
 }

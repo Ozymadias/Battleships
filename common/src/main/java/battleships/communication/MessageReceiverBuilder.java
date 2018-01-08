@@ -7,6 +7,10 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
+/**
+ * This class is for building MessageReceiver object. First it is responsible for creating ObjectInputStream
+ * based on socket input stream and then it creates MessageReceiver on a given ObjectInputStream.
+ */
 public class MessageReceiverBuilder {
   private ObjectInputStream ois;
   private final BattleshipLog log = BattleshipLog.provideLogger(MessageSender.class);
@@ -16,7 +20,7 @@ public class MessageReceiverBuilder {
   }
 
   /**
-   * Creates new ObjectInputStream created with socket InputStream as a parameter.
+   * Creates new ObjectInputStream based on input stream of a socket passed as a parameter.
    *
    * @param socket Accepts socket as a parameter.
    * @return returns this instance of builder with desired ObjectInputStream.

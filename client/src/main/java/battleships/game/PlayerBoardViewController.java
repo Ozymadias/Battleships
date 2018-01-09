@@ -4,14 +4,15 @@ import battleships.communication.DataBus;
 import battleships.communication.Member;
 import battleships.communication.Messageable;
 import battleships.communication.messages.SalvoResult;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
+
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Controller of player board.
@@ -29,7 +30,9 @@ public class PlayerBoardViewController implements Member, Initializable {
   /**
    * This method is responsible for deliver ResourceBundle which is needed for proper translation.
    * It's also initialize PlayerBoardView.
-   * @param location
+   *
+   * @param location The location used to resolve relative paths for the root object,
+   *                or null if the location is not known.
    * @param resources ResourceBundle delivering proper translation
    */
   @Override
@@ -54,7 +57,8 @@ public class PlayerBoardViewController implements Member, Initializable {
 
   /**
    * Set board which is used to create javaFx representation of a board.
-   * @param board
+   *
+   * @param board Board object to be bind with view
    */
   public void setBoard(Board board) {
     this.board = board;
@@ -62,7 +66,8 @@ public class PlayerBoardViewController implements Member, Initializable {
 
   /**
    * It handles processing of received data in case that is SalvoResult instance.
-   * @param data
+   *
+   * @param data data to process (instance of class implementing Messageable)
    */
   @Override
   public void accept(Messageable data) {
@@ -78,7 +83,9 @@ public class PlayerBoardViewController implements Member, Initializable {
   private void processGameResult(GameResult gameResult) {
     dockedGridPane.setDisable(true);
 
-    if(gameResult == GameResult.NONE) return;
+    if (gameResult == GameResult.NONE) {
+      return;
+    }
 
     String resultInfo = gameResult.toString();
 

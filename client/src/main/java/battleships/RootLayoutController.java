@@ -7,16 +7,17 @@ import battleships.game.PlayerBoardViewController;
 import battleships.game.ShipsRandomize;
 import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
- * container for board of player and board of player enemy
+ * Container for board of player and board of player enemy.
  */
 public class RootLayoutController implements Initializable {
 
@@ -31,8 +32,9 @@ public class RootLayoutController implements Initializable {
   BorderPane borderPane;
 
   /**
-   * this method is responsible for initialization of boards view
-   * @param location
+   * This method is responsible for initialization of boards view.
+   * @param location The location used to resolve relative paths for the root object,
+   *                or null if the location is not known
    * @param resources ResourceBundle delivering proper translation
    */
   @Override

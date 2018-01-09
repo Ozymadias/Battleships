@@ -4,8 +4,6 @@ import battleships.communication.server.ServerConnector;
 import battleships.logger.BattleshipLog;
 import battleships.logging.LanguageLoadOption;
 import battleships.logging.LoggingController;
-import java.io.IOException;
-import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,8 +11,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.util.ResourceBundle;
+
 /**
- * main application class
+ * Main application class.
  */
 public class App extends Application {
   private static final String APP_NAME = "BATTLESHIPS!";
@@ -28,8 +29,16 @@ public class App extends Application {
   private Stage primaryStage;
 
   /**
-   * method automatically called when the application is launched
-   * show window for logging to application
+   * Starts client application.
+   * @param args args are not used
+   */
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  /**
+   * Method automatically called when the application is launched
+   * show window for logging to application.
    * @param primaryStage the main container for JavaFX application
    */
   @Override
@@ -37,14 +46,6 @@ public class App extends Application {
     this.primaryStage = primaryStage;
     this.primaryStage.setTitle(APP_NAME);
     showLoginWindow();
-  }
-
-  /**
-   * starts client application
-   * @param args args are not used
-   */
-  public static void main(String[] args) {
-    launch(args);
   }
 
   /*
@@ -92,7 +93,7 @@ public class App extends Application {
    * Also set chosen resource bundle which points to selected language for application.
    * @param host server to which application should connect
    * @param port server port on which connection should be established
-   * @param bundle ResourceBundle loaded from resources, it points to selected language for application
+   * @param bundle ResourceBundle loaded from resources, pointing to used language
    */
   public void submitLoggingData(String host, int port, ResourceBundle bundle) {
     this.resourceBundle = bundle;

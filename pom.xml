@@ -47,6 +47,7 @@
 
         <!-- testing -->
         <mockitoCoreVersion>2.13.0</mockitoCoreVersion>
+        <awaitilityVersion>1.7.0</awaitilityVersion>
         <assertjCoreVersion>3.9.0</assertjCoreVersion>
         <testngVersion>6.13.1</testngVersion>
         <mavenFailsafePluginVersion>2.20.1</mavenFailsafePluginVersion>
@@ -114,6 +115,11 @@
                 <groupId>battleships</groupId>
                 <artifactId>common</artifactId>
                 <version>${commonVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.jayway.awaitility</groupId>
+                <artifactId>awaitility</artifactId>
+                <version>${awaitilityVersion}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -409,7 +415,8 @@
     </reporting>
 
     <description>
-        This is a Battleships project. It's allows two users to play a battleships game using server-client architecture.
+        This is a Battleships project. It's allows two users to play a battleships game using server-client
+        architecture.
         Project contains three modules: client, server, common.
         The common module is a bunch of utils used by client and server.
     </description>

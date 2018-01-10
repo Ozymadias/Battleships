@@ -18,10 +18,11 @@ public class App {
     String portString = System.getProperty("port", "4321");
     int port = Integer.parseInt(portString);
 
-    Server server = new ServerBuilder()
-        .setPort(port)
+    Server server = ServerBuilder
+        .withPort(port)
         .openServerSocket()
         .build();
+
     int count = 0;
     while (count < Integer.MAX_VALUE) {
       new Game(new ClientCreator()

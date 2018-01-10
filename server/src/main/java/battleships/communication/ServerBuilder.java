@@ -1,42 +1,53 @@
 package battleships.communication;
 
-import battleships.logger.BattleshipLog;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 
-/**
- * It is a builder class for creating a server.
- */
-public class ServerBuilder {
-  private ServerSocket serverSocket;
-  private Integer port;
-  private final BattleshipLog log = BattleshipLog.provideLogger(ServerBuilder.class);
+public interface ServerBuilder {
 
   /**
-   * @param port server port to be set.
-   * @return instance of ServerBuilder.
+   * Creates instance of SocketOpener.
+   *
+   * @param port accept int value of port as parameter
+   * @return new instance of SocketOpener with given port
    */
-  public ServerBuilder setPort(Integer port) {
-    this.port = port;
-    return this;
+  static SocketOpener withPort(int port) {
+    return new SocketOpener(port);
   }
 
-  /**Creates new ServerSocket for given port.
-   * @return ServerBuilder with created and opened ServerSocket for port that was given as parameter.
-   * @throws IOException can throw ISException when creating ServerSocket fails.
-   */
+  class SocketOpener {
+    private final int port;
 
-  public ServerBuilder openServerSocket() throws IOException {
-    serverSocket = new ServerSocket(port);
-    log.info("Server started");
-    return this;
+    SocketOpener(int port) {
+      this.port = port;
+    }
+
+    /**
+     * Creates new instance of ServerCreator with ServerSocket created from port int value.
+     *
+     * @return new instance of ServerCreator
+     * @throws IOException may throw IOException when connection fails.
+     */
+    public ServerCreator openServerSocket() throws IOException {
+      return new ServerCreator(new ServerSocket(port));
+    }
   }
 
-  /**
-   * It returns new Server object on given socket.
-   */
-  public Server build() {
-    return new Server(serverSocket);
+  class ServerCreator {
+    private ServerSocket serverSocket;
+
+    ServerCreator(ServerSocket serverSocket) {
+      this.serverSocket = serverSocket;
+    }
+
+    /**
+     * Creates server.
+     *
+     * @return new instance of Server with opened ServerSocket.
+     */
+    public Server build() {
+      return new Server(serverSocket);
+    }
   }
 }
+

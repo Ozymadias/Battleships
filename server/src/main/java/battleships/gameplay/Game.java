@@ -17,8 +17,8 @@ public class Game {
   }
 
   /**
-   * Starts game with first initial game state SendingWelcomeMessage. Then process each game state until
-   * game ends by one of outcomes.
+   * Starts game with first initial game state SendingWelcomeMessage.
+   * Then process each game state until game ends by one of outcomes.
    */
   public void start() {
     log.info("Game started");

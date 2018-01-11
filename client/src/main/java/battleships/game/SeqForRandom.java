@@ -1,16 +1,15 @@
 package battleships.game;
 
 import battleships.ships.Ship;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.lang.StringUtils;
 
-
-public class SeqForRandom {
+class SeqForRandom {
 
   private static final int STEP = 1;
 

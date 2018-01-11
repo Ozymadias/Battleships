@@ -10,7 +10,8 @@ import java.util.List;
 
 /**
  * This class represents a server that waits for connection from two clients.
- * It's main responsibility is to accepts client's connections and create a list of sockets bound to this connections.
+ * It's main responsibility is to accepts client's connections and create a list of sockets
+ * bound to this connections.
  */
 public class Server {
 
@@ -18,11 +19,19 @@ public class Server {
   private final BattleshipLog log = BattleshipLog.provideLogger(Server.class);
 
   Server(ServerSocket serverSocket) {
+    log.info("Server started! @ ServerPort:" + serverSocket.getLocalPort());
     this.serverSocket = serverSocket;
   }
 
   private Socket assignSocket(ServerSocket serverSocket) throws IOException {
     return serverSocket.accept();
+  }
+
+  /**
+   * Returns int value of socket local port.
+   */
+  public int getServerSocketPort() {
+    return serverSocket.getLocalPort();
   }
 
   /**
@@ -40,3 +49,4 @@ public class Server {
     return sockets;
   }
 }
+

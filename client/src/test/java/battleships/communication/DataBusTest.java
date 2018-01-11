@@ -11,13 +11,13 @@ import static org.mockito.Mockito.*;
 public class DataBusTest {
 
   DataBus dataBus;
-  ServerComm serverComm;
+  Publisher serverComm;
   OpponentBoardViewController opponentBoardViewController;
 
   @BeforeClass
   public void beforeClass() {
     dataBus = DataBus.getInstance();
-    serverComm = mock(ServerComm.class);
+    serverComm = mock(Publisher.class);
     opponentBoardViewController = mock(OpponentBoardViewController.class);
     dataBus.subscribeMember(opponentBoardViewController);
     dataBus.subscribePublisher(serverComm);

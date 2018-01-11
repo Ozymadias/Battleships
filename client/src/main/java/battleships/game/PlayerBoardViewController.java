@@ -4,16 +4,19 @@ import battleships.communication.DataBus;
 import battleships.communication.Member;
 import battleships.communication.Messageable;
 import battleships.communication.messages.SalvoResult;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
+/**
+ * Controller of player board.
+ */
 public class PlayerBoardViewController implements Member, Initializable {
 
   private static final int BOARD_ROW_COUNT = 10;
@@ -24,6 +27,14 @@ public class PlayerBoardViewController implements Member, Initializable {
   @FXML
   private GridPane dockedGridPane;
 
+  /**
+   * This method is responsible for deliver ResourceBundle which is needed for proper translation.
+   * It's also initialize PlayerBoardView.
+   *
+   * @param location The location used to resolve relative paths for the root object,
+   *                or null if the location is not known.
+   * @param resources ResourceBundle delivering proper translation
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resourceBundle = resources;
@@ -33,7 +44,7 @@ public class PlayerBoardViewController implements Member, Initializable {
   /**
    * Assign board representation to javaFx representation of a board.
    */
-  public void setUpPlayerBoardDocked() {
+  public void setUpPlayerBoard() {
     for (int row = 0; row < BOARD_ROW_COUNT; row++) {
       for (int col = 0; col < BOARD_COLUMN_COUNT; col++) {
         BoardNode boardNode = this.board.rectangleForPosition(row * BOARD_COLUMN_COUNT + col);
@@ -44,14 +55,24 @@ public class PlayerBoardViewController implements Member, Initializable {
     }
   }
 
+  /**
+   * Set board which is used to create javaFx representation of a board.
+   *
+   * @param board Board object to be bind with view
+   */
   public void setBoard(Board board) {
     this.board = board;
   }
 
+  /**
+   * It handles processing of received data in case that is SalvoResult instance.
+   *
+   * @param data data to process (instance of class implementing Messageable)
+   */
   @Override
-  public void accept(Messageable event) {
-    if (event instanceof SalvoResult) {
-      SalvoResult salvoResult = (SalvoResult) event;
+  public void accept(Messageable data) {
+    if (data instanceof SalvoResult) {
+      SalvoResult salvoResult = (SalvoResult) data;
       processSalvo(salvoResult.getSalvoPositions());
       if (salvoResult.getGameResult() != GameResult.NONE) {
         processGameResult(salvoResult.getGameResult());
@@ -62,21 +83,11 @@ public class PlayerBoardViewController implements Member, Initializable {
   private void processGameResult(GameResult gameResult) {
     dockedGridPane.setDisable(true);
 
-    String resultInfo;
-
-    switch (gameResult) {
-      case WIN:
-        resultInfo = "WIN_INFO";
-        break;
-      case LOOSE:
-        resultInfo = "LOOSE_INFO";
-        break;
-      case DRAW:
-        resultInfo = "DRAW_INFO";
-        break;
-      default:
-        return;
+    if (gameResult == GameResult.NONE) {
+      return;
     }
+
+    String resultInfo = gameResult.toString();
 
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
     alert.setTitle(resourceBundle.getString("INFORMATION_DIALOG"));
@@ -88,21 +99,14 @@ public class PlayerBoardViewController implements Member, Initializable {
 
   private void processSalvo(List<Integer> salvoPositions) {
     updateBoard(salvoPositions);
-    SalvoCount salvoCount = countRemainUnbrokenMasts();
+    SalvoCount salvoCount = new SalvoCount(board.unbrokenMastCount());
     DataBus.getInstance().publish(salvoCount);
   }
 
   private void updateBoard(List<Integer> salvoPositions) {
     for (Integer positionOfShot : salvoPositions) {
       board.getFields().get(positionOfShot).shoot();
-      setUpPlayerBoardDocked();
+      setUpPlayerBoard();
     }
-  }
-
-  private SalvoCount countRemainUnbrokenMasts() {
-    long count = board.getFields().stream()
-        .filter(Field::isUnbrokenShipOn)
-        .count();
-    return new SalvoCount((int) count);
   }
 }

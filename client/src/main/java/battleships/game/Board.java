@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Representation of game board, as board of 100 fields,
+ * which can be occupied by ships part.
+ */
 public class Board {
 
   private static final int BOARD_FIELDS_COUNT = 100;
@@ -35,5 +39,11 @@ public class Board {
 
   void shootAtField(Integer position) {
     fields.get(position).shoot();
+  }
+
+  int unbrokenMastCount() {
+    return (int) fields.stream()
+            .filter(Field::isUnbrokenShipOn)
+            .count();
   }
 }

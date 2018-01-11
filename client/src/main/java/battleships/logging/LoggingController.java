@@ -6,10 +6,6 @@ import static battleships.logging.ConfigValueName.PORT;
 
 import battleships.App;
 import battleships.logging.validation.Validator;
-import java.net.URL;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,18 +15,18 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import java.net.URL;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.ResourceBundle;
 
-
+/**
+ * Controller of logging window.
+ */
 public class LoggingController implements Initializable {
 
   private App mainApp;
   private ResourceBundle resourceBundle;
-
-  @FXML
-  private Button polishButton;
-
-  @FXML
-  private Button englishButton;
 
   @FXML
   private Text playerNameText;
@@ -59,7 +55,9 @@ public class LoggingController implements Initializable {
   @FXML
   void onActionLoginButton(ActionEvent event) {
     if (new Validator().validate(configFieldsValues())) {
-      mainApp.loginSuccessful(configFieldsValues(), resourceBundle);
+      String host = configFieldsValues().get(IP).stringValue();
+      int port = Integer.parseInt(configFieldsValues().get(PORT).stringValue());
+      mainApp.submitLoggingData(host, port, resourceBundle);
     } else {
       invalidLoggingDataAlert();
     }
@@ -85,10 +83,17 @@ public class LoggingController implements Initializable {
     assignKeyTranslation();
   }
 
+  /**
+   * Called to initialize a controller.
+   *
+   * @param location The location used to resolve relative paths for the root object,
+   *                or null if the location is not known.
+   * @param resources ResourceBundle delivering proper translation
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resourceBundle = resources;
-    playerNameInput.setText("player");
+    playerNameInput.setText(resourceBundle.getString("PLAYER"));
     serverPortInput.setText("4321");
   }
 
@@ -103,6 +108,9 @@ public class LoggingController implements Initializable {
     checkBoxRandomShipPlacement.setText(resourceBundle.getString("RANDOM_SHIPS"));
   }
 
+  /**
+   * Sets reference to main class of application.
+   */
   public void setMainApp(App mainApp) {
     this.mainApp = mainApp;
   }

@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-
-public class HorizontalSeqSet implements SeqSet {
+class HorizontalSeqSet implements SeqSet {
 
   private final List<SeqForRandom> horizontalSequences;
 

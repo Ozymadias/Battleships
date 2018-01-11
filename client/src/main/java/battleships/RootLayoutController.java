@@ -7,15 +7,18 @@ import battleships.game.PlayerBoardViewController;
 import battleships.game.ShipsRandomize;
 import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+/**
+ * Container for board of player and board of player enemy.
+ */
 public class RootLayoutController implements Initializable {
 
   private static final String PLAYER_BOARD_VIEW_FXML = "/fxml/PlayerBoardViewLayout.fxml";
@@ -28,6 +31,12 @@ public class RootLayoutController implements Initializable {
   @FXML
   BorderPane borderPane;
 
+  /**
+   * This method is responsible for initialization of boards view.
+   * @param location The location used to resolve relative paths for the root object,
+   *                or null if the location is not known
+   * @param resources ResourceBundle delivering proper translation
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     this.resourceBundle = resources;
@@ -60,7 +69,7 @@ public class RootLayoutController implements Initializable {
     borderPane.setLeft(loader.<BorderPane>load());
     final PlayerBoardViewController controller = loader.getController();
     controller.setBoard(board);
-    controller.setUpPlayerBoardDocked();
+    controller.setUpPlayerBoard();
   }
 
   private void addOpponentBoardView() throws IOException {

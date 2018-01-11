@@ -8,7 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
+/**
+ * The class provides random placement for fleet on given board.
+ * It places ship both vertically and horizontally.
+ */
 public class ShipsRandomize {
 
   private static final int SEQUENCE_COUNT = 10;

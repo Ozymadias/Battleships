@@ -23,9 +23,10 @@ class SalvosProcessing implements GameState {
   }
 
   /**
-   * This method process current game state. We process salvos send by both clients. The result of this
-   * processing is SalvoResult list that is passed to the next game state. SalvoResult list is calculated based on
-   * player's fleet positions and salvos send by both players.
+   * This method process current game state. We process salvos send by both clients.
+   * The result of this processing is SalvoResult list that is passed to the next game state.
+   * SalvoResult list is calculated based on player's fleet positions and salvos send by both
+   * players.
    *
    * @return next game state that is SinkingShips.
    */

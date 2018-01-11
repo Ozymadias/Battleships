@@ -2,6 +2,7 @@ package battleships.logging.validation;
 
 import battleships.logging.ConfigValue;
 import battleships.utils.BattleshipUtils;
+
 import java.util.Arrays;
 
 

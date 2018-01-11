@@ -1,7 +1,8 @@
 package battleships.gameplay;
 
 /**
- * This interface represents game state that can be processed and also indicates the end of the game.
+ * This interface represents game state that can be processed and also indicates
+ * the end of the game.
  */
 public interface GameState {
   /**

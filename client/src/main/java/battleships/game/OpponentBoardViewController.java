@@ -6,37 +6,38 @@ import battleships.communication.Messageable;
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Controller of enemy board view.
+ */
 public class OpponentBoardViewController implements Member {
 
   private static final int BOARD_ROW_COUNT = 10;
   private static final int BOARD_COLUMN_COUNT = 10;
 
   private final BattleshipLog log = BattleshipLog.provideLogger(OpponentBoardViewController.class);
-
+  private final List<Integer> salvoList = new ArrayList<>();
   @FXML
   private GridPane dockedGridPane;
-
   @FXML
   private Text shootsLeftCountText;
-
   @FXML
   private Button salvoBtn;
-
   private Integer shootsLeftCount = 0;
-
-  private final List<Integer> salvoList = new ArrayList<>();
-
   private Board enemyBoard;
 
+  /**
+   * Called to initialize a controller.
+   * It's setting view of enemy board.
+   */
   @FXML
   private void initialize() {
     enemyBoard = Board.build();
@@ -70,6 +71,7 @@ public class OpponentBoardViewController implements Member {
   /**
    * Prevents player from shooting incomplete salvo. In order to shoot player needs to mark
    * number of shots on the board otherwise salvo button will be disabled.
+   *
    * @param count integer representation of shots left in turn.
    */
   public void setShootsLeftCount(Integer count) {
@@ -92,13 +94,13 @@ public class OpponentBoardViewController implements Member {
   }
 
   @Override
-  public void accept(Messageable event) {
-    if (event instanceof SalvoCount) {
+  public void accept(Messageable data) {
+    if (data instanceof SalvoCount) {
       salvoBtn.setDisable(false);
-      processSalvoCount((SalvoCount) event);
+      processSalvoCount((SalvoCount) data);
       log.info("SalvoCount received by controller");
-    } else if (event instanceof SalvoResult) {
-      SalvoResult salvoResult = (SalvoResult) event;
+    } else if (data instanceof SalvoResult) {
+      SalvoResult salvoResult = (SalvoResult) data;
       updateBoard((ArrayList<Integer>) salvoResult.getResultList());
       log.info("SalvoResult received by controller");
       if (salvoResult.getGameResult() != GameResult.NONE) {

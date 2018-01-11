@@ -1,6 +1,5 @@
 package battleships.communication.jsonhandlers;
 
-import battleships.communication.Messageable;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,12 +15,12 @@ class MessageableMapper {
     this.objectMapper = objectMapper;
   }
 
-  String writeValueAsString(Messageable messageable) throws JsonProcessingException {
-    return this.objectMapper.writeValueAsString(messageable);
+  <T extends Object> String writeValueAsString(T value) throws JsonProcessingException {
+    return this.objectMapper.writeValueAsString(value);
   }
 
-  Messageable readValue(String message, Class<Messageable> messageableClass) throws IOException {
-    return this.objectMapper.readValue(message, messageableClass);
+  <T> T readValue(String message, Class<T> valueClass) throws IOException {
+    return this.objectMapper.readValue(message, valueClass);
   }
 
   static MessageableMapper newInstance() {

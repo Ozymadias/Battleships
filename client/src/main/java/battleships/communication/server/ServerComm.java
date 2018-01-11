@@ -6,6 +6,7 @@ import battleships.communication.Member;
 import battleships.communication.Messageable;
 import battleships.communication.Publisher;
 import battleships.communication.messages.Salvo;
+import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
 

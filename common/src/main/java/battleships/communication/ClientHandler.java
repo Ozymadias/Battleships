@@ -2,7 +2,6 @@ package battleships.communication;
 
 import battleships.communication.jsonhandlers.JsonMarshaller;
 import battleships.communication.jsonhandlers.JsonUnmarshaller;
-import battleships.communication.messages.WelcomeMessage;
 
 import java.util.Optional;
 
@@ -33,7 +32,7 @@ public class ClientHandler {
    * @param message Messageable object to be converted to Json format and then sent by message sender.
    */
   public void sendMessage(Messageable message) {
-    String messageString = jsonMarshaller.toString(message);
+    String messageString = jsonMarshaller.writeValueAsString(message);
     messageSender.sendMessageString(messageString);
   }
 
@@ -44,7 +43,8 @@ public class ClientHandler {
    */
   public Messageable receiveMessage() {
     String messageString = messageReceiver.receiveMessageString();
-    Optional<Messageable> message = jsonUnmarshaller.toMessageable(messageString);
-    return message.orElseGet(() -> new WelcomeMessage("Something went wrong"));
+    Optional<Messageable> messageableOptional = jsonUnmarshaller.readValue(messageString, Messageable.class);
+    Messageable messageable = messageableOptional.get();
+    return messageable;
   }
 }

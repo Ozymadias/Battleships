@@ -1,9 +1,11 @@
 package battleships.communication.jsonhandlers;
 
 import battleships.communication.Marshaller;
-import battleships.communication.Messageable;
 import battleships.utils.BattleshipUtils;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * This class is a Json implementation of Marshaller. Its main responsibility is to turn a Messageable
@@ -12,20 +14,19 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class JsonMarshaller implements Marshaller {
 
-  private final MessageableMapper messageableMapper;
+  private final ObjectMapper objectMapper;
 
-  private JsonMarshaller(MessageableMapper messageableMapper) {
-    this.messageableMapper = messageableMapper;
+  private JsonMarshaller(ObjectMapper messageableMapper) {
+    this.objectMapper = messageableMapper;
   }
 
   /**
-   * @param messageable - Object of type Messageable to be converted to String
+   * @param value - object to be converted to Json String
    * @return - Json String representation of the Messageable object.
    */
-  @Override
-  public String toString(Messageable messageable) {
+  public <T> String writeValueAsString(T value) {
     try {
-      return this.messageableMapper.writeValueAsString(messageable);
+      return this.objectMapper.writeValueAsString(value);
     } catch (JsonProcessingException e) {
       return BattleshipUtils.provideEmptyString();
     }
@@ -35,6 +36,9 @@ public class JsonMarshaller implements Marshaller {
    * This returns a new instance of JsonMarshaller class.
    */
   public static JsonMarshaller newInstance() {
-    return new JsonMarshaller(MessageableMapper.newInstance());
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
+    objectMapper.setVisibility(PropertyAccessor.GETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
+    return new JsonMarshaller(objectMapper);
   }
 }

@@ -29,7 +29,7 @@ public class JsonMarshallerTest {
   @Test(dataProvider = "messagesPool")
   public void whenConvertingToJsonString_expectJsonBodyContainsClassNameAndItsFields(Messageable messageable, String expectedJsonString) {
     //when
-    String actualJsonString = jsonMarshaller.toString(messageable);
+    String actualJsonString = jsonMarshaller.writeValueAsString(messageable);
     //then
     assertThat(actualJsonString).isEqualTo(expectedJsonString);
   }

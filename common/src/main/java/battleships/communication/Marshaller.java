@@ -5,6 +5,6 @@ package battleships.communication;
  */
 public interface Marshaller {
 
-  String toString(Messageable messageable);
+  <T> String writeValueAsString(T value);
 
 }

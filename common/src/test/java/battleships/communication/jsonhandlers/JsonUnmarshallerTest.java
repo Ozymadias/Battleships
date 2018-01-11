@@ -1,10 +1,8 @@
 package battleships.communication.jsonhandlers;
 
-import battleships.communication.Messageable;
 import battleships.communication.Unmarshaller;
 import battleships.communication.messages.WelcomeMessage;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -20,18 +18,33 @@ public class JsonUnmarshallerTest {
     this.jsonUnmarshaller = JsonUnmarshaller.newInstance();
   }
 
-  @DataProvider
-  private Object[][] jsonBodyAndTypesPoll() {
-    return new Object[][] {
-        {"{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}", WelcomeMessage.class}
-    };
+  @Test
+  public void whenConvertingJsonStringToConcreteObject_expectObjectToBeAppropriate() throws IOException, ClassNotFoundException {
+    //given
+    String jsonBody = "{\"@type\":\"WelcomeMessage\",\"body\":\"hello\"}";
+    //when
+    WelcomeMessage welcomeMessage = jsonUnmarshaller.readValue(jsonBody, WelcomeMessage.class).get();
+    //then
+    assertThat(welcomeMessage.getBody()).isEqualTo("hello");
   }
 
-  @Test(dataProvider = "jsonBodyAndTypesPoll")
-  public void whenConvertingToMessageable_expectMessageableShouldHoldReferenceToClassObject(String jsonString, Class expectedClass) throws IOException, ClassNotFoundException {
+  @Test(expectedExceptions = java.util.NoSuchElementException.class)
+  public void whenConvertingInvalidJsonStringToConcreteObject_expectNoSuchElementExceptionToBeThrown() throws IOException, ClassNotFoundException {
+    //given
+    String jsonBody = "{dummyContent}";
     //when
-    Messageable messageable = jsonUnmarshaller.toMessageable(jsonString).get();
+    WelcomeMessage welcomeMessage = jsonUnmarshaller.readValue(jsonBody, WelcomeMessage.class).get();
     //then
-    assertThat(messageable.getClass()).isEqualTo(expectedClass);
+    assertThat(welcomeMessage.getBody()).isEqualTo("hello");
+  }
+
+  @Test(expectedExceptions = java.util.NoSuchElementException.class)
+  public void whenConvertingJsonStringWithWrongTypeToConcreteObject_expectNoSuchElementExceptionToBeThrown() throws IOException, ClassNotFoundException {
+    //given
+    String jsonBody = "{\"@type\":\"SomeClassName\",\"body\":\"hello\"}";
+    //when
+    WelcomeMessage welcomeMessage = jsonUnmarshaller.readValue(jsonBody, WelcomeMessage.class).get();
+    //then
+    assertThat(welcomeMessage.getBody()).isEqualTo("hello");
   }
 }

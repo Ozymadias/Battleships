@@ -153,17 +153,17 @@ public class MessagesAreSentFromServerIT {
   }
 
   @DataProvider(name = "ParametrizedSalvos")
-  public static Object[][] ParametrizedSalvos() {
+  public static Object[][] parametrizedSalvos() {
     return IntegProvider.provideSalvosForIT();
   }
 
   @DataProvider(name = "ParametrizedSalvoResults")
-  public static Object[][] ParametrizedSalvoResults() {
+  public static Object[][] parametrizedSalvoResults() {
     return IntegProvider.provideSalvoResultsForIT();
   }
 
   @DataProvider(name = "ParametrizedWelcomeMessages")
-  public static Object[][] ParametrizedWelcomeMessages() {
+  public static Object[][] parametrizedWelcomeMessages() {
     return IntegProvider.provideWelcomeMessageForIT();
   }
 }

@@ -24,6 +24,7 @@ public class ClientCreator {
             .setSocket(p)
             .addMessageReceiver()
             .addMessageSender()
-            .build())).collect(Collectors.toList());
+            .build()))
+        .collect(Collectors.toList());
   }
 }

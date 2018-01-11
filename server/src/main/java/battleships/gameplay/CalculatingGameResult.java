@@ -26,6 +26,7 @@ class CalculatingGameResult implements GameState {
   /**
    * This method process current game state. We decide if last salvo causes end of the game.
    * We calculate game results and set game results for SalvoResult message for each player.
+   *
    * @return next game state that is SendingSalvoResults.
    */
   @Override
@@ -68,7 +69,7 @@ class CalculatingGameResult implements GameState {
     IntStream
         .range(0, playersFleets.size())
         .filter(p -> !isFleetSunk(playersFleets.get(p)))
-        .forEach(p -> results.get(p).setGameResult(GameResult.WIN));
+        .forEach(i -> results.get(i).setGameResult(GameResult.WIN));
   }
 
   private boolean isFleetSunk(Fleet fleet) {

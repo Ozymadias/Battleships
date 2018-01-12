@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BordersCheckTest {
 
-  private class PositionExpectedResultPair {
+  private static class PositionExpectedResultPair {
     int position;
     boolean expectedResult;
     PositionExpectedResultPair(int position, IntPredicate intPredicate) {

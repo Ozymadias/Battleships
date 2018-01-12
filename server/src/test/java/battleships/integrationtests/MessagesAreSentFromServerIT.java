@@ -15,24 +15,17 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.jayway.awaitility.Awaitility.await;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class MessagesAreSentFromServerIT {
   private final static String LOCALHOST = "127.0.0.1";
   private AtomicInteger port;
-  private AtomicBoolean isServerWorking;
-  private AtomicBoolean isClientWorking;
   private SoftAssert softAssert = new SoftAssert();
 
   @BeforeMethod
   public void setUp() {
-    isServerWorking = new AtomicBoolean(false);
-    isClientWorking = new AtomicBoolean(false);
   }
 
   @Test(dataProvider = "ParametrizedSalvos")
@@ -104,7 +97,6 @@ public class MessagesAreSentFromServerIT {
       Socket socket = null;
       try {
         socket = new Socket(LOCALHOST, port.intValue());
-        isClientWorking = new AtomicBoolean(true);
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -123,8 +115,6 @@ public class MessagesAreSentFromServerIT {
       Server server;
       List<Observers> objectToReceiveMessage = new ArrayList<>();
       try {
-        isServerWorking = new AtomicBoolean(true);
-
         server = ServerBuilder
             .withPort(0)
             .openServerSocket()
@@ -146,10 +136,8 @@ public class MessagesAreSentFromServerIT {
   private void startServerAndClient(IntegProvider integProvider) throws InterruptedException {
     startServerThread(integProvider.messageForPlayer0(), integProvider.messageForPlayer1());
     Thread.sleep(100);
-    await().atMost(2, TimeUnit.SECONDS).untilTrue(isServerWorking);
     startClientThread();
     Thread.sleep(500);
-    await().atMost(2, TimeUnit.SECONDS).untilTrue(isClientWorking);
   }
 
   @DataProvider(name = "ParametrizedSalvos")

@@ -11,7 +11,8 @@ public interface GameState {
   GameState process();
 
   /**
-   * This method returns if current game state indicates end of the game.
+   * Method used to check if game ends.
+   * @return boolean indicating if game ends.
    */
   boolean isEndOfTheGame();
 }

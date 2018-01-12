@@ -19,8 +19,7 @@ public class ClientHandler {
   ClientHandler(MessageSender messageSender,
                 MessageReceiver messageReceiver,
                 JsonMarshaller jsonMarshaller,
-                JsonUnmarshaller jsonUnmarshaller
-                ) {
+                JsonUnmarshaller jsonUnmarshaller) {
     this.messageSender = messageSender;
     this.messageReceiver = messageReceiver;
     this.jsonMarshaller = jsonMarshaller;
@@ -30,7 +29,7 @@ public class ClientHandler {
   /**
    * It first converts message to the Json format and then send it to receiver.
    *
-   * @param message Messageable object to be converted to Json format and then sent by message sender.
+   * @param message Messageable object to be converted to JsonString and sent by message sender.
    */
   public void sendMessage(Messageable message) {
     String messageString = jsonMarshaller.toString(message);

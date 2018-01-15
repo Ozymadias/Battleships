@@ -64,6 +64,11 @@
         <requiredJavaVersion>1.8</requiredJavaVersion>
         <commonVersion>1.0</commonVersion>
         <requiredMavenVersion>3.3.9</requiredMavenVersion>
+
+        <!-- sonar -->
+        <sonar.coverage.exclusions>**/LanguageLoadOption.*, **/SalvoCount.*, **/GameResult.*, **/Salvo.*,
+            **/SalvoResult.*, **/BattleshipLog.*, **/RootLayoutController.*</sonar.coverage.exclusions>
+        <sonar.test.exclusions>**/CreateSocketsIT.*, **/MessagesAreSentFromServerIT.*, **/ReceiveMessageIT.*</sonar.test.exclusions>
     </properties>
 
     <dependencyManagement>
@@ -241,6 +246,17 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${jacocoMavenPluginVersion}</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>**/LanguageLoadOption.*</exclude>
+                            <exclude>**/SalvoCount.*</exclude>
+                            <exclude>**/GameResult.*</exclude>
+                            <exclude>**/Salvo.*</exclude>
+                            <exclude>**/SalvoResult.*</exclude>
+                            <exclude>**/BattleshipLog.*</exclude>
+                            <exclude>**/RootLayoutController.*</exclude>
+                        </excludes>
+                    </configuration>
                 </plugin>
 
                 <plugin>

@@ -125,13 +125,11 @@ public class App extends Application {
 
     task.setOnScheduled(e -> {
       alertWithProgressIndicator.show();
-      log.info("task scheduled");
     });
 
     task.setOnSucceeded(e -> {
       alertWithProgressIndicator.close();
       initRootLayout();
-      log.info("task succeeded");
     });
 
     Thread th = new Thread(task);

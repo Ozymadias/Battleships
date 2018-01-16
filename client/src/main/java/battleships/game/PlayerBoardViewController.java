@@ -121,7 +121,7 @@ public class PlayerBoardViewController implements Member, Initializable {
     StackPane stackPane = (StackPane) dockedGridPane.getChildren().get(gridPaneIndex);
     if (board.getFields().get(position).isShipOn()) {
       Rectangle rectangle = (javafx.scene.shape.Rectangle) stackPane.getChildren().get(0);
-      rectangle.setFill(Color.YELLOW);
+      rectangle.setFill(FieldState.BROKEN_SHIP_PART.getColor());
     }
     Text text = new Text(BoardNode.MARK_FOR_SHOT);
     stackPane.getChildren().add(text);

@@ -99,11 +99,7 @@ public class App extends Application {
    */
   public void submitLoggingData(String host, int port, ResourceBundle bundle) {
     this.resourceBundle = bundle;
-    try {
-      setUpConnection(host, port);
-    } catch (IOException e) {
-      log.error(e.getMessage());
-    }
+    setUpConnection(host, port);
   }
 
   private void runTask(String host, int port) {
@@ -143,7 +139,7 @@ public class App extends Application {
     th.start();
   }
 
-  private void setUpConnection(String host, Integer port) throws IOException {
+  private void setUpConnection(String host, Integer port) {
     runTask(host, port);
   }
 }

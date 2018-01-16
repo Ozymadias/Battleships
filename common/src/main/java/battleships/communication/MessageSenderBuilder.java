@@ -8,8 +8,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 /**
- * This class is for building MessageSender object. First it is responsible for creating ObjectOutputStream
- * based on socket output stream and then it creates MessageSender on a given ObjectOutputStream.
+ * This class is for building MessageSender object.
+ * It is responsible for creating ObjectOutputStream based on socket output stream
+ * and creating MessageSender on a given ObjectOutputStream.
  */
 public class MessageSenderBuilder {
   private ObjectOutputStream oos;
@@ -25,7 +26,7 @@ public class MessageSenderBuilder {
    * @param socket Accepts socket as a parameter.
    * @return returns this instance of builder with desired ObjectOutputStream.
    */
-  public MessageSenderBuilder addSocket(Socket socket) {
+  MessageSenderBuilder addSocket(Socket socket) {
     OutputStream os;
     try {
       os = socket.getOutputStream();

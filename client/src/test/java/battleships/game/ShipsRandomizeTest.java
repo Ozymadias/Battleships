@@ -11,16 +11,14 @@ import java.util.Set;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ShipsRandomizeTest {
-  ShipsRandomize firstRandomShipsSet;
-  Fleet firstFleet;
-  ShipsRandomize secondRandomShipsSet;
-  Fleet secondFleet;
+  private ShipsRandomize firstRandomShipsSet;
+  private Fleet firstFleet;
+  private ShipsRandomize secondRandomShipsSet;
   @BeforeTest
   public void setUpShipsRandomize() {
     firstRandomShipsSet = ShipsRandomize.build(Board.build());
     firstFleet = firstRandomShipsSet.placeAllFleet();
     secondRandomShipsSet = ShipsRandomize.build(Board.build());
-    secondFleet = secondRandomShipsSet.placeAllFleet();
   }
   @Test
   public void whenRandomizeTwoBoards_expectBoardsAreDifferent() {

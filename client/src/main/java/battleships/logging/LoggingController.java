@@ -1,12 +1,10 @@
 package battleships.logging;
 
 import static battleships.logging.ConfigValueName.IP;
-import static battleships.logging.ConfigValueName.NAME;
 import static battleships.logging.ConfigValueName.PORT;
 
 import battleships.App;
 import battleships.logging.validation.Validator;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -16,9 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 
 /**
  * Controller of logging window.
@@ -26,6 +24,7 @@ import java.util.ResourceBundle;
 public class LoggingController implements Initializable {
 
   private App mainApp;
+
   private ResourceBundle resourceBundle;
 
   @FXML
@@ -53,32 +52,29 @@ public class LoggingController implements Initializable {
   private Button logInButton;
 
   @FXML
-  void onActionLoginButton(ActionEvent event) {
-    if (new Validator().validate(configFieldsValues())) {
-      String host = configFieldsValues().get(IP).stringValue();
-      int port = Integer.parseInt(configFieldsValues().get(PORT).stringValue());
+  void onActionLoginButton() {
+    Map<ConfigValueName, ConfigValue> configMap
+        = ConfigMapCreator.createMap( serverIpInput.getText(),
+            serverPortInput.getText(),
+            playerNameInput.getText());
+
+    if (new Validator().validate(configMap)) {
+      String host = configMap.get(IP).stringValue();
+      int port = Integer.parseInt(configMap.get(PORT).stringValue());
       mainApp.submitLoggingData(host, port, resourceBundle);
     } else {
       invalidLoggingDataAlert();
     }
   }
 
-  private Map<ConfigValueName, ConfigValue> configFieldsValues() {
-    Map<ConfigValueName, ConfigValue> validationMap = new EnumMap<>(ConfigValueName.class);
-    validationMap.put(IP, () -> serverIpInput.getText());
-    validationMap.put(PORT, () -> serverPortInput.getText());
-    validationMap.put(NAME, () -> playerNameInput.getText());
-    return validationMap;
-  }
-
   @FXML
-  void polishVersion(ActionEvent event) {
+  void polishVersion() {
     resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.PL.toString());
     assignKeyTranslation();
   }
 
   @FXML
-  void englishVersion(ActionEvent event) {
+  void englishVersion() {
     resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.EN.toString());
     assignKeyTranslation();
   }
@@ -86,8 +82,8 @@ public class LoggingController implements Initializable {
   /**
    * Called to initialize a controller.
    *
-   * @param location The location used to resolve relative paths for the root object,
-   *                or null if the location is not known.
+   * @param location  The location used to resolve relative paths for the root object,
+   *                  or null if the location is not known.
    * @param resources ResourceBundle delivering proper translation
    */
   @Override
@@ -124,4 +120,3 @@ public class LoggingController implements Initializable {
     alert.showAndWait();
   }
 }
-

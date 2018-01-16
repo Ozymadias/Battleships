@@ -65,4 +65,21 @@ public class BattleshipUtilsTest {
     //then
     assertThat(emptyString).isEqualTo("");
   }
+
+  @DataProvider
+  private Object[][] randomNumberBounds() {
+    return new Object[][]{
+        {1, 5},
+        {67, 88},
+        {0, 99}
+    };
+  }
+
+  @Test(dataProvider = "randomNumberBounds")
+  public void whenRunningProvideRandomNumberMethod_expectRandomNumberToBeInBounds(int min, int max) {
+    //when
+    int randomNumber = BattleshipUtils.provideRandomNumber(min, max);
+    //then
+    assertThat(randomNumber).isBetween(min, max);
+  }
 }

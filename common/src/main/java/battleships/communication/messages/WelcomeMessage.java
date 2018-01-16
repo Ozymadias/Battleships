@@ -5,14 +5,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * This class represents welcome message that is send from a server to clients when they connect to the server.
+ * This class represents welcome message that is send from a server to clients
+ * when they connect to the server.
  */
 public class WelcomeMessage implements Messageable {
 
   private final String body;
 
   /**
-   * This is a constructor for WelcomeMessage. It is used by Jackson library as a property based creator.
+   * This is a constructor for WelcomeMessage.
+   * It is used by Jackson library as a property based creator.
    *
    * @param body string message to be sent
    */

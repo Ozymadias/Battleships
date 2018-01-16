@@ -8,8 +8,9 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 /**
- * This class is for building MessageReceiver object. First it is responsible for creating ObjectInputStream
- * based on socket input stream and then it creates MessageReceiver on a given ObjectInputStream.
+ * This class is for building MessageReceiver object.
+ * It is responsible for creating ObjectInputStream based on socket input stream
+ * and creating MessageReceiver on a given ObjectInputStream.
  */
 public class MessageReceiverBuilder {
   private ObjectInputStream ois;

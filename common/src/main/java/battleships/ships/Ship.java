@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,11 +33,7 @@ public class Ship implements Messageable {
    * @return returns ships with masts on given positions.
    */
   public static Ship createShip(Integer... positions) {
-    List<Mast> masts = new ArrayList<>();
-    for (Integer i : positions) {
-      masts.add(new Mast(i));
-    }
-    return new Ship(masts);
+    return viaList( Arrays.asList(positions));
   }
 
   @JsonCreator

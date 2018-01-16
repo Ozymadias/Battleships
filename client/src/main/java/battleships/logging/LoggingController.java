@@ -1,5 +1,8 @@
 package battleships.logging;
 
+import static battleships.logging.ConfigValueName.IP;
+import static battleships.logging.ConfigValueName.PORT;
+
 import battleships.App;
 import battleships.logging.validation.Validator;
 import javafx.fxml.FXML;
@@ -14,8 +17,6 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import static battleships.logging.ConfigValueName.IP;
-import static battleships.logging.ConfigValueName.PORT;
 
 /**
  * Controller of logging window.
@@ -52,8 +53,11 @@ public class LoggingController implements Initializable {
 
   @FXML
   void onActionLoginButton() {
-    Map<ConfigValueName, ConfigValue> configMap = ConfigMapCreator.createMap(serverIpInput.getText(),
-        serverPortInput.getText(), playerNameInput.getText());
+    Map<ConfigValueName, ConfigValue> configMap
+        = ConfigMapCreator.createMap( serverIpInput.getText(),
+            serverPortInput.getText(),
+            playerNameInput.getText());
+
     if (new Validator().validate(configMap)) {
       String host = configMap.get(IP).stringValue();
       int port = Integer.parseInt(configMap.get(PORT).stringValue());

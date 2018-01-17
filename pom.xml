@@ -67,7 +67,7 @@
 
         <!-- sonar -->
         <sonar.coverage.exclusions>**/LanguageLoadOption.*, **/SalvoCount.*, **/GameResult.*, **/Salvo.*,
-            **/SalvoResult.*, **/BattleshipLog.*, **/RootLayoutController.*, **/LoggingController.*</sonar.coverage.exclusions>
+            **/SalvoResult.*, **/BattleshipLog.*, **/RootLayoutController.*</sonar.coverage.exclusions>
         <sonar.test.exclusions>**/CreateSocketsIT.*, **/MessagesAreSentFromServerIT.*, **/ReceiveMessageIT.*</sonar.test.exclusions>
     </properties>
 
@@ -255,7 +255,6 @@
                             <exclude>**/SalvoResult.*</exclude>
                             <exclude>**/BattleshipLog.*</exclude>
                             <exclude>**/RootLayoutController.*</exclude>
-                            <exclude>**/LoggingController.*</exclude>
                         </excludes>
                     </configuration>
                 </plugin>

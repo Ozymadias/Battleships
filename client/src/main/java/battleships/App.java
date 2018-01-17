@@ -5,10 +5,8 @@ import battleships.logger.BattleshipLog;
 import battleships.logging.LanguageLoadOption;
 import battleships.logging.LoggingController;
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -99,45 +97,16 @@ public class App extends Application {
    */
   public void submitLoggingData(String host, int port, ResourceBundle bundle) {
     this.resourceBundle = bundle;
-    setUpConnection(host, port);
-  }
-
-  private void runTask(String host, int port) {
-    Task<Integer> task = new Task<Integer>() {
-      @Override protected Integer call() throws Exception {
-        boolean connected = false;
-        do {
-          if (isCancelled()) {
-            break;
-          }
-          ServerConnector serverConnector = ServerConnector.buildWithHostAndPort(host, port);
-          Thread.sleep(300);
-          connected = serverConnector.setUp();
-        } while (!connected);
-        return 0;
-      }
-    };
-
-    AlertWithProgressIndicator alertWithProgressIndicator
-        = AlertWithProgressIndicator.asInstance(Alert.AlertType.INFORMATION,
-        resourceBundle.getString("CONNECTING"),
-        resourceBundle.getString("RESPONSE_WAITING"));
-
-    task.setOnScheduled(e -> {
-      alertWithProgressIndicator.show();
-    });
-
-    task.setOnSucceeded(e -> {
-      alertWithProgressIndicator.close();
+    try {
+      setUpConnection(host, port);
       initRootLayout();
-    });
-
-    Thread th = new Thread(task);
-    th.setDaemon(true);
-    th.start();
+    } catch (IOException e) {
+      log.error(e.getMessage());
+    }
   }
 
-  private void setUpConnection(String host, Integer port) {
-    runTask(host, port);
+  private void setUpConnection(String host, Integer port) throws IOException {
+    ServerConnector serverConnector = ServerConnector.buildWithHostAndPort(host, port);
+    serverConnector.setUp();
   }
 }

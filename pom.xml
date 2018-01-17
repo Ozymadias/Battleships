@@ -46,10 +46,7 @@
 
 
         <!-- testing -->
-        <mockitoCoreVersion>2.13.0</mockitoCoreVersion>
-        <awaitilityVersion>1.7.0</awaitilityVersion>
-        <assertjCoreVersion>3.9.0</assertjCoreVersion>
-        <testngVersion>6.13.1</testngVersion>
+        <testsBomVersion>1.0</testsBomVersion>
         <mavenFailsafePluginVersion>2.20.1</mavenFailsafePluginVersion>
 
         <!-- project settings -->
@@ -74,22 +71,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockitoCoreVersion}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>${assertjCoreVersion}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.testng</groupId>
-                <artifactId>testng</artifactId>
-                <version>${testngVersion}</version>
-                <scope>test</scope>
+                <groupId>com.test</groupId>
+                <artifactId>bom</artifactId>
+                <version>${testsBomVersion}</version>
+                <scope>import</scope>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>commons-lang</groupId>
@@ -120,11 +106,6 @@
                 <groupId>battleships</groupId>
                 <artifactId>common</artifactId>
                 <version>${commonVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.jayway.awaitility</groupId>
-                <artifactId>awaitility</artifactId>
-                <version>${awaitilityVersion}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -11,7 +11,20 @@ In order to run this game you need to install:
 
 Optional for quality monitoring:
 * [SonarQube](https://www.sonarqube.org/)
-### Installing
+### Installing dependencies for tests
+This project also need to have previously installed dependencies for tests purpose. To do that:
+
+Step 1:
+clone repository: https://github.com/igasm/test-dependencies-import.git
+
+Step 2: Get into directory with cloned project and run:
+
+```
+mvn clean install
+```
+
+
+### Installing game
 In order to install you need to run this command in main game directory:
 
 ```

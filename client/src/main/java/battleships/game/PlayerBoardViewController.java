@@ -8,6 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 
 import java.net.URL;
@@ -106,7 +110,20 @@ public class PlayerBoardViewController implements Member, Initializable {
   private void updateBoard(List<Integer> salvoPositions) {
     for (Integer positionOfShot : salvoPositions) {
       board.getFields().get(positionOfShot).shoot();
-      setUpPlayerBoard();
+      setHitOnBoard(positionOfShot);
     }
+  }
+
+  private void setHitOnBoard(int position) {
+    int column = position / BOARD_ROW_COUNT;
+    int row = position - (column * BOARD_COLUMN_COUNT);
+    int gridPaneIndex = column * BOARD_ROW_COUNT + row;
+    StackPane stackPane = (StackPane) dockedGridPane.getChildren().get(gridPaneIndex);
+    if (board.getFields().get(position).isShipOn()) {
+      Rectangle rectangle = (javafx.scene.shape.Rectangle) stackPane.getChildren().get(0);
+      rectangle.setFill(FieldState.BROKEN_SHIP_PART.getColor());
+    }
+    Text text = new Text(BoardNode.MARK_FOR_SHOT);
+    stackPane.getChildren().add(text);
   }
 }

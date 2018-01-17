@@ -11,6 +11,11 @@ In order to run this game you need to install:
 
 Optional for quality monitoring:
 * [SonarQube](https://www.sonarqube.org/)
+
+### Supported platforms
+Recommended platform is Linux, application was tested on Ubuntu and Linux Mint distributions.
+Please notice that all scripts delivered with this project are shell scripts.
+
 ### Installing
 In order to install you need to run this command in main game directory:
 

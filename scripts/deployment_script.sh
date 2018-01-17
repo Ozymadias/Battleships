@@ -22,6 +22,7 @@ DIFF=$(( $END - $START ))
 echo "Running unit tests took $DIFF seconds"
 cat $LOG_FILE |grep -A2 Results |grep "Tests run" | awk 'BEGIN { FS = "[:,]" } { sumRun+=$2; sumFailures+=$4; sumErrors+=$6; sumSkipped+=$8 } END {print "Total tests run:" sumRun;print "Failures:" sumFailures;print "Errors:" sumErrors;print "Skipped:" sumSkipped} '
 
+mvn -pl :common install > $LOG_FILE
 touch $TMP_TI_LOG_FILE
 START=$(date +%s)
 mvn failsafe:integration-test > $TMP_TI_LOG_FILE

@@ -54,11 +54,6 @@ public class RootLayoutController implements Initializable {
     Fleet fleet = shipsRandomize.placeAllFleet();
     Board board = shipsRandomize.getBoard();
     DataBus.getInstance().publish(fleet);
-    try {
-      addPlayerBoardView(board);
-    } catch (IOException e) {
-      log.error(e);
-    }
     return board;
   }
 

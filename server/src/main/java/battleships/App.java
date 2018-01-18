@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Battleship server.
  */
-public class ServerApp {
+public class App {
   /**
    * Runs server, creates socket and starts game.
    */

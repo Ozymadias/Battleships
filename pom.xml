@@ -24,22 +24,23 @@
         <mavenCleanPluginVersion>3.0.0</mavenCleanPluginVersion>
         <mavenDeployPluginVersion>2.8.2</mavenDeployPluginVersion>
         <mavenInstallPluginVersion>2.5.2</mavenInstallPluginVersion>
+        <mavenJarPluginVersion>3.0.2</mavenJarPluginVersion>
         <mavenEnforcerPluginVersion>3.0.0-M1</mavenEnforcerPluginVersion>
         <mavenSurefirePluginVersion>2.20.1</mavenSurefirePluginVersion>
         <mavenProjectInfoReportsPluginVersion>2.9</mavenProjectInfoReportsPluginVersion>
         <mavenResourcePluginVersion>3.0.2</mavenResourcePluginVersion>
-        <mavenSitePluginVersion>3.7</mavenSitePluginVersion>
+        <mavenSitePluginVersion>3.6</mavenSitePluginVersion>
+        <mavenDependencyPluginVersion>3.0.2</mavenDependencyPluginVersion>
         <maven-compiler-plugin.configuration.version>1.8</maven-compiler-plugin.configuration.version>
         <execMavenPluginVersion>1.6.0</execMavenPluginVersion>
         <sonarMavenPluginVersion>3.4.0.905</sonarMavenPluginVersion>
         <mavenReportsVersion>2.9</mavenReportsVersion>
-        <mavenShadePluginVersion>3.1.0</mavenShadePluginVersion>
 
         <!-- reporting -->
         <jdepsMavenPluginVersion>0.4.0</jdepsMavenPluginVersion>
-        <jacocoMavenPluginVersion>0.8.0</jacocoMavenPluginVersion>
+        <jacocoMavenPluginVersion>0.7.9</jacocoMavenPluginVersion>
         <findBugsMavenPluginVersion>3.0.5</findBugsMavenPluginVersion>
-        <mavenCheckstylePluginVersion>3.0.0</mavenCheckstylePluginVersion>
+        <mavenCheckstylePluginVersion>2.17</mavenCheckstylePluginVersion>
         <mavenJxrPluginVersion>2.5</mavenJxrPluginVersion>
         <versionsMavenPluginVersion>2.5</versionsMavenPluginVersion>
 
@@ -120,6 +121,11 @@
                 <artifactId>common</artifactId>
                 <version>${commonVersion}</version>
             </dependency>
+            <dependency>
+                <groupId>com.jayway.awaitility</groupId>
+                <artifactId>awaitility</artifactId>
+                <version>${awaitilityVersion}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -128,22 +134,13 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>${mavenShadePluginVersion}</version>
-                    <executions>
-                        <!-- Run shade goal on package phase -->
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>shade</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${mavenReleasePluginVersion}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>${mavenReleasePluginVersion}</version>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>${mavenAssemblyPluginVersion}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -172,6 +169,20 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>${mavenInstallPluginVersion}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${mavenJarPluginVersion}</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
+                            </manifest>
+                        </archive>
+                    </configuration>
                 </plugin>
 
                 <plugin>
@@ -255,6 +266,26 @@
                     <version>${execMavenPluginVersion}</version>
                 </plugin>
 
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>${mavenDependencyPluginVersion}</version>
+                    <executions>
+                        <execution>
+                            <id>copy-dependencies</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>copy-dependencies</goal>
+                            </goals>
+                            <configuration>
+                                <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                                <overWriteReleases>false</overWriteReleases>
+                                <overWriteSnapshots>false</overWriteSnapshots>
+                                <overWriteIfNewer>true</overWriteIfNewer>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>

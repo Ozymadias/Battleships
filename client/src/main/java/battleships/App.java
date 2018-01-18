@@ -83,10 +83,8 @@ public class App extends Application {
       loader.setLocation(App.class.getResource(ROOT_LAYOUT_FXML));
       BorderPane rootLayout = loader.load();
       primaryStage.setScene(new Scene(rootLayout));
-      primaryStage.setHeight(450);
-      primaryStage.setWidth(1000);
-      primaryStage.show();
       primaryStage.setResizable(false);
+      primaryStage.show();
     } catch (IOException e) {
       log.error(e.getMessage());
     }

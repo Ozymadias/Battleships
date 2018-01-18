@@ -6,9 +6,6 @@ target/
 client/target/
 server/target/
 
-#dependency-reduced-poms
-dependency-reduced-pom.xml
-
 # User-specific stuff:
 .idea/**/workspace.xml
 .idea/**/tasks.xml

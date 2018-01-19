@@ -62,7 +62,7 @@
     </dependencies>
 
     <description>
-        This is a server module of Battleships game.
+        Server module of Battleships game.
         Server provides a way to communicate for two client's apps, it's also controls a game flow.
     </description>
 

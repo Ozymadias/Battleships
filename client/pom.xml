@@ -63,7 +63,7 @@
     </dependencies>
 
     <description>
-        This is a client module of Battleships game.
+        Client module of Battleships game.
         The application provides user interface for battleships game,
         it's require running sever app.
     </description>

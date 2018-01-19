@@ -39,7 +39,7 @@
         <jdepsMavenPluginVersion>0.4.0</jdepsMavenPluginVersion>
         <jacocoMavenPluginVersion>0.8.0</jacocoMavenPluginVersion>
         <findBugsMavenPluginVersion>3.0.5</findBugsMavenPluginVersion>
-        <mavenCheckstylePluginVersion>3.0.0</mavenCheckstylePluginVersion>
+        <mavenCheckstylePluginVersion>2.17</mavenCheckstylePluginVersion>
         <mavenJxrPluginVersion>2.5</mavenJxrPluginVersion>
         <versionsMavenPluginVersion>2.5</versionsMavenPluginVersion>
 
@@ -401,7 +401,7 @@
     </reporting>
 
     <description>
-        This is a Battleships project. It's allows two users to play a battleships game using server-client
+        Game allows two users to play a battleships game using server-client
         architecture.
         Project contains three modules: client, server, common.
         The common module is a bunch of utils used by client and server.

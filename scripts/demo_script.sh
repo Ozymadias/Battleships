@@ -5,7 +5,7 @@ LOG_FILE="$PWD/"clone.log
 
 if [ $# -eq 0 ]
   then
-  echo "Usage: ./demo_script.sh <dir where repository will be cloned>"
+  echo "Usage: ${0} <dir where repository will be cloned>"
   exit 1;
 fi
 

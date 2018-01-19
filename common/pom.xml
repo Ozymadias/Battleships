@@ -62,10 +62,9 @@
     </dependencies>
 
     <description>
-        This module is having common classes for client and server, such as:
-        classes providing JSON serialization and deserialization,
-        wrapper class for utils library (logger, checking if String hold numeric value, providing empty String etc.),
-        classes handling receiving and sending messages via sockets.
+        Provides classes for such purpose as: JSON serialization and deserialization,
+        wrappers for utils library (logger, checking if String hold numeric value, providing empty String, etc.),
+        classes handling receiving and sending messages via sockets, etc.
     </description>
 
 </project>

@@ -69,9 +69,11 @@ echo "************************"
 echo "Documentation generated!"
 echo "************************"
 NO_OF_COMMITS=$(git rev-list master --count)
-NO_OF_INTERFACES=$(grep --include=\*.java -r interface.*{ | wc -l)
+NO_OF_INTERFACES=$(grep --include=\*.java -r "interface.*{" | wc -l)
 NO_OF_PACKAGES=$(grep --include=\*.java -r package | awk 'BEGIN { FS = ":" } {print $2} ' |sort |uniq |wc -l)
 NO_OF_PUBLIC_METHODS=$(grep -r "public" --include='*.java' . | grep -v "class\|interface\|enum\|test" | grep "(*)" | wc -l)
+NO_OF_PROTECTED_METHODS=$(grep -r "protected" --include='*.java' . | grep -v "class\|interface\|enum\|test" | grep "(*)" | wc -l)
+NO_OF_PACKAGE_PRIVATE_METHODS=$(egrep -xr '[[:space:]]+(final|static)?[[:space:]]+[a-zA-Z0-9]+[[:space:]][a-zA-Z0-9]+\(.*' --include='*.java' . | egrep -v "public|private|protected|integrationtests|test|new|return" | wc -l)
 NO_OF_PRIVATE_METHODS=$(grep -r "private" --include='*.java' . | grep -v "class\|interface\|enum\|test|\final" | grep "(*)" | wc -l)
 NO_OF_FINAL_VARIABLES=$(grep -r "final" --include='*.java' .| wc -l)
 
@@ -85,6 +87,10 @@ echo "Number of packages"
 echo "$NO_OF_PACKAGES"
 echo "Number of public methods"
 echo "$NO_OF_PUBLIC_METHODS"
+echo "Number of protected methods"
+echo "$NO_OF_PROTECTED_METHODS"
+echo "Number of package-private methods"
+echo "$NO_OF_PACKAGE_PRIVATE_METHODS"
 echo "Number of private methods"
 echo "$NO_OF_PRIVATE_METHODS"
 echo "Number of final variables"

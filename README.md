@@ -101,6 +101,32 @@ Will run one instance of server. Script accept port number as a parameter.
 ./run_client.sh
 ```
 Will run one instance of client.
+
+You can also choose the language the client is run with (PL for Polish, EN for English).
+For example:
+
+```
+./run_client.sh PL
+```
+
+## Setting default language of client to be run with scripts
+You can change the default language, that a client is run with. To do that, open the file from cloned project <br>
+/scripts/run_client.sh
+and edit one line of it:
+
+```
+#Define default language here
+LANGUAGE=${1:-"EN"}
+```
+
+For example, to change the default language to Polish:
+```
+#Define default language here
+LANGUAGE=${1:-"PL"}
+```
+At this time only two languages are handled: Polish (PL) and English (EN).
+
+
 ## Gameplay
 In order to play you need to run client.
 

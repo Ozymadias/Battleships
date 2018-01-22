@@ -10,10 +10,6 @@ if [ $# -eq 0 ]
   echo "Running server on port $PORT"
 fi
 
-the_output="$(./run_server.sh $PORT&)"
-
-echo "***************"
-echo $the_output
-
+sh ./run_server.sh $PORT&
 sh ./run_client.sh&
 sh ./run_client.sh&

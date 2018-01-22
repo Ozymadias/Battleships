@@ -24,7 +24,7 @@ public class App extends Application {
   private static final String APP_NAME = "BATTLESHIPS!";
   private static final String LOGIN_FXML = "/fxml/login.fxml";
   private static final String ROOT_LAYOUT_FXML = "/fxml/RootLayout.fxml";
-  private final BattleshipLog log = BattleshipLog.provideLogger(App.class);
+  private static final BattleshipLog log = BattleshipLog.provideLogger(App.class);
 
   private ResourceBundle resourceBundle = ResourceBundle
       .getBundle(LanguageLoadOption.EN.toString());
@@ -39,6 +39,12 @@ public class App extends Application {
     launch(args);
   }
 
+  private void loadLanguage(String arg) {
+    if (arg.equalsIgnoreCase(LanguageLoadOption.PL.toString())){
+      resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.PL.toString());
+    }
+  }
+
   /**
    * Method automatically called when the application is launched
    * show window for logging to application.
@@ -46,6 +52,9 @@ public class App extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
+    if(this.getParameters().getUnnamed().size() > 0){
+      loadLanguage(this.getParameters().getUnnamed().get(0));
+    }
     this.primaryStage = primaryStage;
     this.primaryStage.setTitle(APP_NAME);
     showLoginWindow();

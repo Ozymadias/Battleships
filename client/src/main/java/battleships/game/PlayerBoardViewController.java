@@ -97,6 +97,7 @@ public class PlayerBoardViewController implements Member, Initializable {
     alert.setHeaderText(resourceBundle.getString("GAME_RESULT_HEADER"));
     alert.setContentText(resourceBundle.getString(resultInfo));
     alert.initModality(Modality.APPLICATION_MODAL);
+    alert.initOwner(dockedGridPane.getScene().getWindow());
     alert.showAndWait();
   }
 

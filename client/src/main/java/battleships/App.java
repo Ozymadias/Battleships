@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -124,6 +125,8 @@ public class App extends Application {
         = AlertWithProgressIndicator.asInstance(Alert.AlertType.INFORMATION,
         resourceBundle.getString("CONNECTING"),
         resourceBundle.getString("RESPONSE_WAITING"));
+    alertWithProgressIndicator.initModality(Modality.APPLICATION_MODAL);
+    alertWithProgressIndicator.initOwner(primaryStage);
 
     task.setOnScheduled(e -> {
       alertWithProgressIndicator.show();

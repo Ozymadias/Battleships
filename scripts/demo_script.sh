@@ -10,10 +10,10 @@ if [ $# -eq 0 ]
 fi
 
 echo "Cloning git repository"
-git clone https://github.com/szczepanskikrs/Battleships.git $1 >$LOG_FILE
+git clone https://github.com/szczepanskikrs/Battleships.git "$1" > "$LOG_FILE"
 read -p "Clone successful! Do want to run tests now(Y/N)?"
 if [ "${REPLY^^}" != "Y" ]; then
    exit;
 fi
-cd $1/scripts
+cd "$1"/scripts
 sh ./deployment_script.sh

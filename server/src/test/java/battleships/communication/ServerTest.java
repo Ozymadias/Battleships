@@ -1,7 +1,5 @@
 package battleships.communication;
 
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -13,35 +11,19 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@Test
 public class ServerTest {
-  private Server server;
+  private ServerSocket serverSocket = mock(ServerSocket.class);
+  private Server server = new Server(serverSocket);
 
-  @DataProvider(name = "clientPool")
-  private static Object[][] clientPool() {
-
-    return new Object[][] {
-        {2, true},
-        {4, false},
-        {0, false}
-
-    };
-  }
-
-  @BeforeTest
-  private void setUp() throws IOException {
-    ServerSocket serverSocket = mock(ServerSocket.class);
+  public void shouldOnlyCreateTwoSockets() throws IOException {
+    // given
+    final int thereCanBeOnlyTwo = 2;
     when(serverSocket.accept()).thenReturn(new Socket());
-    server = new Server(serverSocket);
-  }
-
-  @Test(dataProvider = "clientPool")
-  public void whenServerIsCreatingSockets_expectItCreates2Sockets(int count, boolean expectedResult) throws Exception {
-    //when
+    // when
     List<Socket> sockets = server.createSockets();
-    int sizeOfSockets = sockets.size();
-    //then
-    assertThat(sizeOfSockets == count).isEqualTo(expectedResult);
+    // then
+    assertThat(sockets.size()).as("sockets # == players #, that is 2.").isEqualTo(11);
   }
-
 
 }

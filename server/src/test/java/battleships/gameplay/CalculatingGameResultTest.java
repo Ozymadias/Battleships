@@ -32,6 +32,7 @@ public class CalculatingGameResultTest {
 
   @DataProvider(name = "calculatingResultProvider")
   public static Object[][] calculatingResultProvider() {
+
     return Triplet.provideTestDataForCalculatingResults();
   }
 

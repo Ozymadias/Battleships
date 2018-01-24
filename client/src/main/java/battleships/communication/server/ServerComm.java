@@ -1,5 +1,6 @@
 package battleships.communication.server;
 
+import battleships.AlertWithProgressIndicator;
 import battleships.communication.ClientHandler;
 import battleships.communication.DataBus;
 import battleships.communication.Member;
@@ -8,6 +9,7 @@ import battleships.communication.Publisher;
 import battleships.communication.messages.Salvo;
 import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
+import javafx.concurrent.Task;
 
 class ServerComm implements Member, Publisher {
 
@@ -32,18 +34,44 @@ class ServerComm implements Member, Publisher {
     }
   }
 
+  /**
+   * Sends message using clientHandler, and process the response from clientHandler.
+   * @param event message to which answer is expected
+   * @param alert instance of Alert which will be showed while waiting for response
+   */
   @Override
-  public Messageable processRequest(Messageable event) {
+  public void processRequest(Messageable event, AlertWithProgressIndicator alert) {
     log.info("preparing " + event.getClass() + " to send to socket");
     clientHandler.sendMessage(event);
-    log.info("wating for replay...");
-    Messageable messageable = clientHandler.receiveMessage();
-    log.info("processing replay...");
-    return messageable;
-  }
+    log.info("waiting for replay...");
 
+    SendMessageTask sendMessageTask = new SendMessageTask();
+    sendMessageTask.setOnScheduled(e -> {
+      alert.show();
+    });
+
+    sendMessageTask.setOnSucceeded(e -> {
+      alert.close();
+      DataBus.getInstance().publish(sendMessageTask.getValue());
+    });
+
+    Thread th = new Thread(sendMessageTask);
+    th.setDaemon(true);
+    th.start();
+
+    log.info("processing replay...");
+  }
 
   Messageable waitForMessage() {
     return clientHandler.receiveMessage();
   }
+
+  class SendMessageTask extends Task<Messageable> {
+
+    @Override
+    protected Messageable call() throws Exception {
+      return clientHandler.receiveMessage();
+    }
+  }
 }
+

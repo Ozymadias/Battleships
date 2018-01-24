@@ -7,13 +7,23 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.GridPane;
 
-class AlertWithProgressIndicator extends Alert {
+/**
+ * Alert with progress indicator.
+ */
+public class AlertWithProgressIndicator extends Alert {
 
   private AlertWithProgressIndicator(AlertType alertType) {
     super(alertType);
   }
 
-  static AlertWithProgressIndicator asInstance(Alert.AlertType alertType,
+  /**
+   * Create an instance of AlertWithProgressIndicator.
+   * @param alertType type of alert
+   * @param headerText text to be in print in alert header
+   * @param contentText text to be print as alert content text
+   * @return instance of AlertWithProgressIndicator
+   */
+  public static AlertWithProgressIndicator asInstance(Alert.AlertType alertType,
                                                String headerText, String contentText) {
     AlertWithProgressIndicator alert = new AlertWithProgressIndicator(alertType);
     alert.setHeaderText(headerText);

@@ -1,5 +1,6 @@
 package battleships.communication;
 
+import battleships.AlertWithProgressIndicator;
 import battleships.logger.BattleshipLog;
 
 import java.util.HashSet;
@@ -24,6 +25,7 @@ public class DataBus {
 
   /**
    * Returns an instance of DataBus.
+   * @return an instance of DataBus
    */
   public static DataBus getInstance() {
     return INSTANCE;
@@ -41,11 +43,12 @@ public class DataBus {
   /**
    * Send requests to all of publishers and then publishes response from them to all of members.
    * @param data instance of class implementing Messageable for which answer is requested
+   * @param alert instance of Alert,
+   *              which will be showed while waiting for response
    */
-  public void publishRequest(Messageable data) {
+  public void publishRequest(Messageable data, AlertWithProgressIndicator alert) {
     for (Publisher publisher : publishers) {
-      Messageable replay = publisher.processRequest(data);
-      publish(replay);
+      publisher.processRequest(data, alert);
     }
   }
 

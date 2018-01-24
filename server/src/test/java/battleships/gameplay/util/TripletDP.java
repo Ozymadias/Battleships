@@ -31,4 +31,15 @@ public class TripletDP {
     )};
   }
   
+  @DataProvider
+  public static Object[] fleetOfTheFirstPlayerSunks() {
+    return new Object[] {new Triplet(Arrays.asList(mock(Observers.class), mock(Observers.class)),
+        Arrays.asList(new Fleet(Arrays.asList(Ship.createShip(34, 33, 32))),
+            new Fleet(Arrays.asList(Ship.createShip(4, 5, 6)))),
+        Arrays.asList
+                   (new SalvoResult(Arrays.asList(4, 5, 6), Arrays.asList(34, 33, 32), GameResult.NONE)
+                       , new SalvoResult(Arrays.asList(34, 33, 32), Arrays.asList(4, 5, 6), GameResult.NONE))
+    )};
+  }
+  
 }

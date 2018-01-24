@@ -34,7 +34,18 @@ public class SinkingShipsTest {
     //then
     assertTrue(checkIfShipsAreDead(triplet.fleets.get(secondPlayerFleet)));
   }
-
+  
+  @Test(dataProvider = "fleetOfTheFirstPlayerSunks", dataProviderClass = TripletDP.class)
+  public void fleetOfTheFirstPlayerShouldSunk(Triplet triplet) {
+    //given
+    SinkingShips sinkingShips = new SinkingShips(triplet.observers, triplet.fleets, triplet.salvoResults);
+    int firstPlayerFleet = 0;
+    //when
+    sinkingShips.process();
+    //then
+    assertTrue(checkIfShipsAreDead(triplet.fleets.get(firstPlayerFleet)));
+  }
+  
   @Test
   public void whenSinkingShipsStateIsProcessed_expectIsEndOfGameToBeFalse() {
     //given

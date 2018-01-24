@@ -45,6 +45,7 @@ public class ClientHandlerBuilder {
 
   /**
    * It returns new instance of ClientHandler class.
+   * @return new instance of ClientHandler class
    */
   public ClientHandler build() {
     return new ClientHandler(

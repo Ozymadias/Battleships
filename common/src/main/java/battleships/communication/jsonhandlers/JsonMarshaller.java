@@ -34,6 +34,7 @@ public class JsonMarshaller implements Marshaller {
 
   /**
    * This returns a new instance of JsonMarshaller class.
+   * @return new instance of JsonMarshaller class
    */
   public static JsonMarshaller newInstance() {
     return new JsonMarshaller(MessageableMapper.newInstance());

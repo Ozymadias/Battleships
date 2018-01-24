@@ -4,6 +4,7 @@ import battleships.communication.jsonhandlers.JsonMarshaller;
 import battleships.communication.jsonhandlers.JsonUnmarshaller;
 import battleships.communication.messages.WelcomeMessage;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -44,6 +45,9 @@ public class ClientHandler {
   public Messageable receiveMessage() {
     String messageString = messageReceiver.receiveMessageString();
     Optional<Messageable> message = jsonUnmarshaller.toMessageable(messageString);
-    return message.orElseGet(() -> new WelcomeMessage("Something went wrong"));
+    if (!message.isPresent()) {
+      throw new RuntimeException("message not received");
+    }
+    return message.get();
   }
 }

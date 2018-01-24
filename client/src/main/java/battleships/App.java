@@ -40,7 +40,7 @@ public class App extends Application {
   }
 
   private void loadLanguage(String arg) {
-    if (arg.equalsIgnoreCase(LanguageLoadOption.PL.toString())){
+    if (arg.equalsIgnoreCase(LanguageLoadOption.PL.toString())) {
       resourceBundle = ResourceBundle.getBundle(LanguageLoadOption.PL.toString());
     }
   }
@@ -52,7 +52,7 @@ public class App extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
-    if(this.getParameters().getUnnamed().size() > 0){
+    if (this.getParameters().getUnnamed().size() > 0) {
       loadLanguage(this.getParameters().getUnnamed().get(0));
     }
     this.primaryStage = primaryStage;

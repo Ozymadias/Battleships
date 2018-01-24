@@ -29,6 +29,7 @@ public class Server {
 
   /**
    * Returns int value of socket local port.
+   * @return socket port number
    */
   public int getServerSocketPort() {
     return serverSocket.getLocalPort();

@@ -1,5 +1,6 @@
 package battleships.communication.server;
 
+import battleships.AlertWithProgressIndicator;
 import battleships.communication.ClientHandler;
 import battleships.communication.Messageable;
 import battleships.communication.messages.Salvo;
@@ -67,23 +68,9 @@ public class ServerCommTest {
         provideRandomNumber(0,99),
         provideRandomNumber(0,99));
     //when
-    serverComm.processRequest(messageable);
+    serverComm.processRequest(messageable, mock(AlertWithProgressIndicator.class));
     //then
     verify(clientHandler, times(1)).sendMessage(messageable);
-  }
-
-  @Test
-  public void whenInvokingProcessRequestOnServerComm_expectClientHandlerInvokeReceiveMessageOnce() {
-    //given
-    Messageable messageable = Salvo.createForPositions(
-        provideRandomNumber(0,99),
-        provideRandomNumber(0,99),
-        provideRandomNumber(0,99),
-        provideRandomNumber(0,99));
-    //when
-    serverComm.processRequest(messageable);
-    //then
-    verify(clientHandler, times(1)).receiveMessage();
   }
 
   @Test

@@ -38,6 +38,7 @@ public class JsonUnmarshaller implements Unmarshaller {
 
   /**
    * This returns a new instance of JsonUnmarshaller.
+   * @return a new instance of JsonUnmarshaller
    */
   public static JsonUnmarshaller newInstance() {
     return new JsonUnmarshaller(MessageableMapper.newInstance());

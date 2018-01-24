@@ -1,6 +1,7 @@
 package battleships.gameplay;
 
 import battleships.game.GameResult;
+import battleships.gameplay.util.Triplet;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

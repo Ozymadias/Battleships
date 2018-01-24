@@ -1,4 +1,4 @@
-package battleships.gameplay;
+package battleships.gameplay.util;
 
 import battleships.Observers;
 import battleships.communication.messages.SalvoResult;
@@ -11,12 +11,12 @@ import java.util.List;
 
 import static org.mockito.Mockito.mock;
 
-class Triplet {
+public class Triplet {
   private final static int PLAYER_ONE = 0;
   private final static int PLAYER_TWO = 1;
-  List<Observers> observers;
-  List<Fleet> fleets;
-  List<SalvoResult> salvoResults;
+  public List<Observers> observers;
+  public List<Fleet> fleets;
+  public List<SalvoResult> salvoResults;
 
   private Triplet(List<Observers> observers, List<Fleet> fleets, List<SalvoResult> salvoResults) {
     this.observers = observers;
@@ -24,7 +24,7 @@ class Triplet {
     this.salvoResults = salvoResults;
   }
 
-  static Object[][] provideTestDataForSinkingShips() {
+  public static Object[][] provideTestDataForSinkingShips() {
     return new Object[][] {
 
         //player two fleet should be sunk
@@ -74,7 +74,7 @@ class Triplet {
     };
   }
 
-  static Object[][] provideTestDataForCalculatingResults() {
+  public static Object[][] provideTestDataForCalculatingResults() {
     return new Object[][] {
 
         //player one should win

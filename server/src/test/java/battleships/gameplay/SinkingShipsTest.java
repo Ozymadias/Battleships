@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.testng.Assert.assertTrue;
 
 public class SinkingShipsTest {
   
@@ -21,6 +22,17 @@ public class SinkingShipsTest {
     sinkingShips.process();
     //then
     assertThat(checkIfShipsAreDead(triplet.fleets.get(fleetIndex))).isEqualTo(expectedResult);
+  }
+  
+  @Test(dataProvider = "fleetOfTheSecondPlayerSunks", dataProviderClass = TripletDP.class)
+  public void fleetOfTheSecondPlayerShouldSunk(Triplet triplet) {
+    //given
+    SinkingShips sinkingShips = new SinkingShips(triplet.observers, triplet.fleets, triplet.salvoResults);
+    int secondPlayerFleet = 1;
+    //when
+    sinkingShips.process();
+    //then
+    assertTrue(checkIfShipsAreDead(triplet.fleets.get(secondPlayerFleet)));
   }
 
   @Test

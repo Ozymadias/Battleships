@@ -18,7 +18,7 @@ public class Triplet {
   public List<Fleet> fleets;
   public List<SalvoResult> salvoResults;
 
-  private Triplet(List<Observers> observers, List<Fleet> fleets, List<SalvoResult> salvoResults) {
+  public Triplet(List<Observers> observers, List<Fleet> fleets, List<SalvoResult> salvoResults) {
     this.observers = observers;
     this.fleets = fleets;
     this.salvoResults = salvoResults;
@@ -26,7 +26,6 @@ public class Triplet {
 
   public static Object[][] provideTestDataForSinkingShips() {
     return new Object[][] {
-
         //player two fleet should be sunk
         {new Triplet(Arrays.asList(mock(Observers.class), mock(Observers.class)),
             Arrays.asList(new Fleet(Arrays.asList(Ship.createShip(1, 2, 3))),

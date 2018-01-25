@@ -31,8 +31,8 @@ public class MessageReceiverBuilder {
     try {
       is = socket.getInputStream();
       ois = new ObjectInputStream(is);
-    } catch (IOException e) {
-      log.error(e.getMessage());
+    } catch (IOException ex) {
+      log.error(ex.getMessage());
     }
     return this;
   }

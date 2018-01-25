@@ -27,7 +27,7 @@ public class JsonMarshaller implements Marshaller {
   public String toString(Messageable messageable) {
     try {
       return this.messageableMapper.writeValueAsString(messageable);
-    } catch (JsonProcessingException e) {
+    } catch (JsonProcessingException ex) {
       return BattleshipUtils.provideEmptyString();
     }
   }

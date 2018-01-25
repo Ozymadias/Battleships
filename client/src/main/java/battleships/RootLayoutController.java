@@ -44,8 +44,8 @@ public class RootLayoutController implements Initializable {
       addOpponentBoardView();
       Board playerBoard = preparePlayerData();
       addPlayerBoardView(playerBoard);
-    } catch (IOException e) {
-      log.error(e);
+    } catch (IOException ex) {
+      log.error(ex);
     }
   }
 

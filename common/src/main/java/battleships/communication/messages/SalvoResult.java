@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+
 /**
  * This class represents SalvoResult message that can be send from a server to clients.
  * It is a response for a Salvo message send lately to the server.

@@ -76,8 +76,8 @@ public class App extends Application {
       controller.setMainApp(this);
       controller.assignKeyTranslation();
       primaryStage.show();
-    } catch (IOException e) {
-      log.error(e.getMessage());
+    } catch (IOException ex) {
+      log.error(ex.getMessage());
     }
   }
 
@@ -97,8 +97,8 @@ public class App extends Application {
       primaryStage.setWidth(1000);
       primaryStage.show();
       primaryStage.setResizable(false);
-    } catch (IOException e) {
-      log.error(e.getMessage());
+    } catch (IOException ex) {
+      log.error(ex.getMessage());
     }
   }
 

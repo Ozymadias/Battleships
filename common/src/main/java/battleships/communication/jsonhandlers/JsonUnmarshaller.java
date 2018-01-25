@@ -30,8 +30,8 @@ public class JsonUnmarshaller implements Unmarshaller {
   public Optional<Messageable> toMessageable(String message) {
     try {
       return Optional.of(this.messageableMapper.readValue(message, Messageable.class));
-    } catch (IOException e) {
-      log.error(e.getMessage());
+    } catch (IOException ex) {
+      log.error(ex.getMessage());
       return Optional.empty();
     }
   }

@@ -20,15 +20,15 @@ public class MessageReceiver {
   /**
    * Reads string from given ObjectInputStream.
    *
-   * @return Returns string received from ObjectInputStream.
+   * @return string received from ObjectInputStream
    */
   public String receiveMessageString() {
     String receivedString = BattleshipUtils.provideEmptyString();
     try {
       receivedString = (String) ois.readObject();
       log.info("message received: " + receivedString);
-    } catch (IOException | ClassNotFoundException e) {
-      log.error(e.getMessage());
+    } catch (IOException | ClassNotFoundException ex) {
+      log.error(ex.getMessage());
     }
     return receivedString;
   }

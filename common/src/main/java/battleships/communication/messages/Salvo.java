@@ -24,8 +24,6 @@ public class Salvo implements Messageable {
 
   /**
    * This is a constructor for Salvo. It is used by Jackson library as a property based creator.
-   *
-   * @param salvoPositions list of integers that specifies salvo positions.
    */
   @JsonCreator
   public Salvo(
@@ -35,6 +33,7 @@ public class Salvo implements Messageable {
 
   /**
    * It returns a list of salvo positions.
+   * @return list of salvo positions
    */
   public List<Integer> getSalvoPositions() {
     return salvoPositions;

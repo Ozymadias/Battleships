@@ -21,7 +21,7 @@ public class ServerApp {
     String portString = System.getProperty("port", "4321");
     if (new PortValidator().validate(portString)) {
       try {
-        ServerRunner.asInstance(GAMES_AT_ONCE_LIMIT, Integer.parseInt(portString)).run();
+        ServerRunner.createInstance(GAMES_AT_ONCE_LIMIT, Integer.parseInt(portString)).run();
       } catch (BindException ex) {
         log.info("Port number " + portString + " is already used."
             + " Please rerun application with different port number.");

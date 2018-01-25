@@ -1,4 +1,6 @@
 #!/bin/bash
+#This script executes server application
+#usage: ./run_server.sh <port>
 
 run_server(){
     echo " port $1"

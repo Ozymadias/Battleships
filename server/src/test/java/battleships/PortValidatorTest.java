@@ -11,7 +11,7 @@ public class PortValidatorTest {
 
   @DataProvider
   private Object[] incorrectPortsPool(){
-    return new Object[] {"aaa", "\n", "0", "-1", "1024", "75535", "1000000"};
+    return new Object[] {"aaa", System.lineSeparator(), "0", "-1", "1024", "75535", "1000000"};
   }
 
   @DataProvider

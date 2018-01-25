@@ -32,6 +32,8 @@ public class Validator {
   /**
    * Accept EnumMap of ConfigValueName as a parameter, and returns a boolean result of
    * evaluation of each parameters.
+   * @param configurationEnumMap map of configurationNames as enums and it's values
+   * @return true if all of configuration values are proper, false otherwise
    */
   public boolean validate(Map<ConfigValueName, ConfigValue> configurationEnumMap) {
     return nameValidator.validate(configurationEnumMap.get(NAME))

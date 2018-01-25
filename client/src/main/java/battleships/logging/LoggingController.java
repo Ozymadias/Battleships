@@ -106,6 +106,7 @@ public class LoggingController implements Initializable {
 
   /**
    * Sets reference to main class of application.
+   * @param mainApp reference to instance of App class
    */
   public void setMainApp(App mainApp) {
     this.mainApp = mainApp;

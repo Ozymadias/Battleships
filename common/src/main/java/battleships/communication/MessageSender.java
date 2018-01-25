@@ -25,8 +25,8 @@ public class MessageSender {
     try {
       oos.writeObject(message);
       log.info("message send: " + message);
-    } catch (IOException e) {
-      log.error(e);
+    } catch (IOException ex) {
+      log.error(ex);
     }
   }
 }

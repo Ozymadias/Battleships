@@ -42,6 +42,7 @@
         <mavenCheckstylePluginVersion>3.0.0</mavenCheckstylePluginVersion>
         <mavenJxrPluginVersion>2.5</mavenJxrPluginVersion>
         <versionsMavenPluginVersion>2.5</versionsMavenPluginVersion>
+        <mavenJavadocPluginVersion>3.0.0</mavenJavadocPluginVersion>
 
 
         <!-- testing -->
@@ -269,6 +270,11 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${mavenJavadocPluginVersion}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -394,25 +400,6 @@
                 <reportSets>
                     <reportSet>
                         <inherited>false</inherited>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
-                <reportSets>
-                    <reportSet>
-                        <id>default</id>
-                        <reports>
-                            <report>javadoc</report>
-                        </reports>
-                    </reportSet>
-                    <reportSet>
-                        <id>aggregate</id>
-                        <reports>
-                            <report>aggregate</report>
-                        </reports>
                     </reportSet>
                 </reportSets>
             </plugin>

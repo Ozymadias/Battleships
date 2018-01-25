@@ -31,8 +31,8 @@ class MessageSenderBuilder {
     try {
       os = socket.getOutputStream();
       oos = new ObjectOutputStream(os);
-    } catch (IOException e) {
-      log.error(e.getMessage());
+    } catch (IOException ex) {
+      log.error(ex.getMessage());
     }
     return this;
   }

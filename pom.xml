@@ -39,7 +39,7 @@
         <jdepsMavenPluginVersion>0.4.0</jdepsMavenPluginVersion>
         <jacocoMavenPluginVersion>0.8.0</jacocoMavenPluginVersion>
         <findBugsMavenPluginVersion>3.0.5</findBugsMavenPluginVersion>
-        <mavenCheckstylePluginVersion>2.17</mavenCheckstylePluginVersion>
+        <mavenCheckstylePluginVersion>3.0.0</mavenCheckstylePluginVersion>
         <mavenJxrPluginVersion>2.5</mavenJxrPluginVersion>
         <versionsMavenPluginVersion>2.5</versionsMavenPluginVersion>
 
@@ -56,7 +56,7 @@
         <project.java.version>1.8</project.java.version>
 
         <!-- other -->
-        <jacksonVersion>2.9.3</jacksonVersion>
+        <jacksonVersion>2.9.4</jacksonVersion>
         <log4jVersion>1.2.17</log4jVersion>
         <commonsLangVersion>2.6</commonsLangVersion>
         <requiredJavaVersion>1.8</requiredJavaVersion>

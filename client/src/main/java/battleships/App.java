@@ -137,9 +137,7 @@ public class App extends Application {
     alertWithProgressIndicator.initModality(Modality.APPLICATION_MODAL);
     alertWithProgressIndicator.initOwner(primaryStage);
 
-    task.setOnScheduled(e -> {
-      alertWithProgressIndicator.show();
-    });
+    task.setOnScheduled(e -> alertWithProgressIndicator.show());
 
     task.setOnSucceeded(e -> {
       alertWithProgressIndicator.close();

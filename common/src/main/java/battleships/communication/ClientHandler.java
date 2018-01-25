@@ -2,9 +2,7 @@ package battleships.communication;
 
 import battleships.communication.jsonhandlers.JsonMarshaller;
 import battleships.communication.jsonhandlers.JsonUnmarshaller;
-import battleships.communication.messages.WelcomeMessage;
 
-import java.io.IOException;
 import java.util.Optional;
 
 /**

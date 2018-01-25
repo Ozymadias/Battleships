@@ -37,7 +37,7 @@ public class ValidatorTest {
     };
   }
 
-  static Map<ConfigValueName, ConfigValue> createMapForValues(String ip, String port, String name) {
+  private static Map<ConfigValueName, ConfigValue> createMapForValues(String ip, String port, String name) {
     Map<ConfigValueName, ConfigValue> testValuesMap = new EnumMap<>(ConfigValueName.class);
     testValuesMap.put(IP, () -> ip);
     testValuesMap.put(PORT, () -> port);

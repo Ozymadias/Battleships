@@ -8,9 +8,9 @@ import static org.mockito.Mockito.*;
 
 public class DataBusTest {
 
-  DataBus dataBus;
-  Publisher serverComm;
-  OpponentBoardViewController opponentBoardViewController;
+  private DataBus dataBus;
+  private Publisher serverComm;
+  private OpponentBoardViewController opponentBoardViewController;
 
   @BeforeClass
   public void beforeClass() {

@@ -1,7 +1,7 @@
 package battleships.gameplay;
 
-import battleships.Observers;
 import battleships.HandlerWrapper;
+import battleships.Observers;
 import battleships.communication.messages.SalvoResult;
 import battleships.ships.Fleet;
 import org.testng.annotations.BeforeMethod;
@@ -12,7 +12,6 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -22,8 +21,6 @@ public class SendingSalvoResultsTest {
   private List<Observers> observers;
   private Observers firstBattleObserver;
   private Observers secondBattleObserver;
-  private SalvoResult firstSalvoMock;
-  private SalvoResult secondSalvoMock;
   private List<Fleet> mockFleets = mock(List.class);
   private List<SalvoResult> results;
 
@@ -31,8 +28,8 @@ public class SendingSalvoResultsTest {
   public void setUp() throws Exception {
     firstBattleObserver = mock(HandlerWrapper.class);
     secondBattleObserver = mock(HandlerWrapper.class);
-    firstSalvoMock = mock(SalvoResult.class);
-    secondSalvoMock = mock(SalvoResult.class);
+    SalvoResult firstSalvoMock = mock(SalvoResult.class);
+    SalvoResult secondSalvoMock = mock(SalvoResult.class);
     results = Arrays.asList(firstSalvoMock, secondSalvoMock);
     observers = Arrays.asList(firstBattleObserver, secondBattleObserver);
   }

@@ -24,8 +24,8 @@ public class VerticalSeqSetTest {
   private List<Integer> getPositionsOfShip() {
     return board.getFields()
         .stream()
-        .filter(field -> field.isUnbrokenShipOn())
-        .mapToInt(field -> field.getPosition()).boxed().collect(Collectors.toList());
+        .filter(Field::isUnbrokenShipOn)
+        .mapToInt(Field::getPosition).boxed().collect(Collectors.toList());
   }
 
   @DataProvider(name = "placingShips")
@@ -55,8 +55,8 @@ public class VerticalSeqSetTest {
   private List<Integer> getPositionOfBuffer() {
     return board.getFields()
         .stream()
-        .filter(field -> field.isBuffered())
-        .mapToInt(field -> field.getPosition()).boxed().collect(Collectors.toList());
+        .filter(Field::isBuffered)
+        .mapToInt(Field::getPosition).boxed().collect(Collectors.toList());
   }
 
   @DataProvider(name = "placingShipsWithBuffer")

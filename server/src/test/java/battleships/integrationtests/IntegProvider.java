@@ -10,7 +10,7 @@ import battleships.ships.Ship;
 
 import java.util.Arrays;
 
-public class IntegProvider {
+class IntegProvider {
   private Messageable messageForPlayer0;
   private Messageable messageForPlayer1;
 

@@ -1,17 +1,19 @@
 package battleships.gameplay;
 
-import battleships.Observers;
 import battleships.HandlerWrapper;
+import battleships.Observers;
 import battleships.communication.messages.WelcomeMessage;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class SendingWelcomeMessageTest {
 

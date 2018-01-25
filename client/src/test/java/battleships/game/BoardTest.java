@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BoardTest {
 
-  Board board;
+  private Board board;
 
   @BeforeMethod
   private void setUp(){
@@ -40,7 +40,7 @@ public class BoardTest {
     //when
     board.getFields().stream()
             .filter(field -> field.getPosition() < 10)
-            .forEach(field -> field.setUnbrokenShipPartOn());
+            .forEach(Field::setUnbrokenShipPartOn);
     //then
     assertThat(board.unbrokenMastCount()).isEqualTo(10);
   }
@@ -50,10 +50,10 @@ public class BoardTest {
     //when
     board.getFields().stream()
             .filter(field -> field.getPosition() < 5)
-            .forEach(field -> field.setUnbrokenShipPartOn());
+            .forEach(Field::setUnbrokenShipPartOn);
     board.getFields().stream()
             .filter(field -> field.getPosition() >= 20 && field.getPosition() < 25)
-            .forEach(field -> field.setBrokenShipPartOn());
+            .forEach(Field::setBrokenShipPartOn);
     //then
     assertThat(board.unbrokenMastCount()).isEqualTo(5);
   }
@@ -65,8 +65,8 @@ public class BoardTest {
             = IntStream.range(0, 5)
             .mapToObj(pos -> board.getFields().get(pos))
             .collect(Collectors.toList());
-    fieldsWithUnbrokenShipPart.stream().forEach(field -> field.setUnbrokenShipPartOn());
-    fieldsWithUnbrokenShipPart.stream().limit(2).forEach(field -> field.shoot());
+    fieldsWithUnbrokenShipPart.stream().forEach(Field::setUnbrokenShipPartOn);
+    fieldsWithUnbrokenShipPart.stream().limit(2).forEach(Field::shoot);
     //then
     assertThat(board.unbrokenMastCount()).isEqualTo(3);
   }

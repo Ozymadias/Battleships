@@ -3,10 +3,10 @@ package battleships.game;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Random;
 import java.util.function.IntPredicate;
 import java.util.stream.IntStream;
-import static battleships.utils.BattleshipUtils.*;
+
+import static battleships.utils.BattleshipUtils.provideRandomNumber;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BordersCheckTest {

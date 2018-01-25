@@ -12,7 +12,7 @@ import java.net.Socket;
  * It is responsible for creating ObjectOutputStream based on socket output stream
  * and creating MessageSender on a given ObjectOutputStream.
  */
-public class MessageSenderBuilder {
+class MessageSenderBuilder {
   private ObjectOutputStream oos;
   private final BattleshipLog log = BattleshipLog.provideLogger(MessageSender.class);
 

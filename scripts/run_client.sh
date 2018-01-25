@@ -5,4 +5,4 @@
 #Define default language here
 LANGUAGE=${1:-"EN"}
 
-java -jar ../client/target/client*.jar $LANGUAGE
+java -jar ../client/target/client*.jar ${LANGUAGE}

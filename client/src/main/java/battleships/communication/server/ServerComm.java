@@ -46,9 +46,7 @@ class ServerComm implements Member, Publisher {
     log.info("waiting for replay...");
 
     SendMessageTask sendMessageTask = new SendMessageTask();
-    sendMessageTask.setOnScheduled(e -> {
-      alert.show();
-    });
+    sendMessageTask.setOnScheduled(e -> alert.show());
 
     sendMessageTask.setOnSucceeded(e -> {
       alert.close();

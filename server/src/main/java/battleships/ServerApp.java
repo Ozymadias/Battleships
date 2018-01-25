@@ -39,9 +39,7 @@ public class ServerApp {
         List<Observers> observersList
             = new ClientCreator().createClientHandlers(server.createSockets());
 
-        Runnable task = () -> {
-          new Game(observersList).start();
-        };
+        Runnable task = () -> new Game(observersList).start();
 
         executor.execute(task);
 

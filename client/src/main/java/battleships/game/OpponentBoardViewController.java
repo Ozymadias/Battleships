@@ -8,6 +8,7 @@ import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -15,13 +16,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  * Controller of enemy board view.
  */
-public class OpponentBoardViewController implements Member {
+public class OpponentBoardViewController implements Member, Initializable {
 
   private static final int BOARD_ROW_COUNT = 10;
   private static final int BOARD_COLUMN_COUNT = 10;
@@ -36,13 +39,19 @@ public class OpponentBoardViewController implements Member {
   private Button salvoBtn;
   private Integer shootsLeftCount = 0;
   private Board enemyBoard;
+  private ResourceBundle resourceBundle;
 
   /**
    * Called to initialize a controller.
    * It's setting view of enemy board.
+   *
+   * @param location The location used to resolve relative paths for the root object,
+   *                or null if the location is not known.
+   * @param resources ResourceBundle delivering proper translation
    */
-  @FXML
-  private void initialize() {
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    this.resourceBundle = resources;
     enemyBoard = Board.build();
     setUpBoardView();
     shootsLeftCountText.setText(shootsLeftCount.toString());
@@ -70,7 +79,7 @@ public class OpponentBoardViewController implements Member {
     AlertWithProgressIndicator alertWithProgressIndicator
             = AlertWithProgressIndicator.asInstance(Alert.AlertType.INFORMATION,
             "",
-            "Waiting for response from server");
+            resourceBundle.getString("SERVER_RESPONSE_WAITING"));
     alertWithProgressIndicator.initModality(Modality.APPLICATION_MODAL);
     alertWithProgressIndicator.initOwner(dockedGridPane.getScene().getWindow());
     DataBus.getInstance().publishRequest(new Salvo(this.salvoList), alertWithProgressIndicator);

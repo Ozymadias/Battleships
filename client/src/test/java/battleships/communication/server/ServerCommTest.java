@@ -16,8 +16,8 @@ import static org.mockito.Mockito.*;
 
 public class ServerCommTest {
 
-  ClientHandler clientHandler;
-  ServerComm serverComm;
+  private ClientHandler clientHandler;
+  private ServerComm serverComm;
 
   @BeforeMethod
   public void beforeTest() {

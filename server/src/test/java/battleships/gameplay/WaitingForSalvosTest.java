@@ -6,6 +6,7 @@ import battleships.ships.Fleet;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +31,7 @@ public class WaitingForSalvosTest {
   }
 
   @Test
-  public void whenProcessingWaitingForSalvos_expectFirstObserverReceivesMessageOnce() {
+  public void whenProcessingWaitingForSalvos_expectFirstObserverReceivesMessageOnce() throws IOException {
     //given
     WaitingForSalvos waitingForSalvosTest = new WaitingForSalvos(observersList, fleets);
     //when
@@ -40,7 +41,7 @@ public class WaitingForSalvosTest {
   }
 
   @Test
-  public void whenProcessingWaitingForSalvos_expectSecondObserverReceivesMessageOnce() {
+  public void whenProcessingWaitingForSalvos_expectSecondObserverReceivesMessageOnce() throws IOException {
     //given
     WaitingForSalvos waitingForSalvosTest = new WaitingForSalvos(observersList, fleets);
     //when

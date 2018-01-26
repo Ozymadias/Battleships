@@ -11,6 +11,8 @@ import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
 import javafx.concurrent.Task;
 
+import java.io.IOException;
+
 class ServerComm implements Member, Publisher {
 
   private final BattleshipLog log = BattleshipLog.provideLogger(ServerComm.class);
@@ -60,7 +62,7 @@ class ServerComm implements Member, Publisher {
     log.info("processing replay...");
   }
 
-  Messageable waitForMessage() {
+  Messageable waitForMessage() throws IOException, ClassNotFoundException {
     return clientHandler.receiveMessage();
   }
 

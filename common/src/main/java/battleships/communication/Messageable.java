@@ -1,9 +1,12 @@
 package battleships.communication;
 
+import battleships.communication.messages.FlowState;
+import battleships.communication.messages.Notification;
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
 import battleships.communication.messages.WelcomeMessage;
 import battleships.ships.Fleet;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -19,7 +22,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = WelcomeMessage.class, name = "WelcomeMessage"),
     @JsonSubTypes.Type(value = Fleet.class, name = "Fleet"),
     @JsonSubTypes.Type(value = Salvo.class, name = "Salvo"),
-    @JsonSubTypes.Type(value = SalvoResult.class, name = "SalvoResult")}
+    @JsonSubTypes.Type(value = SalvoResult.class, name = "SalvoResult"),
+    @JsonSubTypes.Type(value = Notification.class, name = "Notification"),
+    @JsonSubTypes.Type(value = FlowState.class, name = "FlowState")}
     )
 public interface Messageable {
 }

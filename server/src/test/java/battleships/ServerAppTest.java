@@ -34,7 +34,8 @@ public class ServerAppTest {
   @Test
   public void whenServerAppRunWithWrongPortNumber_expectedLogWithInformationAboutInvalidPortNumber() throws UnsupportedEncodingException {
     System.setProperty("port", "xxx");
-    ServerApp.main(null);
+    String[] args = new String[0];
+    ServerApp.main(args);
 
     verify(mockAppender).doAppend(captorLoggingEvent.capture());
     LoggingEvent loggingEvent = captorLoggingEvent.getValue();

@@ -4,7 +4,9 @@ import battleships.Observers;
 import battleships.communication.messages.Salvo;
 import battleships.logger.BattleshipLog;
 import battleships.ships.Fleet;
+import com.sun.nio.sctp.IllegalReceiveException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,11 +27,15 @@ class WaitingForSalvos implements GameState {
    * @return next game state that is SalvoProcessing.
    */
   @Override
-  public GameState process() {
-    log.info("Waiting for salvos");
-    List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.receiveMessage())
-        .collect(Collectors.toList());
-    return new SalvosProcessing(observers, playersFleets, salvos);
+  public GameState process() throws IOException {
+    try {
+      log.info("Waiting for salvos");
+      List<Salvo> salvos = observers.stream().map(p -> (Salvo) p.receiveMessage())
+              .collect(Collectors.toList());
+      return new SalvosProcessing(observers, playersFleets, salvos);
+    } catch (IllegalReceiveException ex) {
+      throw new IOException(ex.getMessage());
+    }
   }
 
   /**

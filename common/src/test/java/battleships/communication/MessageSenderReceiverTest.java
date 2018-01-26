@@ -8,7 +8,7 @@ import static org.testng.Assert.*;
 
 public class MessageSenderReceiverTest {
   @Test
-  public void whenMessageSenderSendsMessageString_expectItCanBeReceivedByMessageReceiver() throws IOException {
+  public void whenMessageSenderSendsMessageString_expectItCanBeReceivedByMessageReceiver() throws IOException, ClassNotFoundException {
     String expectedValue = "test message";
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     MessageSender messageSender = new MessageSender(new ObjectOutputStream(baos));

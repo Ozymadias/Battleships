@@ -22,7 +22,8 @@ class ServerRunner {
     this.server = server;
   }
 
-  static ServerRunner createInstance(int gamesAtOnceLimit, int serverPortNumber) throws IOException {
+  static ServerRunner createInstance(int gamesAtOnceLimit, int serverPortNumber)
+          throws IOException {
     Server server = ServerBuilder
         .withPort(serverPortNumber)
         .openServerSocket()

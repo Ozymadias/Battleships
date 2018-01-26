@@ -4,6 +4,7 @@ import battleships.game.GameResult;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -12,7 +13,7 @@ import static org.mockito.Mockito.mock;
 public class CalculatingGameResultTest {
 
   @Test(dataProvider = "calculatingResultProvider")
-  public void whenGivenDataIsProcessedByShipSinkingAndResultCalculating_expectResultToMatchExpectedResult(Triplet triplet, int playerIndex, GameResult expectedResult) {
+  public void whenGivenDataIsProcessedByShipSinkingAndResultCalculating_expectResultToMatchExpectedResult(Triplet triplet, int playerIndex, GameResult expectedResult) throws IOException {
     //given
     SinkingShips sinkingShips = new SinkingShips(triplet.observers, triplet.fleets, triplet.salvoResults);
     //when

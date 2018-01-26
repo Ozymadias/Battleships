@@ -4,13 +4,17 @@ import battleships.AlertWithProgressIndicator;
 import battleships.communication.DataBus;
 import battleships.communication.Member;
 import battleships.communication.Messageable;
+import battleships.communication.messages.FlowState;
+import battleships.communication.messages.Notification;
 import battleships.communication.messages.Salvo;
 import battleships.communication.messages.SalvoResult;
 import battleships.logger.BattleshipLog;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -19,6 +23,7 @@ import javafx.stage.Modality;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -123,6 +128,22 @@ public class OpponentBoardViewController implements Member, Initializable {
       log.info("SalvoResult received by controller");
       if (salvoResult.getGameResult() != GameResult.NONE) {
         gameEnd();
+      }
+    } else if (data instanceof Notification) {
+      processNotification((Notification) data);
+    }
+  }
+
+  private void processNotification(Notification message) {
+    if (message.getFlowState() == FlowState.CLIENT_DISCONNECT) {
+      Alert alert = new Alert(Alert.AlertType.WARNING,
+              resourceBundle.getString("CLIENT_DISCONNECT"),
+              ButtonType.OK);
+      alert.initOwner(dockedGridPane.getScene().getWindow());
+      alert.initModality(Modality.APPLICATION_MODAL);
+      final Optional<ButtonType> result = alert.showAndWait();
+      if (result.isPresent() && result.get() == ButtonType.OK) {
+        Platform.exit();
       }
     }
   }

@@ -3,6 +3,7 @@ package battleships.communication.server;
 import battleships.communication.ClientHandler;
 import battleships.communication.ClientHandlerBuilder;
 import battleships.communication.messages.WelcomeMessage;
+import battleships.logger.BattleshipLog;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -13,6 +14,7 @@ import java.net.Socket;
 public class ServerConnector {
 
   private final ServerComm serverComm;
+  private final BattleshipLog log = BattleshipLog.provideLogger(ServerConnector.class);
 
   ServerConnector(ServerComm serverComm) {
     this.serverComm = serverComm;
@@ -54,9 +56,13 @@ public class ServerConnector {
    */
   public boolean setUp() {
     boolean connectionEstablish = false;
-    if (serverComm.waitForMessage() instanceof WelcomeMessage) {
-      connectionEstablish = true;
-      serverComm.register();
+    try {
+      if (serverComm.waitForMessage() instanceof WelcomeMessage) {
+        connectionEstablish = true;
+        serverComm.register();
+      }
+    } catch (IOException | ClassNotFoundException ex) {
+      log.error(ex.getMessage());
     }
     return connectionEstablish;
   }

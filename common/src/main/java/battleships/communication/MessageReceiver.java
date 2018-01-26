@@ -1,7 +1,6 @@
 package battleships.communication;
 
 import battleships.logger.BattleshipLog;
-import battleships.utils.BattleshipUtils;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,14 +21,10 @@ public class MessageReceiver {
    *
    * @return string received from ObjectInputStream
    */
-  public String receiveMessageString() {
-    String receivedString = BattleshipUtils.provideEmptyString();
-    try {
-      receivedString = (String) ois.readObject();
-      log.info("message received: " + receivedString);
-    } catch (IOException | ClassNotFoundException ex) {
-      log.error(ex.getMessage());
-    }
+  //I've decided to throw exception to be able to proper handle it in upper layers
+  public String receiveMessageString() throws IOException, ClassNotFoundException {
+    String receivedString = (String) ois.readObject();
+    log.info("message received: " + receivedString);
     return receivedString;
   }
 }

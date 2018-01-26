@@ -5,6 +5,8 @@ import battleships.HandlerWrapper;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class WaitingForFleetsTest {
   }
 
   @Test
-  public void whenProcessingWaitingForFleets_expectFirstObserverReceivesMessageOnce() {
+  public void whenProcessingWaitingForFleets_expectFirstObserverReceivesMessageOnce() throws IOException {
     //given
     WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
     //when
@@ -35,7 +37,7 @@ public class WaitingForFleetsTest {
   }
 
   @Test
-  public void whenProcessingWaitingForFleets_expectSecondObserverReceivesMessageOnce() {
+  public void whenProcessingWaitingForFleets_expectSecondObserverReceivesMessageOnce() throws IOException {
     //given
     WaitingForFleets waitingForFleets = new WaitingForFleets(handlerWrappersMocks);
     //when
@@ -52,5 +54,16 @@ public class WaitingForFleetsTest {
     boolean isEndOfTheGame = waitingForFleets.isEndOfTheGame();
     //then
     assertThat(isEndOfTheGame).isFalse();
+  }
+
+  @Test(expectedExceptions = RuntimeException.class,  expectedExceptionsMessageRegExp = "message not received")
+  public void whenReceiveMessageMethodThrowsRuntimeException_expectProcessMethodToThrowRuntimeException() throws IOException {
+    Observers playerSocketHandler = mock(Observers.class);
+    List<Observers> observers = new ArrayList<>();
+    observers.add(playerSocketHandler);
+    observers.add(playerSocketHandler);
+    doThrow(new RuntimeException("message not received")).when(playerSocketHandler).receiveMessage();
+    WaitingForFleets waitingForFleets = new WaitingForFleets(observers);
+    waitingForFleets.process();
   }
 }

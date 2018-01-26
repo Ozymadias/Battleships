@@ -3,6 +3,7 @@ package battleships.communication;
 import battleships.communication.jsonhandlers.JsonMarshaller;
 import battleships.communication.jsonhandlers.JsonUnmarshaller;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -40,11 +41,11 @@ public class ClientHandler {
    *
    * @return optional Messageable received by MessageReceiver and converted by jsonUnmarshaller.
    */
-  public Messageable receiveMessage() {
+  public Messageable receiveMessage() throws IOException, ClassNotFoundException {
     String messageString = messageReceiver.receiveMessageString();
     Optional<Messageable> message = jsonUnmarshaller.toMessageable(messageString);
     if (!message.isPresent()) {
-      throw new RuntimeException("message not received");
+      throw new MessagableNotReceived("message not received");
     }
     return message.get();
   }

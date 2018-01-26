@@ -6,6 +6,8 @@ import battleships.ships.Fleet;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -20,7 +22,7 @@ public class ServerConnectorTest {
     }
 
     @Test
-    public void whenTryingToConnect_andServerSendsWelcomeMessage_expectMethodEstablishToReturnTrue(){
+    public void whenTryingToConnect_andServerSendsWelcomeMessage_expectMethodEstablishToReturnTrue() throws IOException, ClassNotFoundException {
         //given
         Messageable welcomeMessage = mock(WelcomeMessage.class);
         when(serverComm.waitForMessage()).thenReturn(welcomeMessage);
@@ -38,7 +40,7 @@ public class ServerConnectorTest {
     }
 
     @Test
-    public void whenTryingToConnect_andServerSendsMessageOtherThenWelcomeMessage_expectMethodEstablishToReturnFalse(){
+    public void whenTryingToConnect_andServerSendsMessageOtherThenWelcomeMessage_expectMethodEstablishToReturnFalse() throws IOException, ClassNotFoundException {
         //given
         Messageable fleet = mock(Fleet.class);
         when(serverComm.waitForMessage()).thenReturn(fleet);

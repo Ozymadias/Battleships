@@ -106,7 +106,11 @@ public class MessagesAreSentFromServerIT {
           .addMessageSender()
           .addMessageReceiver()
           .build();
-      clientHandler.receiveMessage();
+      try {
+        clientHandler.receiveMessage();
+      } catch (IOException | ClassNotFoundException ex) {
+        ex.printStackTrace();
+      }
     }).start();
   }
 

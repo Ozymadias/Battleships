@@ -10,6 +10,8 @@ import battleships.ships.Fleet;
 import battleships.ships.Ship;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
 import java.util.Collections;
 import static battleships.utils.BattleshipUtils.*;
 import static org.mockito.Mockito.*;
@@ -74,8 +76,14 @@ public class ServerCommTest {
   }
 
   @Test
-  public void whenInvokingWaitForMessage_expectClientHandlerInvokeReceiveMessageOnce() {
+  public void whenInvokingWaitForMessage_expectClientHandlerInvokeReceiveMessageOnce() throws IOException, ClassNotFoundException {
     serverComm.waitForMessage();
     verify(clientHandler, times(1)).receiveMessage();
+  }
+
+  @Test(expectedExceptions = RuntimeException.class)
+  public void whenClientHandlerThrowsRuntimeException_expectWaitForMessageToThrowException() throws IOException, ClassNotFoundException {
+    doThrow(new RuntimeException()).when(clientHandler).receiveMessage();
+    verify(serverComm.waitForMessage());
   }
 }

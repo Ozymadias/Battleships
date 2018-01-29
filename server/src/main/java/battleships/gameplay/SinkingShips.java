@@ -41,11 +41,4 @@ class SinkingShips implements GameState {
         .forEach(p -> toKill.getResultList().forEach(p::killMast));
   }
 
-  /**
-   * This game state is not ending the game.
-   */
-  @Override
-  public boolean isEndOfTheGame() {
-    return false;
-  }
 }

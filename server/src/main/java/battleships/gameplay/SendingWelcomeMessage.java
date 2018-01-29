@@ -27,10 +27,4 @@ class SendingWelcomeMessage implements GameState {
     return new WaitingForFleets(handlerWrappers);
   }
 
-  /**
-   * This game state is not ending the game.
-   */
-  public boolean isEndOfTheGame() {
-    return false;
-  }
 }

@@ -75,11 +75,4 @@ class CalculatingGameResult implements GameState {
     return fleet.getShips().stream().allMatch(Ship::isSunk);
   }
 
-  /**
-   * This game state is not ending the game.
-   */
-  @Override
-  public boolean isEndOfTheGame() {
-    return false;
-  }
 }

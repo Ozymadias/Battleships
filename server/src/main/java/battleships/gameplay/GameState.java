@@ -16,5 +16,7 @@ public interface GameState {
    * Method used to check if game ends.
    * @return boolean indicating if game ends.
    */
-  boolean isEndOfTheGame();
+  default boolean isEndOfTheGame() {
+    return false;
+  }
 }

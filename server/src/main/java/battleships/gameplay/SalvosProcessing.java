@@ -37,11 +37,4 @@ class SalvosProcessing implements GameState {
     return new SinkingShips(observers, playersFleets, resultList);
   }
 
-  /**
-   * This game state is not ending the game.
-   */
-  @Override
-  public boolean isEndOfTheGame() {
-    return false;
-  }
 }

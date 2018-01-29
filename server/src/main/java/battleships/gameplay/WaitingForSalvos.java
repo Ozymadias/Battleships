@@ -38,11 +38,4 @@ class WaitingForSalvos implements GameState {
     }
   }
 
-  /**
-   * This game state is not ending the game.
-   */
-  @Override
-  public boolean isEndOfTheGame() {
-    return false;
-  }
 }

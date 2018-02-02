@@ -23,7 +23,7 @@ public class ServerTest {
     // when
     List<Socket> sockets = server.createSockets();
     // then
-    assertThat(sockets.size()).as("sockets # == players #, that is 2.").isEqualTo(11);
+    assertThat(sockets.size()).as("sockets # == players #, that is 2.").isEqualTo(thereCanBeOnlyTwo);
   }
 
 }
